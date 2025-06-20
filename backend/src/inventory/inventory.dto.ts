@@ -1,4 +1,10 @@
-import { IsString, IsInt, IsOptional, IsNumber, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsInt,
+  IsOptional,
+  IsNumber,
+  IsDateString,
+} from 'class-validator';
 
 export class CreateInventoryDto {
   @IsString()
@@ -123,4 +129,4 @@ export class CreateInventoryDto {
   precioUnitarioSinIGV?: string;
 }
 
-export class UpdateInventoryDto extends CreateInventoryDto {} 
+export class UpdateInventoryDto extends CreateInventoryDto {}

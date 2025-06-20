@@ -11,7 +11,7 @@ import { InventarioRelacionalModule } from './inventario-relacional/inventario-r
     InventoryModule,
     ClasificacionModule,
     ColaboradoresModule,
-    InventarioRelacionalModule
+    InventarioRelacionalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

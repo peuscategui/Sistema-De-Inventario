@@ -6,6 +6,6 @@ import { InventarioRelacionalController } from './inventario-relacional.controll
 @Module({
   controllers: [InventarioRelacionalController],
   providers: [InventarioRelacionalService, PrismaService],
-  exports: [InventarioRelacionalService]
+  exports: [InventarioRelacionalService],
 })
 export class InventarioRelacionalModule {}

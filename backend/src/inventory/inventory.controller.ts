@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { CreateInventoryDto, UpdateInventoryDto } from './inventory.dto';
 

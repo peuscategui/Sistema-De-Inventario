@@ -7,7 +7,7 @@ export class InventarioRelacionalService {
 
   async findAll(page = 1, limit = 10) {
     const skip = (page - 1) * limit;
-    
+
     const [items, total] = await Promise.all([
       this.prisma.inventory.findMany({
         skip,
@@ -19,22 +19,22 @@ export class InventarioRelacionalService {
               sub_familia: true,
               tipo_equipo: true,
               vida_util: true,
-              valor_reposicion: true
-            }
+              valor_reposicion: true,
+            },
           },
           empleado: {
             select: {
               nombre: true,
               cargo: true,
-              gerencia: true
-            }
-          }
+              gerencia: true,
+            },
+          },
         },
         orderBy: {
-          id: 'asc'
-        }
+          id: 'asc',
+        },
       }),
-      this.prisma.inventory.count()
+      this.prisma.inventory.count(),
     ]);
 
     return {
@@ -43,8 +43,8 @@ export class InventarioRelacionalService {
         total,
         page,
         limit,
-        totalPages: Math.ceil(total / limit)
-      }
+        totalPages: Math.ceil(total / limit),
+      },
     };
   }
 
@@ -58,23 +58,23 @@ export class InventarioRelacionalService {
             sub_familia: true,
             tipo_equipo: true,
             vida_util: true,
-            valor_reposicion: true
-          }
+            valor_reposicion: true,
+          },
         },
         empleado: {
           select: {
             nombre: true,
             cargo: true,
-            gerencia: true
-          }
-        }
-      }
+            gerencia: true,
+          },
+        },
+      },
     });
   }
 
   async search(query: string, page = 1, limit = 10) {
     const skip = (page - 1) * limit;
-    
+
     const [items, total] = await Promise.all([
       this.prisma.inventory.findMany({
         where: {
@@ -82,8 +82,8 @@ export class InventarioRelacionalService {
             { modelo: { contains: query, mode: 'insensitive' } },
             { descripcion: { contains: query, mode: 'insensitive' } },
             { marca: { contains: query, mode: 'insensitive' } },
-            { usuarios: { contains: query, mode: 'insensitive' } }
-          ]
+            { usuarios: { contains: query, mode: 'insensitive' } },
+          ],
         },
         skip,
         take: limit,
@@ -94,20 +94,20 @@ export class InventarioRelacionalService {
               sub_familia: true,
               tipo_equipo: true,
               vida_util: true,
-              valor_reposicion: true
-            }
+              valor_reposicion: true,
+            },
           },
           empleado: {
             select: {
               nombre: true,
               cargo: true,
-              gerencia: true
-            }
-          }
+              gerencia: true,
+            },
+          },
         },
         orderBy: {
-          id: 'asc'
-        }
+          id: 'asc',
+        },
       }),
       this.prisma.inventory.count({
         where: {
@@ -115,10 +115,10 @@ export class InventarioRelacionalService {
             { modelo: { contains: query, mode: 'insensitive' } },
             { descripcion: { contains: query, mode: 'insensitive' } },
             { marca: { contains: query, mode: 'insensitive' } },
-            { usuarios: { contains: query, mode: 'insensitive' } }
-          ]
-        }
-      })
+            { usuarios: { contains: query, mode: 'insensitive' } },
+          ],
+        },
+      }),
     ]);
 
     return {
@@ -127,8 +127,8 @@ export class InventarioRelacionalService {
         total,
         page,
         limit,
-        totalPages: Math.ceil(total / limit)
-      }
+        totalPages: Math.ceil(total / limit),
+      },
     };
   }
 }

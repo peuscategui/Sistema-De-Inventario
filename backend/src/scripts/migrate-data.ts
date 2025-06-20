@@ -25,8 +25,8 @@ async function migrateData() {
             sub_familia: inv.sub_familia,
             tipo_equipo: inv.tipo_equipo,
             vida_util: inv.vida_util?.toString() || '',
-            valor_reposicion: inv.precio_reposicion
-          }
+            valor_reposicion: inv.precio_reposicion,
+          },
         });
         clasificacionId = clasificacion.id;
       }
@@ -38,8 +38,8 @@ async function migrateData() {
           data: {
             nombre: inv.usuarios || '',
             cargo: inv.cargo || '',
-            gerencia: inv.gerencia || ''
-          }
+            gerencia: inv.gerencia || '',
+          },
         });
         empleadoId = empleado.id;
       }
@@ -74,8 +74,8 @@ async function migrateData() {
           precioReposicion: inv.precio_reposicion,
           vidaUtil: inv.vida_util?.toString(),
           clasificacionId: clasificacionId,
-          empleadoId: empleadoId
-        }
+          empleadoId: empleadoId,
+        },
       });
     }
 
@@ -87,4 +87,4 @@ async function migrateData() {
   }
 }
 
-migrateData(); 
+migrateData();

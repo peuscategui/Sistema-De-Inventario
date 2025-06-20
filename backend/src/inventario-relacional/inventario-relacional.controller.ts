@@ -3,16 +3,15 @@ import { InventarioRelacionalService } from './inventario-relacional.service';
 
 @Controller('inventario-relacional')
 export class InventarioRelacionalController {
-  constructor(private readonly inventarioRelacionalService: InventarioRelacionalService) {}
+  constructor(
+    private readonly inventarioRelacionalService: InventarioRelacionalService,
+  ) {}
 
   @Get()
-  findAll(
-    @Query('page') page?: string,
-    @Query('limit') limit?: string,
-  ) {
+  findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
     return this.inventarioRelacionalService.findAll(
       page ? parseInt(page) : 1,
-      limit ? parseInt(limit) : 10
+      limit ? parseInt(limit) : 10,
     );
   }
 
@@ -25,7 +24,7 @@ export class InventarioRelacionalController {
     return this.inventarioRelacionalService.search(
       query,
       page ? parseInt(page) : 1,
-      limit ? parseInt(limit) : 10
+      limit ? parseInt(limit) : 10,
     );
   }
 
@@ -33,4 +32,4 @@ export class InventarioRelacionalController {
   findOne(@Param('id') id: string) {
     return this.inventarioRelacionalService.findOne(parseInt(id));
   }
-} 
+}
