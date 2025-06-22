@@ -1,126 +1,129 @@
-import { IsString, IsInt, IsOptional, IsNumber, IsDateString } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsNotEmpty, IsBoolean, IsDateString, IsDecimal } from 'class-validator';
 
 export class CreateInventoryDto {
   @IsString()
+  @IsNotEmpty()
   codigoEFC: string;
 
   @IsString()
+  @IsNotEmpty()
   tipoEquipo: string;
 
   @IsString()
+  @IsNotEmpty()
   familia: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   subFamilia?: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   marca?: string;
 
   @IsString()
+  @IsNotEmpty()
   modelo: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   descripcion?: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   serie?: string;
 
   @IsString()
-  procesador: string;
-
   @IsOptional()
+  procesador?: string;
+
   @IsInt()
+  @IsOptional()
   anio?: number;
 
   @IsString()
-  ram: string;
+  @IsOptional()
+  ram?: string;
 
   @IsString()
-  discoDuro: string;
+  @IsOptional()
+  discoDuro?: string;
 
   @IsString()
-  sistemaOperativo: string;
+  @IsOptional()
+  sistemaOperativo?: string;
 
   @IsString()
+  @IsNotEmpty()
   sede: string;
 
   @IsString()
+  @IsNotEmpty()
   estado: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   usuarios?: string;
 
   @IsString()
-  cargo: string;
+  @IsOptional()
+  cargo?: string;
 
   @IsString()
+  @IsNotEmpty()
   gerencia: string;
 
   @IsString()
+  @IsNotEmpty()
   ubicacionEquipo: string;
 
   @IsInt()
-  qUsuarios: number;
-
   @IsOptional()
+  qUsuarios?: number;
+
   @IsString()
+  @IsOptional()
   condicion?: string;
 
-  @IsOptional()
-  repotenciadas?: boolean;
-
-  @IsOptional()
   @IsString()
-  clasificacionObsolescencia?: string;
-
   @IsOptional()
-  @IsString()
-  clasificacionRepotenciadas?: string;
-
-  @IsOptional()
-  @IsString()
   motivoCompra?: string;
 
+  @IsDecimal({ decimal_digits: '2' })
   @IsOptional()
-  @IsNumber()
   precioReposicion?: number;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   proveedor?: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   factura?: string;
 
-  @IsOptional()
   @IsInt()
+  @IsOptional()
   anioCompra?: number;
 
-  @IsOptional()
-  @IsNumber()
-  precioReposicion2024?: number;
-
-  @IsOptional()
   @IsString()
-  observaciones?: string;
-
   @IsOptional()
-  @IsString()
   vidaUtil?: string;
 
+  @IsInt()
   @IsOptional()
-  @IsDateString()
-  fechaCompra?: string;
+  fecha_compra?: number;
 
-  @IsOptional()
   @IsString()
-  precioUnitarioSinIGV?: string;
+  @IsOptional()
+  precioUnitarioSinIgv?: string;
+
+  @IsString()
+  @IsOptional()
+  observaciones?: string;
+
+  @IsDecimal({ decimal_digits: '2' })
+  @IsOptional()
+  precioReposicion2024?: number;
 }
 
 export class UpdateInventoryDto extends CreateInventoryDto {} 

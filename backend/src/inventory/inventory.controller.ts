@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, ParseIntPipe, DefaultValuePipe } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { CreateInventoryDto, UpdateInventoryDto } from './inventory.dto';
 
@@ -7,8 +7,11 @@ export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
   @Get()
-  findAll() {
-    return this.inventoryService.findAll();
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('pageSize', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+  ) {
+    return this.inventoryService.findAll({ page, pageSize });
   }
 
   @Get(':id')
@@ -17,13 +20,16 @@ export class InventoryController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   create(@Body() data: CreateInventoryDto) {
     return this.inventoryService.create(data);
   }
 
+  @Post('batch')
+  batchCreate(@Body() data: CreateInventoryDto[]) {
+    return this.inventoryService.batchCreate(data);
+  }
+
   @Put(':id')
-  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   update(@Param('id') id: string, @Body() data: UpdateInventoryDto) {
     return this.inventoryService.update(Number(id), data);
   }

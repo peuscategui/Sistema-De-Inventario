@@ -70,18 +70,18 @@ model inventory {
   modelo                     String       @db.VarChar
   descripcion                String?
   serie                      String?      @db.VarChar
-  procesador                 String       @db.VarChar
+  procesador                 String?      @db.VarChar
   anio                       Int?
-  ram                        String       @db.VarChar
-  discoDuro                  String       @db.VarChar
-  sistemaOperativo           String       @db.VarChar
+  ram                        String?      @db.VarChar
+  discoDuro                  String?      @db.VarChar
+  sistemaOperativo           String?      @db.VarChar
   sede                       String       @db.VarChar
   estado                     String       @db.VarChar
   usuarios                   String?      @db.VarChar
-  cargo                      String       @db.VarChar
+  cargo                      String?      @db.VarChar
   gerencia                   String       @db.VarChar
   ubicacionEquipo            String       @db.VarChar
-  qUsuarios                  Int
+  qUsuarios                  Int?
   condicion                  String?      @db.VarChar
   repotenciadas             Boolean?
   clasificacionObsolescencia String?      @db.VarChar
@@ -94,8 +94,8 @@ model inventory {
   precioReposicion2024      Decimal?     @db.Decimal(10, 2)
   observaciones             String?      @db.VarChar
   vidaUtil                  String?      @db.VarChar
-  fechaCompra               DateTime?    @db.Date
-  precioUnitarioSinIGV      String?      @db.VarChar
+  fecha_compra              Int?
+  precioUnitarioSinIgv      String?      @db.VarChar
   clasificacionId           Int?
   empleadoId                Int?
   clasificacion             clasificacion? @relation(fields: [clasificacionId], references: [id])
