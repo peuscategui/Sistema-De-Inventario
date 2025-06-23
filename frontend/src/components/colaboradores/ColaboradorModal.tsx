@@ -28,7 +28,7 @@ export default function ColaboradorModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
-      <div className="bg-card p-6 rounded-lg shadow-xl w-full max-w-md">
+      <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
         <h2 className="text-xl font-bold mb-4">
           {isEditing ? 'Editar Colaborador' : 'Añadir Nuevo Colaborador'}
         </h2>
@@ -49,14 +49,14 @@ export default function ColaboradorModal({
           <button
             onClick={onClose}
             disabled={isSubmitting}
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 disabled:opacity-50"
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
           >
             Cancelar
           </button>
           <button
             onClick={onSubmit}
             disabled={isSubmitting}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50"
+            className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
           >
             {isSubmitting ? 'Guardando...' : 'Guardar'}
           </button>

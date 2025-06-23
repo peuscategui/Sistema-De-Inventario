@@ -14,7 +14,7 @@ export default function ColaboradorForm({ empleado, onFormChange, isSubmitting }
   };
 
   return (
-    <form className="space-y-6 bg-white p-6 rounded-lg border border-gray-100 shadow-sm">
+    <form className="space-y-6">
       <div>
         <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
           Nombre

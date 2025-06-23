@@ -62,8 +62,19 @@ export default function ClasificacionForm({ onSubmit, onCancel, initialData }: C
         {errors.valor_reposicion && <p className="text-red-500 text-xs mt-1">{errors.valor_reposicion.message}</p>}
       </div>
       <div className="flex justify-end gap-4 pt-4">
-        <button type="button" onClick={onCancel} className="btn btn-ghost">Cancelar</button>
-        <button type="submit" className="btn btn-primary">Guardar</button>
+        <button 
+          type="button" 
+          onClick={onCancel} 
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+        >
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+        >
+          Guardar
+        </button>
       </div>
     </form>
   );

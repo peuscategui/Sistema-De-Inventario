@@ -38,13 +38,16 @@ const ArticuloModal = ({ isOpen, onClose, onSubmit, articulo, isSubmitting }: Pr
       <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">{articulo ? 'Editar Artículo' : 'Crear Nuevo Artículo'}</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-800">&times;</button>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button>
         </div>
-        <ArticuloForm
-          onSubmit={onSubmit}
-          defaultValues={articulo || {}}
-          isSubmitting={isSubmitting}
-        />
+        <div className="bg-white p-4 rounded-b-lg">
+          <ArticuloForm
+            onSubmit={onSubmit}
+            onCancel={onClose}
+            defaultValues={articulo || {}}
+            isSubmitting={isSubmitting}
+          />
+        </div>
       </div>
     </div>
   );

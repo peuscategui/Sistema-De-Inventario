@@ -27,6 +27,7 @@ type ArticuloFormData = z.infer<typeof formSchema>;
 
 interface Props {
   onSubmit: (data: ArticuloFormData) => void;
+  onCancel: () => void;
   defaultValues?: Partial<ArticuloFormData>;
   isSubmitting: boolean;
 }
@@ -52,7 +53,7 @@ const formFields = [
   { name: 'anioCompra', label: 'Año de Compra', type: 'number' },
 ];
 
-const ArticuloForm = ({ onSubmit, defaultValues = {}, isSubmitting }: Props) => {
+const ArticuloForm = ({ onSubmit, onCancel, defaultValues = {}, isSubmitting }: Props) => {
   const { control, handleSubmit, formState: { errors } } = useForm<ArticuloFormData>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -103,13 +104,24 @@ const ArticuloForm = ({ onSubmit, defaultValues = {}, isSubmitting }: Props) => 
           </div>
         ))}
       </div>
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 disabled:bg-gray-400"
-      >
-        {isSubmitting ? 'Guardando...' : 'Guardar Artículo'}
-      </button>
+      
+      {/* Botones de acción del formulario */}
+      <div className="flex justify-end gap-4 pt-4">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
+        >
+          {isSubmitting ? 'Guardando...' : 'Guardar Artículo'}
+        </button>
+      </div>
     </form>
   );
 };
