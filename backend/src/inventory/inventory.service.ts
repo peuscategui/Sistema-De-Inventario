@@ -18,6 +18,28 @@ export class InventoryService {
   constructor(private prisma: PrismaService) {}
 
   async findAll({ page = 1, pageSize = 20, filters = {} }: FindAllOptions) {
+    // Si pageSize es muy grande, devolver todos los registros sin paginación
+    if (pageSize > 500) {
+      const data = await this.prisma.inventory.findMany({
+        include: {
+          clasificacion: true,
+          empleado: true,
+        },
+        orderBy: {
+          id: 'asc',
+        }
+      });
+      return {
+        data,
+        pagination: {
+          totalCount: data.length,
+          page: 1,
+          pageSize: data.length,
+          totalPages: 1,
+        },
+      };
+    }
+
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 
@@ -72,11 +94,48 @@ export class InventoryService {
   }
 
   async create(data: any) {
-    return this.prisma.inventory.create({ data });
+    const { empleadoId, clasificacionId, ...inventoryData } = data;
+    
+    return this.prisma.inventory.create({
+      data: {
+        ...inventoryData,
+        empleado: empleadoId ? {
+          connect: { id: empleadoId }
+        } : undefined,
+        clasificacion: clasificacionId ? {
+          connect: { id: clasificacionId }
+        } : undefined
+      },
+      include: {
+        clasificacion: true,
+        empleado: true,
+      }
+    });
   }
 
   async update(id: number, data: any) {
-    return this.prisma.inventory.update({ where: { id }, data });
+    const { empleadoId, clasificacionId, ...inventoryData } = data;
+    
+    return this.prisma.inventory.update({
+      where: { id },
+      data: {
+        ...inventoryData,
+        empleado: empleadoId ? {
+          connect: { id: empleadoId }
+        } : {
+          disconnect: true
+        },
+        clasificacion: clasificacionId ? {
+          connect: { id: clasificacionId }
+        } : {
+          disconnect: true
+        }
+      },
+      include: {
+        clasificacion: true,
+        empleado: true,
+      }
+    });
   }
 
   async delete(id: number) {
@@ -94,11 +153,11 @@ export class InventoryService {
         marca: item.marca,
         modelo: item.modelo,
         descripcion: item.descripcion,
-        serie: item.serie ? String(item.serie) : null, // Convertir a string si existe
+        serie: item.serie ? String(item.serie) : null,
         procesador: item.procesador,
         anio: item.anio,
         ram: item.ram,
-        discoDuro: item.dicoDuro || item.discoDuro, // Mapear dicoDuro a discoDuro
+        discoDuro: item.dicoDuro || item.discoDuro,
         sistemaOperativo: item.sistemaOperativo,
         sede: item.sede,
         estado: item.estado,
@@ -106,7 +165,7 @@ export class InventoryService {
         cargo: item.cargo,
         gerencia: item.gerencia,
         ubicacionEquipo: item.ubicacionEquipo,
-        qUsuarios: item.qUsuario || item.qUsuarios, // Mapear qUsuario a qUsuarios
+        qUsuarios: item.qUsuario || item.qUsuarios,
         condicion: item.condicion,
         motivoCompra: item.motivoCompra,
         precioReposicion: item.precioReposicion,
@@ -116,8 +175,10 @@ export class InventoryService {
         vidaUtil: item.vidaUtil,
         fecha_compra: item.fecha_compra,
         precioUnitarioSinIgv: item.precioUnitarioSinIgv,
-        observaciones: item.observaciones ? String(item.observaciones) : null, // Convertir a string si existe
-        precioReposicion2024: item.precioReposicion2024
+        observaciones: item.observaciones ? String(item.observaciones) : null,
+        precioReposicion2024: item.precioReposicion2024,
+        empleadoId: item.empleadoId,
+        clasificacionId: item.clasificacionId
       }));
 
       const result = await this.prisma.inventory.createMany({
