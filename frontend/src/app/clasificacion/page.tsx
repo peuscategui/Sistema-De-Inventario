@@ -290,20 +290,27 @@ export default function ClasificacionPage() {
         </button>
       </div>
 
-      {/* Barra superior */}
+      {/* Barra de filtros y acciones */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-2 flex-1">
-          <div className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2">
-            <Filter size={20} />
-            {filterOptions.find(opt => opt.id === activeFilter)?.label}
-          </div>
+          <select
+            value={activeFilter}
+            onChange={(e) => setActiveFilter(e.target.value as 'familia' | 'sub_familia' | 'tipo_equipo')}
+            className="bg-green-50 text-green-600 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-green-200 [&>option]:bg-white"
+          >
+            {filterOptions.map(option => (
+              <option key={option.id} value={option.id} className="bg-white text-gray-700">
+                {option.label}
+              </option>
+            ))}
+          </select>
           <div className="flex-1 flex gap-2 max-w-xl">
             <input
               type="text"
               value={filters[activeFilter]}
               onChange={(e) => handleFilterChange(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label}`}
+              onKeyPress={handleKeyPress}
+              placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label.toLowerCase()}`}
               className="flex-1 border rounded-lg px-4 py-2"
             />
             <button
@@ -313,7 +320,7 @@ export default function ClasificacionPage() {
               <Search size={20} />
               Buscar
             </button>
-            {Object.values(filters).some(value => value) && (
+            {Object.values(filters).some(f => f) && (
               <button
                 onClick={() => {
                   setFilters({ familia: '', sub_familia: '', tipo_equipo: '' });

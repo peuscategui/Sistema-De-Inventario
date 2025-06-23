@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import InventarioModal from '@/components/inventario/InventarioModal';
+import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -101,6 +102,8 @@ export default function InventarioPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editItem, setEditItem] = useState<InventoryItem | null>(null);
+  const [detalleModalOpen, setDetalleModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
   const fetchInventory = async () => {
     setLoading(true);
@@ -307,8 +310,13 @@ export default function InventarioPage() {
     }
   };
 
+  const openDetalleModal = (item: InventoryItem) => {
+    setSelectedItem(item);
+    setDetalleModalOpen(true);
+  };
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Inventario</h1>
         <button
@@ -323,10 +331,17 @@ export default function InventarioPage() {
       {/* Barra superior */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-2 flex-1">
-          <div className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2">
-            <Filter size={20} />
-            {filterOptions.find(opt => opt.value === selectedFilter)?.label}
-          </div>
+          <select
+            value={selectedFilter}
+            onChange={(e) => setSelectedFilter(e.target.value)}
+            className="bg-green-50 text-green-600 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-green-200 [&>option]:bg-white"
+          >
+            {filterOptions.map(option => (
+              <option key={option.value} value={option.value} className="bg-white text-gray-700">
+                {option.label}
+              </option>
+            ))}
+          </select>
           <div className="flex-1 flex gap-2 max-w-xl">
             <input
               type="text"
@@ -415,88 +430,73 @@ export default function InventarioPage() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-card rounded-lg overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-primary/10">
-              <tr>
-                <th className="px-4 py-2">
+      <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <table className="min-w-full">
+          <thead>
+            <tr className="bg-primary/10 border-b">
+              <th className="py-3 px-4">
+                <input
+                  type="checkbox"
+                  checked={selectedItems.length === inventory.length && inventory.length > 0}
+                  onChange={(e) => handleSelectAll(e.target.checked)}
+                  className="rounded border-gray-300"
+                />
+              </th>
+              <th className="py-3 px-4 text-left uppercase">Código EFC</th>
+              <th className="py-3 px-4 text-left uppercase">Tipo Equipo</th>
+              <th className="py-3 px-4 text-left uppercase">Marca</th>
+              <th className="py-3 px-4 text-left uppercase">Modelo</th>
+              <th className="py-3 px-4 text-left uppercase">Estado</th>
+              <th className="py-3 px-4 text-left uppercase">Usuario</th>
+              <th className="py-3 px-4 text-left uppercase">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {inventory.map((item) => (
+              <tr key={item.id} className="border-t hover:bg-gray-50">
+                <td className="py-3 px-4">
                   <input
                     type="checkbox"
-                    checked={selectedItems.length === inventory.length && inventory.length > 0}
-                    onChange={(e) => handleSelectAll(e.target.checked)}
-                    className="rounded"
+                    checked={selectedItems.includes(item.id)}
+                    onChange={(e) => handleSelectItem(item.id, e.target.checked)}
+                    className="rounded border-gray-300"
                   />
-                </th>
-                <th className="px-4 py-2 text-left uppercase">Código EFC</th>
-                <th className="px-4 py-2 text-left uppercase">Marca</th>
-                <th className="px-4 py-2 text-left uppercase">Modelo</th>
-                <th className="px-4 py-2 text-left uppercase">Estado</th>
-                <th className="px-4 py-2 text-left uppercase">Sede</th>
-                <th className="px-4 py-2 text-left uppercase">Gerencia</th>
-                <th className="px-4 py-2 text-left uppercase">Usuario</th>
-                <th className="px-4 py-2 uppercase">Acciones</th>
+                </td>
+                <td className="py-3 px-4 uppercase">{item.codigoEFC || '-'}</td>
+                <td className="py-3 px-4 uppercase">{item.tipoEquipo || '-'}</td>
+                <td className="py-3 px-4 uppercase">{item.marca || '-'}</td>
+                <td className="py-3 px-4 uppercase">{item.modelo || '-'}</td>
+                <td className="py-3 px-4 uppercase">{item.estado || '-'}</td>
+                <td className="py-3 px-4 uppercase">{item.usuarios || '-'}</td>
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => openDetalleModal(item)}
+                      className="text-blue-600 hover:text-blue-800"
+                      title="Ver detalles"
+                    >
+                      <Eye size={20} />
+                    </button>
+                    <button
+                      onClick={() => openEditModal(item)}
+                      className="text-blue-600 hover:text-blue-800"
+                      title="Editar"
+                    >
+                      <Edit size={20} />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="text-red-600 hover:text-red-800"
+                      title="Eliminar"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {loading ? (
-                <tr>
-                  <td colSpan={9} className="text-center py-4 uppercase">
-                    Cargando...
-                  </td>
-                </tr>
-              ) : error ? (
-                <tr>
-                  <td colSpan={9} className="text-center py-4 text-red-600 uppercase">
-                    {error}
-                  </td>
-                </tr>
-              ) : inventory.length === 0 ? (
-                <tr>
-                  <td colSpan={9} className="text-center py-4 uppercase">
-                    No hay items en el inventario para mostrar
-                  </td>
-                </tr>
-              ) : (
-                inventory.map((item) => (
-                  <tr key={item.id} className="border-t">
-                    <td className="px-4 py-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedItems.includes(item.id)}
-                        onChange={(e) => handleSelectItem(item.id, e.target.checked)}
-                        className="rounded"
-                      />
-                    </td>
-                    <td className="px-4 py-2 uppercase">{item.codigoEFC || '-'}</td>
-                    <td className="px-4 py-2 uppercase">{item.marca || '-'}</td>
-                    <td className="px-4 py-2 uppercase">{item.modelo || '-'}</td>
-                    <td className="px-4 py-2 uppercase">{item.estado || '-'}</td>
-                    <td className="px-4 py-2 uppercase">{item.sede || '-'}</td>
-                    <td className="px-4 py-2 uppercase">{item.gerencia || '-'}</td>
-                    <td className="px-4 py-2 uppercase">{item.usuarios || '-'}</td>
-                    <td className="px-4 py-2">
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => openEditModal(item)}
-                          className="text-primary hover:text-primary/80"
-                        >
-                          <Edit size={20} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(item.id)}
-                          className="text-destructive hover:text-destructive/80"
-                        >
-                          <Trash2 size={20} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <InventarioModal
@@ -506,8 +506,16 @@ export default function InventarioPage() {
           setEditItem(null);
         }}
         onSubmit={handleModalSubmit}
-        inventario={editItem}
+        editItem={editItem}
         isSubmitting={isSubmitting}
+      />
+      <InventarioDetalleModal
+        isOpen={detalleModalOpen}
+        onClose={() => {
+          setDetalleModalOpen(false);
+          setSelectedItem(null);
+        }}
+        item={selectedItem}
       />
     </div>
   );
