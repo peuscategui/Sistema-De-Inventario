@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search } from 'lucide-react';
 import ArticuloModal from '../../components/articulos/ArticuloModal';
 
 // Tipos de datos
@@ -155,7 +155,17 @@ export default function ArticulosPage() {
   // Manejadores de eventos
   const handleFilterChange = (value: string) => {
     setFilters(prev => ({ ...prev, [activeFilter]: value }));
-    setPage(1);
+  };
+
+  const handleSearch = () => {
+    setPage(1); // Resetear a la primera página al buscar
+    fetchArticulos(1, pageSize, filters);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   const handleCreate = () => {
@@ -286,7 +296,251 @@ export default function ArticulosPage() {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Artículos</h1>
+        <div className="flex gap-2">
+          <button
+            onClick={handleCreate}
+            className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90"
+          >
+            <PlusCircle size={20} />
+            Nuevo Artículo
+          </button>
+        </div>
+      </div>
+
+      {/* Controles superiores */}
+      <div className="bg-card rounded-lg p-4 mb-4">
+        <div className="flex flex-wrap gap-4 justify-between items-center">
+          {/* Filtros */}
+          <div className="flex gap-2 items-center">
+            <div className="relative">
+              <button
+                onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+                className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <Filter size={20} />
+                {filterOptions.find(opt => opt.id === activeFilter)?.label || 'Filtrar'}
+              </button>
+              {showFilterDropdown && (
+                <div className="absolute top-full left-0 mt-2 bg-background border rounded-lg shadow-lg z-10">
+                  {filterOptions.map(option => (
+                    <button
+                      key={option.id}
+                      onClick={() => {
+                        setActiveFilter(option.id as keyof typeof filters);
+                        setShowFilterDropdown(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 hover:bg-primary/10"
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={filters[activeFilter]}
+                onChange={(e) => handleFilterChange(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label}`}
+                className="border rounded-lg px-4 py-2 w-64"
+              />
+              <button
+                onClick={handleSearch}
+                className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <Search size={20} />
+                Buscar
+              </button>
+            </div>
+          </div>
+
+          {/* Controles de paginación */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm">Registros por página:</span>
+              <select
+                value={pageSize}
+                onChange={(e) => setPageSize(Number(e.target.value))}
+                className="border rounded-lg px-2 py-1"
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setPage(page - 1)}
+                disabled={page === 1}
+                className="px-3 py-1 rounded-lg bg-primary/10 text-primary disabled:opacity-50"
+              >
+                Anterior
+              </button>
+              <span className="text-sm">
+                Página {page} de {pagination.totalPages}
+              </span>
+              <button
+                onClick={() => setPage(page + 1)}
+                disabled={page === pagination.totalPages}
+                className="px-3 py-1 rounded-lg bg-primary/10 text-primary disabled:opacity-50"
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Acciones de tabla */}
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex gap-2">
+          <button
+            onClick={handleRefresh}
+            className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            <RefreshCw size={20} />
+            Actualizar
+          </button>
+          {selectedArticulos.length > 0 && (
+            <button
+              onClick={handleBulkDelete}
+              className="bg-destructive text-destructive-foreground px-4 py-2 rounded-lg flex items-center gap-2"
+            >
+              <Trash2 size={20} />
+              Eliminar ({selectedArticulos.length})
+            </button>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <div className="relative">
+            <button
+              onClick={() => setShowExportDropdown(!showExportDropdown)}
+              className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2"
+            >
+              <Download size={20} />
+              Exportar
+            </button>
+            {showExportDropdown && (
+              <div className="absolute top-full right-0 mt-2 bg-background border rounded-lg shadow-lg z-10">
+                <button
+                  onClick={() => handleExport('all')}
+                  className="block w-full text-left px-4 py-2 hover:bg-primary/10"
+                >
+                  Exportar todo
+                </button>
+                <button
+                  onClick={() => handleExport('current')}
+                  className="block w-full text-left px-4 py-2 hover:bg-primary/10"
+                >
+                  Exportar página actual
+                </button>
+                {selectedArticulos.length > 0 && (
+                  <button
+                    onClick={() => handleExport('selected')}
+                    className="block w-full text-left px-4 py-2 hover:bg-primary/10"
+                  >
+                    Exportar seleccionados ({selectedArticulos.length})
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+          <label className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer">
+            <Upload size={20} />
+            Importar
+            <input
+              type="file"
+              accept=".csv"
+              onChange={handleImport}
+              className="hidden"
+            />
+          </label>
+        </div>
+      </div>
+
+      {/* Tabla */}
+      <div className="bg-card rounded-lg overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-primary/10">
+              <tr>
+                <th className="px-4 py-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedArticulos.length === articulos.length}
+                    onChange={(e) => handleSelectAll()}
+                    className="rounded"
+                  />
+                </th>
+                {tableHeaders.map((header) => (
+                  <th key={header.key} className="px-4 py-2 text-left uppercase">
+                    {header.label}
+                  </th>
+                ))}
+                <th className="px-4 py-2 uppercase">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={tableHeaders.length + 2} className="text-center py-4 uppercase">
+                    Cargando...
+                  </td>
+                </tr>
+              ) : articulos.length === 0 ? (
+                <tr>
+                  <td colSpan={tableHeaders.length + 2} className="text-center py-4 uppercase">
+                    No hay artículos para mostrar
+                  </td>
+                </tr>
+              ) : (
+                articulos.map((articulo) => (
+                  <tr key={articulo.id} className="border-t">
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedArticulos.includes(articulo.id)}
+                        onChange={(e) => handleSelectArticulo(articulo.id)}
+                        className="rounded"
+                      />
+                    </td>
+                    {tableHeaders.map((header) => (
+                      <td key={header.key} className="px-4 py-2 uppercase">
+                        {header.key === 'fecha_compra' && articulo[header.key]
+                          ? formatDate(excelSerialDateToJSDate(articulo[header.key] as number))
+                          : articulo[header.key as keyof Articulo] || '-'}
+                      </td>
+                    ))}
+                    <td className="px-4 py-2">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleEdit(articulo)}
+                          className="text-primary hover:text-primary/80"
+                        >
+                          <Edit size={20} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(articulo.id)}
+                          className="text-destructive hover:text-destructive/80"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <ArticuloModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -294,226 +548,6 @@ export default function ArticulosPage() {
         articulo={editingArticulo}
         isSubmitting={isSubmitting}
       />
-
-      {/* Cabecera y acciones principales */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Gestión de Artículos</h1>
-        <div className="flex items-center gap-2">
-          {/* Botón de exportar */}
-          <div className="relative">
-            <button 
-              onClick={() => setShowExportDropdown(!showExportDropdown)}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700 transition-colors"
-            >
-              <Download size={18} />
-              Exportar
-            </button>
-            {showExportDropdown && (
-              <div className="absolute right-0 mt-2 w-56 bg-card rounded-md shadow-lg z-10 border border-border">
-                <a href="#" onClick={() => handleExport('all')} className="block px-4 py-2 text-sm hover:bg-muted/50">Todos los registros</a>
-                <a href="#" onClick={() => handleExport('current')} className="block px-4 py-2 text-sm hover:bg-muted/50">Página actual ({articulos.length})</a>
-                <a href="#" onClick={() => handleExport('selected')} className={`block px-4 py-2 text-sm ${selectedArticulos.length > 0 ? 'hover:bg-muted/50' : 'opacity-50 cursor-not-allowed'}`}>
-                  Seleccionados ({selectedArticulos.length})
-                </a>
-              </div>
-            )}
-          </div>
-          
-          {/* Botón de importar */}
-          <label className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors cursor-pointer">
-            <Upload size={18} />
-            Importar
-            <input type="file" accept=".csv" onChange={handleImport} className="hidden" />
-          </label>
-          
-          {/* Botón de crear */}
-          <button
-            onClick={handleCreate}
-            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-colors"
-          >
-          <PlusCircle size={20} />
-          <span>Crear Artículo</span>
-        </button>
-      </div>
-      </div>
-
-      {/* Filtros y búsqueda */}
-      <div className="flex items-center gap-4 mb-6">
-        <span className="text-sm font-medium">Filtrar por:</span>
-        <div className="relative">
-          <button
-            onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className="bg-card border border-border rounded-md px-3 py-2 flex items-center gap-2 min-w-[150px]"
-          >
-            <span>{filterOptions.find(opt => opt.id === activeFilter)?.label}</span>
-            <svg
-              className={`w-4 h-4 transition-transform ${showFilterDropdown ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          {showFilterDropdown && (
-            <div className="absolute z-10 mt-1 w-full bg-white border border-border rounded-md shadow-lg">
-              {filterOptions.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => {
-                    setActiveFilter(option.id as typeof activeFilter);
-                    setShowFilterDropdown(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                    activeFilter === option.id ? 'bg-primary/10 text-primary' : ''
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <input
-          type="text"
-          value={filters[activeFilter]}
-          onChange={(e) => handleFilterChange(e.target.value)}
-          placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label.toLowerCase()}...`}
-          className="flex-1 px-3 py-2 border border-border rounded-md bg-card max-w-md"
-        />
-        <button
-          onClick={handleRefresh}
-          className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-md flex items-center gap-2"
-        >
-          <RefreshCw size={16} />
-          Actualizar
-        </button>
-      </div>
-      
-      {/* Acciones en lote */}
-      {selectedArticulos.length > 0 && (
-        <div className="mb-4 p-3 bg-blue-900/10 border border-blue-400/20 rounded-lg flex justify-between items-center">
-          <span>{selectedArticulos.length} artículos seleccionados</span>
-          <button
-            onClick={handleBulkDelete}
-            className="bg-red-600 text-white px-3 py-1 rounded-md text-sm hover:bg-red-700"
-          >
-            <Trash2 size={16} className="inline-block mr-1" />
-            Eliminar seleccionados
-          </button>
-        </div>
-      )}
-
-      {/* Contenedor de la tabla con scroll */}
-      <div className="bg-white shadow-md rounded-lg overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" className="p-4 sticky left-0 z-10 bg-gray-50">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-all-search"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                    onChange={e => handleSelectAll()}
-                    checked={selectedArticulos.length > 0 && selectedArticulos.length === articulos.length}
-                  />
-                  <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
-                </div>
-              </th>
-              {tableHeaders.map(header => (
-                <th key={header.key} scope="col" className="px-6 py-3 whitespace-nowrap">
-                  {header.label}
-                </th>
-              ))}
-              <th scope="col" className="px-6 py-3 sticky right-0 z-10 bg-gray-50 text-right">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr><td colSpan={tableHeaders.length + 2} className="text-center p-4">Cargando...</td></tr>
-            ) : error ? (
-              <tr><td colSpan={tableHeaders.length + 2} className="text-center p-4 text-red-500">Error: {error}</td></tr>
-            ) : articulos.length === 0 ? (
-                <tr><td colSpan={tableHeaders.length + 2} className="text-center p-4">No se encontraron artículos.</td></tr>
-            ) : (
-              articulos.map(articulo => (
-                <tr key={articulo.id} className="hover:bg-gray-50">
-                  <td className="w-4 p-4 sticky left-0 z-10 bg-white hover:bg-gray-50">
-                    <div className="flex items-center">
-                      <input
-                        id={`checkbox-table-search-${articulo.id}`}
-                        type="checkbox"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                        checked={selectedArticulos.includes(articulo.id)}
-                        onChange={() => handleSelectArticulo(articulo.id)}
-                      />
-                      <label htmlFor={`checkbox-table-search-${articulo.id}`} className="sr-only">checkbox</label>
-                    </div>
-                  </td>
-                  {tableHeaders.map(header => (
-                    <td key={header.key} className="px-6 py-4 uppercase whitespace-nowrap text-sm text-gray-900">
-                      {header.key === 'fecha_compra'
-                        ? formatDate(excelSerialDateToJSDate(articulo[header.key as keyof Articulo] as number))
-                        : String(articulo[header.key as keyof Articulo] ?? '-')}
-                    </td>
-                  ))}
-                  <td className="px-6 py-4 sticky right-0 z-10 bg-white hover:bg-gray-50">
-                    <div className="flex items-center space-x-2 justify-end">
-                      <button onClick={() => handleEdit(articulo)} className="p-1 text-indigo-600 hover:text-indigo-900">
-                        <Edit size={16} />
-                      </button>
-                      <button onClick={() => handleDelete(articulo.id)} className="p-1 text-red-600 hover:text-red-900">
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Paginación */}
-      <div className="flex justify-between items-center mt-4">
-        <div>
-          <label htmlFor="pageSize" className="mr-2 text-sm font-medium">Registros por página:</label>
-          <select 
-            id="pageSize" 
-            value={pageSize} 
-            onChange={(e) => { setPageSize(Number(e.target.value)); setPage(1); }}
-            className="bg-card border border-border rounded-md px-2 py-1"
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
-          </select>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm">
-            Página {page} de {pagination.totalPages}
-          </span>
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
-            >
-              Anterior
-            </button>
-            <button 
-              onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))}
-              disabled={page === pagination.totalPages || articulos.length === 0}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
-            >
-              Siguiente
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 } 
