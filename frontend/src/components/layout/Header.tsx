@@ -1,28 +1,36 @@
 import { Bell, Search, User, Archive } from "lucide-react";
+import Link from "next/link";
 
 export default function Header() {
   return (
-    <header 
-      className="relative flex h-24 items-center justify-between border-b border-border/20 px-8 text-secondary-foreground bg-secondary"
-    >
-      <div className="relative z-10 flex w-full items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Archive className="h-7 w-7" />
-          <h1 className="text-xl font-semibold">TInventory Manager</h1>
+    <header className="bg-secondary text-white shadow-md">
+      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div className="flex items-center space-x-4">
+          <Link href="/" className="flex items-center space-x-2 text-white hover:text-gray-200">
+            <Archive size={28} />
+            <span className="text-xl font-bold">Tinventory Manager</span>
+          </Link>
         </div>
-        <div className="flex items-center gap-4">
+        
+        <div className="flex-1 max-w-md mx-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-            <input
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+              <Search className="h-5 w-5 text-gray-400" />
+            </span>
+            <input 
+              type="text" 
+              className="w-full pl-10 pr-4 py-2 rounded-full bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-accent"
               placeholder="Buscar..."
-              className="w-64 rounded-full border border-transparent bg-black/20 py-2 pl-10 pr-4 text-sm text-secondary-foreground placeholder-gray-400 transition-all focus:w-72 focus:bg-black/30 focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
-          <button className="rounded-full p-2 transition-colors hover:bg-black/20">
-            <Bell className="h-5 w-5" />
+        </div>
+
+        <div className="flex items-center space-x-5">
+          <button className="text-white hover:text-gray-200 focus:outline-none">
+            <Bell size={22} />
           </button>
-          <button className="rounded-full p-2 transition-colors hover:bg-black/20">
-            <User className="h-5 w-5" />
+          <button className="text-white hover:text-gray-200 focus:outline-none">
+            <User size={22} />
           </button>
         </div>
       </div>

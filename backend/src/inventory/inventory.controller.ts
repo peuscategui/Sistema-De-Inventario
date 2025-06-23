@@ -10,8 +10,16 @@ export class InventoryController {
   findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('pageSize', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+    @Query('codigoEFC') codigoEFC?: string,
+    @Query('marca') marca?: string,
+    @Query('modelo') modelo?: string,
+    @Query('serie') serie?: string,
   ) {
-    return this.inventoryService.findAll({ page, pageSize });
+    return this.inventoryService.findAll({ 
+      page, 
+      pageSize,
+      filters: { codigoEFC, marca, modelo, serie }
+    });
   }
 
   @Get(':id')

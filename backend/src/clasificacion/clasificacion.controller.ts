@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
 import { ClasificacionService } from './clasificacion.service';
 
 @Controller('clasificacion')
@@ -6,8 +6,25 @@ export class ClasificacionController {
   constructor(private readonly clasificacionService: ClasificacionService) {}
 
   @Get()
-  findAll() {
-    return this.clasificacionService.findAll();
+  findAll(
+    @Query('page') page?: string,
+    @Query('pageSize') pageSize?: string,
+    @Query('familia') familia?: string,
+    @Query('sub_familia') sub_familia?: string,
+    @Query('tipo_equipo') tipo_equipo?: string,
+  ) {
+    const pageNum = page ? parseInt(page) : 1;
+    const pageSizeNum = pageSize ? parseInt(pageSize) : 10;
+    
+    return this.clasificacionService.findAll({
+      page: pageNum,
+      pageSize: pageSizeNum,
+      filters: {
+        familia,
+        sub_familia,
+        tipo_equipo,
+      },
+    });
   }
 
   @Get(':id')
@@ -18,6 +35,11 @@ export class ClasificacionController {
   @Post()
   create(@Body() data: any) {
     return this.clasificacionService.create(data);
+  }
+
+  @Post('batch')
+  createBatch(@Body() data: any[]) {
+    return this.clasificacionService.createBatch(data);
   }
 
   @Put(':id')

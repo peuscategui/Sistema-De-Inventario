@@ -2,16 +2,41 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateInventoryDto } from './inventory.dto';
 
+interface FindAllOptions {
+  page?: number;
+  pageSize?: number;
+  filters?: {
+    codigoEFC?: string;
+    marca?: string;
+    modelo?: string;
+    serie?: string;
+  }
+}
+
 @Injectable()
 export class InventoryService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll({ page = 1, pageSize = 20 }) {
+  async findAll({ page = 1, pageSize = 20, filters = {} }: FindAllOptions) {
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 
+    const where: any = {};
+    for (const key in filters) {
+      if (Object.prototype.hasOwnProperty.call(filters, key)) {
+        const filterKey = key as keyof FindAllOptions['filters'];
+        if (filters[filterKey]) {
+          where[filterKey] = {
+            contains: filters[filterKey],
+            mode: 'insensitive',
+          };
+        }
+      }
+    }
+
     const [data, totalCount] = await this.prisma.$transaction([
       this.prisma.inventory.findMany({
+        where,
         skip,
         take,
         include: {
@@ -22,7 +47,7 @@ export class InventoryService {
           id: 'asc',
         }
       }),
-      this.prisma.inventory.count(),
+      this.prisma.inventory.count({ where }),
     ]);
 
     return {

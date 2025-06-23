@@ -11,8 +11,19 @@ export class ColaboradoresController {
   findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('pageSize', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+    @Query('nombre') nombre?: string,
+    @Query('cargo') cargo?: string,
+    @Query('gerencia') gerencia?: string,
   ) {
-    return this.colaboradoresService.findAll({ page, pageSize });
+    return this.colaboradoresService.findAll({ 
+      page, 
+      pageSize,
+      filters: {
+        nombre,
+        cargo,
+        gerencia
+      }
+    });
   }
 
   @Get(':id')
@@ -23,6 +34,11 @@ export class ColaboradoresController {
   @Post()
   create(@Body() createColaboradorDto: CreateColaboradorDto) {
     return this.colaboradoresService.create(createColaboradorDto);
+  }
+
+  @Post('batch')
+  createBatch(@Body() createColaboradorDtos: CreateColaboradorDto[]) {
+    return this.colaboradoresService.createBatch(createColaboradorDtos);
   }
 
   @Put(':id')

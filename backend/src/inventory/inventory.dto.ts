@@ -2,16 +2,16 @@ import { IsString, IsInt, IsOptional, IsNotEmpty, IsBoolean, IsDateString, IsDec
 
 export class CreateInventoryDto {
   @IsString()
-  @IsNotEmpty()
-  codigoEFC: string;
+  @IsOptional()
+  codigoEFC?: string;
 
   @IsString()
-  @IsNotEmpty()
-  tipoEquipo: string;
+  @IsOptional()
+  tipoEquipo?: string;
 
   @IsString()
-  @IsNotEmpty()
-  familia: string;
+  @IsOptional()
+  familia?: string;
 
   @IsString()
   @IsOptional()
@@ -22,8 +22,8 @@ export class CreateInventoryDto {
   marca?: string;
 
   @IsString()
-  @IsNotEmpty()
-  modelo: string;
+  @IsOptional()
+  modelo?: string;
 
   @IsString()
   @IsOptional()
@@ -54,12 +54,12 @@ export class CreateInventoryDto {
   sistemaOperativo?: string;
 
   @IsString()
-  @IsNotEmpty()
-  sede: string;
+  @IsOptional()
+  sede?: string;
 
   @IsString()
-  @IsNotEmpty()
-  estado: string;
+  @IsOptional()
+  estado?: string;
 
   @IsString()
   @IsOptional()
@@ -70,12 +70,12 @@ export class CreateInventoryDto {
   cargo?: string;
 
   @IsString()
-  @IsNotEmpty()
-  gerencia: string;
+  @IsOptional()
+  gerencia?: string;
 
   @IsString()
-  @IsNotEmpty()
-  ubicacionEquipo: string;
+  @IsOptional()
+  ubicacionEquipo?: string;
 
   @IsInt()
   @IsOptional()

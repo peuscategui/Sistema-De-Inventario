@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -25,49 +26,14 @@ model empleado {
   inventarios inventory[]
 }
 
-model inventario {
-  id                          Int      @id @default(autoincrement())
-  codigo_efc                  String?  @db.VarChar(50)
-  anno                        Int?
-  ram                         String?  @db.VarChar(50)
-  disco_duro                  String?  @db.VarChar(50)
-  monitor                     String?  @db.VarChar(50)
-  repotenciadas               Boolean?
-  clasificacion_obsolescencia String?  @db.VarChar(100)
-  clasificacion_repotenciadas String?  @db.VarChar(100)
-  motivo_compra               String?
-  vida_util                   String?  @db.VarChar(50)
-  precio_reposicion           Decimal? @db.Decimal(10, 2)
-  gerencia                    String?  @db.VarChar(100)
-  ubicacion_equipo            String?  @db.VarChar(100)
-  q_usuarios                  Boolean?
-  q_usuarios_familia          Boolean?
-  cumple_estandar_2024        Boolean?
-  cumple_standard_procesador  Boolean?
-  or_f                        Boolean?
-  sistema_operativo           String?  @db.VarChar(100)
-  sede                        String?  @db.VarChar(100)
-  estado                      String?  @db.VarChar(50)
-  usuarios                    String?  @db.VarChar(100)
-  cargo                       String?  @db.VarChar(100)
-  modelo                      String?  @db.VarChar(100)
-  descripcion                 String?
-  serie                       String?  @db.VarChar(100)
-  procesador                  String?  @db.VarChar(100)
-  tipo_equipo                 String?  @db.VarChar(100)
-  familia                     String?  @db.VarChar(100)
-  sub_familia                 String?  @db.VarChar(100)
-  marca                       String?  @db.VarChar(100)
-}
-
 model inventory {
   id                         Int          @id @default(autoincrement())
-  codigoEFC                  String       @db.VarChar
-  tipoEquipo                 String       @db.VarChar
-  familia                    String       @db.VarChar
+  codigoEFC                  String?      @db.VarChar
+  tipoEquipo                 String?      @db.VarChar
+  familia                    String?      @db.VarChar
   subFamilia                 String?      @db.VarChar
   marca                      String?      @db.VarChar
-  modelo                     String       @db.VarChar
+  modelo                     String?      @db.VarChar
   descripcion                String?
   serie                      String?      @db.VarChar
   procesador                 String?      @db.VarChar
@@ -75,12 +41,12 @@ model inventory {
   ram                        String?      @db.VarChar
   discoDuro                  String?      @db.VarChar
   sistemaOperativo           String?      @db.VarChar
-  sede                       String       @db.VarChar
-  estado                     String       @db.VarChar
+  sede                        String?      @db.VarChar
+  estado                     String?      @db.VarChar
   usuarios                   String?      @db.VarChar
   cargo                      String?      @db.VarChar
-  gerencia                   String       @db.VarChar
-  ubicacionEquipo            String       @db.VarChar
+  gerencia                   String?      @db.VarChar
+  ubicacionEquipo            String?      @db.VarChar
   qUsuarios                  Int?
   condicion                  String?      @db.VarChar
   repotenciadas             Boolean?
