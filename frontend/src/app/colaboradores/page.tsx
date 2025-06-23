@@ -424,28 +424,28 @@ export default function ColaboradoresPage() {
                     className="rounded"
                   />
                 </th>
-                <th className="px-4 py-2 text-left">Nombre</th>
-                <th className="px-4 py-2 text-left">Cargo</th>
-                <th className="px-4 py-2 text-left">Gerencia</th>
-                <th className="px-4 py-2">Acciones</th>
+                <th className="px-4 py-2 text-left uppercase">Nombre</th>
+                <th className="px-4 py-2 text-left uppercase">Cargo</th>
+                <th className="px-4 py-2 text-left uppercase">Gerencia</th>
+                <th className="px-4 py-2 uppercase">Acciones</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="text-center py-4">
+                  <td colSpan={5} className="text-center py-4 uppercase">
                     Cargando...
                   </td>
                 </tr>
               ) : error ? (
                 <tr>
-                  <td colSpan={5} className="text-center py-4 text-red-600">
+                  <td colSpan={5} className="text-center py-4 text-red-600 uppercase">
                     {error}
                   </td>
                 </tr>
               ) : empleados.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="text-center py-4">
+                  <td colSpan={5} className="text-center py-4 uppercase">
                     No hay colaboradores para mostrar
                   </td>
                 </tr>
@@ -460,9 +460,9 @@ export default function ColaboradoresPage() {
                         className="rounded"
                       />
                     </td>
-                    <td className="px-4 py-2">{empleado.nombre}</td>
-                    <td className="px-4 py-2">{empleado.cargo || '-'}</td>
-                    <td className="px-4 py-2">{empleado.gerencia || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{empleado.nombre}</td>
+                    <td className="px-4 py-2 uppercase">{empleado.cargo || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{empleado.gerencia || '-'}</td>
                     <td className="px-4 py-2">
                       <div className="flex gap-2">
                         <button

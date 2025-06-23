@@ -428,32 +428,32 @@ export default function InventarioPage() {
                     className="rounded"
                   />
                 </th>
-                <th className="px-4 py-2 text-left">Código EFC</th>
-                <th className="px-4 py-2 text-left">Marca</th>
-                <th className="px-4 py-2 text-left">Modelo</th>
-                <th className="px-4 py-2 text-left">Estado</th>
-                <th className="px-4 py-2 text-left">Sede</th>
-                <th className="px-4 py-2 text-left">Gerencia</th>
-                <th className="px-4 py-2 text-left">Usuario</th>
-                <th className="px-4 py-2">Acciones</th>
+                <th className="px-4 py-2 text-left uppercase">Código EFC</th>
+                <th className="px-4 py-2 text-left uppercase">Marca</th>
+                <th className="px-4 py-2 text-left uppercase">Modelo</th>
+                <th className="px-4 py-2 text-left uppercase">Estado</th>
+                <th className="px-4 py-2 text-left uppercase">Sede</th>
+                <th className="px-4 py-2 text-left uppercase">Gerencia</th>
+                <th className="px-4 py-2 text-left uppercase">Usuario</th>
+                <th className="px-4 py-2 uppercase">Acciones</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-4">
+                  <td colSpan={9} className="text-center py-4 uppercase">
                     Cargando...
                   </td>
                 </tr>
               ) : error ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-4 text-red-600">
+                  <td colSpan={9} className="text-center py-4 text-red-600 uppercase">
                     {error}
                   </td>
                 </tr>
               ) : inventory.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-4">
+                  <td colSpan={9} className="text-center py-4 uppercase">
                     No hay items en el inventario para mostrar
                   </td>
                 </tr>
@@ -468,13 +468,13 @@ export default function InventarioPage() {
                         className="rounded"
                       />
                     </td>
-                    <td className="px-4 py-2">{item.codigoEFC || '-'}</td>
-                    <td className="px-4 py-2">{item.marca || '-'}</td>
-                    <td className="px-4 py-2">{item.modelo || '-'}</td>
-                    <td className="px-4 py-2">{item.estado || '-'}</td>
-                    <td className="px-4 py-2">{item.sede || '-'}</td>
-                    <td className="px-4 py-2">{item.gerencia || '-'}</td>
-                    <td className="px-4 py-2">{item.usuarios || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{item.codigoEFC || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{item.marca || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{item.modelo || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{item.estado || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{item.sede || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{item.gerencia || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{item.usuarios || '-'}</td>
                     <td className="px-4 py-2">
                       <div className="flex gap-2">
                         <button

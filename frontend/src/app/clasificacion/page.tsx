@@ -409,30 +409,30 @@ export default function ClasificacionPage() {
                     className="rounded"
                   />
                 </th>
-                <th className="px-4 py-2 text-left">Familia</th>
-                <th className="px-4 py-2 text-left">Sub Familia</th>
-                <th className="px-4 py-2 text-left">Tipo de Equipo</th>
-                <th className="px-4 py-2 text-left">Vida Útil</th>
-                <th className="px-4 py-2 text-left">Valor Reposición</th>
-                <th className="px-4 py-2">Acciones</th>
+                <th className="px-4 py-2 text-left uppercase">Familia</th>
+                <th className="px-4 py-2 text-left uppercase">Sub Familia</th>
+                <th className="px-4 py-2 text-left uppercase">Tipo de Equipo</th>
+                <th className="px-4 py-2 text-left uppercase">Vida Útil</th>
+                <th className="px-4 py-2 text-left uppercase">Valor Reposición</th>
+                <th className="px-4 py-2 uppercase">Acciones</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-4">
+                  <td colSpan={7} className="text-center py-4 uppercase">
                     Cargando...
                   </td>
                 </tr>
               ) : error ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-4 text-red-600">
+                  <td colSpan={7} className="text-center py-4 text-red-600 uppercase">
                     {error}
                   </td>
                 </tr>
               ) : clasificaciones.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-4">
+                  <td colSpan={7} className="text-center py-4 uppercase">
                     No hay clasificaciones para mostrar
                   </td>
                 </tr>
@@ -447,11 +447,11 @@ export default function ClasificacionPage() {
                         className="rounded"
                       />
                     </td>
-                    <td className="px-4 py-2">{clasificacion.familia || '-'}</td>
-                    <td className="px-4 py-2">{clasificacion.sub_familia || '-'}</td>
-                    <td className="px-4 py-2">{clasificacion.tipo_equipo || '-'}</td>
-                    <td className="px-4 py-2">{clasificacion.vida_util || '-'}</td>
-                    <td className="px-4 py-2">
+                    <td className="px-4 py-2 uppercase">{clasificacion.familia || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{clasificacion.sub_familia || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{clasificacion.tipo_equipo || '-'}</td>
+                    <td className="px-4 py-2 uppercase">{clasificacion.vida_util || '-'}</td>
+                    <td className="px-4 py-2 uppercase">
                       {clasificacion.valor_reposicion 
                         ? `$${clasificacion.valor_reposicion.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` 
                         : '-'}
