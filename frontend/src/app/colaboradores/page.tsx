@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X } from 'lucide-react';
 import ColaboradorModal from '@/components/colaboradores/ColaboradorModal';
 
 export interface Empleado {
@@ -9,6 +9,8 @@ export interface Empleado {
   nombre: string;
   cargo: string | null;
   gerencia: string | null;
+  apellido: string | null;
+  sede: string | null;
 }
 
 export default function ColaboradoresPage() {
@@ -291,7 +293,200 @@ export default function ColaboradoresPage() {
   };
 
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Colaboradores</h1>
+        <button
+          onClick={() => handleOpenModal()}
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+        >
+          <PlusCircle size={20} />
+          Nuevo Colaborador
+        </button>
+      </div>
+
+      {/* Barra superior */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-2 flex-1">
+          <div className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2">
+            <Filter size={20} />
+            {filterOptions.find(opt => opt.id === activeFilter)?.label}
+          </div>
+          <div className="flex-1 flex gap-2 max-w-xl">
+            <input
+              type="text"
+              value={filters[activeFilter]}
+              onChange={(e) => handleFilterChange(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleRefresh()}
+              placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label}`}
+              className="flex-1 border rounded-lg px-4 py-2"
+            />
+            <button
+              onClick={handleRefresh}
+              className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+            >
+              <Search size={20} />
+              Buscar
+            </button>
+            {Object.values(filters).some(value => value) && (
+              <button
+                onClick={() => {
+                  setFilters({ nombre: '', cargo: '', gerencia: '' });
+                  setPage(1);
+                }}
+                className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
+              >
+                <X size={20} />
+                Limpiar
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">Registros por página:</span>
+            <select
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+              className="border rounded-lg px-2 py-2"
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(Math.max(1, page - 1))}
+              disabled={page === 1}
+              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
+            >
+              Anterior
+            </button>
+            <span className="text-sm text-gray-600">
+              Página {page} de {pagination.totalPages}
+            </span>
+            <button
+              onClick={() => setPage(Math.min(pagination.totalPages, page + 1))}
+              disabled={page === pagination.totalPages}
+              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Barra de acciones */}
+      <div className="flex justify-between items-center mb-4">
+        <button
+          onClick={handleRefresh}
+          className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+        >
+          <RefreshCw size={20} />
+          Actualizar
+        </button>
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleExport('all')}
+            className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+          >
+            <Download size={20} />
+            Exportar
+          </button>
+          <label className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100 cursor-pointer">
+            <Upload size={20} />
+            Importar
+            <input
+              type="file"
+              accept=".csv"
+              onChange={handleImport}
+              className="hidden"
+            />
+          </label>
+        </div>
+      </div>
+
+      {/* Tabla */}
+      <div className="bg-card rounded-lg overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-primary/10">
+              <tr>
+                <th className="px-4 py-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedEmpleados.length === empleados.length && empleados.length > 0}
+                    onChange={() => handleSelectAll()}
+                    className="rounded"
+                  />
+                </th>
+                <th className="px-4 py-2 text-left">Nombre</th>
+                <th className="px-4 py-2 text-left">Cargo</th>
+                <th className="px-4 py-2 text-left">Gerencia</th>
+                <th className="px-4 py-2">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-4">
+                    Cargando...
+                  </td>
+                </tr>
+              ) : error ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-4 text-red-600">
+                    {error}
+                  </td>
+                </tr>
+              ) : empleados.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-4">
+                    No hay colaboradores para mostrar
+                  </td>
+                </tr>
+              ) : (
+                empleados.map((empleado) => (
+                  <tr key={empleado.id} className="border-t">
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedEmpleados.includes(empleado.id)}
+                        onChange={() => handleSelectEmpleado(empleado.id)}
+                        className="rounded"
+                      />
+                    </td>
+                    <td className="px-4 py-2">{empleado.nombre}</td>
+                    <td className="px-4 py-2">{empleado.cargo || '-'}</td>
+                    <td className="px-4 py-2">{empleado.gerencia || '-'}</td>
+                    <td className="px-4 py-2">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleOpenModal(empleado)}
+                          className="text-primary hover:text-primary/80"
+                        >
+                          <Edit size={20} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(empleado.id)}
+                          className="text-destructive hover:text-destructive/80"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <ColaboradorModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -302,243 +497,6 @@ export default function ColaboradoresPage() {
         isEditing={isEditing}
         error={modalError}
       />
-      
-      {/* Header con acciones principales */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Gestión de Colaboradores</h1>
-        <div className="flex gap-2">
-          <div className="relative">
-            <button
-              onClick={() => setShowExportDropdown(!showExportDropdown)}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-            >
-              <Download size={16} />
-              Exportar
-              <svg
-                className={`w-4 h-4 transition-transform ${showExportDropdown ? 'rotate-180' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {showExportDropdown && (
-              <div className="absolute z-10 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
-                <button
-                  onClick={() => handleExport('all')}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 border-b border-gray-100"
-                >
-                  Exportar Todos los Registros
-                </button>
-                <button
-                  onClick={() => handleExport('current')}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 border-b border-gray-100"
-                >
-                  Exportar Página Actual ({empleados.length})
-                </button>
-                <button
-                  onClick={() => handleExport('selected')}
-                  disabled={selectedEmpleados.length === 0}
-                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                    selectedEmpleados.length === 0 ? 'text-gray-400 cursor-not-allowed' : ''
-                  }`}
-                >
-                  Exportar Seleccionados ({selectedEmpleados.length})
-                </button>
-              </div>
-            )}
-          </div>
-          <label className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer">
-            <Upload size={16} />
-            Importar
-            <input
-              type="file"
-              accept=".csv"
-              onChange={handleImport}
-              className="hidden"
-            />
-          </label>
-          <button
-            onClick={() => handleOpenModal()}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-4 rounded-lg flex items-center gap-2"
-          >
-            <PlusCircle size={20} />
-            Añadir Colaborador
-          </button>
-        </div>
-      </div>
-
-      {/* Filtros y búsqueda */}
-      <div className="flex items-center gap-4 mb-6">
-        <span className="text-sm font-medium">Filtrar por:</span>
-        <div className="relative">
-          <button
-            onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className="bg-card border border-border rounded-md px-3 py-2 flex items-center gap-2 min-w-[150px]"
-          >
-            <span>{filterOptions.find(opt => opt.id === activeFilter)?.label}</span>
-            <svg
-              className={`w-4 h-4 transition-transform ${showFilterDropdown ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          {showFilterDropdown && (
-            <div className="absolute z-10 mt-1 w-full bg-white border border-border rounded-md shadow-lg">
-              {filterOptions.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => {
-                    setActiveFilter(option.id as typeof activeFilter);
-                    setShowFilterDropdown(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                    activeFilter === option.id ? 'bg-primary/10 text-primary' : ''
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <input
-          type="text"
-          value={filters[activeFilter]}
-          onChange={(e) => handleFilterChange(e.target.value)}
-          placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label.toLowerCase()}...`}
-          className="flex-1 px-3 py-2 border border-border rounded-md bg-card max-w-md"
-        />
-        <button
-          onClick={handleRefresh}
-          className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-md flex items-center gap-2"
-        >
-          <RefreshCw size={16} />
-          Actualizar
-        </button>
-      </div>
-
-      {/* Acciones masivas */}
-      {selectedEmpleados.length > 0 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-          <div className="flex justify-between items-center">
-            <span className="text-yellow-800">
-              {selectedEmpleados.length} colaborador(es) seleccionado(s)
-            </span>
-            <button
-              onClick={handleBulkDelete}
-              className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm"
-            >
-              Eliminar Seleccionados
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <label htmlFor="pageSize" className="mr-2 text-sm font-medium">Registros por página:</label>
-          <select 
-            id="pageSize" 
-            value={pageSize} 
-            onChange={(e) => setPageSize(Number(e.target.value))}
-            className="bg-card border border-border rounded-md px-2 py-1"
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
-          </select>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm">
-            Página {page} de {pagination.totalPages}
-          </span>
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
-            >
-              Anterior
-            </button>
-            <button 
-              onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))}
-              disabled={page === pagination.totalPages}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
-            >
-              Siguiente
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {loading && <p className="text-center py-4">Cargando colaboradores...</p>}
-      {error && <p className="text-red-500 text-center py-4">Error: {error}</p>}
-      
-      {!loading && !error && (
-        <div className="bg-white shadow-md rounded-lg overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-              <tr>
-                <th scope="col" className="p-4">
-                  <input type="checkbox" onChange={handleSelectAll} checked={selectedEmpleados.length === empleados.length && empleados.length > 0} />
-                </th>
-                <th scope="col" className="px-6 py-3">ID</th>
-                <th scope="col" className="px-6 py-3">Nombre</th>
-                <th scope="col" className="px-6 py-3">Cargo</th>
-                <th scope="col" className="px-6 py-3">Gerencia</th>
-                <th scope="col" className="px-6 py-3 text-right">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {empleados.map((empleado) => (
-                <tr key={empleado.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <input
-                      type="checkbox"
-                      checked={selectedEmpleados.includes(empleado.id)}
-                      onChange={() => handleSelectEmpleado(empleado.id)}
-                      className="rounded border-gray-300"
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">
-                    {empleado.id}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">
-                    {empleado.nombre}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">
-                    {empleado.cargo || '-'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">
-                    {empleado.gerencia || '-'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleOpenModal(empleado)}
-                        className="text-indigo-600 hover:text-indigo-900"
-                      >
-                        <Edit size={16} />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(empleado.id)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
     </div>
   );
 } 

@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw } from 'lucide-react';
-import ClasificacionModal from '../../components/clasificacion/ClasificacionModal';
+import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X } from 'lucide-react';
+import ClasificacionModal from '@/components/clasificacion/ClasificacionModal';
 
 interface Clasificacion {
   id: number;
@@ -88,7 +88,17 @@ export default function ClasificacionPage() {
 
   const handleFilterChange = (value: string) => {
     setFilters(prev => ({ ...prev, [activeFilter]: value }));
-    setPage(1);
+  };
+
+  const handleSearch = () => {
+    setPage(1); // Resetear a la primera página al buscar
+    fetchClasificaciones(1, pageSize, filters);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   const handleRefresh = () => {
@@ -121,7 +131,9 @@ export default function ClasificacionPage() {
           clas.sub_familia || '',
           clas.tipo_equipo || '',
           clas.vida_util || '',
-          clas.valor_reposicion ? Number(clas.valor_reposicion).toFixed(2) : ''
+          clas.valor_reposicion && !isNaN(Number(clas.valor_reposicion)) 
+            ? Number(clas.valor_reposicion).toFixed(2) 
+            : ''
         ])
       ].map(row => row.map(field => `"${String(field)}"`).join(',')).join('\n');
 
@@ -266,55 +278,112 @@ export default function ClasificacionPage() {
   };
 
   return (
-    <div className="container mx-auto p-8">
-      {/* Header con acciones principales */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Gestión de Clasificación</h1>
-        <div className="flex gap-2">
-          <div className="relative">
+    <div className="container mx-auto p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Clasificación</h1>
+        <button
+          onClick={handleOpenModal}
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+        >
+          <PlusCircle size={20} />
+          Nueva Clasificación
+        </button>
+      </div>
+
+      {/* Barra superior */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-2 flex-1">
+          <div className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2">
+            <Filter size={20} />
+            {filterOptions.find(opt => opt.id === activeFilter)?.label}
+          </div>
+          <div className="flex-1 flex gap-2 max-w-xl">
+            <input
+              type="text"
+              value={filters[activeFilter]}
+              onChange={(e) => handleFilterChange(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label}`}
+              className="flex-1 border rounded-lg px-4 py-2"
+            />
             <button
-              onClick={() => setShowExportDropdown(!showExportDropdown)}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              onClick={handleSearch}
+              className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
             >
-              <Download size={16} />
-              Exportar
-              <svg
-                className={`w-4 h-4 transition-transform ${showExportDropdown ? 'rotate-180' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <Search size={20} />
+              Buscar
             </button>
-            {showExportDropdown && (
-              <div className="absolute z-10 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
-                <button
-                  onClick={() => handleExport('all')}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 border-b border-gray-100"
-                >
-                  Exportar Todos los Registros
-                </button>
-                <button
-                  onClick={() => handleExport('current')}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 border-b border-gray-100"
-                >
-                  Exportar Página Actual ({clasificaciones.length})
-                </button>
-                <button
-                  onClick={() => handleExport('selected')}
-                  disabled={selectedClasificaciones.length === 0}
-                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                    selectedClasificaciones.length === 0 ? 'text-gray-400 cursor-not-allowed' : ''
-                  }`}
-                >
-                  Exportar Seleccionados ({selectedClasificaciones.length})
-                </button>
-              </div>
+            {Object.values(filters).some(value => value) && (
+              <button
+                onClick={() => {
+                  setFilters({ familia: '', sub_familia: '', tipo_equipo: '' });
+                  setPage(1);
+                }}
+                className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
+              >
+                <X size={20} />
+                Limpiar
+              </button>
             )}
           </div>
-          <label className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer">
-            <Upload size={16} />
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">Registros por página:</span>
+            <select
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+              className="border rounded-lg px-2 py-2"
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(Math.max(1, page - 1))}
+              disabled={page === 1}
+              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
+            >
+              Anterior
+            </button>
+            <span className="text-sm text-gray-600">
+              Página {page} de {pagination.totalPages}
+            </span>
+            <button
+              onClick={() => setPage(Math.min(pagination.totalPages, page + 1))}
+              disabled={page === pagination.totalPages}
+              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Barra de acciones */}
+      <div className="flex justify-between items-center mb-4">
+        <button
+          onClick={handleRefresh}
+          className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+        >
+          <RefreshCw size={20} />
+          Actualizar
+        </button>
+
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleExport('all')}
+            className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+          >
+            <Download size={20} />
+            Exportar
+          </button>
+          <label className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100 cursor-pointer">
+            <Upload size={20} />
             Importar
             <input
               type="file"
@@ -323,171 +392,93 @@ export default function ClasificacionPage() {
               className="hidden"
             />
           </label>
-          <button
-            onClick={handleOpenModal}
-            className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-          >
-            <PlusCircle size={16} />
-            Añadir Clasificación
-          </button>
         </div>
       </div>
 
-      {/* Filtros y búsqueda */}
-      <div className="flex items-center gap-4 mb-6">
-        <span className="text-sm font-medium">Filtrar por:</span>
-        <div className="relative">
-          <button
-            onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-            className="bg-card border border-border rounded-md px-3 py-2 flex items-center gap-2 min-w-[150px]"
-          >
-            <span>{filterOptions.find(opt => opt.id === activeFilter)?.label}</span>
-            <svg
-              className={`w-4 h-4 transition-transform ${showFilterDropdown ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          {showFilterDropdown && (
-            <div className="absolute z-10 mt-1 w-full bg-white border border-border rounded-md shadow-lg">
-              {filterOptions.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => {
-                    setActiveFilter(option.id as typeof activeFilter);
-                    setShowFilterDropdown(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
-                    activeFilter === option.id ? 'bg-primary/10 text-primary' : ''
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <input
-          type="text"
-          value={filters[activeFilter]}
-          onChange={(e) => handleFilterChange(e.target.value)}
-          placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label.toLowerCase()}...`}
-          className="flex-1 px-3 py-2 border border-border rounded-md bg-card max-w-md"
-        />
-        <button
-          onClick={handleRefresh}
-          className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-md flex items-center gap-2"
-        >
-          <RefreshCw size={16} />
-          Actualizar
-        </button>
-      </div>
-
-      {/* Acciones masivas */}
-      {selectedClasificaciones.length > 0 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-          <div className="flex justify-between items-center">
-            <span className="text-yellow-800">
-              {selectedClasificaciones.length} clasificación(es) seleccionada(s)
-            </span>
-            <button
-              onClick={handleBulkDelete}
-              className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm"
-            >
-              Eliminar Seleccionadas
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <label htmlFor="pageSize" className="mr-2 text-sm font-medium">Registros por página:</label>
-          <select 
-            id="pageSize" 
-            value={pageSize} 
-            onChange={(e) => setPageSize(Number(e.target.value))}
-            className="bg-card border border-border rounded-md px-2 py-1"
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={50}>50</option>
-          </select>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm">
-            Página {page} de {pagination.totalPages}
-          </span>
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
-            >
-              Anterior
-            </button>
-            <button 
-              onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))}
-              disabled={page === pagination.totalPages}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
-            >
-              Siguiente
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Contenedor de la tabla */}
-      <div className="bg-white shadow-md rounded-lg overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" className="p-4 sticky left-0 bg-gray-50 z-10">
-                <input type="checkbox" onChange={handleSelectAll} checked={selectedClasificaciones.length === clasificaciones.length && clasificaciones.length > 0} />
-              </th>
-              <th scope="col" className="px-6 py-3">ID</th>
-              <th scope="col" className="px-6 py-3">Familia</th>
-              <th scope="col" className="px-6 py-3">Sub Familia</th>
-              <th scope="col" className="px-6 py-3">Tipo de Equipo</th>
-              <th scope="col" className="px-6 py-3">Vida Útil</th>
-              <th scope="col" className="px-6 py-3">Valor Reposición</th>
-              <th scope="col" className="px-6 py-3 sticky right-0 bg-gray-50 z-10 text-right">Acciones</th>
+      {/* Tabla */}
+      <div className="bg-card rounded-lg overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-primary/10">
+              <tr>
+                <th className="px-4 py-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedClasificaciones.length === clasificaciones.length && clasificaciones.length > 0}
+                    onChange={handleSelectAll}
+                    className="rounded"
+                  />
+                </th>
+                <th className="px-4 py-2 text-left">Familia</th>
+                <th className="px-4 py-2 text-left">Sub Familia</th>
+                <th className="px-4 py-2 text-left">Tipo de Equipo</th>
+                <th className="px-4 py-2 text-left">Vida Útil</th>
+                <th className="px-4 py-2 text-left">Valor Reposición</th>
+                <th className="px-4 py-2">Acciones</th>
               </tr>
             </thead>
-          <tbody>
-            {loading ? (
-              <tr><td colSpan={8} className="text-center py-8">Cargando...</td></tr>
-            ) : error ? (
-              <tr><td colSpan={8} className="text-center py-8 text-red-500">{error}</td></tr>
-            ) : clasificaciones.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
-                <td className="w-4 p-4 sticky left-0 bg-white hover:bg-gray-50 z-10">
-                  <input type="checkbox" className="rounded border-gray-300" checked={selectedClasificaciones.includes(item.id)} onChange={() => handleSelectClasificacion(item.id)} />
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.familia || '-'}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.sub_familia || '-'}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.tipo_equipo || '-'}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.vida_util || '-'}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">
-                  {item.valor_reposicion != null
-                    ? `$${Number(item.valor_reposicion).toFixed(2)}`
-                    : '-'}
-                </td>
-                <td className="px-6 py-4 sticky right-0 bg-white hover:bg-gray-50 z-10 text-right">
-                  <div className="flex gap-2 justify-end">
-                    <button onClick={() => handleEdit(item)} className="text-indigo-600 hover:text-indigo-900"><Edit size={16} /></button>
-                    <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button>
-                  </div>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={7} className="text-center py-4">
+                    Cargando...
                   </td>
                 </tr>
-              ))}
+              ) : error ? (
+                <tr>
+                  <td colSpan={7} className="text-center py-4 text-red-600">
+                    {error}
+                  </td>
+                </tr>
+              ) : clasificaciones.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="text-center py-4">
+                    No hay clasificaciones para mostrar
+                  </td>
+                </tr>
+              ) : (
+                clasificaciones.map((clasificacion) => (
+                  <tr key={clasificacion.id} className="border-t">
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedClasificaciones.includes(clasificacion.id)}
+                        onChange={() => handleSelectClasificacion(clasificacion.id)}
+                        className="rounded"
+                      />
+                    </td>
+                    <td className="px-4 py-2">{clasificacion.familia || '-'}</td>
+                    <td className="px-4 py-2">{clasificacion.sub_familia || '-'}</td>
+                    <td className="px-4 py-2">{clasificacion.tipo_equipo || '-'}</td>
+                    <td className="px-4 py-2">{clasificacion.vida_util || '-'}</td>
+                    <td className="px-4 py-2">
+                      {clasificacion.valor_reposicion 
+                        ? `$${clasificacion.valor_reposicion.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` 
+                        : '-'}
+                    </td>
+                    <td className="px-4 py-2">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleEdit(clasificacion)}
+                          className="text-primary hover:text-primary/80"
+                        >
+                          <Edit size={20} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(clasificacion.id)}
+                          className="text-destructive hover:text-destructive/80"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
+      </div>
 
       <ClasificacionModal
         isOpen={isModalOpen}

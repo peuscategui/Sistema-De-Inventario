@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Search, Download, Filter, X } from 'lucide-react';
-import InventarioModal from '../../components/inventario/InventarioModal';
+import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X } from 'lucide-react';
+import InventarioModal from '@/components/inventario/InventarioModal';
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -73,15 +73,26 @@ interface Filters {
   empleado?: string;
 }
 
-export default function InventoryPage() {
+const filterOptions = [
+  { value: 'codigoEFC', label: 'Código EFC' },
+  { value: 'marca', label: 'Marca' },
+  { value: 'modelo', label: 'Modelo' },
+  { value: 'estado', label: 'Estado' },
+  { value: 'sede', label: 'Sede' },
+  { value: 'gerencia', label: 'Gerencia' },
+  { value: 'familia', label: 'Familia' },
+  { value: 'empleado', label: 'Empleado' },
+];
+
+export default function InventarioPage() {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<Filters>({});
-  const [showFilters, setShowFilters] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>(filterOptions[0].value);
+  const [filterValue, setFilterValue] = useState<string>('');
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [pagination, setPagination] = useState({
     total: 0,
@@ -117,54 +128,38 @@ export default function InventoryPage() {
     }
   };
 
-  const searchInventory = async () => {
-    if (!searchQuery.trim()) {
-      fetchInventory();
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `http://localhost:3002/inventario-relacional/search?q=${encodeURIComponent(searchQuery)}&page=${page}&limit=${pageSize}`
-      );
-      if (!response.ok) {
-        throw new Error('Error al buscar en el inventario');
-      }
-      const data = await response.json();
-      setInventory(data.items);
-      setPagination(data.meta);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    if (searchQuery.trim()) {
-      searchInventory();
-    } else {
-      fetchInventory();
-    }
-  }, [page, pageSize, filters, searchQuery]);
+    fetchInventory();
+  }, [page, pageSize, filters]);
 
   const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPageSize(Number(e.target.value));
     setPage(1);
   };
 
-  const handleFilterChange = (key: keyof Filters, value: string) => {
-    setFilters(prev => ({
-      ...prev,
-      [key]: value || undefined
-    }));
-    setPage(1);
+  const handleFilterChange = (value: string) => {
+    setFilterValue(value);
+  };
+
+  const handleSearch = () => {
+    setPage(1); // Resetear a la primera página al buscar
+    if (selectedFilter && filterValue) {
+      setFilters({ [selectedFilter]: filterValue });
+    } else {
+      setFilters({});
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   const clearFilters = () => {
     setFilters({});
-    setSearchQuery('');
+    setSelectedFilter(filterOptions[0].value);
+    setFilterValue('');
     setPage(1);
   };
 
@@ -292,190 +287,103 @@ export default function InventoryPage() {
     setModalOpen(true);
   };
 
+  const handleDelete = async (id: number) => {
+    if (!confirm('¿Estás seguro de que quieres eliminar este item?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3002/inventario-relacional/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al eliminar el item');
+      }
+
+      fetchInventory();
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <InventarioModal
-        isOpen={modalOpen}
-        onClose={() => { setModalOpen(false); setEditItem(null); }}
-        onSubmit={handleModalSubmit}
-        inventario={editItem}
-        isSubmitting={isSubmitting}
-      />
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Gestión de Inventario</h1>
+    <div className="container mx-auto p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Inventario</h1>
         <button
-          className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-4 rounded-lg flex items-center gap-2"
-          onClick={() => { setModalOpen(true); setEditItem(null); }}
+          onClick={() => setModalOpen(true)}
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
         >
           <PlusCircle size={20} />
-          Añadir Item
+          Nuevo Item
         </button>
       </div>
 
-      {/* Barra de búsqueda y filtros */}
-      <div className="bg-card p-4 rounded-lg shadow-sm mb-6">
-        <div className="flex flex-wrap gap-4 items-center">
-          <div className="flex-1 min-w-[300px]">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
-              <input
-                type="text"
-                placeholder="Buscar en inventario..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-border rounded-md bg-background"
-              />
-            </div>
-          </div>
-          
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-2 border border-border rounded-md hover:bg-accent"
-          >
+      {/* Barra superior */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-2 flex-1">
+          <div className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2">
             <Filter size={20} />
-            Filtros
-          </button>
-
-          <button
-            onClick={exportToCSV}
-            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-          >
-            <Download size={20} />
-            Exportar CSV
-          </button>
-
-          {selectedItems.length > 0 && (
+            {filterOptions.find(opt => opt.value === selectedFilter)?.label}
+          </div>
+          <div className="flex-1 flex gap-2 max-w-xl">
+            <input
+              type="text"
+              value={filterValue}
+              onChange={(e) => handleFilterChange(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder={`Buscar por ${filterOptions.find(opt => opt.value === selectedFilter)?.label}`}
+              className="flex-1 border rounded-lg px-4 py-2"
+            />
             <button
-              onClick={deleteSelected}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              onClick={handleSearch}
+              className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
             >
-              <Trash2 size={20} />
-              Eliminar ({selectedItems.length})
+              <Search size={20} />
+              Buscar
             </button>
-          )}
-        </div>
-
-        {/* Filtros expandibles */}
-        {showFilters && (
-          <div className="mt-4 pt-4 border-t border-border">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Código EFC</label>
-                <input
-                  type="text"
-                  value={filters.codigoEFC || ''}
-                  onChange={(e) => handleFilterChange('codigoEFC', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Marca</label>
-                <input
-                  type="text"
-                  value={filters.marca || ''}
-                  onChange={(e) => handleFilterChange('marca', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Modelo</label>
-                <input
-                  type="text"
-                  value={filters.modelo || ''}
-                  onChange={(e) => handleFilterChange('modelo', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Estado</label>
-                <input
-                  type="text"
-                  value={filters.estado || ''}
-                  onChange={(e) => handleFilterChange('estado', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Sede</label>
-                <input
-                  type="text"
-                  value={filters.sede || ''}
-                  onChange={(e) => handleFilterChange('sede', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Gerencia</label>
-                <input
-                  type="text"
-                  value={filters.gerencia || ''}
-                  onChange={(e) => handleFilterChange('gerencia', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Familia</label>
-                <input
-                  type="text"
-                  value={filters.familia || ''}
-                  onChange={(e) => handleFilterChange('familia', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Empleado</label>
-                <input
-                  type="text"
-                  value={filters.empleado || ''}
-                  onChange={(e) => handleFilterChange('empleado', e.target.value)}
-                  className="w-full px-3 py-2 border border-border rounded-md bg-background"
-                />
-              </div>
-            </div>
-            <div className="mt-4 flex justify-end">
+            {Object.keys(filters).length > 0 && (
               <button
                 onClick={clearFilters}
-                className="flex items-center gap-2 px-4 py-2 text-muted-foreground hover:text-foreground"
+                className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
               >
                 <X size={20} />
-                Limpiar filtros
+                Limpiar
               </button>
-            </div>
+            )}
           </div>
-        )}
-      </div>
-
-      {/* Controles de paginación */}
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <label htmlFor="pageSize" className="mr-2 text-sm font-medium">Registros por página:</label>
-          <select 
-            id="pageSize" 
-            value={pageSize} 
-            onChange={handlePageSizeChange}
-            className="bg-card border border-border rounded-md px-2 py-1"
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={40}>40</option>
-          </select>
         </div>
+
         <div className="flex items-center gap-4">
-          <span className="text-sm">
-            Mostrando {((page - 1) * pageSize) + 1} - {Math.min(page * pageSize, pagination.total)} de {pagination.total} registros
-          </span>
           <div className="flex items-center gap-2">
-            <button 
-              onClick={() => setPage(p => Math.max(1, p - 1))}
+            <span className="text-sm text-gray-600">Registros por página:</span>
+            <select
+              value={pageSize}
+              onChange={handlePageSizeChange}
+              className="border rounded-lg px-2 py-2"
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPage(page - 1)}
               disabled={page === 1}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
+              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
             >
               Anterior
             </button>
-            <button 
-              onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))}
+            <span className="text-sm text-gray-600">
+              Página {page} de {pagination.totalPages}
+            </span>
+            <button
+              onClick={() => setPage(page + 1)}
               disabled={page === pagination.totalPages}
-              className="px-3 py-1 border border-border rounded-md disabled:opacity-50"
+              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
             >
               Siguiente
             </button>
@@ -483,88 +391,124 @@ export default function InventoryPage() {
         </div>
       </div>
 
-      {loading && <p className="text-center py-4">Cargando inventario...</p>}
-      {error && <p className="text-red-500 text-center py-4">Error: {error}</p>}
-      
-      {!loading && !error && (
-        <div className="bg-card shadow-md rounded-lg overflow-x-auto">
-          <table className="min-w-full">
-            <thead className="bg-gray-100 dark:bg-gray-800">
+      {/* Barra de acciones */}
+      <div className="flex justify-between items-center mb-4">
+        {selectedItems.length > 0 && (
+          <button
+            onClick={deleteSelected}
+            className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
+          >
+            <Trash2 size={20} />
+            Eliminar ({selectedItems.length})
+          </button>
+        )}
+
+        <div className="flex gap-2 ml-auto">
+          <button
+            onClick={exportToCSV}
+            className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+          >
+            <Download size={20} />
+            Exportar
+          </button>
+        </div>
+      </div>
+
+      {/* Tabla */}
+      <div className="bg-card rounded-lg overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-primary/10">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                <th className="px-4 py-2">
                   <input
                     type="checkbox"
                     checked={selectedItems.length === inventory.length && inventory.length > 0}
                     onChange={(e) => handleSelectAll(e.target.checked)}
-                    className="rounded border-border"
+                    className="rounded"
                   />
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Código EFC</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Marca</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Modelo</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Serie</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Estado</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Empleado</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Cargo</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Gerencia</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Familia</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Sede</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Ubicación</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">Acciones</th>
+                <th className="px-4 py-2 text-left">Código EFC</th>
+                <th className="px-4 py-2 text-left">Marca</th>
+                <th className="px-4 py-2 text-left">Modelo</th>
+                <th className="px-4 py-2 text-left">Estado</th>
+                <th className="px-4 py-2 text-left">Sede</th>
+                <th className="px-4 py-2 text-left">Gerencia</th>
+                <th className="px-4 py-2 text-left">Usuario</th>
+                <th className="px-4 py-2">Acciones</th>
               </tr>
             </thead>
-            <tbody className="bg-card divide-y divide-border">
-              {inventory.map((item) => (
-                <tr key={item.id} className="hover:bg-accent/50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item.id)}
-                      onChange={(e) => handleSelectItem(item.id, e.target.checked)}
-                      className="rounded border-border"
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.codigoEFC || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.marca || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.modelo || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.serie || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full uppercase ${
-                      item.estado === 'Activo' ? 'bg-green-100 text-green-800' : 
-                      item.estado === 'Inactivo' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {item.estado || 'N/A'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.empleado?.nombre || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.empleado?.cargo || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.empleado?.gerencia || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.clasificacion?.familia || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.sede || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 uppercase">{item.ubicacionEquipo || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
-                    <button
-                      onClick={() => openEditModal(item)}
-                      className="text-primary hover:text-primary/80 mr-4"
-                    >
-                      <Edit size={18} />
-                    </button>
-                    <button className="text-destructive hover:text-destructive/80">
-                      <Trash2 size={18} />
-                    </button>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={9} className="text-center py-4">
+                    Cargando...
                   </td>
                 </tr>
-              ))}
+              ) : error ? (
+                <tr>
+                  <td colSpan={9} className="text-center py-4 text-red-600">
+                    {error}
+                  </td>
+                </tr>
+              ) : inventory.length === 0 ? (
+                <tr>
+                  <td colSpan={9} className="text-center py-4">
+                    No hay items en el inventario para mostrar
+                  </td>
+                </tr>
+              ) : (
+                inventory.map((item) => (
+                  <tr key={item.id} className="border-t">
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedItems.includes(item.id)}
+                        onChange={(e) => handleSelectItem(item.id, e.target.checked)}
+                        className="rounded"
+                      />
+                    </td>
+                    <td className="px-4 py-2">{item.codigoEFC || '-'}</td>
+                    <td className="px-4 py-2">{item.marca || '-'}</td>
+                    <td className="px-4 py-2">{item.modelo || '-'}</td>
+                    <td className="px-4 py-2">{item.estado || '-'}</td>
+                    <td className="px-4 py-2">{item.sede || '-'}</td>
+                    <td className="px-4 py-2">{item.gerencia || '-'}</td>
+                    <td className="px-4 py-2">{item.usuarios || '-'}</td>
+                    <td className="px-4 py-2">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => openEditModal(item)}
+                          className="text-primary hover:text-primary/80"
+                        >
+                          <Edit size={20} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="text-destructive hover:text-destructive/80"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
-      )}
+      </div>
 
-      {!loading && !error && inventory.length === 0 && (
-        <div className="text-center py-8">
-          <p className="text-muted-foreground">No se encontraron registros de inventario</p>
-        </div>
-      )}
+      <InventarioModal
+        isOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setEditItem(null);
+        }}
+        onSubmit={handleModalSubmit}
+        inventario={editItem}
+        isSubmitting={isSubmitting}
+      />
     </div>
   );
 } 
