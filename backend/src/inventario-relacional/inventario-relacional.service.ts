@@ -1,5 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { Prisma } from '@prisma/client';
+
+type InventoryWithRelations = Prisma.inventoryGetPayload<{
+  include: {
+    clasificacion: {
+      select: {
+        familia: true;
+        sub_familia: true;
+        tipo_equipo: true;
+        vida_util: true;
+        valor_reposicion: true;
+      };
+    };
+    empleado: {
+      select: {
+        nombre: true;
+        cargo: true;
+        gerencia: true;
+      };
+    };
+  };
+}>;
 
 @Injectable()
 export class InventarioRelacionalService {
@@ -185,7 +207,7 @@ export class InventarioRelacionalService {
       }
     });
 
-    return items.map(item => ({
+    return items.map((item: InventoryWithRelations) => ({
       'Código EFC': item.codigoEFC || '',
       'Tipo Equipo': item.tipoEquipo || '',
       'Familia': item.clasificacion?.familia || '',
