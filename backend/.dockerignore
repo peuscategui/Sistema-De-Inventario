@@ -26,8 +26,6 @@ Thumbs.db
 !.env
 !prisma/schema.prisma
 
-.env
-.env.*
 README.md
 coverage
 test

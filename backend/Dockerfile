@@ -19,7 +19,8 @@ COPY prisma ./prisma/
 
 RUN npm config set registry https://registry.npmjs.org/
 RUN npm install --legacy-peer-deps
-RUN npx prisma generate
+RUN npm install prisma@latest
+RUN npx prisma generate --schema=./prisma/schema.prisma
 
 COPY . .
 RUN npm run build
