@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: inventario_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-inventario}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - inventario_network
+    restart: unless-stopped
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: inventario_backend
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-inventario}
+      NODE_ENV: production
+    ports:
+      - "3002:3002"
+    depends_on:
+      - postgres
+    networks:
+      - inventario_network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: inventario_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:3002
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - inventario_network
+    restart: unless-stopped
+
+networks:
+  inventario_network:
+    driver: bridge
+
+volumes:
+  postgres_data: 
