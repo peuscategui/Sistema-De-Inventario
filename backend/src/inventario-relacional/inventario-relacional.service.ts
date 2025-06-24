@@ -1,11 +1,58 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { inventory, clasificacion, empleado } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime/library';
 
-type InventoryWithRelations = inventory & {
-  clasificacion: Pick<clasificacion, 'familia' | 'sub_familia' | 'tipo_equipo' | 'vida_util' | 'valor_reposicion'> | null;
-  empleado: Pick<empleado, 'nombre' | 'cargo' | 'gerencia'> | null;
-};
+interface InventoryWithRelations {
+  id: number;
+  codigoEFC: string | null;
+  tipoEquipo: string | null;
+  familia: string | null;
+  subFamilia: string | null;
+  marca: string | null;
+  modelo: string | null;
+  descripcion: string | null;
+  serie: string | null;
+  procesador: string | null;
+  anio: number | null;
+  ram: string | null;
+  discoDuro: string | null;
+  sistemaOperativo: string | null;
+  sede: string | null;
+  estado: string | null;
+  usuarios: string | null;
+  cargo: string | null;
+  gerencia: string | null;
+  ubicacionEquipo: string | null;
+  qUsuarios: number | null;
+  condicion: string | null;
+  repotenciadas: boolean | null;
+  clasificacionObsolescencia: string | null;
+  clasificacionRepotenciadas: string | null;
+  motivoCompra: string | null;
+  precioReposicion: Decimal | null;
+  proveedor: string | null;
+  factura: string | null;
+  anioCompra: number | null;
+  precioReposicion2024: Decimal | null;
+  observaciones: string | null;
+  vidaUtil: string | null;
+  fecha_compra: number | null;
+  precioUnitarioSinIgv: string | null;
+  clasificacionId: number | null;
+  empleadoId: number | null;
+  clasificacion: {
+    familia: string | null;
+    sub_familia: string | null;
+    tipo_equipo: string | null;
+    vida_util: string | null;
+    valor_reposicion: Decimal | null;
+  } | null;
+  empleado: {
+    nombre: string | null;
+    cargo: string | null;
+    gerencia: string | null;
+  } | null;
+}
 
 @Injectable()
 export class InventarioRelacionalService {
