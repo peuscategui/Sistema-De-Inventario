@@ -1,27 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { Prisma } from '@prisma/client';
+import { inventory, clasificacion, empleado } from '@prisma/client';
 
-type InventoryWithRelations = Prisma.inventoryGetPayload<{
-  include: {
-    clasificacion: {
-      select: {
-        familia: true;
-        sub_familia: true;
-        tipo_equipo: true;
-        vida_util: true;
-        valor_reposicion: true;
-      };
-    };
-    empleado: {
-      select: {
-        nombre: true;
-        cargo: true;
-        gerencia: true;
-      };
-    };
-  };
-}>;
+type InventoryWithRelations = inventory & {
+  clasificacion: Pick<clasificacion, 'familia' | 'sub_familia' | 'tipo_equipo' | 'vida_util' | 'valor_reposicion'> | null;
+  empleado: Pick<empleado, 'nombre' | 'cargo' | 'gerencia'> | null;
+};
 
 @Injectable()
 export class InventarioRelacionalService {
