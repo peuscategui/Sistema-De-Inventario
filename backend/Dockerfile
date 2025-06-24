@@ -6,21 +6,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-ENV POSTGRES_USER=postgres \
-    POSTGRES_PASSWORD=postgres \
-    POSTGRES_DB=inventario \
-    DATABASE_URL="postgresql://postgres:postgres@inventario_postgres:5432/inventario" \
-    PORT=3002 \
-    NODE_ENV=production \
-    CORS_ORIGIN="https://tiinventory.efc.com.pe"
-
 COPY package*.json ./
 COPY prisma ./prisma/
+COPY .env .
 
-RUN npm config set registry https://registry.npmjs.org/
-RUN npm install --legacy-peer-deps
-RUN npm install @prisma/client@latest prisma@latest --save-dev
-RUN npx prisma generate --schema=./prisma/schema.prisma
+RUN npm ci
+RUN npx prisma generate
 
 COPY . .
 RUN npm run build
