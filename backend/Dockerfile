@@ -6,8 +6,15 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+ENV POSTGRES_USER=postgres \
+    POSTGRES_PASSWORD=postgres \
+    POSTGRES_DB=inventario \
+    DATABASE_URL="postgresql://postgres:postgres@inventario_postgres:5432/inventario" \
+    PORT=3002 \
+    NODE_ENV=production \
+    CORS_ORIGIN="https://tiinventory.efc.com.pe"
+
 COPY package*.json ./
-COPY .env ./
 COPY prisma ./prisma/
 
 RUN npm config set registry https://registry.npmjs.org/
