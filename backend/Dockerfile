@@ -15,7 +15,7 @@ COPY prisma ./prisma/
 
 # Configurar npm y instalar dependencias (cada comando en su propia capa)
 RUN npm config set registry https://registry.npmjs.org/
-RUN npm ci
+RUN npm install --legacy-peer-deps
 RUN npx prisma generate
 
 # Copiar el resto del código fuente
