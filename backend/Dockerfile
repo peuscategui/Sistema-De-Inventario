@@ -9,8 +9,9 @@ RUN apt-get update && apt-get install -y \
 # Crear y establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos de dependencias primero
+# Copiar los archivos de dependencias y configuración primero
 COPY package*.json ./
+COPY .env ./
 COPY prisma ./prisma/
 
 # Configurar npm y instalar dependencias (cada comando en su propia capa)
