@@ -10,7 +10,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 COPY .env .
 
-RUN npm ci
+RUN npm install --legacy-peer-deps
 RUN npx prisma generate
 
 COPY . .
