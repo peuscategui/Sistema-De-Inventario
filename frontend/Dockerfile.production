@@ -1,4 +1,4 @@
-# Dockerfile optimizado para producción en EasyPanel
+# Dockerfile optimizado para EasyPanel
 FROM node:20-alpine AS base
 
 # Instalar dependencias necesarias
@@ -7,9 +7,8 @@ WORKDIR /app
 
 # Instalar dependencias
 FROM base AS deps
-# Copiar archivos de dependencias
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --only=production --legacy-peer-deps
 
 # Builder stage
 FROM base AS builder
@@ -18,10 +17,9 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
 # Configurar variables de entorno para build
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_API_URL=https://titinventario.efc.com.pe
 
 # Build de la aplicación
 RUN npm run build
@@ -32,6 +30,8 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 # Crear usuario no-root
 RUN addgroup --system --gid 1001 nodejs
@@ -46,13 +46,6 @@ USER nextjs
 
 # Exponer puerto
 EXPOSE 3000
-
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD node server.js || exit 1
 
 # Comando de inicio
 CMD ["node", "server.js"] 

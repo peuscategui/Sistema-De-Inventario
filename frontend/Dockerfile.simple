@@ -1,0 +1,28 @@
+# Dockerfile simple para EasyPanel
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+
+# Instalar dependencias
+RUN npm install --legacy-peer-deps
+
+# Copiar el resto del código
+COPY . .
+
+# Variables de entorno
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_API_URL=https://titinventario.efc.com.pe
+ENV PORT=3000
+
+# Build
+RUN npm run build
+
+# Exponer puerto
+EXPOSE 3000
+
+# Comando
+CMD ["npm", "start"] 
