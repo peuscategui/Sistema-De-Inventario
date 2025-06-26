@@ -18,7 +18,11 @@ async function bootstrap() {
 
   // Habilitar CORS para permitir solicitudes desde el frontend
   app.enableCors({
-    origin: 'http://localhost:3000', // Origen del frontend
+    origin: [
+      'http://localhost:3000', // Desarrollo local
+      'http://192.168.40.79:3005', // Frontend en EasyPanel
+      'http://192.168.40.79:3000', // Por si usa puerto 3000
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
