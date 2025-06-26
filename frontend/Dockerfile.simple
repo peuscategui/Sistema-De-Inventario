@@ -3,14 +3,14 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copiar archivos de dependencias
-COPY package*.json ./
+# Primero copiamos solo los archivos de dependencias del frontend
+COPY frontend/package*.json ./
 
 # Instalar dependencias
 RUN npm install --legacy-peer-deps
 
-# Copiar el resto del código
-COPY . .
+# Ahora copiamos todo el código del frontend
+COPY frontend/ .
 
 # Variables de entorno
 ENV NODE_ENV=production
