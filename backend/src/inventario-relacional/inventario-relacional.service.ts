@@ -31,8 +31,8 @@ export class InventarioRelacionalService {
     const skip = (page - 1) * limit;
     
     const whereClause = this.buildWhereClause(filters);
-    // Excluir donaciones del inventario normal
-    whereClause.estado = whereClause.estado ? whereClause.estado : { not: 'DONACION' };
+    // Excluir donaciones y bajas del inventario normal
+    whereClause.estado = whereClause.estado ? whereClause.estado : { notIn: ['DONACION', 'BAJA'] };
     
     const [items, total] = await Promise.all([
       this.prisma.inventory.findMany({
@@ -110,7 +110,7 @@ export class InventarioRelacionalService {
       this.prisma.inventory.findMany({
         where: {
           AND: [
-            { estado: { not: 'DONACION' } }, // Excluir donaciones de la búsqueda
+            { estado: { notIn: ['DONACION', 'BAJA'] } }, // Excluir donaciones y bajas de la búsqueda
             {
               OR: [
                 { codigoEFC: { contains: query, mode: 'insensitive' } },
@@ -158,7 +158,7 @@ export class InventarioRelacionalService {
       this.prisma.inventory.count({
         where: {
           AND: [
-            { estado: { not: 'DONACION' } }, // Excluir donaciones del conteo
+            { estado: { notIn: ['DONACION', 'BAJA'] } }, // Excluir donaciones y bajas del conteo
             {
               OR: [
                 { codigoEFC: { contains: query, mode: 'insensitive' } },
@@ -371,6 +371,145 @@ export class InventarioRelacionalService {
         where: {
           AND: [
             { estado: 'DONACION' },
+            {
+              OR: [
+                { codigoEFC: { contains: query, mode: 'insensitive' } },
+                { modelo: { contains: query, mode: 'insensitive' } },
+                { descripcion: { contains: query, mode: 'insensitive' } },
+                { marca: { contains: query, mode: 'insensitive' } },
+                { serie: { contains: query, mode: 'insensitive' } },
+                { usuarios: { contains: query, mode: 'insensitive' } },
+                { empleado: { nombre: { contains: query, mode: 'insensitive' } } },
+                { empleado: { cargo: { contains: query, mode: 'insensitive' } } },
+                { empleado: { gerencia: { contains: query, mode: 'insensitive' } } },
+                { clasificacion: { familia: { contains: query, mode: 'insensitive' } } },
+                { clasificacion: { sub_familia: { contains: query, mode: 'insensitive' } } },
+                { clasificacion: { tipo_equipo: { contains: query, mode: 'insensitive' } } }
+              ]
+            }
+          ]
+        }
+      })
+    ]);
+
+    return {
+      items,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
+    };
+  }
+
+  // Métodos específicos para bajas
+  async findAllBajas(page = 1, limit = 10, filters?: any) {
+    const skip = (page - 1) * limit;
+    
+    const whereClause = this.buildWhereClause(filters);
+    // Solo incluir bajas
+    whereClause.estado = 'BAJA';
+    
+    const [items, total] = await Promise.all([
+      this.prisma.inventory.findMany({
+        where: whereClause,
+        skip,
+        take: limit,
+        include: {
+          clasificacion: {
+            select: {
+              id: true,
+              familia: true,
+              sub_familia: true,
+              tipo_equipo: true,
+              vida_util: true,
+              valor_reposicion: true
+            }
+          },
+          empleado: {
+            select: {
+              id: true,
+              nombre: true,
+              cargo: true,
+              gerencia: true
+            }
+          }
+        },
+        orderBy: {
+          id: 'asc'
+        }
+      }),
+      this.prisma.inventory.count({ where: whereClause })
+    ]);
+
+    return {
+      items,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
+    };
+  }
+
+  async searchBajas(query: string, page = 1, limit = 10) {
+    const skip = (page - 1) * limit;
+    
+    const [items, total] = await Promise.all([
+      this.prisma.inventory.findMany({
+        where: {
+          AND: [
+            { estado: 'BAJA' }, // Solo bajas
+            {
+              OR: [
+                { codigoEFC: { contains: query, mode: 'insensitive' } },
+                { modelo: { contains: query, mode: 'insensitive' } },
+                { descripcion: { contains: query, mode: 'insensitive' } },
+                { marca: { contains: query, mode: 'insensitive' } },
+                { serie: { contains: query, mode: 'insensitive' } },
+                { usuarios: { contains: query, mode: 'insensitive' } },
+                { empleado: { nombre: { contains: query, mode: 'insensitive' } } },
+                { empleado: { cargo: { contains: query, mode: 'insensitive' } } },
+                { empleado: { gerencia: { contains: query, mode: 'insensitive' } } },
+                { clasificacion: { familia: { contains: query, mode: 'insensitive' } } },
+                { clasificacion: { sub_familia: { contains: query, mode: 'insensitive' } } },
+                { clasificacion: { tipo_equipo: { contains: query, mode: 'insensitive' } } }
+              ]
+            }
+          ]
+        },
+        skip,
+        take: limit,
+        include: {
+          clasificacion: {
+            select: {
+              id: true,
+              familia: true,
+              sub_familia: true,
+              tipo_equipo: true,
+              vida_util: true,
+              valor_reposicion: true
+            }
+          },
+          empleado: {
+            select: {
+              id: true,
+              nombre: true,
+              cargo: true,
+              gerencia: true
+            }
+          }
+        },
+        orderBy: {
+          id: 'asc'
+        }
+      }),
+      this.prisma.inventory.count({
+        where: {
+          AND: [
+            { estado: 'BAJA' },
             {
               OR: [
                 { codigoEFC: { contains: query, mode: 'insensitive' } },

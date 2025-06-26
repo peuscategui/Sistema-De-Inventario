@@ -1,31 +1,65 @@
-# Usar una imagen base de Node.js más específica
-FROM node:18.17-bullseye-slim
+# Multi-stage build para optimizar el tamaño de la imagen final
+FROM node:18.17-bullseye-slim as builder
 
-# Crear y establecer el directorio de trabajo
+# Crear directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos de dependencias primero
+# Copiar archivos de dependencias
 COPY package*.json ./
 
-# Instalar dependencias con una configuración más específica
-RUN npm config set registry https://registry.npmjs.org/
-RUN npm install --legacy-peer-deps
+# Instalar dependencias
+RUN npm ci --legacy-peer-deps
 
-# Copiar el resto del código fuente
+# Copiar código fuente
 COPY . .
 
-# Establecer variables de entorno para la construcción
-ARG NEXT_PUBLIC_API_URL
-ARG NEXT_PUBLIC_BASE_URL
+# Variables de entorno para build
+ARG NEXT_PUBLIC_API_URL=http://localhost:3002
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL
 ENV NODE_ENV=production
 
-# Compilar la aplicación con manejo de errores
-RUN npm run build || (cat /app/.next/error.log && exit 1)
+# Deshabilitar telemetría de Next.js
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Exponer el puerto que usa la aplicación
+# Construir la aplicación
+RUN npm run build
+
+# Etapa de producción
+FROM node:18.17-bullseye-slim as production
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear usuario no-root para seguridad
+RUN groupadd -r nextjs && useradd -r -g nextjs nextjs
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Variables de entorno
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+
+# Copiar archivos necesarios desde builder
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+# Cambiar propiedad de archivos al usuario nextjs
+RUN chown -R nextjs:nextjs /app
+
+# Cambiar a usuario no-root
+USER nextjs
+
+# Exponer puerto
 EXPOSE 3000
 
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/ || exit 1
+
 # Comando para iniciar la aplicación
-CMD ["npm", "start"] 
+CMD ["node", "server.js"] 

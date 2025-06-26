@@ -16,6 +16,7 @@ import {
   Settings,
   LogOut,
   Heart,
+  X,
 } from 'lucide-react'
 import Image from 'next/image'
 
@@ -23,6 +24,7 @@ const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/inventario', label: 'Inventario', icon: Box },
   { href: '/donaciones', label: 'Donaciones', icon: Heart },
+  { href: '/bajas', label: 'Bajas', icon: X },
   { href: '/clasificacion', label: 'Clasificación', icon: Shapes },
   { href: '/colaboradores', label: 'Colaboradores', icon: Users },
   { href: '/articulos', label: 'Artículos', icon: Package },

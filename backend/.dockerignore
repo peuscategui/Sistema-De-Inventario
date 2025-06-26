@@ -1,33 +1,58 @@
-# Dependencies
+# Dependencias
 node_modules
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Build output
+# Archivos de desarrollo
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos de build
 dist
 build
 
-# Version control
-.git
-.gitignore
+# Archivos de test
+coverage
+*.lcov
 
-# IDE
-.idea
+# Archivos de IDE
 .vscode
+.idea
 *.swp
 *.swo
 
-# OS
+# Archivos del sistema
 .DS_Store
 Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Logs
+logs
+*.log
+
+# Archivos temporales
+tmp
+temp
+
+# Documentación
+README.md
+docs
+
+# Archivos de test
+test
+*.spec.ts
+*.test.ts
 
 # Do NOT ignore these files
 !.env
 !prisma/schema.prisma
-
-README.md
-coverage
-test
-*.test.*
-*.spec.* 

@@ -126,4 +126,47 @@ export class InventarioRelacionalController {
       limit ? parseInt(limit) : 10
     );
   }
+
+  // Endpoints específicos para bajas
+  @Get('bajas/all')
+  findAllBajas(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('codigoEFC') codigoEFC?: string,
+    @Query('marca') marca?: string,
+    @Query('modelo') modelo?: string,
+    @Query('sede') sede?: string,
+    @Query('gerencia') gerencia?: string,
+    @Query('familia') familia?: string,
+    @Query('empleado') empleado?: string,
+  ) {
+    const filters = {
+      codigoEFC,
+      marca,
+      modelo,
+      sede,
+      gerencia,
+      familia,
+      empleado
+    };
+
+    return this.inventarioRelacionalService.findAllBajas(
+      page ? parseInt(page) : 1,
+      limit ? parseInt(limit) : 10,
+      filters
+    );
+  }
+
+  @Get('bajas/search')
+  searchBajas(
+    @Query('q') query: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.inventarioRelacionalService.searchBajas(
+      query,
+      page ? parseInt(page) : 1,
+      limit ? parseInt(limit) : 10
+    );
+  }
 } 

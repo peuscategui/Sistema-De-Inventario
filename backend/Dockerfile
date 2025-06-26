@@ -1,23 +1,75 @@
-FROM node:18.17-bullseye-slim
+# Multi-stage build para optimizar el tamaño de la imagen final
+FROM node:18.17-bullseye-slim as builder
 
+# Instalar dependencias del sistema necesarias
 RUN apt-get update && apt-get install -y \
     openssl \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# Crear directorio de trabajo
 WORKDIR /app
 
+# Copiar archivos de dependencias
 COPY package*.json ./
 COPY prisma ./prisma/
-COPY .env .
 
-RUN npm install --legacy-peer-deps
+# Instalar todas las dependencias (incluidas las de desarrollo)
+RUN npm ci --legacy-peer-deps
+
+# Generar cliente de Prisma
 RUN npx prisma generate
 
+# Copiar código fuente
 COPY . .
+
+# Construir la aplicación
 RUN npm run build
 
-RUN npm prune --production
+# Etapa de producción
+FROM node:18.17-bullseye-slim as production
 
+# Instalar dependencias del sistema para producción
+RUN apt-get update && apt-get install -y \
+    openssl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear usuario no-root para seguridad
+RUN groupadd -r nestjs && useradd -r -g nestjs nestjs
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+COPY prisma ./prisma/
+
+# Instalar solo dependencias de producción
+RUN npm ci --only=production --legacy-peer-deps && npm cache clean --force
+
+# Generar cliente de Prisma para producción
+RUN npx prisma generate
+
+# Copiar código compilado desde la etapa builder
+COPY --from=builder /app/dist ./dist
+
+# Cambiar propiedad de archivos al usuario nestjs
+RUN chown -R nestjs:nestjs /app
+
+# Cambiar a usuario no-root
+USER nestjs
+
+# Exponer puerto
 EXPOSE 3002
 
+# Variables de entorno por defecto
+ENV NODE_ENV=production
+ENV PORT=3002
+
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3002/health || exit 1
+
+# Comando para iniciar la aplicación
 CMD ["npm", "run", "start:prod"]
