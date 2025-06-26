@@ -1,5 +1,12 @@
 // Configuración de la API
+// Prioridad: 1) Variable de entorno del sistema, 2) Fallback para desarrollo local
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
+
+// Debug: Mostrar la URL que se está usando y todas las variables disponibles
+console.log('🔧 API_BASE_URL configurada:', API_BASE_URL);
+console.log('🔧 NEXT_PUBLIC_API_URL desde env:', process.env.NEXT_PUBLIC_API_URL);
+console.log('🔧 NODE_ENV:', process.env.NODE_ENV);
+console.log('🔧 Todas las variables NEXT_PUBLIC_:', Object.keys(process.env).filter(key => key.startsWith('NEXT_PUBLIC_')));
 
 // URLs específicas del API
 export const API_ENDPOINTS = {
