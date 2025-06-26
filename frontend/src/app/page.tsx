@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import { API_ENDPOINTS } from '@/config/api';
 
 interface DashboardStats {
   totalEquipos: number;
@@ -48,8 +49,8 @@ export default function HomePage() {
     const fetchDashboardData = async () => {
       try {
         const [statsResponse, distribucionResponse] = await Promise.all([
-                  fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/dashboard`),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/dashboard/distribucion-familia`)
+          fetch(API_ENDPOINTS.dashboard),
+          fetch(API_ENDPOINTS.dashboardDistribucion)
         ]);
 
         if (!statsResponse.ok || !distribucionResponse.ok) {
