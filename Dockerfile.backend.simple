@@ -1,0 +1,32 @@
+FROM node:18.17-bullseye-slim
+
+# Instalar curl para healthcheck
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar todo el proyecto
+COPY . .
+
+# Cambiar al directorio backend
+WORKDIR /app/backend
+
+# Instalar dependencias
+RUN npm install --legacy-peer-deps
+
+# Generar Prisma client
+RUN npx prisma generate
+
+# Construir la aplicación
+RUN npm run build
+
+# Exponer puerto
+EXPOSE 3002
+
+# Variables de entorno
+ENV NODE_ENV=production
+ENV PORT=3002
+
+# Comando para iniciar
+CMD ["npm", "run", "start:prod"] 

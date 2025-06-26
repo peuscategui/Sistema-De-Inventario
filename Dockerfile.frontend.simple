@@ -1,0 +1,34 @@
+FROM node:18.17-bullseye-slim
+
+# Instalar curl para healthcheck
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar todo el proyecto
+COPY . .
+
+# Cambiar al directorio frontend
+WORKDIR /app/frontend
+
+# Instalar dependencias
+RUN npm install --legacy-peer-deps
+
+# Variables de entorno para build
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Construir la aplicación
+RUN npm run build
+
+# Exponer puerto
+EXPOSE 3000
+
+# Variables de entorno
+ENV PORT=3000
+
+# Comando para iniciar
+CMD ["npm", "start"] 

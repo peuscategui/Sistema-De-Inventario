@@ -13,7 +13,7 @@ WORKDIR /app
 
 # Copiar archivos de dependencias del backend
 COPY backend/package*.json ./
-COPY backend/prisma ./prisma/
+COPY backend/prisma/ ./prisma/
 
 # Instalar todas las dependencias (incluidas las de desarrollo)
 RUN npm ci --legacy-peer-deps
@@ -45,7 +45,7 @@ WORKDIR /app
 
 # Copiar archivos de dependencias
 COPY backend/package*.json ./
-COPY backend/prisma ./prisma/
+COPY backend/prisma/ ./prisma/
 
 # Instalar solo dependencias de producción
 RUN npm ci --only=production --legacy-peer-deps && npm cache clean --force
