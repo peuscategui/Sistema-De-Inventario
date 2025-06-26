@@ -16,14 +16,14 @@ COPY frontend/ .
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_PUBLIC_API_URL=https://titinventario.efc.com.pe
-ENV PORT=3000
+ENV PORT=3005
 ENV HOSTNAME=0.0.0.0
 
 # Build
 RUN npm run build
 
 # Exponer puerto
-EXPOSE 3000
+EXPOSE 3005
 
 # Comando con hostname específico
-CMD ["npm", "start", "--", "--hostname", "0.0.0.0", "--port", "3000"] 
+CMD ["npm", "start", "--", "--hostname", "0.0.0.0", "--port", "3005"] 
