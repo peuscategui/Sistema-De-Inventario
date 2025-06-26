@@ -15,11 +15,12 @@ COPY frontend/ .
 # Variables de entorno
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_PUBLIC_API_URL=https://titinventario.efc.com.pe
+# NEXT_PUBLIC_API_URL será configurado desde EasyPanel
 ENV PORT=3005
 ENV HOSTNAME=0.0.0.0
 
-# Build
+# Limpiar caché y build
+RUN rm -rf .next
 RUN npm run build
 
 # Exponer puerto
