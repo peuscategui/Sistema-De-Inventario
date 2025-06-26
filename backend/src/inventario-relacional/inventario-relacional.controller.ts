@@ -83,4 +83,47 @@ export class InventarioRelacionalController {
   findOne(@Param('id') id: string) {
     return this.inventarioRelacionalService.findOne(parseInt(id));
   }
+
+  // Endpoints específicos para donaciones
+  @Get('donaciones/all')
+  findAllDonaciones(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('codigoEFC') codigoEFC?: string,
+    @Query('marca') marca?: string,
+    @Query('modelo') modelo?: string,
+    @Query('sede') sede?: string,
+    @Query('gerencia') gerencia?: string,
+    @Query('familia') familia?: string,
+    @Query('empleado') empleado?: string,
+  ) {
+    const filters = {
+      codigoEFC,
+      marca,
+      modelo,
+      sede,
+      gerencia,
+      familia,
+      empleado
+    };
+
+    return this.inventarioRelacionalService.findAllDonaciones(
+      page ? parseInt(page) : 1,
+      limit ? parseInt(limit) : 10,
+      filters
+    );
+  }
+
+  @Get('donaciones/search')
+  searchDonaciones(
+    @Query('q') query: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.inventarioRelacionalService.searchDonaciones(
+      query,
+      page ? parseInt(page) : 1,
+      limit ? parseInt(limit) : 10
+    );
+  }
 } 

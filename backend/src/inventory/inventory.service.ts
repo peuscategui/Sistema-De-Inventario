@@ -17,80 +17,81 @@ interface FindAllOptions {
 export class InventoryService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll({ page = 1, pageSize = 20, filters = {} }: FindAllOptions) {
-    // Si pageSize es muy grande, devolver todos los registros sin paginación
-    if (pageSize > 500) {
-      const data = await this.prisma.inventory.findMany({
-        include: {
-          clasificacion: true,
-          empleado: true,
-        },
-        orderBy: {
-          id: 'asc',
-        }
-      });
-      return {
-        data,
-        pagination: {
-          totalCount: data.length,
-          page: 1,
-          pageSize: data.length,
-          totalPages: 1,
-        },
-      };
-    }
-
+  async findAll({ page = 1, pageSize = 10, filters = {} }: FindAllOptions) {
     const skip = (page - 1) * pageSize;
-    const take = pageSize;
-
-    const where: any = {};
-    for (const key in filters) {
-      if (Object.prototype.hasOwnProperty.call(filters, key)) {
-        const filterKey = key as keyof FindAllOptions['filters'];
-        if (filters[filterKey]) {
-          where[filterKey] = {
-            contains: filters[filterKey],
-            mode: 'insensitive',
-          };
-        }
-      }
+    
+    const whereClause: Record<string, any> = {};
+    if (filters.codigoEFC) {
+      whereClause['codigoEFC'] = { contains: filters.codigoEFC };
+    }
+    if (filters.marca) {
+      whereClause['marca'] = { contains: filters.marca };
+    }
+    if (filters.modelo) {
+      whereClause['modelo'] = { contains: filters.modelo };
+    }
+    if (filters.serie) {
+      whereClause['serie'] = { contains: filters.serie };
     }
 
-    const [data, totalCount] = await this.prisma.$transaction([
+    const [items, total] = await Promise.all([
       this.prisma.inventory.findMany({
-        where,
+        where: whereClause,
         skip,
-        take,
+        take: pageSize,
         include: {
           clasificacion: true,
           empleado: true,
         },
-        orderBy: {
-          id: 'asc',
-        }
       }),
-      this.prisma.inventory.count({ where }),
+      this.prisma.inventory.count({ where: whereClause }),
     ]);
 
+    // Formatear las fechas antes de enviarlas al frontend
+    const formattedItems = items.map(item => ({
+      ...item,
+      fecha_compra: item.fecha_compra ? 
+        item.fecha_compra.toISOString().split('T')[0]
+        : null,
+      precioUnitarioSinIgv: item.precioUnitarioSinIgv ? `$${item.precioUnitarioSinIgv}` : null,
+      precioReposicion: item.precioReposicion ? `$${item.precioReposicion}` : null,
+      precioReposicion2024: item.precioReposicion2024 ? `$${item.precioReposicion2024}` : null
+    }));
+
     return {
-      data,
+      data: formattedItems,
       pagination: {
-        totalCount,
+        total,
         page,
         pageSize,
-        totalPages: Math.ceil(totalCount / pageSize),
-      },
+        totalPages: Math.ceil(total / pageSize)
+      }
     };
   }
 
   async findOne(id: number) {
-    return this.prisma.inventory.findUnique({
+    const item = await this.prisma.inventory.findUnique({
       where: { id },
       include: {
         clasificacion: true,
         empleado: true,
       },
     });
+
+    if (!item) return null;
+
+    // Formatear la fecha en formato YYYY-MM-DD
+    if (item.fecha_compra) {
+      return {
+        ...item,
+        fecha_compra: item.fecha_compra.toISOString().split('T')[0],
+        precioUnitarioSinIgv: item.precioUnitarioSinIgv ? `$${item.precioUnitarioSinIgv}` : null,
+        precioReposicion: item.precioReposicion ? `$${item.precioReposicion}` : null,
+        precioReposicion2024: item.precioReposicion2024 ? `$${item.precioReposicion2024}` : null
+      };
+    }
+
+    return item;
   }
 
   async create(data: any) {

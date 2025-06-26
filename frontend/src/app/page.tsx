@@ -1,41 +1,160 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from "react";
+
+interface DashboardStats {
+  totalEquipos: number;
+  porcentajeBuenEstado: number;
+  equiposObsoletos: number;
+  familiaMasComun: {
+    familia: string;
+    _count: {
+      id: number;
+    };
+  } | null;
+  distribucionFamilia: Array<{
+    familia: string;
+    _count: {
+      id: number;
+    };
+  }>;
+}
+
+// Iconos por familia
+const FAMILIA_ICONS: { [key: string]: string } = {
+  'COMPUTADORA': '💻',
+  'SERVIDOR': '🖥️',
+  'SWITCH': '🔌',
+  'MONITOR': '🖥️',
+  'TABLET': '📱',
+  'VIDEOVIGILANCIA': '📹',
+  'NVR': '📼',
+  'IMPRESORA': '🖨️',
+  'TELEFONIA': '☎️',
+  'CONTROL BIOMETRICO': '👆',
+  'RACK': '🗄️',
+  'REDES': '🌐',
+  'PROTECCION ELECTRICA': '⚡',
+  'COLABORACION': '🤝',
+  'DEFAULT': '📦'
+};
 
 export default function HomePage() {
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const [statsResponse, distribucionResponse] = await Promise.all([
+          fetch('http://localhost:3002/dashboard'),
+          fetch('http://localhost:3002/dashboard/distribucion-familia')
+        ]);
+
+        if (!statsResponse.ok || !distribucionResponse.ok) {
+          throw new Error('Error al cargar los datos del dashboard');
+        }
+
+        const statsData = await statsResponse.json();
+        const distribucionData = await distribucionResponse.json();
+
+        setStats({
+          ...statsData,
+          distribucionFamilia: distribucionData || []
+        });
+      } catch (err) {
+        console.error('Error al cargar datos:', err);
+        setError(err instanceof Error ? err.message : 'Error al cargar los datos');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-lg text-muted-foreground">Cargando datos...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-lg text-red-500">{error}</div>
+      </div>
+    );
+  }
+
+  if (!stats) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-lg text-muted-foreground">No hay datos disponibles</div>
+      </div>
+    );
+  }
+
+  // Ordenar familias por cantidad de equipos (de mayor a menor)
+  const familiasOrdenadas = [...stats.distribucionFamilia].sort((a, b) => b._count.id - a._count.id);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div className="bg-card text-card-foreground p-6 rounded-lg shadow-md border-t-4 border-accent-green">
-        <h3 className="text-lg font-semibold mb-2 text-muted-foreground">Actividad de Ventas</h3>
-        <p className="text-3xl font-bold">54</p>
-        <p className="text-muted-foreground">Pedidos para empaquetar</p>
-      </div>
-      <div className="bg-card text-card-foreground p-6 rounded-lg shadow-md border-t-4 border-accent-green">
-        <h3 className="text-lg font-semibold mb-2 text-muted-foreground">Resumen de Inventario</h3>
-        <p className="text-3xl font-bold">12,345</p>
-        <p className="text-muted-foreground">Cantidad en mano</p>
-      </div>
-      <div className="bg-card text-card-foreground p-6 rounded-lg shadow-md border-t-4 border-accent-green">
-        <h3 className="text-lg font-semibold mb-2 text-muted-foreground">Detalles del Producto</h3>
-        <p className="text-3xl font-bold">8</p>
-        <p className="text-muted-foreground">Items con bajo stock</p>
-      </div>
-      <div className="bg-card text-card-foreground p-6 rounded-lg shadow-md border-t-4 border-accent-green">
-        <h3 className="text-lg font-semibold mb-2 text-muted-foreground">Items más vendidos</h3>
-        <p className="text-xl font-semibold">Laptop HP EliteBook</p>
-        <p className="text-muted-foreground">250 unidades</p>
+    <div className="space-y-6 p-6">
+      {/* Resumen General */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
+          <h3 className="text-lg font-semibold mb-2 text-gray-700">Total de Equipos</h3>
+          <p className="text-3xl font-bold text-gray-900">{stats.totalEquipos.toLocaleString()}</p>
+          <p className="text-gray-600 mt-1">Equipos registrados</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
+          <h3 className="text-lg font-semibold mb-2 text-gray-700">Equipos en Buen Estado</h3>
+          <p className="text-3xl font-bold text-gray-900">{stats.porcentajeBuenEstado}%</p>
+          <p className="text-gray-600 mt-1">Del total de equipos</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
+          <h3 className="text-lg font-semibold mb-2 text-gray-700">Equipos Obsoletos</h3>
+          <p className="text-3xl font-bold text-gray-900">{stats.equiposObsoletos.toLocaleString()}</p>
+          <p className="text-gray-600 mt-1">Requieren actualización</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
+          <h3 className="text-lg font-semibold mb-2 text-gray-700">Familia más Común</h3>
+          <p className="text-xl font-bold text-gray-900">{stats.familiaMasComun?.familia || 'No hay datos'}</p>
+          <p className="text-gray-600 mt-1">
+            {stats.familiaMasComun?._count.id.toLocaleString() || '0'} unidades
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-8">
-        <div>
-          <h3 className="text-xl font-semibold mb-4">Resumen de Órdenes de Venta</h3>
-          <div className="h-64 flex items-center justify-center border-2 border-dashed rounded-md">
-            <p className="text-gray-400">Gráfico de Ventas</p>
-          </div>
+      {/* Distribución por Familias */}
+      <div className="bg-white rounded-lg shadow-lg">
+        <div className="p-6 border-b">
+          <h2 className="text-xl font-semibold text-gray-900">Distribución por Familias</h2>
         </div>
-        <div>
-          <h3 className="text-xl font-semibold mb-4">Resumen de Órdenes de Compra</h3>
-           <div className="h-64 flex items-center justify-center border-2 border-dashed rounded-md">
-            <p className="text-gray-400">Gráfico de Compras</p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
+          {familiasOrdenadas.map((familia) => (
+            <div 
+              key={familia.familia}
+              className="bg-gradient-to-br from-white to-gray-50 rounded-lg border border-gray-200 shadow-md p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+            >
+              <div className="flex items-center gap-4">
+                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-green-100 rounded-full">
+                  <span className="text-2xl" role="img" aria-label={familia.familia}>
+                    {FAMILIA_ICONS[familia.familia.toUpperCase()] || FAMILIA_ICONS['DEFAULT']}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-gray-800 mb-1">{familia.familia}</h3>
+                  <p className="text-lg font-bold text-green-600">
+                    {familia._count.id} {familia._count.id === 1 ? 'equipo' : 'equipos'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

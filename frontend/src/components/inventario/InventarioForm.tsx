@@ -13,11 +13,29 @@ const inventarioSchema = z.object({
   estado: z.string().min(1, 'El estado es requerido'),
   ubicacionEquipo: z.string().optional(),
   condicion: z.string().optional(),
-  repotenciadas: z.boolean(),
   cumpleStandard: z.boolean(),
   observaciones: z.string().optional(),
   clasificacionId: z.coerce.number().min(1, 'Debe seleccionar una clasificación'),
   empleadoId: z.coerce.number().optional().nullable(),
+  fechaBaja: z.string().optional(),
+  motivoBaja: z.string().optional(),
+  fechaDonacion: z.string().optional(),
+  motivoDonacion: z.string().optional(),
+}).refine((data) => {
+  // Si el estado es BAJA, fechaBaja y motivoBaja son requeridos
+  if (data.estado === 'BAJA') {
+    return data.fechaBaja && data.fechaBaja.length > 0 && 
+           data.motivoBaja && data.motivoBaja.length > 0;
+  }
+  // Si el estado es DONACION, fechaDonacion y motivoDonacion son requeridos
+  if (data.estado === 'DONACION') {
+    return data.fechaDonacion && data.fechaDonacion.length > 0 && 
+           data.motivoDonacion && data.motivoDonacion.length > 0;
+  }
+  return true;
+}, {
+  message: "Los campos de fecha y motivo son requeridos según el estado seleccionado",
+  path: ["fechaBaja"] // Esto mostrará el error en el campo fechaBaja
 });
 
 type InventarioFormData = z.infer<typeof inventarioSchema>;
@@ -44,8 +62,8 @@ interface Articulo {
 
 // Opciones estáticas
 const SEDE_OPTIONS = ["Chorrillos", "Surquillo", "Arequipa", "Cusco", "Pasco"];
-const ESTADO_OPTIONS = ["ASIGNADA", "AVERIADA", "BAJA", "OPERATIVO", "PRESTAMO", "REPARACION", "STOCK"];
-const CONDICION_OPTIONS = ["AVERIADA", "BAJA", "OBSOLETO", "OPERATIVO", "VIGENTE"];
+const ESTADO_OPTIONS = ["ASIGNADO", "BAJA", "STOCK", "EN SERVICIO", "DONACION"];
+const CONDICION_OPTIONS = ["OPERATIVO", "OBSOLETO", "AVERIADO"];
 const UBICACION_OPTIONS = ["AREQUIPA", "CHORRILLOS", "SURQUILLO", "CUZCO", "ESPAÑA", "HIBRIDO", "PASCO", "CASA"];
 
 interface InventarioFormProps {
@@ -60,6 +78,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
   const [articulos, setArticulos] = useState<Articulo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [estadoSeleccionado, setEstadoSeleccionado] = useState<string>('');
 
   const {
     register,
@@ -67,14 +86,38 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
     formState: { errors },
     control,
     setValue,
+    watch,
   } = useForm<InventarioFormData>({
     resolver: zodResolver(inventarioSchema),
     defaultValues: {
-      repotenciadas: false,
       cumpleStandard: false,
       ...initialData
     },
   });
+
+  // Observar cambios en el campo estado
+  const estadoValue = watch('estado');
+  
+  useEffect(() => {
+    setEstadoSeleccionado(estadoValue || '');
+    // Si el estado es BAJA, limpiar el campo condición y los campos de donación
+    if (estadoValue === 'BAJA') {
+      setValue('condicion', '');
+      setValue('fechaDonacion', '');
+      setValue('motivoDonacion', '');
+    } else if (estadoValue === 'DONACION') {
+      // Si el estado es DONACION, limpiar el campo condición y los campos de baja
+      setValue('condicion', '');
+      setValue('fechaBaja', '');
+      setValue('motivoBaja', '');
+    } else {
+      // Si el estado no es BAJA ni DONACION, limpiar todos los campos especiales
+      setValue('fechaBaja', '');
+      setValue('motivoBaja', '');
+      setValue('fechaDonacion', '');
+      setValue('motivoDonacion', '');
+    }
+  }, [estadoValue, setValue]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -254,22 +297,78 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
 
           <div>
             <label className="block text-sm font-medium mb-1">Condición</label>
-            <select {...register('condicion')} className={inputClass}>
-              <option value="">Seleccionar condición</option>
+            <select 
+              {...register('condicion')} 
+              className={inputClass}
+              disabled={estadoValue === 'BAJA' || estadoValue === 'DONACION'}
+            >
+              <option value="">
+                {estadoValue === 'BAJA' ? 'No aplica (Estado: BAJA)' : 
+                 estadoValue === 'DONACION' ? 'No aplica (Estado: DONACION)' : 
+                 'Seleccionar condición'}
+              </option>
               {CONDICION_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
             </select>
             {errors.condicion && <p className="text-red-500 text-xs mt-1">{errors.condicion.message}</p>}
           </div>
+
+          {/* Campos que aparecen solo cuando el estado es BAJA */}
+          {estadoValue === 'BAJA' && (
+            <>
+              <div>
+                <label className="block text-sm font-medium mb-1">Fecha de Baja *</label>
+                <input 
+                  {...register('fechaBaja')} 
+                  type="date"
+                  className={inputClass}
+                />
+                {errors.fechaBaja && <p className="text-red-500 text-xs mt-1">{errors.fechaBaja.message}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Motivo de Baja *</label>
+                <textarea 
+                  {...register('motivoBaja')} 
+                  rows={3}
+                  className={inputClass}
+                  placeholder="Especificar el motivo de la baja del equipo"
+                />
+                {errors.motivoBaja && <p className="text-red-500 text-xs mt-1">{errors.motivoBaja.message}</p>}
+              </div>
+            </>
+          )}
+
+          {/* Campos que aparecen solo cuando el estado es DONACION */}
+          {estadoValue === 'DONACION' && (
+            <>
+              <div>
+                <label className="block text-sm font-medium mb-1">Fecha de Donación *</label>
+                <input 
+                  {...register('fechaDonacion')} 
+                  type="date"
+                  className={inputClass}
+                />
+                {errors.fechaDonacion && <p className="text-red-500 text-xs mt-1">{errors.fechaDonacion.message}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Motivo de Donación *</label>
+                <textarea 
+                  {...register('motivoDonacion')} 
+                  rows={3}
+                  className={inputClass}
+                  placeholder="Especificar el motivo de la donación del equipo"
+                />
+                {errors.motivoDonacion && <p className="text-red-500 text-xs mt-1">{errors.motivoDonacion.message}</p>}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Columna 2: Detalles Adicionales */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold border-b pb-2 mb-4">Detalles Adicionales</h3>
           <div className="flex items-center gap-2 pt-2">
-            <input {...register('repotenciadas')} type="checkbox" id="repotenciadas" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
-            <label htmlFor="repotenciadas" className="text-sm font-medium">¿Es repotenciada?</label>
-          </div>
-          <div className="flex items-center gap-2">
             <input {...register('cumpleStandard')} type="checkbox" id="cumpleStandard" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
             <label htmlFor="cumpleStandard" className="text-sm font-medium">Cumple Standard</label>
           </div>

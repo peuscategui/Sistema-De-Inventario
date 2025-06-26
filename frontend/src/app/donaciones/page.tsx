@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
-import InventarioModal from '@/components/inventario/InventarioModal';
+import { Download, Search, X, Eye } from 'lucide-react';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
 
 // Interfaces para los datos relacionados
@@ -22,8 +21,8 @@ interface Empleado {
   gerencia: string | null;
 }
 
-// Interface principal para el item de inventario
-interface InventoryItem {
+// Interface principal para el item de donación
+interface DonacionItem {
   id: number;
   codigoEFC: string | null;
   tipoEquipo: string | null;
@@ -59,6 +58,8 @@ interface InventoryItem {
   vidaUtil: string | null;
   fecha_compra: string | Date | null;
   precioUnitarioSinIgv: string | null;
+  fechaDonacion: string | null;
+  motivoDonacion: string | null;
   clasificacion: Clasificacion | null;
   empleado: Empleado | null;
 }
@@ -67,7 +68,6 @@ interface Filters {
   codigoEFC?: string;
   marca?: string;
   modelo?: string;
-  estado?: string;
   sede?: string;
   gerencia?: string;
   familia?: string;
@@ -78,15 +78,14 @@ const filterOptions = [
   { value: 'codigoEFC', label: 'Código EFC' },
   { value: 'marca', label: 'Marca' },
   { value: 'modelo', label: 'Modelo' },
-  { value: 'estado', label: 'Estado' },
   { value: 'sede', label: 'Sede' },
   { value: 'gerencia', label: 'Gerencia' },
   { value: 'familia', label: 'Familia' },
   { value: 'empleado', label: 'Empleado' },
 ];
 
-export default function InventarioPage() {
-  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+export default function DonacionesPage() {
+  const [donaciones, setDonaciones] = useState<DonacionItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
@@ -94,21 +93,17 @@ export default function InventarioPage() {
   const [filters, setFilters] = useState<Filters>({});
   const [selectedFilter, setSelectedFilter] = useState<string>(filterOptions[0].value);
   const [filterValue, setFilterValue] = useState<string>('');
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [selectedDonacion, setSelectedDonacion] = useState<DonacionItem | null>(null);
+  const [detalleModalOpen, setDetalleModalOpen] = useState(false);
   const [pagination, setPagination] = useState({
     total: 0,
     totalPages: 1,
   });
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [editItem, setEditItem] = useState<InventoryItem | null>(null);
-  const [detalleModalOpen, setDetalleModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
-  const fetchInventory = async () => {
+  const fetchDonaciones = async () => {
     setLoading(true);
     try {
-      let url = `http://localhost:3002/inventario-relacional?page=${page}&limit=${pageSize}`;
+      let url = `http://localhost:3002/inventario-relacional/donaciones/all?page=${page}&limit=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -119,10 +114,10 @@ export default function InventarioPage() {
 
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Error al obtener los datos del inventario');
+        throw new Error('Error al obtener los datos de donaciones');
       }
       const data = await response.json();
-      setInventory(data.items);
+      setDonaciones(data.items);
       setPagination(data.meta);
     } catch (err: any) {
       setError(err.message);
@@ -132,7 +127,7 @@ export default function InventarioPage() {
   };
 
   useEffect(() => {
-    fetchInventory();
+    fetchDonaciones();
   }, [page, pageSize, filters]);
 
   const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -166,28 +161,13 @@ export default function InventarioPage() {
     setPage(1);
   };
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedItems(inventory.map(item => item.id));
-    } else {
-      setSelectedItems([]);
-    }
-  };
-
-  const handleSelectItem = (id: number, checked: boolean) => {
-    if (checked) {
-      setSelectedItems(prev => [...prev, id]);
-    } else {
-      setSelectedItems(prev => prev.filter(itemId => itemId !== id));
-    }
-  };
-
   const exportToCSV = async () => {
     try {
       let url = 'http://localhost:3002/inventario-relacional/export';
       
-      // Agregar filtros a la URL
+      // Agregar filtros a la URL pero solo para donaciones
       const params = new URLSearchParams();
+      params.append('estado', 'DONACION'); // Solo exportar donaciones
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
           params.append(key, value);
@@ -199,133 +179,55 @@ export default function InventarioPage() {
       }
 
       const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Error al exportar datos');
-      }
-      
       const data = await response.json();
-      
+
       // Convertir a CSV
-      const headers = Object.keys(data[0] || {});
       const csvContent = [
-        headers.join(','),
-        ...data.map((row: any) => 
-          headers.map(header => `"${row[header] || ''}"`).join(',')
-        )
+        Object.keys(data[0] || {}).join(','),
+        ...data.map((row: any) => Object.values(row).join(','))
       ].join('\n');
 
       // Descargar archivo
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const downloadUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
-      const url2 = URL.createObjectURL(blob);
-      link.setAttribute('href', url2);
-      link.setAttribute('download', `inventario_${new Date().toISOString().split('T')[0]}.csv`);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
+      link.href = downloadUrl;
+      link.download = 'donaciones.csv';
       link.click();
-      document.body.removeChild(link);
-    } catch (err: any) {
-      setError(err.message);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error('Error al exportar:', error);
     }
   };
 
-  const deleteSelected = async () => {
-    if (!selectedItems.length) return;
-    
-    if (!confirm(`¿Estás seguro de que quieres eliminar ${selectedItems.length} elementos?`)) {
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:3002/inventario-relacional/batch', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ids: selectedItems }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al eliminar elementos');
-      }
-
-      setSelectedItems([]);
-      fetchInventory();
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
-  const handleModalSubmit = async (data: any) => {
-    setIsSubmitting(true);
-    const url = editItem
-      ? `http://localhost:3002/inventory/${editItem.id}`
-      : 'http://localhost:3002/inventory';
-    const method = editItem ? 'PUT' : 'POST';
-
-    try {
-      const response = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Error al ${editItem ? 'actualizar' : 'crear'} el item`);
-      }
-
-      setModalOpen(false);
-      setEditItem(null);
-      fetchInventory(); // Recargar los datos
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const openEditModal = (item: InventoryItem) => {
-    setEditItem(item);
-    setModalOpen(true);
-  };
-
-  const handleDelete = async (id: number) => {
-    if (!confirm('¿Estás seguro de que quieres eliminar este item?')) {
-      return;
-    }
-
-    try {
-      const response = await fetch(`http://localhost:3002/inventario-relacional/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al eliminar el item');
-      }
-
-      fetchInventory();
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
-  const openDetalleModal = (item: InventoryItem) => {
-    setSelectedItem(item);
+  const openDetalleModal = (donacion: DonacionItem) => {
+    setSelectedDonacion(donacion);
     setDetalleModalOpen(true);
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-red-500">Error: {error}</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="p-6">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Inventario</h1>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-        >
-          <PlusCircle size={20} />
-          Nuevo Item
-        </button>
+        <h1 className="text-2xl font-bold">Donaciones</h1>
+        <div className="text-sm text-gray-600">
+          Total de donaciones: {pagination.total}
+        </div>
       </div>
 
       {/* Barra superior */}
@@ -334,7 +236,7 @@ export default function InventarioPage() {
           <select
             value={selectedFilter}
             onChange={(e) => setSelectedFilter(e.target.value)}
-            className="bg-green-50 text-green-600 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-green-200 [&>option]:bg-white"
+            className="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-blue-200 [&>option]:bg-white"
           >
             {filterOptions.map(option => (
               <option key={option.value} value={option.value} className="bg-white text-gray-700">
@@ -353,7 +255,7 @@ export default function InventarioPage() {
             />
             <button
               onClick={handleSearch}
-              className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+              className="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-100"
             >
               <Search size={20} />
               Buscar
@@ -388,7 +290,7 @@ export default function InventarioPage() {
             <button
               onClick={() => setPage(page - 1)}
               disabled={page === 1}
-              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
+              className="text-blue-600 hover:text-blue-700 disabled:text-gray-400"
             >
               Anterior
             </button>
@@ -398,7 +300,7 @@ export default function InventarioPage() {
             <button
               onClick={() => setPage(page + 1)}
               disabled={page === pagination.totalPages}
-              className="text-green-600 hover:text-green-700 disabled:text-gray-400"
+              className="text-blue-600 hover:text-blue-700 disabled:text-gray-400"
             >
               Siguiente
             </button>
@@ -407,21 +309,11 @@ export default function InventarioPage() {
       </div>
 
       {/* Barra de acciones */}
-      <div className="flex justify-between items-center mb-4">
-        {selectedItems.length > 0 && (
-          <button
-            onClick={deleteSelected}
-            className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
-          >
-            <Trash2 size={20} />
-            Eliminar ({selectedItems.length})
-          </button>
-        )}
-
-        <div className="flex gap-2 ml-auto">
+      <div className="flex justify-end items-center mb-4">
+        <div className="flex gap-2">
           <button
             onClick={exportToCSV}
-            className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+            className="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-100"
           >
             <Download size={20} />
             Exportar
@@ -434,62 +326,36 @@ export default function InventarioPage() {
         <table className="min-w-full">
           <thead>
             <tr className="bg-primary/10 border-b">
-              <th className="py-3 px-4">
-                <input
-                  type="checkbox"
-                  checked={selectedItems.length === inventory.length && inventory.length > 0}
-                  onChange={(e) => handleSelectAll(e.target.checked)}
-                  className="rounded border-gray-300"
-                />
-              </th>
               <th className="py-3 px-4 text-left uppercase">Código EFC</th>
               <th className="py-3 px-4 text-left uppercase">Tipo Equipo</th>
               <th className="py-3 px-4 text-left uppercase">Marca</th>
               <th className="py-3 px-4 text-left uppercase">Modelo</th>
-              <th className="py-3 px-4 text-left uppercase">Estado</th>
-              <th className="py-3 px-4 text-left uppercase">Usuario</th>
+              <th className="py-3 px-4 text-left uppercase">Serie</th>
+              <th className="py-3 px-4 text-left uppercase">Sede</th>
+              <th className="py-3 px-4 text-left uppercase">Fecha Donación</th>
               <th className="py-3 px-4 text-left uppercase">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {inventory.map((item) => (
-              <tr key={item.id} className="border-t hover:bg-gray-50">
-                <td className="py-3 px-4">
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(item.id)}
-                    onChange={(e) => handleSelectItem(item.id, e.target.checked)}
-                    className="rounded border-gray-300"
-                  />
+            {donaciones.map((donacion) => (
+              <tr key={donacion.id} className="border-t hover:bg-gray-50">
+                <td className="py-3 px-4 uppercase">{donacion.codigoEFC || '-'}</td>
+                <td className="py-3 px-4 uppercase">{donacion.tipoEquipo || '-'}</td>
+                <td className="py-3 px-4 uppercase">{donacion.marca || '-'}</td>
+                <td className="py-3 px-4 uppercase">{donacion.modelo || '-'}</td>
+                <td className="py-3 px-4 uppercase">{donacion.serie || '-'}</td>
+                <td className="py-3 px-4 uppercase">{donacion.sede || '-'}</td>
+                <td className="py-3 px-4 uppercase">
+                  {donacion.fechaDonacion ? new Date(donacion.fechaDonacion).toLocaleDateString() : '-'}
                 </td>
-                <td className="py-3 px-4 uppercase">{item.codigoEFC || '-'}</td>
-                <td className="py-3 px-4 uppercase">{item.tipoEquipo || '-'}</td>
-                <td className="py-3 px-4 uppercase">{item.marca || '-'}</td>
-                <td className="py-3 px-4 uppercase">{item.modelo || '-'}</td>
-                <td className="py-3 px-4 uppercase">{item.estado || '-'}</td>
-                <td className="py-3 px-4 uppercase">{item.usuarios || '-'}</td>
                 <td className="py-3 px-4">
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => openDetalleModal(item)}
+                      onClick={() => openDetalleModal(donacion)}
                       className="text-blue-600 hover:text-blue-800"
                       title="Ver detalles"
                     >
                       <Eye size={20} />
-                    </button>
-                    <button
-                      onClick={() => openEditModal(item)}
-                      className="text-blue-600 hover:text-blue-800"
-                      title="Editar"
-                    >
-                      <Edit size={20} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="text-red-600 hover:text-red-800"
-                      title="Eliminar"
-                    >
-                      <Trash2 size={20} />
                     </button>
                   </div>
                 </td>
@@ -497,26 +363,22 @@ export default function InventarioPage() {
             ))}
           </tbody>
         </table>
+
+        {donaciones.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500">No se encontraron donaciones</p>
+          </div>
+        )}
       </div>
 
-      <InventarioModal
-        isOpen={modalOpen}
-        onClose={() => {
-          setModalOpen(false);
-          setEditItem(null);
-        }}
-        onSubmit={handleModalSubmit}
-        editItem={editItem}
-        isSubmitting={isSubmitting}
-      />
       <InventarioDetalleModal
         isOpen={detalleModalOpen}
         onClose={() => {
           setDetalleModalOpen(false);
-          setSelectedItem(null);
+          setSelectedDonacion(null);
         }}
-        item={selectedItem}
+        item={selectedDonacion}
       />
     </div>
   );
-} 
+}

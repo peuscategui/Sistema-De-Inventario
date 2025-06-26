@@ -1,7 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaClient, Prisma } from '../../generated/prisma';
+import { Prisma } from '../../generated/prisma';
 import { CreateColaboradorDto } from './dto/create-colaborador.dto';
 import { UpdateColaboradorDto } from './dto/update-colaborador.dto';
+import { PrismaService } from '../prisma.service';
 
 interface FindAllParams {
   page: number;
@@ -15,8 +16,9 @@ interface FindAllParams {
 
 @Injectable()
 export class ColaboradoresService {
-  private prisma = new PrismaClient();
   private readonly logger = new Logger(ColaboradoresService.name);
+
+  constructor(private prisma: PrismaService) {}
 
   async findAll({ page = 1, pageSize = 10, filters = {} }: FindAllParams) {
     // Si pageSize es muy grande, devolver todos los registros sin paginación

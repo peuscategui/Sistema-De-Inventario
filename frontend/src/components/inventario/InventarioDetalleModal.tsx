@@ -34,8 +34,13 @@ interface InventoryItem {
   precioReposicion2024: number | null;
   observaciones: string | null;
   vidaUtil: string | null;
-  fecha_compra: number | null;
-  precioUnitarioSinIgv: string | null;
+  fecha_compra: string | null;
+  precioUnitarioSinIgv: number | null;
+  // Campos específicos para donaciones y bajas
+  fechaBaja?: string | null;
+  motivoBaja?: string | null;
+  fechaDonacion?: string | null;
+  motivoDonacion?: string | null;
 }
 
 interface InventarioDetalleModalProps {
@@ -46,6 +51,10 @@ interface InventarioDetalleModalProps {
 
 const InventarioDetalleModal = ({ isOpen, onClose, item }: InventarioDetalleModalProps) => {
   if (!isOpen || !item) return null;
+
+  const formatDate = (dateStr: string | null) => {
+    return dateStr || '';
+  };
 
   const detalles = [
     { label: 'Código EFC', value: item.codigoEFC },
@@ -73,15 +82,24 @@ const InventarioDetalleModal = ({ isOpen, onClose, item }: InventarioDetalleModa
     { label: 'Clasificación Obsolescencia', value: item.clasificacionObsolescencia },
     { label: 'Clasificación Repotenciadas', value: item.clasificacionRepotenciadas },
     { label: 'Motivo de Compra', value: item.motivoCompra },
-    { label: 'Precio Reposición', value: item.precioReposicion ? `$${item.precioReposicion.toLocaleString('es-PE')}` : null },
+    { label: 'Precio Reposición', value: item.precioReposicion ? item.precioReposicion.toLocaleString('es-PE') : null },
     { label: 'Proveedor', value: item.proveedor },
     { label: 'Factura', value: item.factura },
     { label: 'Año de Compra', value: item.anioCompra },
-    { label: 'Precio Reposición 2024', value: item.precioReposicion2024 ? `$${item.precioReposicion2024.toLocaleString('es-PE')}` : null },
+    { label: 'Precio Reposición 2024', value: item.precioReposicion2024 ? item.precioReposicion2024.toLocaleString('es-PE') : null },
     { label: 'Observaciones', value: item.observaciones },
     { label: 'Vida Útil', value: item.vidaUtil },
-    { label: 'Fecha de Compra', value: item.fecha_compra ? new Date(item.fecha_compra).toLocaleDateString() : null },
-    { label: 'Precio Unitario sin IGV', value: item.precioUnitarioSinIgv ? `$${item.precioUnitarioSinIgv}` : null },
+    { label: 'Fecha de Compra', value: formatDate(item.fecha_compra) },
+    { label: 'Precio Unitario sin IGV', value: item.precioUnitarioSinIgv },
+    // Campos específicos según el estado
+    ...(item.estado === 'BAJA' ? [
+      { label: 'Fecha de Baja', value: formatDate(item.fechaBaja || null) },
+      { label: 'Motivo de Baja', value: item.motivoBaja || null },
+    ] : []),
+    ...(item.estado === 'DONACION' ? [
+      { label: 'Fecha de Donación', value: formatDate(item.fechaDonacion || null) },
+      { label: 'Motivo de Donación', value: item.motivoDonacion || null },
+    ] : []),
   ];
 
   return (

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '../../generated/prisma';
+import { PrismaService } from '../prisma.service';
 
 interface FindAllOptions {
   page: number;
@@ -13,7 +13,7 @@ interface FindAllOptions {
 
 @Injectable()
 export class ClasificacionService {
-  private prisma = new PrismaClient();
+  constructor(private prisma: PrismaService) {}
 
   async findAll(options?: FindAllOptions) {
     if (!options) {
