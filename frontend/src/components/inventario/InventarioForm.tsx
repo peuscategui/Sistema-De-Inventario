@@ -123,10 +123,11 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
         const [clasificacionesRes, empleadosRes, articulosRes] = await Promise.all([
-          fetch('http://localhost:3002/clasificacion?limit=1000'),
-          fetch('http://localhost:3002/colaboradores?pageSize=10000'),
-          fetch('http://localhost:3002/inventory?pageSize=10000') // Obtener todos los artículos
+          fetch(`${apiUrl}/clasificacion?limit=1000`),
+          fetch(`${apiUrl}/colaboradores?pageSize=10000`),
+          fetch(`${apiUrl}/inventory?pageSize=10000`) // Obtener todos los artículos
         ]);
 
         if (clasificacionesRes.ok) {

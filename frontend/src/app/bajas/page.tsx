@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Download, Search, X, Eye } from 'lucide-react';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
+import { API_ENDPOINTS } from '@/config/api';
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -103,7 +104,7 @@ export default function BajasPage() {
   const fetchBajas = async () => {
     setLoading(true);
     try {
-      let url = `http://localhost:3002/inventario-relacional/bajas/all?page=${page}&limit=${pageSize}`;
+      let url = `${API_ENDPOINTS.bajas}?page=${page}&limit=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -163,7 +164,7 @@ export default function BajasPage() {
 
   const exportToCSV = async () => {
     try {
-      let url = 'http://localhost:3002/inventario-relacional/export';
+      let url = API_ENDPOINTS.inventarioExport;
       
       // Agregar filtros a la URL pero solo para bajas
       const params = new URLSearchParams();

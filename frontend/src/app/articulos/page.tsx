@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search } from 'lucide-react';
 import ArticuloModal from '../../components/articulos/ArticuloModal';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
+
 // Tipos de datos
 interface Articulo {
   id: number;
@@ -20,7 +22,7 @@ interface Articulo {
   condicion: string | null;
   motivoCompra: string | null;
   vidaUtil: string | null;
-  fecha_compra: number | null;
+  fecha_compra: string | null;
   proveedor: string | null;
   factura: string | null;
   precioUnitarioSinIgv: string | null;
@@ -513,7 +515,7 @@ export default function ArticulosPage() {
                     {tableHeaders.map((header) => (
                       <td key={header.key} className="px-4 py-2 uppercase">
                         {header.key === 'fecha_compra' && articulo[header.key]
-                          ? formatDate(excelSerialDateToJSDate(articulo[header.key] as number))
+                          ? articulo[header.key]
                           : articulo[header.key as keyof Articulo] || '-'}
                       </td>
                     ))}

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import InventarioModal from '@/components/inventario/InventarioModal';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
+import { API_ENDPOINTS } from '@/config/api';
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -57,8 +58,8 @@ interface InventoryItem {
   precioReposicion2024: number | null;
   observaciones: string | null;
   vidaUtil: string | null;
-  fecha_compra: string | Date | null;
-  precioUnitarioSinIgv: string | null;
+  fecha_compra: string | null;
+  precioUnitarioSinIgv: number | null;
   clasificacion: Clasificacion | null;
   empleado: Empleado | null;
 }
@@ -108,7 +109,7 @@ export default function InventarioPage() {
   const fetchInventory = async () => {
     setLoading(true);
     try {
-      let url = `http://localhost:3002/inventario-relacional?page=${page}&limit=${pageSize}`;
+      let url = `${API_ENDPOINTS.inventario}?page=${page}&limit=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -184,7 +185,7 @@ export default function InventarioPage() {
 
   const exportToCSV = async () => {
     try {
-      let url = 'http://localhost:3002/inventario-relacional/export';
+      let url = API_ENDPOINTS.inventarioExport;
       
       // Agregar filtros a la URL
       const params = new URLSearchParams();
@@ -237,7 +238,7 @@ export default function InventarioPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:3002/inventario-relacional/batch', {
+      const response = await fetch(API_ENDPOINTS.inventarioBatch, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -259,8 +260,8 @@ export default function InventarioPage() {
   const handleModalSubmit = async (data: any) => {
     setIsSubmitting(true);
     const url = editItem
-      ? `http://localhost:3002/inventory/${editItem.id}`
-      : 'http://localhost:3002/inventory';
+      ? `${API_ENDPOINTS.inventory}/${editItem.id}`
+      : API_ENDPOINTS.inventory;
     const method = editItem ? 'PUT' : 'POST';
 
     try {
@@ -296,7 +297,7 @@ export default function InventarioPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3002/inventario-relacional/${id}`, {
+      const response = await fetch(`${API_ENDPOINTS.inventario}/${id}`, {
         method: 'DELETE',
       });
 
@@ -506,7 +507,7 @@ export default function InventarioPage() {
           setEditItem(null);
         }}
         onSubmit={handleModalSubmit}
-        editItem={editItem}
+        inventario={editItem}
         isSubmitting={isSubmitting}
       />
       <InventarioDetalleModal

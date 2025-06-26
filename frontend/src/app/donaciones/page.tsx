@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Download, Search, X, Eye } from 'lucide-react';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
+import { API_ENDPOINTS } from '@/config/api';
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -56,8 +57,8 @@ interface DonacionItem {
   precioReposicion2024: number | null;
   observaciones: string | null;
   vidaUtil: string | null;
-  fecha_compra: string | Date | null;
-  precioUnitarioSinIgv: string | null;
+  fecha_compra: string | null;
+  precioUnitarioSinIgv: number | null;
   fechaDonacion: string | null;
   motivoDonacion: string | null;
   clasificacion: Clasificacion | null;
@@ -103,7 +104,7 @@ export default function DonacionesPage() {
   const fetchDonaciones = async () => {
     setLoading(true);
     try {
-      let url = `http://localhost:3002/inventario-relacional/donaciones/all?page=${page}&limit=${pageSize}`;
+      let url = `${API_ENDPOINTS.donaciones}?page=${page}&limit=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -163,7 +164,7 @@ export default function DonacionesPage() {
 
   const exportToCSV = async () => {
     try {
-      let url = 'http://localhost:3002/inventario-relacional/export';
+      let url = API_ENDPOINTS.inventarioExport;
       
       // Agregar filtros a la URL pero solo para donaciones
       const params = new URLSearchParams();

@@ -15,7 +15,7 @@ interface Articulo {
   condicion: string | null;
   motivoCompra: string | null;
   vidaUtil: string | null;
-  fecha_compra: number | null;
+  fecha_compra: string | null;
   proveedor: string | null;
   factura: string | null;
   precioUnitarioSinIgv: string | null;

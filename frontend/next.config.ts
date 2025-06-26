@@ -12,9 +12,38 @@ const nextConfig: NextConfig = {
   // Configuración de trailing slash
   trailingSlash: false,
   
+  // Variables de entorno públicas
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
+  
   // Configuración de experimental features
   experimental: {
     // Optimizaciones para Docker
+  },
+  
+  // Deshabilitar ESLint en el build para desarrollo
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
+  // Configuración de headers para CORS
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+        ],
+      },
+    ];
   },
 };
 

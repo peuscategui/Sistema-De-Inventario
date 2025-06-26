@@ -2,7 +2,19 @@ import InventarioForm from './InventarioForm';
 
 interface Inventario {
   id?: number;
-  // ...otros campos relevantes si se usan para edición
+  articuloId?: number;
+  sede?: string | null;
+  estado?: string | null;
+  ubicacionEquipo?: string | null;
+  condicion?: string | null;
+  cumpleStandard?: boolean;
+  observaciones?: string | null;
+  clasificacionId?: number;
+  empleadoId?: number | null;
+  fechaBaja?: string | null;
+  motivoBaja?: string | null;
+  fechaDonacion?: string | null;
+  motivoDonacion?: string | null;
 }
 
 interface Props {
@@ -26,7 +38,7 @@ const InventarioModal = ({ isOpen, onClose, onSubmit, inventario, isSubmitting }
         <InventarioForm
           onSubmit={onSubmit}
           onCancel={onClose}
-          initialData={inventario || {}}
+          initialData={inventario as any || {}}
           isEditing={!!inventario}
         />
       </div>

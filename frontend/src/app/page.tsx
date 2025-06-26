@@ -48,8 +48,8 @@ export default function HomePage() {
     const fetchDashboardData = async () => {
       try {
         const [statsResponse, distribucionResponse] = await Promise.all([
-          fetch('http://localhost:3002/dashboard'),
-          fetch('http://localhost:3002/dashboard/distribucion-familia')
+                  fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/dashboard`),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002'}/dashboard/distribucion-familia`)
         ]);
 
         if (!statsResponse.ok || !distribucionResponse.ok) {
