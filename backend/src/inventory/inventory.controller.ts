@@ -28,8 +28,16 @@ export class InventoryController {
   }
 
   @Post()
-  create(@Body() data: CreateInventoryDto) {
-    return this.inventoryService.create(data);
+  async create(@Body() data: CreateInventoryDto) {
+    try {
+      console.log('Datos recibidos en el controlador:', data);
+      const result = await this.inventoryService.create(data);
+      console.log('Resultado del servicio:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en el controlador create:', error);
+      throw error;
+    }
   }
 
   @Post('batch')
@@ -38,12 +46,42 @@ export class InventoryController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() data: UpdateInventoryDto) {
-    return this.inventoryService.update(Number(id), data);
+  async update(@Param('id') id: string, @Body() data: UpdateInventoryDto) {
+    try {
+      console.log('Datos recibidos en el controlador update:', data);
+      console.log('ID:', id);
+      const result = await this.inventoryService.update(Number(id), data);
+      console.log('Resultado del servicio update:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en el controlador update:', error);
+      throw error;
+    }
+  }
+
+  @Delete('batch')
+  async batchDelete(@Body() data: { ids: number[] }) {
+    try {
+      console.log('IDs a eliminar:', data.ids);
+      const result = await this.inventoryService.batchDelete(data.ids);
+      console.log('Resultado de eliminación en lote:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en eliminación en lote:', error);
+      throw error;
+    }
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.inventoryService.delete(Number(id));
+  async delete(@Param('id') id: string) {
+    try {
+      console.log('ID a eliminar (individual):', id);
+      const result = await this.inventoryService.delete(Number(id));
+      console.log('Resultado eliminación individual:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en eliminación individual:', error);
+      throw error;
+    }
   }
 }

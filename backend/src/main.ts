@@ -12,8 +12,9 @@ async function bootstrap() {
   
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true, // Automatically remove non-whitelisted properties
-    forbidNonWhitelisted: true, // Throw an error if non-whitelisted properties are provided
+    forbidNonWhitelisted: false, // No lanzar error por propiedades no permitidas, solo removerlas
     transform: true, // Automatically transform payloads to be objects typed according to their DTO classes
+    skipMissingProperties: true, // Skip validation of missing properties
   }));
 
   // Habilitar CORS para permitir solicitudes desde el frontend

@@ -46,6 +46,7 @@ const ArticuloModal = ({ isOpen, onClose, onSubmit, articulo, isSubmitting }: Pr
             onCancel={onClose}
             defaultValues={articulo || {}}
             isSubmitting={isSubmitting}
+            isEditing={!!articulo}
           />
         </div>
       </div>

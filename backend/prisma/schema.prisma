@@ -41,6 +41,7 @@ model inventory {
   ram                        String?      @db.VarChar
   discoDuro                  String?      @db.VarChar
   sistemaOperativo           String?      @db.VarChar
+  status                     String?      @db.VarChar @default("libre")
   sede                        String?      @db.VarChar
   estado                     String?      @db.VarChar
   usuarios                   String?      @db.VarChar

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search, Eye } from 'lucide-react';
 import ArticuloModal from '../../components/articulos/ArticuloModal';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
@@ -19,6 +19,7 @@ interface Articulo {
   ram: string | null;
   discoDuro: string | null;
   sistemaOperativo: string | null;
+  status: string | null;
   condicion: string | null;
   motivoCompra: string | null;
   vidaUtil: string | null;
@@ -38,16 +39,7 @@ const tableHeaders = [
   { key: 'procesador', label: 'Procesador' },
   { key: 'anio', label: 'Año' },
   { key: 'ram', label: 'RAM' },
-  { key: 'discoDuro', label: 'Disco Duro' },
-  { key: 'sistemaOperativo', label: 'S.O.' },
-  { key: 'condicion', label: 'Condición' },
-  { key: 'motivoCompra', label: 'Motivo de Compra' },
-  { key: 'vidaUtil', label: 'Vida Útil' },
-  { key: 'fecha_compra', label: 'Fecha de Compra' },
-  { key: 'proveedor', label: 'Proveedor' },
-  { key: 'factura', label: 'Factura' },
-  { key: 'precioUnitarioSinIgv', label: 'Precio Sin IGV' },
-  { key: 'anioCompra', label: 'Año de Compra' },
+  { key: 'status', label: 'Status' },
 ];
 
 // Función para convertir fecha de serie de Excel a formato legible
@@ -80,6 +72,10 @@ export default function ArticulosPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingArticulo, setEditingArticulo] = useState<Articulo | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Modal de visualización
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [viewingArticulo, setViewingArticulo] = useState<Articulo | null>(null);
 
   // Paginación
   const [page, setPage] = useState(1);
@@ -180,9 +176,19 @@ export default function ArticulosPage() {
     setIsModalOpen(true);
   };
 
+  const handleView = (articulo: Articulo) => {
+    setViewingArticulo(articulo);
+    setIsViewModalOpen(true);
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingArticulo(null);
+  };
+
+  const handleCloseViewModal = () => {
+    setIsViewModalOpen(false);
+    setViewingArticulo(null);
   };
   
   const handleSubmit = async (data: any) => {
@@ -192,17 +198,39 @@ export default function ArticulosPage() {
       : 'http://localhost:3002/inventory';
     const method = editingArticulo ? 'PUT' : 'POST';
 
+    // Debug: Log de los datos que se están enviando
+    console.log('Datos enviados:', data);
+    console.log('URL:', url);
+    console.log('Método:', method);
+
     try {
+      // Limpiar datos antes de enviar - remover campos vacíos o null
+      const cleanedData = Object.fromEntries(
+        Object.entries(data).filter(([_, value]) => value !== '' && value !== null && value !== undefined)
+      );
+      
+      console.log('Datos limpiados:', cleanedData);
+
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(cleanedData),
       });
-      if (!response.ok) throw new Error('Error al guardar el artículo');
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error del servidor:', errorText);
+        throw new Error(`Error al guardar el artículo: ${response.status} - ${errorText}`);
+      }
+      
+      const result = await response.json();
+      console.log('Respuesta del servidor:', result);
       
       await fetchArticulos();
       handleCloseModal();
+      alert('Artículo guardado exitosamente');
     } catch (err: any) {
+      console.error('Error completo:', err);
       alert(`Error: ${err.message}`);
     } finally {
       setIsSubmitting(false);
@@ -503,7 +531,7 @@ export default function ArticulosPage() {
                 </tr>
               ) : (
                 articulos.map((articulo) => (
-                  <tr key={articulo.id} className="border-t">
+                  <tr key={articulo.id} className="border-t hover:bg-gray-50">
                     <td className="px-4 py-2">
                       <input
                         type="checkbox"
@@ -514,22 +542,39 @@ export default function ArticulosPage() {
                     </td>
                     {tableHeaders.map((header) => (
                       <td key={header.key} className="px-4 py-2 uppercase">
-                        {header.key === 'fecha_compra' && articulo[header.key]
-                          ? articulo[header.key]
-                          : articulo[header.key as keyof Articulo] || '-'}
+                        {header.key === 'status' && articulo[header.key] ? (
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            articulo[header.key] === 'libre' 
+                              ? 'bg-green-100 text-green-800' 
+                              : 'bg-blue-100 text-blue-800'
+                          }`}>
+                            {articulo[header.key]}
+                          </span>
+                        ) : (
+                          articulo[header.key as keyof Articulo] || '-'
+                        )}
                       </td>
                     ))}
                     <td className="px-4 py-2">
                       <div className="flex gap-2">
                         <button
+                          onClick={() => handleView(articulo)}
+                          className="text-blue-600 hover:text-blue-800"
+                          title="Ver detalles"
+                        >
+                          <Eye size={20} />
+                        </button>
+                        <button
                           onClick={() => handleEdit(articulo)}
                           className="text-primary hover:text-primary/80"
+                          title="Editar"
                         >
                           <Edit size={20} />
                         </button>
                         <button
                           onClick={() => handleDelete(articulo.id)}
                           className="text-destructive hover:text-destructive/80"
+                          title="Eliminar"
                         >
                           <Trash2 size={20} />
                         </button>
@@ -550,6 +595,139 @@ export default function ArticulosPage() {
         articulo={editingArticulo}
         isSubmitting={isSubmitting}
       />
+
+      {/* Modal de Visualización */}
+      {isViewModalOpen && viewingArticulo && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Detalles del Artículo</h2>
+              <button
+                onClick={handleCloseViewModal}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Código EFC</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.codigoEFC || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Marca</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.marca || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Modelo</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.modelo || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Descripción</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.descripcion || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Serie</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.serie || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Procesador</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.procesador || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Año</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.anio || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">RAM</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.ram || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Disco Duro</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.discoDuro || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Sistema Operativo</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.sistemaOperativo || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Status</label>
+                <div className="px-3 py-2 bg-gray-50 rounded-md">
+                  {viewingArticulo.status ? (
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      viewingArticulo.status === 'libre' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-blue-100 text-blue-800'
+                    }`}>
+                      {viewingArticulo.status}
+                    </span>
+                  ) : '-'}
+                </div>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Motivo de Compra</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.motivoCompra || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Fecha de Compra</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.fecha_compra || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Proveedor</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.proveedor || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Factura</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.factura || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Precio Sin IGV</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.precioUnitarioSinIgv || '-'}</p>
+              </div>
+              
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Año de Compra</label>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.anioCompra || '-'}</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                onClick={() => {
+                  handleCloseViewModal();
+                  handleEdit(viewingArticulo);
+                }}
+                className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90"
+              >
+                <Edit size={16} />
+                Editar
+              </button>
+              <button
+                onClick={handleCloseViewModal}
+                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 

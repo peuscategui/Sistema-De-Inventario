@@ -95,52 +95,167 @@ export class InventoryService {
   }
 
   async create(data: any) {
-    const { empleadoId, clasificacionId, ...inventoryData } = data;
-    
-    return this.prisma.inventory.create({
-      data: {
+    try {
+      console.log('Datos recibidos en el servicio create:', data);
+      
+      const { empleadoId, clasificacionId, ...inventoryData } = data;
+      
+      // Para crear, fecha_compra SÍ se puede incluir
+      console.log('fecha_compra incluida en la creación:', inventoryData.fecha_compra);
+      
+      // Convertir fecha_compra de string a Date si existe
+      if (inventoryData.fecha_compra && typeof inventoryData.fecha_compra === 'string') {
+        try {
+          // Convertir string "YYYY-MM-DD" a objeto Date
+          inventoryData.fecha_compra = new Date(inventoryData.fecha_compra + 'T00:00:00.000Z');
+          console.log('fecha_compra convertida a Date:', inventoryData.fecha_compra);
+        } catch (dateError) {
+          console.error('Error al convertir fecha_compra:', dateError);
+          // Si hay error en la conversión, eliminar el campo para evitar errores
+          delete inventoryData.fecha_compra;
+        }
+      }
+      
+      // Establecer status basado en si tiene empleado asignado
+      const status = empleadoId ? 'asignado' : (inventoryData.status || 'libre');
+      
+      const dataToCreate = {
         ...inventoryData,
+        status,
         empleado: empleadoId ? {
           connect: { id: empleadoId }
         } : undefined,
         clasificacion: clasificacionId ? {
           connect: { id: clasificacionId }
         } : undefined
-      },
-      include: {
-        clasificacion: true,
-        empleado: true,
-      }
-    });
+      };
+      
+      console.log('Datos que se van a crear:', dataToCreate);
+      
+      const result = await this.prisma.inventory.create({
+        data: dataToCreate,
+        include: {
+          clasificacion: true,
+          empleado: true,
+        }
+      });
+      
+      console.log('Resultado de la creación:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en el servicio create:', error);
+      throw error;
+    }
   }
 
   async update(id: number, data: any) {
-    const { empleadoId, clasificacionId, ...inventoryData } = data;
-    
-    return this.prisma.inventory.update({
-      where: { id },
-      data: {
+    try {
+      console.log('Datos recibidos en el servicio update:', data);
+      console.log('ID a actualizar:', id);
+      
+      const { empleadoId, clasificacionId, fecha_compra, ...inventoryData } = data;
+      
+      // La fecha_compra no debe ser editable, se excluye de las actualizaciones
+      console.log('fecha_compra excluida de la actualización:', fecha_compra);
+      
+      // Obtener el artículo actual para verificar cambios en empleado
+      const currentItem = await this.prisma.inventory.findUnique({
+        where: { id },
+        select: { empleadoId: true }
+      });
+      
+      console.log('Artículo actual:', currentItem);
+      
+      // Determinar el nuevo status basado en la asignación de empleado
+      let status = inventoryData.status;
+      if (empleadoId !== undefined) {
+        // Si se está asignando un empleado, cambiar a 'asignado'
+        if (empleadoId) {
+          status = 'asignado';
+        } 
+        // Si se está desasignando un empleado (empleadoId es null/undefined), cambiar a 'libre'
+        else if (currentItem?.empleadoId) {
+          status = 'libre';
+        }
+      }
+      
+      const dataToUpdate = {
         ...inventoryData,
+        status,
         empleado: empleadoId ? {
           connect: { id: empleadoId }
-        } : {
+        } : empleadoId === null ? {
           disconnect: true
-        },
+        } : undefined,
         clasificacion: clasificacionId ? {
           connect: { id: clasificacionId }
-        } : {
+        } : clasificacionId === null ? {
           disconnect: true
+        } : undefined
+      };
+      
+      console.log('Datos que se van a actualizar:', dataToUpdate);
+      
+      const result = await this.prisma.inventory.update({
+        where: { id },
+        data: dataToUpdate,
+        include: {
+          clasificacion: true,
+          empleado: true,
         }
-      },
-      include: {
-        clasificacion: true,
-        empleado: true,
-      }
-    });
+      });
+      
+      console.log('Resultado de la actualización:', result);
+      return result;
+    } catch (error) {
+      console.error('Error en el servicio update:', error);
+      throw error;
+    }
   }
 
   async delete(id: number) {
-    return this.prisma.inventory.delete({ where: { id } });
+    try {
+      console.log('Eliminando artículo con ID:', id);
+      
+      if (!id || isNaN(id)) {
+        throw new Error('ID inválido para eliminación');
+      }
+      
+      // Verificar si existe antes de eliminar
+      const exists = await this.prisma.inventory.findUnique({
+        where: { id },
+        select: { id: true }
+      });
+      
+      if (!exists) {
+        throw new Error(`Artículo con ID ${id} no encontrado`);
+      }
+      
+      const result = await this.prisma.inventory.delete({ where: { id } });
+      console.log('Artículo eliminado exitosamente:', result.id);
+      return { message: 'Artículo eliminado exitosamente', id: result.id };
+    } catch (error) {
+      console.error('Error en delete:', error);
+      throw error;
+    }
+  }
+
+  async batchDelete(ids: number[]) {
+    try {
+      console.log('Eliminando artículos con IDs:', ids);
+      const result = await this.prisma.inventory.deleteMany({
+        where: {
+          id: {
+            in: ids
+          }
+        }
+      });
+      console.log('Artículos eliminados:', result.count);
+      return { message: `${result.count} artículos eliminados exitosamente`, count: result.count };
+    } catch (error) {
+      console.error('Error en batchDelete:', error);
+      throw new Error('Error al eliminar los artículos seleccionados');
+    }
   }
 
   async batchCreate(data: any[]) {
@@ -160,6 +275,7 @@ export class InventoryService {
         ram: item.ram,
         discoDuro: item.dicoDuro || item.discoDuro,
         sistemaOperativo: item.sistemaOperativo,
+        status: item.empleadoId ? 'asignado' : 'libre', // Establecer status basado en empleado
         sede: item.sede,
         estado: item.estado,
         usuarios: item.usuarios,
@@ -174,7 +290,11 @@ export class InventoryService {
         factura: item.factura,
         anioCompra: item.anioCompra,
         vidaUtil: item.vidaUtil,
-        fecha_compra: item.fecha_compra,
+        fecha_compra: item.fecha_compra ? (
+          typeof item.fecha_compra === 'string' 
+            ? new Date(item.fecha_compra + 'T00:00:00.000Z')
+            : item.fecha_compra
+        ) : null,
         precioUnitarioSinIgv: item.precioUnitarioSinIgv,
         observaciones: item.observaciones ? String(item.observaciones) : null,
         precioReposicion2024: item.precioReposicion2024,
