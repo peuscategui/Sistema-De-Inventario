@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ColaboradorModal from '@/components/colaboradores/ColaboradorModal';
 
 export interface Empleado {
@@ -45,6 +45,10 @@ export default function ColaboradoresPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedEmpleado, setSelectedEmpleado] = useState<Partial<Empleado> | null>(null);
   const [modalError, setModalError] = useState<string | null>(null);
+  
+  // State for view modal
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [viewingEmpleado, setViewingEmpleado] = useState<Empleado | null>(null);
 
   const fetchEmpleados = async (pageParam = page, pageSizeParam = pageSize, filtersParam = filters) => {
     setLoading(true);
@@ -120,24 +124,31 @@ export default function ColaboradoresPage() {
     setModalError(null);
   };
 
-  const handleFormChange = (name: keyof Empleado, value: string) => {
-    setSelectedEmpleado(prev => prev ? { ...prev, [name]: value } : null);
+  const handleView = (empleado: Empleado) => {
+    setViewingEmpleado(empleado);
+    setIsViewModalOpen(true);
   };
 
-  const handleSubmit = async () => {
-    if (!selectedEmpleado) return;
+  const handleCloseViewModal = () => {
+    setIsViewModalOpen(false);
+    setViewingEmpleado(null);
+  };
+
+
+
+  const handleSubmit = async (data: any) => {
     setIsSubmitting(true);
     setModalError(null);
 
     const method = isEditing ? 'PUT' : 'POST';
     const url = isEditing
-      ? `http://localhost:3002/colaboradores/${selectedEmpleado.id}`
+      ? `http://localhost:3002/colaboradores/${selectedEmpleado?.id}`
       : 'http://localhost:3002/colaboradores';
     
     const payload = {
-      nombre: selectedEmpleado.nombre || '',
-      cargo: selectedEmpleado.cargo || null,
-      gerencia: selectedEmpleado.gerencia || null,
+      nombre: data.nombre,
+      cargo: data.cargo,
+      gerencia: data.gerencia,
     };
 
     try {
@@ -472,14 +483,23 @@ export default function ColaboradoresPage() {
                     <td className="px-4 py-2">
                       <div className="flex gap-2">
                         <button
+                          onClick={() => handleView(empleado)}
+                          className="text-blue-600 hover:text-blue-800"
+                          title="Ver detalles"
+                        >
+                          <Eye size={20} />
+                        </button>
+                        <button
                           onClick={() => handleOpenModal(empleado)}
                           className="text-primary hover:text-primary/80"
+                          title="Editar"
                         >
                           <Edit size={20} />
                         </button>
                         <button
                           onClick={() => handleDelete(empleado.id)}
                           className="text-destructive hover:text-destructive/80"
+                          title="Eliminar"
                         >
                           <Trash2 size={20} />
                         </button>
@@ -498,11 +518,65 @@ export default function ColaboradoresPage() {
         onClose={handleCloseModal}
         onSubmit={handleSubmit}
         empleado={selectedEmpleado}
-        onFormChange={handleFormChange}
         isSubmitting={isSubmitting}
         isEditing={isEditing}
         error={modalError}
       />
+
+      {/* Modal de visualización */}
+      {isViewModalOpen && viewingEmpleado && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Detalles del Colaborador</h2>
+              <button
+                onClick={handleCloseViewModal}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Nombre
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingEmpleado.nombre}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Cargo
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingEmpleado.cargo || 'No especificado'}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Gerencia
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingEmpleado.gerencia || 'No especificado'}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={handleCloseViewModal}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 

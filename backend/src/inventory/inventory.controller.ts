@@ -14,11 +14,12 @@ export class InventoryController {
     @Query('marca') marca?: string,
     @Query('modelo') modelo?: string,
     @Query('serie') serie?: string,
+    @Query('status') status?: string,
   ) {
     return this.inventoryService.findAll({ 
       page, 
       pageSize,
-      filters: { codigoEFC, marca, modelo, serie }
+      filters: { codigoEFC, marca, modelo, serie, status }
     });
   }
 

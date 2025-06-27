@@ -33,8 +33,15 @@ export class ClasificacionController {
   }
 
   @Post()
-  create(@Body() data: any) {
-    return this.clasificacionService.create(data);
+  async create(@Body() data: any) {
+    console.log('Datos recibidos para crear clasificación:', data);
+    try {
+      const result = await this.clasificacionService.create(data);
+      return result;
+    } catch (error) {
+      console.error('Error en controlador al crear clasificación:', error);
+      throw error;
+    }
   }
 
   @Post('batch')

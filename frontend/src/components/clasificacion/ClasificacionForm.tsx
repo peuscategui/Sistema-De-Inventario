@@ -5,11 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 const clasificacionSchema = z.object({
-  familia: z.string().min(1, 'La familia es requerida'),
-  sub_familia: z.string().min(1, 'La sub-familia es requerida'),
-  tipo_equipo: z.string().min(1, 'El tipo de equipo es requerido'),
-  vida_util: z.string().optional(),
-  valor_reposicion: z.number().positive('El valor debe ser positivo').optional().nullable(),
+  familia: z.string().min(1, 'La familia es requerida').trim(),
+  sub_familia: z.string().min(1, 'La sub-familia es requerida').trim(),
+  tipo_equipo: z.string().min(1, 'El tipo de equipo es requerido').trim(),
+  vida_util: z.string().min(1, 'La vida útil es requerida').trim(),
+  valor_reposicion: z.number().positive('El valor de reposición debe ser mayor a 0').min(0.01, 'El valor de reposición es requerido'),
 });
 
 type ClasificacionFormData = z.infer<typeof clasificacionSchema>;
@@ -48,15 +48,16 @@ export default function ClasificacionForm({ onSubmit, onCancel, initialData }: C
         {errors.tipo_equipo && <p className="text-red-500 text-xs mt-1">{errors.tipo_equipo.message}</p>}
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Vida Útil (años)</label>
+        <label className="block text-sm font-medium mb-1">Vida Útil (años) *</label>
         <input {...register('vida_util')} className="w-full input" />
+        {errors.vida_util && <p className="text-red-500 text-xs mt-1">{errors.vida_util.message}</p>}
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Valor de Reposición</label>
+        <label className="block text-sm font-medium mb-1">Valor de Reposición *</label>
         <input 
           type="number" 
           step="0.01" 
-          {...register('valor_reposicion', { setValueAs: (v) => (v === "" ? null : parseFloat(v)) })} 
+          {...register('valor_reposicion', { setValueAs: (v) => (v === "" ? NaN : parseFloat(v)) })} 
           className="w-full input" 
         />
         {errors.valor_reposicion && <p className="text-red-500 text-xs mt-1">{errors.valor_reposicion.message}</p>}

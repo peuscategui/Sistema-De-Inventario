@@ -6,9 +6,8 @@ import { Empleado } from '@/app/colaboradores/page';
 interface ColaboradorModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (data: any) => void;
   empleado: Partial<Empleado> | null;
-  onFormChange: (name: keyof Empleado, value: string) => void;
   isSubmitting: boolean;
   isEditing: boolean;
   error: string | null;
@@ -19,7 +18,6 @@ export default function ColaboradorModal({
   onClose,
   onSubmit,
   empleado,
-  onFormChange,
   isSubmitting,
   isEditing,
   error,
@@ -35,7 +33,8 @@ export default function ColaboradorModal({
         
         <ColaboradorForm 
           empleado={empleado}
-          onFormChange={onFormChange}
+          onSubmit={onSubmit}
+          onCancel={onClose}
           isSubmitting={isSubmitting}
         />
 
@@ -44,23 +43,6 @@ export default function ColaboradorModal({
             <strong>Error:</strong> {error}
           </div>
         )}
-
-        <div className="flex justify-end gap-4 mt-6">
-          <button
-            onClick={onClose}
-            disabled={isSubmitting}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
-          >
-            Cancelar
-          </button>
-          <button
-            onClick={onSubmit}
-            disabled={isSubmitting}
-            className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
-          >
-            {isSubmitting ? 'Guardando...' : 'Guardar'}
-          </button>
-        </div>
       </div>
     </div>
   );

@@ -88,6 +88,7 @@ export default function ArticulosPage() {
     marca: '',
     modelo: '',
     serie: '',
+    status: '',
   });
   const [activeFilter, setActiveFilter] = useState<keyof typeof filters>('codigoEFC');
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
@@ -101,6 +102,7 @@ export default function ArticulosPage() {
     { id: 'marca', label: 'Marca' },
     { id: 'modelo', label: 'Modelo' },
     { id: 'serie', label: 'Serie' },
+    { id: 'status', label: 'Status' },
   ];
 
   // Fetch de datos
@@ -371,14 +373,26 @@ export default function ArticulosPage() {
               )}
             </div>
             <div className="flex gap-2">
-              <input
-                type="text"
-                value={filters[activeFilter]}
-                onChange={(e) => handleFilterChange(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label}`}
-                className="border rounded-lg px-4 py-2 w-64"
-              />
+              {activeFilter === 'status' ? (
+                <select
+                  value={filters[activeFilter]}
+                  onChange={(e) => handleFilterChange(e.target.value)}
+                  className="border rounded-lg px-4 py-2 w-64"
+                >
+                  <option value="">Todos los status</option>
+                  <option value="libre">Libre</option>
+                  <option value="asignado">Asignado</option>
+                </select>
+              ) : (
+                <input
+                  type="text"
+                  value={filters[activeFilter]}
+                  onChange={(e) => handleFilterChange(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder={`Buscar por ${filterOptions.find(opt => opt.id === activeFilter)?.label}`}
+                  className="border rounded-lg px-4 py-2 w-64"
+                />
+              )}
               <button
                 onClick={handleSearch}
                 className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2"

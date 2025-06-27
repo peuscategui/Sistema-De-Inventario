@@ -10,6 +10,7 @@ interface FindAllOptions {
     marca?: string;
     modelo?: string;
     serie?: string;
+    status?: string;
   }
 }
 
@@ -32,6 +33,9 @@ export class InventoryService {
     }
     if (filters.serie) {
       whereClause['serie'] = { contains: filters.serie };
+    }
+    if (filters.status) {
+      whereClause['status'] = { equals: filters.status };
     }
 
     const [items, total] = await Promise.all([

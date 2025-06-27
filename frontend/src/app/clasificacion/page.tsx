@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ClasificacionModal from '@/components/clasificacion/ClasificacionModal';
 
 interface Clasificacion {
@@ -26,6 +26,10 @@ export default function ClasificacionPage() {
   const [selectedClasificaciones, setSelectedClasificaciones] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingClasificacion, setEditingClasificacion] = useState<Clasificacion | null>(null);
+  
+  // State for view modal
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [viewingClasificacion, setViewingClasificacion] = useState<Clasificacion | null>(null);
 
   // Filtros
   const [filters, setFilters] = useState({
@@ -234,6 +238,16 @@ export default function ClasificacionPage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingClasificacion(null);
+  };
+
+  const handleView = (clasificacion: Clasificacion) => {
+    setViewingClasificacion(clasificacion);
+    setIsViewModalOpen(true);
+  };
+
+  const handleCloseViewModal = () => {
+    setIsViewModalOpen(false);
+    setViewingClasificacion(null);
   };
 
   const handleEdit = (clasificacion: Clasificacion) => {
@@ -466,14 +480,23 @@ export default function ClasificacionPage() {
                     <td className="px-4 py-2">
                       <div className="flex gap-2">
                         <button
+                          onClick={() => handleView(clasificacion)}
+                          className="text-blue-600 hover:text-blue-800"
+                          title="Ver detalles"
+                        >
+                          <Eye size={20} />
+                        </button>
+                        <button
                           onClick={() => handleEdit(clasificacion)}
                           className="text-primary hover:text-primary/80"
+                          title="Editar"
                         >
                           <Edit size={20} />
                         </button>
                         <button
                           onClick={() => handleDelete(clasificacion.id)}
                           className="text-destructive hover:text-destructive/80"
+                          title="Eliminar"
                         >
                           <Trash2 size={20} />
                         </button>
@@ -494,6 +517,81 @@ export default function ClasificacionPage() {
         initialData={editingClasificacion}
         isEditing={!!editingClasificacion}
       />
+
+      {/* Modal de visualización */}
+      {isViewModalOpen && viewingClasificacion && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Detalles de la Clasificación</h2>
+              <button
+                onClick={handleCloseViewModal}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Familia
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingClasificacion.familia || 'No especificado'}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Sub Familia
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingClasificacion.sub_familia || 'No especificado'}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Tipo de Equipo
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingClasificacion.tipo_equipo || 'No especificado'}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Vida Útil (años)
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingClasificacion.vida_util || 'No especificado'}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Valor de Reposición
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {viewingClasificacion.valor_reposicion 
+                    ? `$${viewingClasificacion.valor_reposicion.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` 
+                    : 'No especificado'}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={handleCloseViewModal}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
