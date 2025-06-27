@@ -73,12 +73,14 @@ interface Filters {
   gerencia?: string;
   familia?: string;
   empleado?: string;
+  tipoEquipo?: string;
 }
 
 const filterOptions = [
   { value: 'codigoEFC', label: 'Código EFC' },
   { value: 'marca', label: 'Marca' },
   { value: 'modelo', label: 'Modelo' },
+  { value: 'tipoEquipo', label: 'Tipo de Equipo' },
   { value: 'estado', label: 'Estado' },
   { value: 'sede', label: 'Sede' },
   { value: 'gerencia', label: 'Gerencia' },

@@ -163,7 +163,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
   const empleadoOptions = Array.isArray(empleados) ? empleados.map(e => ({ value: e.id, label: e.nombre || 'Sin nombre' })) : [];
   const articuloOptions = Array.isArray(articulos) ? articulos.map(a => ({
     value: a.id,
-    label: `Serie: ${a.serie || 'N/A'} (Marca: ${a.marca || 'N/A'}, Modelo: ${a.modelo || 'N/A'})`
+    label: `${a.codigoEFC || 'Sin código'} - Serie: ${a.serie || 'N/A'} (Marca: ${a.marca || 'N/A'}, Modelo: ${a.modelo || 'N/A'})`
   })) : [];
 
 
@@ -237,7 +237,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
                   isClearable
                   isSearchable
                   isLoading={isLoading}
-                  placeholder="Buscar por marca, modelo y/o serie"
+                  placeholder="Buscar por código EFC, marca, modelo o serie"
                   styles={customSelectStyles}
                   value={articuloOptions.find(c => c.value === field.value)}
                   onChange={handleArticuloChange}
