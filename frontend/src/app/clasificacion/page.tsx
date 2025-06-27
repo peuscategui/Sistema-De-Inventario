@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ClasificacionModal from '@/components/clasificacion/ClasificacionModal';
+import { API_ENDPOINTS } from '@/config/api';
 
 interface Clasificacion {
   id: number;
@@ -44,40 +45,44 @@ export default function ClasificacionPage() {
     { id: 'tipo_equipo', label: 'Tipo de Equipo' }
   ];
 
-  const fetchClasificaciones = async (pageParam = page, pageSizeParam = pageSize, filtersParam = filters) => {
+  const fetchClasificaciones = async () => {
     setLoading(true);
     try {
-      const queryParams = new URLSearchParams({
-        page: pageParam.toString(),
-        pageSize: pageSizeParam.toString(),
-        ...(filtersParam.familia && { familia: filtersParam.familia }),
-        ...(filtersParam.sub_familia && { sub_familia: filtersParam.sub_familia }),
-        ...(filtersParam.tipo_equipo && { tipo_equipo: filtersParam.tipo_equipo })
+      let url = `${API_ENDPOINTS.clasificacion}?page=${page}&limit=${pageSize}`;
+      
+      // Agregar filtros a la URL
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          url += `&${key}=${encodeURIComponent(value)}`;
+        }
       });
 
-      const response = await fetch(`http://localhost:3002/clasificacion?${queryParams}`);
-      if (!response.ok) throw new Error('Error al obtener los datos');
-      const { data, pagination: paginationData } = await response.json();
-        setClasificaciones(data);
-      setPagination(paginationData);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Error al obtener las clasificaciones');
       }
-    };
+      const { data, pagination: paginationData } = await response.json();
+      setClasificaciones(data);
+      setPagination(paginationData);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchAllClasificaciones = async () => {
     try {
-      const queryParams = new URLSearchParams({
-        page: '1',
-        pageSize: '10000', // Un número grande para obtener todos
-        ...(filters.familia && { familia: filters.familia }),
-        ...(filters.sub_familia && { sub_familia: filters.sub_familia }),
-        ...(filters.tipo_equipo && { tipo_equipo: filters.tipo_equipo })
+      let url = `${API_ENDPOINTS.clasificacion}?page=1&limit=10000`;
+      
+      // Agregar filtros a la URL
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          url += `&${key}=${encodeURIComponent(value)}`;
+        }
       });
 
-      const response = await fetch(`http://localhost:3002/clasificacion?${queryParams}`);
+      const response = await fetch(url);
       if (!response.ok) throw new Error('Error al obtener todos los datos');
       const { data } = await response.json();
       return data;
@@ -96,7 +101,7 @@ export default function ClasificacionPage() {
 
   const handleSearch = () => {
     setPage(1); // Resetear a la primera página al buscar
-    fetchClasificaciones(1, pageSize, filters);
+    fetchClasificaciones();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -181,7 +186,7 @@ export default function ClasificacionPage() {
       });
 
       try {
-        const response = await fetch('http://localhost:3002/clasificacion/batch', {
+        const response = await fetch(API_ENDPOINTS.clasificacionBatch, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(importData)
@@ -204,7 +209,7 @@ export default function ClasificacionPage() {
 
     try {
       const deletePromises = selectedClasificaciones.map(id => 
-        fetch(`http://localhost:3002/clasificacion/${id}`, { method: 'DELETE' })
+        fetch(`${API_ENDPOINTS.clasificacion}/${id}`, { method: 'DELETE' })
       );
       await Promise.all(deletePromises);
       await fetchClasificaciones();
@@ -258,8 +263,8 @@ export default function ClasificacionPage() {
   const handleSubmit = async (data: any) => {
     try {
       const url = editingClasificacion
-        ? `http://localhost:3002/clasificacion/${editingClasificacion.id}`
-        : 'http://localhost:3002/clasificacion';
+        ? `${API_ENDPOINTS.clasificacion}/${editingClasificacion.id}`
+        : API_ENDPOINTS.clasificacion;
       const method = editingClasificacion ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -283,7 +288,7 @@ export default function ClasificacionPage() {
   const handleDelete = async (id: number) => {
     if (!window.confirm('¿Estás seguro de que deseas eliminar esta clasificación?')) return;
     try {
-      const response = await fetch(`http://localhost:3002/clasificacion/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_ENDPOINTS.clasificacion}/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error('Error al eliminar la clasificación');
       fetchClasificaciones(); // Recargar datos
     } catch (error) {

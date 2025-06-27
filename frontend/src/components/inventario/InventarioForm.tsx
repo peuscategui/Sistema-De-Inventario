@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Select from 'react-select';
+import { API_ENDPOINTS } from '@/config/api';
 
 // Esquema de validación Zod
 const inventarioSchema = z.object({
@@ -120,45 +121,52 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
   }, [estadoValue, setValue]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
+    const fetchDatos = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
-        const [clasificacionesRes, empleadosRes, articulosRes] = await Promise.all([
-          fetch(`${apiUrl}/clasificacion?limit=1000`),
-          fetch(`${apiUrl}/colaboradores?pageSize=10000`),
-          fetch(`${apiUrl}/inventory?pageSize=10000`) // Obtener todos los artículos
+        setIsLoading(true);
+
+
+
+        const [clasificacionesRes, colaboradoresRes, articulosRes] = await Promise.all([
+          fetch(`${API_ENDPOINTS.clasificacion}?limit=1000`),
+          fetch(`${API_ENDPOINTS.colaboradores}?limit=1000`),
+          fetch(`${API_ENDPOINTS.inventory}?limit=1000`)
         ]);
 
         if (clasificacionesRes.ok) {
           const clasificacionesData = await clasificacionesRes.json();
-          setClasificaciones(Array.isArray(clasificacionesData.data) ? clasificacionesData.data : []);
+          const clasificacionesArray = clasificacionesData.items || clasificacionesData.data || clasificacionesData;
+          setClasificaciones(Array.isArray(clasificacionesArray) ? clasificacionesArray : []);
         }
 
-        if (empleadosRes.ok) {
-          const empleadosData = await empleadosRes.json();
-          setEmpleados(Array.isArray(empleadosData.data) ? empleadosData.data : []);
+        if (colaboradoresRes.ok) {
+          const colaboradoresData = await colaboradoresRes.json();
+          const colaboradoresArray = colaboradoresData.items || colaboradoresData.data || colaboradoresData;
+          setEmpleados(Array.isArray(colaboradoresArray) ? colaboradoresArray : []);
         }
 
         if (articulosRes.ok) {
           const articulosData = await articulosRes.json();
-          setArticulos(Array.isArray(articulosData.data) ? articulosData.data : []);
+          const articulosArray = articulosData.items || articulosData.data || articulosData;
+          setArticulos(Array.isArray(articulosArray) ? articulosArray : []);
         }
       } catch (error) {
-        console.error('Error cargando datos para el formulario:', error);
+        console.error('Error al cargar datos:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchData();
+    fetchDatos();
   }, []);
 
-  const empleadoOptions = empleados.map(e => ({ value: e.id, label: e.nombre || 'Sin nombre' }));
-  const articuloOptions = articulos.map(a => ({
+  const empleadoOptions = Array.isArray(empleados) ? empleados.map(e => ({ value: e.id, label: e.nombre || 'Sin nombre' })) : [];
+  const articuloOptions = Array.isArray(articulos) ? articulos.map(a => ({
     value: a.id,
     label: `Serie: ${a.serie || 'N/A'} (Marca: ${a.marca || 'N/A'}, Modelo: ${a.modelo || 'N/A'})`
-  }));
+  })) : [];
+
+
 
   const handleArticuloChange = (option: any) => {
     setValue('articuloId', option ? option.value : 0);
@@ -264,7 +272,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
             <label className="block text-sm font-medium mb-1">Clasificación *</label>
             <select {...register('clasificacionId')} className={inputClass} disabled={isLoading}>
               <option value="">{isLoading ? 'Cargando...' : 'Seleccionar clasificación'}</option>
-              {clasificaciones.map(c => (<option key={c.id} value={c.id}>{c.familia} - {c.sub_familia}</option>))}
+              {Array.isArray(clasificaciones) && clasificaciones.map(c => (<option key={c.id} value={c.id}>{c.familia} - {c.sub_familia}</option>))}
             </select>
             {errors.clasificacionId && <p className="text-red-500 text-xs mt-1">{errors.clasificacionId.message}</p>}
           </div>

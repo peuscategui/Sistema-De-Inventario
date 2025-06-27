@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search, Eye } from 'lucide-react';
-import ArticuloModal from '../../components/articulos/ArticuloModal';
+import ArticuloModal from '@/components/articulos/ArticuloModal';
+import { API_ENDPOINTS } from '@/config/api';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
+
 
 // Tipos de datos
 interface Articulo {
@@ -109,16 +110,19 @@ export default function ArticulosPage() {
   const fetchArticulos = async (pageParam = page, pageSizeParam = pageSize, filtersParam = filters) => {
     setLoading(true);
     try {
-      const queryParams = new URLSearchParams({
-        page: pageParam.toString(),
-        pageSize: pageSizeParam.toString(),
-        ...Object.entries(filtersParam)
-          .filter(([, value]) => value)
-          .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+      let url = `${API_ENDPOINTS.inventory}?page=${pageParam}&limit=${pageSizeParam}`;
+      
+      // Agregar filtros a la URL
+      Object.entries(filtersParam).forEach(([key, value]) => {
+        if (value) {
+          url += `&${key}=${encodeURIComponent(value)}`;
+        }
       });
 
-      const response = await fetch(`http://localhost:3002/inventory?${queryParams}`);
-      if (!response.ok) throw new Error('Error al obtener los artículos');
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Error al obtener los artículos');
+      }
       const { data, pagination: paginationData } = await response.json();
       setArticulos(data);
       setPagination(paginationData);
@@ -131,15 +135,16 @@ export default function ArticulosPage() {
 
   const fetchAllArticulos = async () => {
     try {
-      const queryParams = new URLSearchParams({
-        page: '1',
-        pageSize: '10000', // Un número grande para obtener todos
-        ...Object.entries(filters)
-          .filter(([, value]) => value)
-          .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+      let url = `${API_ENDPOINTS.inventory}?page=1&limit=10000`;
+      
+      // Agregar filtros a la URL
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          url += `&${key}=${encodeURIComponent(value)}`;
+        }
       });
 
-      const response = await fetch(`http://localhost:3002/inventory?${queryParams}`);
+      const response = await fetch(url);
       if (!response.ok) throw new Error('Error al obtener todos los artículos');
       const { data } = await response.json();
       return data;
@@ -196,8 +201,8 @@ export default function ArticulosPage() {
   const handleSubmit = async (data: any) => {
     setIsSubmitting(true);
     const url = editingArticulo
-      ? `http://localhost:3002/inventory/${editingArticulo.id}`
-      : 'http://localhost:3002/inventory';
+      ? `${API_ENDPOINTS.inventory}/${editingArticulo.id}`
+      : API_ENDPOINTS.inventory;
     const method = editingArticulo ? 'PUT' : 'POST';
 
     // Debug: Log de los datos que se están enviando
@@ -301,7 +306,7 @@ export default function ArticulosPage() {
 
     try {
       // Asume un endpoint de eliminación en lote
-      const response = await fetch(`http://localhost:3002/inventory/batch`, {
+      const response = await fetch(API_ENDPOINTS.inventoryBatch, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: selectedArticulos }),
@@ -319,7 +324,7 @@ export default function ArticulosPage() {
   const handleDelete = async (id: number) => {
     if (!window.confirm('¿Estás seguro de que deseas eliminar este artículo?')) return;
     try {
-      const response = await fetch(`http://localhost:3002/inventory/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_ENDPOINTS.inventory}/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error('Error al eliminar el artículo');
       await fetchArticulos();
     } catch (err: any) {

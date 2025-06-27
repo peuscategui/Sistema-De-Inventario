@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ColaboradorModal from '@/components/colaboradores/ColaboradorModal';
+import { API_ENDPOINTS } from '@/config/api';
 
 export interface Empleado {
   id: number;
@@ -50,19 +51,22 @@ export default function ColaboradoresPage() {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewingEmpleado, setViewingEmpleado] = useState<Empleado | null>(null);
 
-  const fetchEmpleados = async (pageParam = page, pageSizeParam = pageSize, filtersParam = filters) => {
+  const fetchEmpleados = async () => {
     setLoading(true);
     try {
-      const queryParams = new URLSearchParams({
-        page: pageParam.toString(),
-        pageSize: pageSizeParam.toString(),
-        ...(filtersParam.nombre && { nombre: filtersParam.nombre }),
-        ...(filtersParam.cargo && { cargo: filtersParam.cargo }),
-        ...(filtersParam.gerencia && { gerencia: filtersParam.gerencia })
+      let url = `${API_ENDPOINTS.colaboradores}?page=${page}&limit=${pageSize}`;
+      
+      // Agregar filtros a la URL
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          url += `&${key}=${encodeURIComponent(value)}`;
+        }
       });
 
-      const response = await fetch(`http://localhost:3002/colaboradores?${queryParams}`);
-      if (!response.ok) throw new Error('Error al obtener los datos');
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Error al obtener los empleados');
+      }
       const { data, pagination: paginationData } = await response.json();
       setEmpleados(data);
       setPagination(paginationData);
@@ -75,15 +79,16 @@ export default function ColaboradoresPage() {
 
   const fetchAllEmpleados = async () => {
     try {
-      const queryParams = new URLSearchParams({
-        page: '1',
-        pageSize: '10000', // Un número grande para obtener todos
-        ...(filters.nombre && { nombre: filters.nombre }),
-        ...(filters.cargo && { cargo: filters.cargo }),
-        ...(filters.gerencia && { gerencia: filters.gerencia })
+      let url = `${API_ENDPOINTS.colaboradores}?page=1&limit=10000`;
+      
+      // Agregar filtros a la URL
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          url += `&${key}=${encodeURIComponent(value)}`;
+        }
       });
 
-      const response = await fetch(`http://localhost:3002/colaboradores?${queryParams}`);
+      const response = await fetch(url);
       if (!response.ok) throw new Error('Error al obtener todos los datos');
       const { data } = await response.json();
       return data;
@@ -134,16 +139,14 @@ export default function ColaboradoresPage() {
     setViewingEmpleado(null);
   };
 
-
-
   const handleSubmit = async (data: any) => {
     setIsSubmitting(true);
     setModalError(null);
 
     const method = isEditing ? 'PUT' : 'POST';
     const url = isEditing
-      ? `http://localhost:3002/colaboradores/${selectedEmpleado?.id}`
-      : 'http://localhost:3002/colaboradores';
+      ? `${API_ENDPOINTS.colaboradores}/${selectedEmpleado?.id}`
+      : API_ENDPOINTS.colaboradores;
     
     const payload = {
       nombre: data.nombre,
@@ -180,7 +183,7 @@ export default function ColaboradoresPage() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch(`http://localhost:3002/colaboradores/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_ENDPOINTS.colaboradores}/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error('Error al eliminar el colaborador');
       await fetchEmpleados();
     } catch (err: any) {
@@ -251,7 +254,7 @@ export default function ColaboradoresPage() {
       });
 
       try {
-        const response = await fetch('http://localhost:3002/colaboradores/batch', {
+        const response = await fetch(API_ENDPOINTS.colaboradoresBatch, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(importData)
@@ -275,7 +278,7 @@ export default function ColaboradoresPage() {
     setIsSubmitting(true);
     try {
       const deletePromises = selectedEmpleados.map(id => 
-        fetch(`http://localhost:3002/colaboradores/${id}`, { method: 'DELETE' })
+        fetch(`${API_ENDPOINTS.colaboradores}/${id}`, { method: 'DELETE' })
       );
       await Promise.all(deletePromises);
       await fetchEmpleados();
