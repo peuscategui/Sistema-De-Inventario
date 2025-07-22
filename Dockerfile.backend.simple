@@ -6,14 +6,14 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 # Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar todo el proyecto
-COPY . .
+# Copiar package*.json primero para aprovechar el cache de Docker
+COPY backend/package*.json ./
 
-# Cambiar al directorio backend
-WORKDIR /app/backend
+# Instalar dependencias incluyendo rimraf globalmente
+RUN npm install -g rimraf && npm install --legacy-peer-deps
 
-# Instalar dependencias
-RUN npm install --legacy-peer-deps
+# Copiar el resto del código
+COPY backend/ ./
 
 # Generar Prisma client
 RUN npx prisma generate
