@@ -44,7 +44,7 @@ const ArticuloModal = ({ isOpen, onClose, onSubmit, articulo, isSubmitting }: Pr
           <ArticuloForm
             onSubmit={onSubmit}
             onCancel={onClose}
-            defaultValues={articulo || {}}
+            defaultValues={articulo ? (() => { const { id, ...rest } = articulo; return rest; })() : {}}
             isSubmitting={isSubmitting}
             isEditing={!!articulo}
           />

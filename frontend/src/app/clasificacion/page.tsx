@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ClasificacionModal from '@/components/clasificacion/ClasificacionModal';
 import { API_ENDPOINTS } from '@/config/api';
+// import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 interface Clasificacion {
   id: number;
@@ -15,6 +16,7 @@ interface Clasificacion {
 }
 
 export default function ClasificacionPage() {
+  // const { authenticatedFetch } = useAuthenticatedFetch(); // TEMPORALMENTE DESACTIVADO
   const [clasificaciones, setClasificaciones] = useState<Clasificacion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +50,8 @@ export default function ClasificacionPage() {
   const fetchClasificaciones = async () => {
     setLoading(true);
     try {
-      let url = `${API_ENDPOINTS.clasificacion}?page=${page}&limit=${pageSize}`;
+      // CORREGIDO: usar pageSize en lugar de limit
+      let url = `${API_ENDPOINTS.clasificacion}?page=${page}&pageSize=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -57,14 +60,27 @@ export default function ClasificacionPage() {
         }
       });
 
+      console.log('🔍 DEBUG Clasificaciones: URL de solicitud:', url);
+
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Error al obtener las clasificaciones');
       }
-      const { data, pagination: paginationData } = await response.json();
-      setClasificaciones(data);
+      const result = await response.json();
+      
+      console.log('🔍 DEBUG Clasificaciones: Respuesta del servidor:', result);
+      
+      // Ajustar según la estructura real del backend
+      const clasificacionesData = result.data || result.items || result;
+      const paginationData = result.pagination || result.meta || {
+        totalCount: Array.isArray(clasificacionesData) ? clasificacionesData.length : 0,
+        totalPages: 1
+      };
+      
+      setClasificaciones(Array.isArray(clasificacionesData) ? clasificacionesData : []);
       setPagination(paginationData);
     } catch (err: any) {
+      console.error('❌ Error al cargar clasificaciones:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -73,19 +89,21 @@ export default function ClasificacionPage() {
 
   const fetchAllClasificaciones = async () => {
     try {
-      let url = `${API_ENDPOINTS.clasificacion}?page=1&limit=10000`;
+      // CORREGIDO: usar pageSize en lugar de limit
+      let url = `${API_ENDPOINTS.clasificacion}?page=1&pageSize=10000`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
           url += `&${key}=${encodeURIComponent(value)}`;
         }
-      });
+              });
 
       const response = await fetch(url);
       if (!response.ok) throw new Error('Error al obtener todos los datos');
-      const { data } = await response.json();
-      return data;
+      const result = await response.json();
+      const data = result.data || result.items || result;
+      return Array.isArray(data) ? data : [];
     } catch (err: any) {
       throw new Error('Error al obtener todas las clasificaciones');
     }

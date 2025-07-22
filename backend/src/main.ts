@@ -1,3 +1,16 @@
+// Cargar variables de entorno desde .env
+import * as dotenv from 'dotenv';
+import { join } from 'path';
+
+// Cargar archivo .env desde la raíz del proyecto
+dotenv.config({ path: join(__dirname, '..', '.env') });
+
+// Debug: Mostrar si las variables se cargaron correctamente
+console.log('🔧 Variables de entorno cargadas:');
+console.log('- MICROSOFT_CLIENT_ID:', process.env.MICROSOFT_CLIENT_ID ? '[CONFIGURADO]' : '[NO CONFIGURADO]');
+console.log('- MICROSOFT_TENANT_ID:', process.env.MICROSOFT_TENANT_ID ? '[CONFIGURADO]' : '[NO CONFIGURADO]');
+console.log('- MICROSOFT_REDIRECT_URI:', process.env.MICROSOFT_REDIRECT_URI ? '[CONFIGURADO]' : '[NO CONFIGURADO]');
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';

@@ -60,6 +60,8 @@ const formFields = [
 ];
 
 const ArticuloForm = ({ onSubmit, onCancel, defaultValues = {}, isSubmitting, isEditing = false }: Props) => {
+  console.log('🔍 DEBUG: ArticuloForm - defaultValues recibidos:', defaultValues);
+  
   const { control, handleSubmit, formState: { errors } } = useForm<ArticuloFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {

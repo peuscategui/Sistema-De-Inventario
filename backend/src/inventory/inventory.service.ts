@@ -11,14 +11,19 @@ interface FindAllOptions {
     modelo?: string;
     serie?: string;
     status?: string;
-  }
+    estado?: string; // CORREGIDO: agregar campo estado para filtros
+  };
+  excludeEstados?: string;
 }
 
 @Injectable()
 export class InventoryService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll({ page = 1, pageSize = 10, filters = {} }: FindAllOptions) {
+  async findAll({ page = 1, pageSize = 10, filters = {}, excludeEstados }: FindAllOptions) {
+    console.log('🔍 DEBUG: findAll - excludeEstados recibido:', excludeEstados);
+    console.log('🔍 DEBUG: findAll - filters recibidos:', filters);
+    
     const skip = (page - 1) * pageSize;
     
     const whereClause: Record<string, any> = {};
@@ -37,7 +42,22 @@ export class InventoryService {
     if (filters.status) {
       whereClause['status'] = { equals: filters.status };
     }
+    if (filters.estado) {
+      whereClause['estado'] = { equals: filters.estado };
+    }
+    
+    // Filtrar por estados a excluir
+    if (excludeEstados) {
+      const estadosExcluir = excludeEstados.split(',').map(estado => estado.trim());
+      whereClause['estado'] = {
+        notIn: estadosExcluir
+      };
+      console.log('🔍 DEBUG: findAll - estados a excluir:', estadosExcluir);
+      console.log('🔍 DEBUG: findAll - whereClause final:', whereClause);
+    }
 
+    console.log('🔍 DEBUG: findAll - whereClause final:', JSON.stringify(whereClause, null, 2));
+    
     const [items, total] = await Promise.all([
       this.prisma.inventory.findMany({
         where: whereClause,
@@ -50,6 +70,9 @@ export class InventoryService {
       }),
       this.prisma.inventory.count({ where: whereClause }),
     ]);
+    
+    console.log('🔍 DEBUG: findAll - items encontrados:', items.length);
+    console.log('🔍 DEBUG: findAll - estados de los items:', items.map(item => ({ id: item.id, estado: item.estado, status: item.status })));
 
     // Formatear las fechas antes de enviarlas al frontend
     const formattedItems = items.map(item => ({
@@ -58,8 +81,22 @@ export class InventoryService {
         item.fecha_compra.toISOString().split('T')[0]
         : null,
       precioUnitarioSinIgv: item.precioUnitarioSinIgv ? `$${item.precioUnitarioSinIgv}` : null,
-      precioReposicion: item.precioReposicion ? `$${item.precioReposicion}` : null,
-      precioReposicion2024: item.precioReposicion2024 ? `$${item.precioReposicion2024}` : null
+      // Usar valor_reposicion de la clasificación relacionada
+      valorReposicion: item.clasificacion?.valor_reposicion ? `$${item.clasificacion.valor_reposicion}` : null,
+      // CORREGIDO: Agregar campos adicionales para la sección de bajas
+      sede: item.empleado?.sede || null,
+      gerencia: item.empleado?.gerencia || null,
+      cargo: item.empleado?.cargo || null,
+      nombreEmpleado: item.empleado?.nombre || null,
+      tipoEquipo: item.clasificacion?.tipo_equipo || null,
+      familia: item.clasificacion?.familia || null,
+      subFamilia: item.clasificacion?.sub_familia || null,
+      vidaUtil: item.clasificacion?.vida_util || null,
+      // CORREGIDO: Campos de baja ahora existen en el esquema
+      fechaBaja: item.fecha_baja ? 
+        new Date(item.fecha_baja.getTime() - (item.fecha_baja.getTimezoneOffset() * 60000)).toISOString().split('T')[0]
+        : null,
+      motivoBaja: item.motivo_baja || null,
     }));
 
     return {
@@ -74,6 +111,15 @@ export class InventoryService {
   }
 
   async findOne(id: number) {
+    console.log('🔍 DEBUG: findOne llamado con id:', id);
+    console.log('🔍 DEBUG: Tipo de id:', typeof id);
+    console.log('🔍 DEBUG: id es NaN?', isNaN(id));
+    
+    if (!id || isNaN(id)) {
+      console.error('❌ ERROR: ID inválido en findOne:', id);
+      throw new Error('ID inválido para buscar inventario');
+    }
+    
     const item = await this.prisma.inventory.findUnique({
       where: { id },
       include: {
@@ -90,8 +136,8 @@ export class InventoryService {
         ...item,
         fecha_compra: item.fecha_compra.toISOString().split('T')[0],
         precioUnitarioSinIgv: item.precioUnitarioSinIgv ? `$${item.precioUnitarioSinIgv}` : null,
-        precioReposicion: item.precioReposicion ? `$${item.precioReposicion}` : null,
-        precioReposicion2024: item.precioReposicion2024 ? `$${item.precioReposicion2024}` : null
+        // Usar valor_reposicion de la clasificación relacionada
+        valorReposicion: item.clasificacion?.valor_reposicion ? `$${item.clasificacion.valor_reposicion}` : null
       };
     }
 
@@ -100,9 +146,20 @@ export class InventoryService {
 
   async create(data: any) {
     try {
-      console.log('Datos recibidos en el servicio create:', data);
+      console.log('🔍 DEBUG: Datos recibidos en el servicio create:', JSON.stringify(data, null, 2));
       
-      const { empleadoId, clasificacionId, ...inventoryData } = data;
+      // CORREGIDO: Remover el id de los datos para evitar errores de unique constraint
+      const { id, articuloId, empleadoId, clasificacionId, ...inventoryData } = data;
+      
+      console.log('🔍 DEBUG: ID removido de los datos:', id);
+      console.log('🔍 DEBUG: articuloId recibido:', articuloId);
+      console.log('🔍 DEBUG: Datos después de remover ID:', JSON.stringify(inventoryData, null, 2));
+      
+      // Si se proporciona articuloId, actualizar el registro existente en lugar de crear uno nuevo
+      if (articuloId && articuloId > 0) {
+        console.log('🔍 DEBUG: Actualizando artículo existente con ID:', articuloId);
+        return await this.update(articuloId, data);
+      }
       
       // Para crear, fecha_compra SÍ se puede incluir
       console.log('fecha_compra incluida en la creación:', inventoryData.fecha_compra);
@@ -134,7 +191,7 @@ export class InventoryService {
         } : undefined
       };
       
-      console.log('Datos que se van a crear:', dataToCreate);
+      console.log('🔍 DEBUG: Datos que se van a crear:', JSON.stringify(dataToCreate, null, 2));
       
       const result = await this.prisma.inventory.create({
         data: dataToCreate,
@@ -144,10 +201,11 @@ export class InventoryService {
         }
       });
       
-      console.log('Resultado de la creación:', result);
+      console.log('✅ Resultado de la creación:', result);
       return result;
     } catch (error) {
-      console.error('Error en el servicio create:', error);
+      console.error('❌ Error en el servicio create:', error);
+      console.error('❌ Stack trace:', error.stack);
       throw error;
     }
   }
@@ -157,10 +215,24 @@ export class InventoryService {
       console.log('Datos recibidos en el servicio update:', data);
       console.log('ID a actualizar:', id);
       
-      const { empleadoId, clasificacionId, fecha_compra, ...inventoryData } = data;
+      const { articuloId, empleadoId, clasificacionId, fecha_compra, ...inventoryData } = data;
       
       // La fecha_compra no debe ser editable, se excluye de las actualizaciones
+      console.log('articuloId excluido de la actualización:', articuloId);
       console.log('fecha_compra excluida de la actualización:', fecha_compra);
+      
+      // Procesar fecha_baja si está presente
+      if (inventoryData.fecha_baja && typeof inventoryData.fecha_baja === 'string') {
+        try {
+          // CORREGIDO: Usar UTC para evitar problemas de zona horaria
+          const [year, month, day] = inventoryData.fecha_baja.split('-');
+          inventoryData.fecha_baja = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day)));
+          console.log('fecha_baja convertida a Date (UTC):', inventoryData.fecha_baja);
+        } catch (dateError) {
+          console.error('Error al convertir fecha_baja:', dateError);
+          delete inventoryData.fecha_baja;
+        }
+      }
       
       // Obtener el artículo actual para verificar cambios en empleado
       const currentItem = await this.prisma.inventory.findUnique({
@@ -170,9 +242,19 @@ export class InventoryService {
       
       console.log('Artículo actual:', currentItem);
       
-      // Determinar el nuevo status basado en la asignación de empleado
+      // Determinar el nuevo status basado en el estado y la asignación de empleado
       let status = inventoryData.status;
-      if (empleadoId !== undefined) {
+      
+      // Si el estado es BAJA, establecer status como 'baja'
+      if (inventoryData.estado === 'BAJA') {
+        status = 'baja';
+      }
+      // Si el estado es DONACION, establecer status como 'donacion'
+      else if (inventoryData.estado === 'DONACION') {
+        status = 'donacion';
+      }
+      // Si no es BAJA ni DONACION, determinar status basado en empleado
+      else if (empleadoId !== undefined) {
         // Si se está asignando un empleado, cambiar a 'asignado'
         if (empleadoId) {
           status = 'asignado';
@@ -317,3 +399,4 @@ export class InventoryService {
     }
   }
 }
+

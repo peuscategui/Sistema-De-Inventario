@@ -1,0 +1,6 @@
+id,codigoLicencia,nombre,tipoLicencia,proveedor,fechaCompra,fechaVencimiento,costo,moneda,cantidadUsuarios,estado,asignadoA,descripcion,observaciones,areaId,gerenciaId
+1,LIC-001,Microsoft Office 365,Software,Microsoft,2023-01-15,2024-01-15,150.00,USD,50,Activa,Departamento General,Suite de Office completa,Licencia corporativa,1,1
+2,LIC-002,Adobe Creative Suite,Software,Adobe,2023-02-20,2024-02-20,500.00,USD,10,Activa,Marketing,Suite de diseño gráfico,Licencia para diseño,7,6
+3,LIC-003,VMware Workstation,Software,VMware,2023-03-10,2024-03-10,200.00,USD,5,Activa,Desarrollo,Software de virtualización,Para desarrollo,1,1
+4,LIC-004,Tableau Desktop,Software,Tableau,2023-04-05,2024-04-05,300.00,USD,3,Activa,Analytics,Software de visualización de datos,Para análisis,5,2
+5,LIC-005,Autodesk AutoCAD,Software,Autodesk,2023-05-12,2024-05-12,800.00,USD,2,Activa,Ingeniería,Software de diseño CAD,Para proyectos técnicos,8,3 

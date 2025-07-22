@@ -1,0 +1,7 @@
+nombre,codigo,descripcion,areas
+Gerencia de Tecnología,GER-TEC,Gestión de infraestructura tecnológica,Sistemas|Desarrollo|Soporte Técnico
+Gerencia de Administración,GER-ADM,Administración y finanzas,Contabilidad|Recursos Humanos|Finanzas
+Gerencia Comercial,GER-COM,Ventas y atención al cliente,Ventas|Marketing|Atención al Cliente
+Gerencia de Operaciones,GER-OPE,Operaciones logísticas,Almacén|Distribución|Inventario
+Gerencia de Proyectos,GER-PRO,Gestión de proyectos,Planificación|Ejecución|Control
+Gerencia Legal,GER-LEG,Asuntos legales y compliance,Contratos|Compliance|Legal

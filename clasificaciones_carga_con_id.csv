@@ -1,0 +1,39 @@
+id,familia,sub_familia,tipo_equipo,vida_util,valor_reposicion
+1,Computadora,Desktop,Compatibles,5 años,500.00
+2,Computadora,Desktop,Desktop SFF,5 años,760.00
+3,Computadora,Desktop,Desktop Mini,5 años,760.00
+4,Computadora,Todo-en-uno,All-in-One,5 años,400.00
+5,Computadora,Laptop,Laptop Básica,4 años,760.00
+6,Computadora,Laptop,Laptop Estándar,4 años,800.00
+7,Computadora,Laptop,Laptop Avanzada,4 años,1400.00
+8,Tablet,Tablet,Tablets,3 años,150.00
+9,Tablet,Tablet,iPad,3 años,700.00
+10,Servidor,Servidor,Servidor Rack,5 años,10000.00
+11,Servidor,Servidor,Servidor Torre,5 años,5000.00
+12,Servidor,Servidor,Servidor Ensamblado,5 años,3000.00
+13,Redes,Switch,Switch de Acceso,7 años,2000.00
+14,Redes,Switch,Switch Core,7 años,4000.00
+15,Redes,Hub,Hub,7 años,50.00
+16,Redes,Access Point,Access Points,4 años,200.00
+17,Impresora,Impresora de Escritorio,Impresora Láser,3 años,300.00
+18,Impresora,Impresora de Escritorio,Impresora Ticketera,3 años,300.00
+19,Impresora,Impresora de Escritorio,Impresora de Inyección,3 años,200.00
+20,Impresora,Impresora de Escritorio,Impresora Matricial,3 años,400.00
+21,Impresora,Impresora Portátil,Impresora Portátil,3 años,450.00
+22,Protección Eléctrica,UPS,UPS Estándar,5 años,1000.00
+23,Protección Eléctrica,ATS,Sistema ATS,5 años,800.00
+24,Colaboración,Videoconferencia,Presentación Inalámbrica,3 años,2500.00
+25,Colaboración,Proyector,Proyector,5 años,500.00
+26,Colaboración,Audio,Altavoz,5 años,200.00
+27,Colaboración,Videoconferencia,Cámara de Videoconferencia,5 años,150.00
+28,Videovigilancia,Cámara,Cámara Profesional Fija,3 años,60.00
+29,Videovigilancia,Cámara,Cámara Hogar Fija,3 años,50.00
+30,Videovigilancia,Cámara,Cámara Profesional PTZ,3 años,700.00
+31,Videovigilancia,Cámara,Cámara Hogar PTZ,3 años,50.00
+32,Videovigilancia,NVR,Network Video Recorder,5 años,2000.00
+33,Telefonía,IP PBX,Sistema IP PBX,5 años,4000.00
+34,Monitor,Monitor,Monitor Estándar,5 años,200.00
+35,Rack,Gabinete,Gabinete,15 años,1000.00
+36,Rack,Rack,Rack Estándar,15 años,400.00
+37,Control Biométrico,Control de Asistencia,Marcador,5 años,200.00
+38,Protección Eléctrica,Mini UPS,Mini UPS,5 años,80.00 

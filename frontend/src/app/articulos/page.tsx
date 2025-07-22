@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search, Eye } from 'lucide-react';
 import ArticuloModal from '@/components/articulos/ArticuloModal';
 import { API_ENDPOINTS } from '@/config/api';
+// import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 
 
@@ -65,6 +66,7 @@ const formatDate = (date: Date | null) => {
 };
 
 export default function ArticulosPage() {
+  // const { authenticatedFetch } = useAuthenticatedFetch(); // TEMPORALMENTE DESACTIVADO
   const [articulos, setArticulos] = useState<Articulo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -110,7 +112,8 @@ export default function ArticulosPage() {
   const fetchArticulos = async (pageParam = page, pageSizeParam = pageSize, filtersParam = filters) => {
     setLoading(true);
     try {
-      let url = `${API_ENDPOINTS.inventory}?page=${pageParam}&limit=${pageSizeParam}`;
+      // CORREGIDO: usar pageSize en lugar de limit
+      let url = `${API_ENDPOINTS.inventory}?page=${pageParam}&pageSize=${pageSizeParam}`;
       
       // Agregar filtros a la URL
       Object.entries(filtersParam).forEach(([key, value]) => {
@@ -135,7 +138,8 @@ export default function ArticulosPage() {
 
   const fetchAllArticulos = async () => {
     try {
-      let url = `${API_ENDPOINTS.inventory}?page=1&limit=10000`;
+      // CORREGIDO: usar pageSize en lugar de limit
+      let url = `${API_ENDPOINTS.inventory}?page=1&pageSize=10000`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -200,6 +204,15 @@ export default function ArticulosPage() {
   
   const handleSubmit = async (data: any) => {
     setIsSubmitting(true);
+    
+    // Validar que el ID sea válido si estamos editando
+    if (editingArticulo && (!editingArticulo.id || isNaN(editingArticulo.id))) {
+      console.error('❌ ERROR: ID inválido para editar artículo:', editingArticulo.id);
+      alert('ID inválido para editar el artículo');
+      setIsSubmitting(false);
+      return;
+    }
+
     const url = editingArticulo
       ? `${API_ENDPOINTS.inventory}/${editingArticulo.id}`
       : API_ENDPOINTS.inventory;
@@ -215,6 +228,11 @@ export default function ArticulosPage() {
       const cleanedData = Object.fromEntries(
         Object.entries(data).filter(([_, value]) => value !== '' && value !== null && value !== undefined)
       );
+      
+      // CORREGIDO: Remover el id cuando se está creando un nuevo artículo
+      if (!editingArticulo) {
+        delete cleanedData.id;
+      }
       
       console.log('Datos limpiados:', cleanedData);
 
@@ -322,6 +340,15 @@ export default function ArticulosPage() {
   };
 
   const handleDelete = async (id: number) => {
+    // Validar que el ID sea válido
+    if (!id || isNaN(id)) {
+      console.error('❌ ERROR: ID inválido para eliminar artículo:', id);
+      alert('ID inválido para eliminar el artículo');
+      return;
+    }
+
+    console.log('🔍 DEBUG: Eliminando artículo con ID:', id);
+
     if (!window.confirm('¿Estás seguro de que deseas eliminar este artículo?')) return;
     try {
       const response = await fetch(`${API_ENDPOINTS.inventory}/${id}`, { method: 'DELETE' });

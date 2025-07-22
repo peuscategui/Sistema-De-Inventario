@@ -1,0 +1,4783 @@
+[
+  {
+    "id": 1,
+    "nombre": "Almacen",
+    "cargo": "Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 2,
+    "nombre": "Elizabeth Bravo De Rueda Dumett",
+    "cargo": "Jefe De Compras Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 3,
+    "nombre": "Abel  Pajuelo Sanchez",
+    "cargo": "Jefe De Logística De Producción",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 4,
+    "nombre": "Adelaida Maribel  Quineche Colan",
+    "cargo": "Asistente De Tesoreria",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 5,
+    "nombre": "Administracion",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 6,
+    "nombre": "Adrián Balarezo Prado",
+    "cargo": "Trainee Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 7,
+    "nombre": "Alann Ernesto  Reyes Jauregui",
+    "cargo": "Gerente De Proyectos Y Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 8,
+    "nombre": "Alejandra Cecilia  Merchor Santana",
+    "cargo": "Coordinador De Proyectos Digitales",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 9,
+    "nombre": "Alex Eduardo  Herrera Pachas",
+    "cargo": "Analista De Proyectos Y Procesos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 10,
+    "nombre": "Alex Sebastian  Guerra Farfan",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 11,
+    "nombre": "Allison Urbina",
+    "cargo": "Analista De Proyectos Y Procesos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 12,
+    "nombre": "Almacén Rlichui",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 13,
+    "nombre": "Alonso Bernales",
+    "cargo": "Practicante De Ti",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 14,
+    "nombre": "Alonso Lozano",
+    "cargo": "Analista Jr. De Planeamiento De Stock",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 15,
+    "nombre": "Alonso Quispe Martinez",
+    "cargo": "Practicante De Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 16,
+    "nombre": "Alonso Valdivia",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 17,
+    "nombre": "Alvaro Cayra",
+    "cargo": "Auxiliar De Procesos De Servicio De Atención Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 18,
+    "nombre": "Alvaro Quesada Nuñez",
+    "cargo": "Jefe Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 19,
+    "nombre": "Ammy Oliva",
+    "cargo": "Kam",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 20,
+    "nombre": "Ana Maria  Bravo Salas",
+    "cargo": "Coordinador De Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 21,
+    "nombre": "Andrea Fasanando",
+    "cargo": "Expeditador De Compras",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 22,
+    "nombre": "Andres Correa",
+    "cargo": "Practicante De Ti",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 23,
+    "nombre": "Andy Alessandro Acevedo Cano",
+    "cargo": "Gestor De Servicio Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 24,
+    "nombre": "Angela Felicitas  Caceres Zevallos",
+    "cargo": "Jefe De Gestion De La Informacion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 25,
+    "nombre": "Angi Milagros  Jimenez Venegas",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 26,
+    "nombre": "Angie Avila",
+    "cargo": "Auxiliar De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 27,
+    "nombre": "Angie Stefany  Saenz Sanchez",
+    "cargo": "Analista Junior De Gdh",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 28,
+    "nombre": "Angie Valencia",
+    "cargo": "Asistente De Compras",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 29,
+    "nombre": "Antapaccay  - Efc Cusco",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 30,
+    "nombre": "Anthony  Quintana Rafael",
+    "cargo": "Analista Jr De E-Commerce",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 31,
+    "nombre": "Anthony Rolando  Lozano Torrejon",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 32,
+    "nombre": "Antoni Francisco  Rafael Abad",
+    "cargo": "Comprador",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 33,
+    "nombre": "Ap - Almacén 1",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 34,
+    "nombre": "Ap - Almacen 2",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 35,
+    "nombre": "Ap - Logistica De Produccion",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 36,
+    "nombre": "Ap - Logística De Salida",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 37,
+    "nombre": "Ap  Piso 3 Nuevo Comedor",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 38,
+    "nombre": "Ap- Almacen",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 39,
+    "nombre": "Ap Comercial 2 Piso",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 40,
+    "nombre": "Ap Comercial 2 Piso",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 41,
+    "nombre": "Ap Comercial 3 Piso",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 42,
+    "nombre": "Ap Compras",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 43,
+    "nombre": "Ap Escalera 3 Piso",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 44,
+    "nombre": "Ap Gesco1",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 45,
+    "nombre": "Ap Gesco2",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 46,
+    "nombre": "Ap Importaciones",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 47,
+    "nombre": "Ap Of.Quesada",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 48,
+    "nombre": "Ap Oficina Arequipa",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 49,
+    "nombre": "Ap Oficina Quesada",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 50,
+    "nombre": "Ap Piso 1 Compras",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 51,
+    "nombre": "Ap Piso 1 Importaciones",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 52,
+    "nombre": "Ap Piso 1 Oficina Volante",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 53,
+    "nombre": "Ap Piso 2 Administracion",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 54,
+    "nombre": "Ap Piso 2 Contabilidad",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 55,
+    "nombre": "Ap Piso 2 Sac",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 56,
+    "nombre": "Ap Piso 2Gesco",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 57,
+    "nombre": "Ap Piso 3 Comedor",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 58,
+    "nombre": "Ap Piso 3 Gps",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 59,
+    "nombre": "Ap Recepcion Piso 2",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 60,
+    "nombre": "Ap Sala 1",
+    "cargo": "Ap Sala 1",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 61,
+    "nombre": "Ap Sala 2",
+    "cargo": "Ap Sala 2",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 62,
+    "nombre": "Ap Sala 3",
+    "cargo": "Ap Sala 3",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 63,
+    "nombre": "Ap Sala 4",
+    "cargo": "Ap Sala 4",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 64,
+    "nombre": "Ap Sala 5",
+    "cargo": "Ap Sala 5",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 65,
+    "nombre": "Ap Sistemas",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 66,
+    "nombre": "Ap Tesoreria",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 67,
+    "nombre": "Aranxa Carlos Reyes",
+    "cargo": "Asistente De Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 68,
+    "nombre": "Ariana Caparó",
+    "cargo": "Practicante De Direccion",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 69,
+    "nombre": "Arturo  Pastor Acasiete",
+    "cargo": "Recepcionista",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 70,
+    "nombre": "Baja Soporte",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 71,
+    "nombre": "Brian Machuca",
+    "cargo": "Coordinador De Alineamiento De Cadena",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 72,
+    "nombre": "Brien Josep  Arias Prada",
+    "cargo": "Analista De Ocn",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 123,
+    "nombre": "Carla Boggiano (Externo)",
+    "cargo": "Analista De Planillas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 124,
+    "nombre": "Carlos Enrique  Baes Quispe",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 125,
+    "nombre": "Carlos Manuel Soto Castillo",
+    "cargo": "Analista De Gdn",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 126,
+    "nombre": "Carlos Neimel  Meza Espinoza",
+    "cargo": "Gestor De Caja Bancos",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 127,
+    "nombre": "Carmen Andrea  Valenzuela Higinio",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 128,
+    "nombre": "Carmen Medalit  Bueno Catter",
+    "cargo": "Gerentr De Excelencia Operacional",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 129,
+    "nombre": "Carpinteria",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 130,
+    "nombre": "Cecilia Jimena  Obando Contreras",
+    "cargo": "Cotizador Nacional",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 131,
+    "nombre": "Cesar Callalli",
+    "cargo": "Practicante De Sig",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 132,
+    "nombre": "Cesar Eddie  Terrones Guimaray",
+    "cargo": "Expeditor De Compras",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 133,
+    "nombre": "Cesar Orlando  Alarcon Espinoza",
+    "cargo": "Asistente De Facturacion Y Cobranzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 135,
+    "nombre": "Choferes",
+    "cargo": "Choferes",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 136,
+    "nombre": "Chorrillos Cho",
+    "cargo": "Chorrillos Cho",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 137,
+    "nombre": "Christian Remuzgo",
+    "cargo": "Coordinador De Cotizaciones Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 138,
+    "nombre": "Cinthia Lorena  Condo Ayñayanque",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 139,
+    "nombre": "Cinthya Lorena  Del Castillo Luis",
+    "cargo": "Coordinador De Operación Logística",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 140,
+    "nombre": "Ciro Andres  Reyes Carrion",
+    "cargo": "Coordinador De Planeamiento",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 141,
+    "nombre": "Claudia Sofia  Vera Arrascue",
+    "cargo": "Auxiliar De Maestro De Articulos",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 142,
+    "nombre": "Clementina  Palacios Durand",
+    "cargo": "Asistente De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 147,
+    "nombre": "Compras",
+    "cargo": "Compras",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 148,
+    "nombre": "Cynthia Lady  Acevedo Acuña",
+    "cargo": "Auxiliar De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 149,
+    "nombre": "Dante Muñoz",
+    "cargo": "Abogado Externo",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 150,
+    "nombre": "Dario Bedoya",
+    "cargo": "Kam",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 151,
+    "nombre": "Data Center",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 152,
+    "nombre": "Data Center Cho",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 153,
+    "nombre": "Data Center Pulmon",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 154,
+    "nombre": "Data Center Quesada",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 155,
+    "nombre": "Data Center Surquillo",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 156,
+    "nombre": "Datacenter",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 157,
+    "nombre": "Datacenter Cho",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 158,
+    "nombre": "David Abraham Taipe Silva",
+    "cargo": "Asistente De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 159,
+    "nombre": "David Alfonso  Melinchon Espinosa",
+    "cargo": "Gerente General",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 160,
+    "nombre": "David Huaman",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 161,
+    "nombre": "Deisy Carem  Garcia Ramos",
+    "cargo": "Asistente De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 162,
+    "nombre": "Derecha Externa",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 164,
+    "nombre": "Dharma Zorell Rubiños Guevara",
+    "cargo": "Practicante De Proyectos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 165,
+    "nombre": "Diego Santillan",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 166,
+    "nombre": "Directorio Arequipa",
+    "cargo": "Directorio Arequipa",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 167,
+    "nombre": "Directorio Importaciones",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 168,
+    "nombre": "Directorio Tercer Piso",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 169,
+    "nombre": "Disa  Canteño Tolentino",
+    "cargo": "Auxiliar De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 170,
+    "nombre": "Dora Chacon Vela",
+    "cargo": "Asistente De Logistica De Salida",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 172,
+    "nombre": "Eddy Roger  Cueva Chu",
+    "cargo": "Gestor De Maestro De Articulos",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 173,
+    "nombre": "Edgard Paira",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 174,
+    "nombre": "Eduardo Diaz Liquidacion Ruta",
+    "cargo": "Asistente Administrativo De Logistica",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 175,
+    "nombre": "Eduardo Enrique  Yamashiro Noel",
+    "cargo": "Analista De Gestión De La Información",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 176,
+    "nombre": "Eduardo Salomon  Diaz Linares",
+    "cargo": "Asistente Administrativo De Logistica De Salida",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 177,
+    "nombre": "Eduardo Sulca",
+    "cargo": "Practicante De Ti",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 178,
+    "nombre": "Edward  Gonzales",
+    "cargo": "Coordinador De Acuerdos Comerciales",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 179,
+    "nombre": "Efc Pasco",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 180,
+    "nombre": "Eliana Lidia  Iraola Mayorca",
+    "cargo": "Recepcionista",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 181,
+    "nombre": "Elizabeth Del Carmen  Samame Flores",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 182,
+    "nombre": "Erick Fernando Tello Corpus",
+    "cargo": "Practicante De Control Presupuestal Y Gestión",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 183,
+    "nombre": "Erickson  Huapaya Villegas",
+    "cargo": "Gerente De Desarollo De Negocios",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 184,
+    "nombre": "Ermes Melinchon",
+    "cargo": "Director Ejecutivo",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 185,
+    "nombre": "Ervin  Olayunca Zurita",
+    "cargo": "Coordinador De Operación Logística",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 186,
+    "nombre": "Estanteria  2",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 187,
+    "nombre": "Estanteria 1",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 189,
+    "nombre": "Estanteria 3",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 190,
+    "nombre": "Estefany Castro",
+    "cargo": "Ejecutivo Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 191,
+    "nombre": "Evelyn  Collado Bastidas",
+    "cargo": "Asistente De Procesos Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 192,
+    "nombre": "Evelyn Amelia  Davila Murga",
+    "cargo": "Analista Senior Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 193,
+    "nombre": "Evelyn Rossy  Becerra Saavedra",
+    "cargo": "Coordinadora De Tesoreria",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 194,
+    "nombre": "Eymi Giselle  Aybar Del Aguila",
+    "cargo": "Ejecutiva Junior De Publicidad Y Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 195,
+    "nombre": "Ezviz Cs Cb1 Wifi",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 196,
+    "nombre": "Ezviz Cs Cb1 Wifi",
+    "cargo": "Tercer Piso",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 197,
+    "nombre": "Ezviz Cs-Cv246",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 198,
+    "nombre": "Ezviz Cs-Cv246",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 199,
+    "nombre": "Fabian Cerna",
+    "cargo": "Asistente De Logística Inversa",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 200,
+    "nombre": "Facturación",
+    "cargo": "Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 201,
+    "nombre": "Fanny Rosario  Manrique Caballero",
+    "cargo": "Lider De Logistica De Entrada",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 202,
+    "nombre": "Felipe Santiago  Alvarez Castillo",
+    "cargo": "Asistente De Compras",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 203,
+    "nombre": "Felix Arturo  Loza Ttito",
+    "cargo": "Supervisor De Inventarios",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 204,
+    "nombre": "Felix Melchor  Uriarte Barranzuela",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 205,
+    "nombre": "Flavio Rodolfo Balarezo Huayta",
+    "cargo": "Practicante Administrativo De Gocn",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 206,
+    "nombre": "Franck Arnold  Mattos Rojas",
+    "cargo": "Asistente De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 207,
+    "nombre": "Franklin Cuenca",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 208,
+    "nombre": "Gabinete Compras",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 209,
+    "nombre": "Gabinete Gesco",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 210,
+    "nombre": "Gabinete Tercer Piso Comedor",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 211,
+    "nombre": "Gabriela Julve Aguirre",
+    "cargo": "Practicante De Proyectos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 212,
+    "nombre": "Gavina Yanett  Nieves Hinojosa",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 213,
+    "nombre": "German Mariano  Giraldo Cano",
+    "cargo": "Supervisor De Recepción Y Despacho",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 214,
+    "nombre": "Gesco",
+    "cargo": "Gesco",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 215,
+    "nombre": "Gianella Lujan Luyo",
+    "cargo": "Asistente De Documentación Técnica",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 216,
+    "nombre": "Giorgio Quintana",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 217,
+    "nombre": "Gisella Mabel  Mogollon Marquez",
+    "cargo": "Asistente Administrativo",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 218,
+    "nombre": "Gloria  Gutierrez Gutierrez",
+    "cargo": "Auxiliar De Facturacion Y Cobranzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 219,
+    "nombre": "Gloria Vasquez Alarcon",
+    "cargo": "Auxiliar Contable",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 220,
+    "nombre": "Gonzalo Eduardo  Sanchez Alarcon",
+    "cargo": "Asesor Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 221,
+    "nombre": "Guadalupe Antaccasa Cayetano",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 222,
+    "nombre": "Guiado",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 223,
+    "nombre": "Guiado",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 224,
+    "nombre": "Guiado Edwin Calderon",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 225,
+    "nombre": "Hernan Andre  Reyes Salazar",
+    "cargo": "Analista De Operaciónes Logistica",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 226,
+    "nombre": "Hever Diego  Alegria Alvarez",
+    "cargo": "Coordinador De Control Presupuestal Y De Gestion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 227,
+    "nombre": "Huber Andy  Huayllasco Picon",
+    "cargo": "Asistente De Facturacion Y Cobranzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 228,
+    "nombre": "Hugo  Almanza Quiroz",
+    "cargo": "Lider De Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 229,
+    "nombre": "Indicadores Comercial",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 230,
+    "nombre": "Infraestructura Monitoreo",
+    "cargo": "Infraestructura",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 231,
+    "nombre": "Ingreso Zorrilla",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 233,
+    "nombre": "Inventario Almacen",
+    "cargo": "Supervisor De Inventarios",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 234,
+    "nombre": "Ipad 1",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 235,
+    "nombre": "Ipad 2",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 236,
+    "nombre": "Ipad 3",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 238,
+    "nombre": "Ivan Flores",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 239,
+    "nombre": "Izquierda Externa",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 240,
+    "nombre": "Jack Paira",
+    "cargo": "Coordinador De Expedición",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 241,
+    "nombre": "Jackelin Daisy  Baca Florentino",
+    "cargo": "Coordinador De Logística De Produccion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 242,
+    "nombre": "Janedy Renteria Mayhua",
+    "cargo": "Practicante De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 243,
+    "nombre": "Javier Humberto  Valentin Calderon",
+    "cargo": "Coordinador De Proveedores",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 244,
+    "nombre": "Jeffrey Jehu  Cahuana Llauce",
+    "cargo": "Analista Programador Junior",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 245,
+    "nombre": "Jenny Patricia  Norabuena Cortez",
+    "cargo": "Comprador Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 246,
+    "nombre": "Jerry Contreras",
+    "cargo": "Asistente De Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 247,
+    "nombre": "Jessica De La Flor",
+    "cargo": "Externo",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 248,
+    "nombre": "Jessica Elizabeth  Piñas Mejía",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 249,
+    "nombre": "Jesus Emilio  Murrugarra Ramirez",
+    "cargo": "Asistente De Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 250,
+    "nombre": "Jesus Martin Segundo  Zevallos Aponte",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 251,
+    "nombre": "Jheny Jhovani  Sandoval Vidaurre",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 252,
+    "nombre": "Jhon Gheiner  Salcedo Roman",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 253,
+    "nombre": "Jimmy Junior  Gomez Vargas",
+    "cargo": "Coordinador De Gestion De La Informacion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 254,
+    "nombre": "Joel Canazaca",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 255,
+    "nombre": "Johan Adolfo  Chipana Navarro",
+    "cargo": "Asistente De Lista De Precios",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 256,
+    "nombre": "Jonathan Jesus Leyva Perez",
+    "cargo": "Analista De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 257,
+    "nombre": "Jonathan Melvin Valencia Nieto",
+    "cargo": "Líder Técnico Comercial Dei",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 258,
+    "nombre": "Jordi Huamani",
+    "cargo": "Auxiliar De Central De Asignaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 259,
+    "nombre": "Jorge Eduardo  Salas Maldonado",
+    "cargo": "Coordinador De E-Commerce",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 260,
+    "nombre": "Jorge Enrique  Castañeda Arambulo",
+    "cargo": "Coordinador De Tic",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 261,
+    "nombre": "Jorge Flores",
+    "cargo": "Coordinador De Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 262,
+    "nombre": "Jorge Luis  Mori Calagua",
+    "cargo": "Gestor De Caja Bancos",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 263,
+    "nombre": "Jorge Rolando  Lopez Chavez",
+    "cargo": "Asesor Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 264,
+    "nombre": "Jose Alberto  Castillo Quino",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 265,
+    "nombre": "Jose Brian  Cruz Meza",
+    "cargo": "Analista Junior De Operación Comercial Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 266,
+    "nombre": "Jose Enrique  Rengifo Lopez",
+    "cargo": "Jefe De Tic",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 268,
+    "nombre": "Jose Miguel  Lopez Garcia",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 269,
+    "nombre": "Jose Teobaldo  Coronado Arroyo",
+    "cargo": "Coordinador De Cadena Y Calidad De Procesos",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 270,
+    "nombre": "Jose Zevallos",
+    "cargo": "Practicante Pre Gdh",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 271,
+    "nombre": "Josefina  Vargas Ferrer",
+    "cargo": "Comprador Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 272,
+    "nombre": "Joshua Orellana",
+    "cargo": "Auxiliar De Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 273,
+    "nombre": "Juan Alberto  Hidalgo Gutierrez",
+    "cargo": "Coordinador De Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 274,
+    "nombre": "Juan Callupe",
+    "cargo": "Gestor De Servicio De Atención Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 275,
+    "nombre": "Juan Pablo Sanchez",
+    "cargo": "Ejecutivo Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 276,
+    "nombre": "Juaquin  Ramirez Cruz",
+    "cargo": "Cotizador Nacional",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 277,
+    "nombre": "Julio Humberto  Tordoya Falcon",
+    "cargo": "Controller De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 278,
+    "nombre": "Julisa Jeraly  Tejada Cotrina",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 279,
+    "nombre": "July Giuliana  Salazar Ramos",
+    "cargo": "Coordinador De Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 280,
+    "nombre": "Karen Andrea Carlos Nizana",
+    "cargo": "Analista De Tesorería",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 281,
+    "nombre": "Karlo Piero  Torres Gomez",
+    "cargo": "Asesor Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 282,
+    "nombre": "Katherine Esther  Lozada Flores",
+    "cargo": "Gerente De Ventas Y Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 283,
+    "nombre": "Kelly Leon Tipte",
+    "cargo": "Analista Jr De Gestión De La Información",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 284,
+    "nombre": "Lactario",
+    "cargo": "Lactario",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 285,
+    "nombre": "Laura Rosa  Aranda Chavez",
+    "cargo": "Coordinadora De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 286,
+    "nombre": "Lesly Adriana  Vidal Jaeger",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 287,
+    "nombre": "Lesly Antonella  Vega Solorzano",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 288,
+    "nombre": "Lisseth Medina",
+    "cargo": "Asistenta Social",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 289,
+    "nombre": "Litzy Magaly  Salas Muñoz",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 290,
+    "nombre": "Liz Eriely  Cardoso Hernandez",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 291,
+    "nombre": "Lizbeth  Pallarta Mogollon",
+    "cargo": "Auxiliar De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 292,
+    "nombre": "Lizeth Karina  Neyra Fernandez",
+    "cargo": "Analista De Proyectos Y Procesos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 293,
+    "nombre": "Logistica De Entrada",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 294,
+    "nombre": "Logistica De Salida",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 295,
+    "nombre": "Lorenzo Alfonso  Villanueva Ugaz",
+    "cargo": "Asistente De E-Commerce",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 296,
+    "nombre": "Lourdes Paulet",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 297,
+    "nombre": "Lucia  Grey Gutierrez",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 298,
+    "nombre": "Lucy Arlin  Ordinola Juarez",
+    "cargo": "Analista Jr De Gestion Estrategica De Proveedores",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 299,
+    "nombre": "Luis Alberto  Chevez Ramirez",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 300,
+    "nombre": "Luis Alberto  Huaman Fuentes",
+    "cargo": "Jefe De Logistica De Salida",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 301,
+    "nombre": "Luis Alberto Agustin  Benites Velasquez",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 302,
+    "nombre": "Luis Egoavil",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 303,
+    "nombre": "Luis Franco  Lara Seguil",
+    "cargo": "Analista De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 304,
+    "nombre": "Luis Pablo  Peñaranda Talavera",
+    "cargo": "Analista De Operación Comercial Nacional Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 305,
+    "nombre": "Luz Marina  Rondon Soto",
+    "cargo": "Jefe De Finanzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 306,
+    "nombre": "Luz Valeria  Azurin Lopez",
+    "cargo": "Auxiliar Administrativo De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 307,
+    "nombre": "Manuel Jose Antonio  Berrospi Marin",
+    "cargo": "Analista De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 308,
+    "nombre": "Marcador Primer Piso",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 309,
+    "nombre": "Marcador Segundo Piso",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 310,
+    "nombre": "Marco Antonio  De La Cruz Sanchez",
+    "cargo": "Controller De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 311,
+    "nombre": "Maria Benites",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 312,
+    "nombre": "Maria Celia  Flores Salas",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 313,
+    "nombre": "Maria De Los Angeles Palacios",
+    "cargo": "Gestor De Servicio Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 314,
+    "nombre": "Maria Del Carmen  Luna Legrand",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 315,
+    "nombre": "Maria Fernanda  Pajares Corcuera",
+    "cargo": "Practicante De Sig",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 316,
+    "nombre": "María Fernanda Huerta Vidales",
+    "cargo": "Practicante De Operación Comercial",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 317,
+    "nombre": "Maria Vergaray",
+    "cargo": "Lider De Operación Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 318,
+    "nombre": "Maribel  Aguilar Vargas",
+    "cargo": "Auxiliar Comercial",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 319,
+    "nombre": "Mariela Rocio  Calderon Reynoso",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 320,
+    "nombre": "Mario Galvan",
+    "cargo": "Comprador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 321,
+    "nombre": "Marisol Sabina  Martinez Huaman",
+    "cargo": "Ejecutivo De Cuentas",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 322,
+    "nombre": "Maritza Martinez Caycho",
+    "cargo": "Coordinadora De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 323,
+    "nombre": "Maritza Miranda Solano",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 324,
+    "nombre": "Martin Zevallos Guiado",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 325,
+    "nombre": "Maryoret  Osorio Gomez",
+    "cargo": "Auxiliar De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 326,
+    "nombre": "Mauricio Melinchon",
+    "cargo": "Gerente Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 327,
+    "nombre": "Melanie Ambar  Arcos Escobar",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 328,
+    "nombre": "Melissa Naomi Endo Nakahodo",
+    "cargo": "Asistente De Gdn",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 330,
+    "nombre": "Miguel Alonso  Cordova Vega",
+    "cargo": "Asistente De Devoluciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 331,
+    "nombre": "Miguel Angel  Martinez Lopez",
+    "cargo": "Asistente De Ecommerce",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 332,
+    "nombre": "Miguel Martin  Chujutalli Palacios",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 333,
+    "nombre": "Miguel Suchero",
+    "cargo": "Lider De Ventas",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 334,
+    "nombre": "Mijail Huanca",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 335,
+    "nombre": "Milagros  Antayhua Chipana",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 336,
+    "nombre": "Milagros Chavely  Suarez Roque",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 337,
+    "nombre": "Milagros Yessica  Rojas Rodriguez",
+    "cargo": "Asistente De Tesoreria",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 338,
+    "nombre": "Miryam Patricia  Guzmán Cueva",
+    "cargo": "Jefe De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 340,
+    "nombre": "Monitoreo Gps Chorrillos",
+    "cargo": "Controller De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 341,
+    "nombre": "Nadia Jacinta  Cuellar Luna",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 342,
+    "nombre": "Nadia Stefany  Rodriguez Vega",
+    "cargo": "Analista Junior De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 343,
+    "nombre": "Nallely  Del Rocio Ruiz Jines",
+    "cargo": "Asistente De Logística Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 344,
+    "nombre": "Nathalia Stephania Ramos Moscoso",
+    "cargo": "Gestor Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 345,
+    "nombre": "Nelson  Rodriguez Vilchez",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 351,
+    "nombre": "Of. Cusco",
+    "cargo": "Of. Cusco",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 352,
+    "nombre": "Of. Gesco",
+    "cargo": "Of. Gesco",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 353,
+    "nombre": "Of. Soporte",
+    "cargo": "Of. Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 354,
+    "nombre": "Oficina Arequipa",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 356,
+    "nombre": "Oficina De Gdh",
+    "cargo": "Gdh",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 357,
+    "nombre": "Oficina Soporte",
+    "cargo": "Oficina Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 358,
+    "nombre": "Oficina Zorrila",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 359,
+    "nombre": "Olenka Rondon",
+    "cargo": "Analista De Reclutamiento Y Seleccion",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 360,
+    "nombre": "Operación Comercial",
+    "cargo": "Operación Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 361,
+    "nombre": "Operación Comercial",
+    "cargo": "Oficina Arequipa",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 362,
+    "nombre": "Oscar Damian  Huamanhorque Baca",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 363,
+    "nombre": "Oscar Felipe  Asencio Aranda",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 369,
+    "nombre": "Packing",
+    "cargo": "Packing",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 370,
+    "nombre": "Pamela Lucero  Euscategui Barzola",
+    "cargo": "Coodinador De Redes E Infra",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 371,
+    "nombre": "Paola Lucia Siria  Enero Vargas",
+    "cargo": "Key Account Manager",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 372,
+    "nombre": "Paola Rojas",
+    "cargo": "Coordinador De Soporte De Negocios",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 373,
+    "nombre": "Patio 1",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 374,
+    "nombre": "Patio 2",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 375,
+    "nombre": "Patricia Roxanna  Melinchon Espinosa",
+    "cargo": "Gerente De Operacion Comercial Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 376,
+    "nombre": "Pc Bizneo",
+    "cargo": "Gestion De Recursos Humanos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 377,
+    "nombre": "Pc Comedor Chorrillos",
+    "cargo": "Comedor",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 378,
+    "nombre": "Pc-Devoluciones",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 379,
+    "nombre": "Pedro Fabricio De Jesus  Leonardo Compan",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 380,
+    "nombre": "Pedro Orlando  Roon Corilla",
+    "cargo": "Lidre De Ventas",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 381,
+    "nombre": "Pierina Emma Consuelo  Foppiano Rabinovi",
+    "cargo": "Gerencia General Adjunto",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 382,
+    "nombre": "Piero Giordang  Tang Vidal",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 383,
+    "nombre": "Piso 03",
+    "cargo": "Oficina Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 384,
+    "nombre": "Poldar Gargarte",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 385,
+    "nombre": "Primer Piso Compras",
+    "cargo": "Primer Piso Compras",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 386,
+    "nombre": "Programador Externo Carolina Reyes",
+    "cargo": "Externo",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 387,
+    "nombre": "Rafael Gonzalo  Mur Calderon",
+    "cargo": "Jefe De Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 388,
+    "nombre": "Raul Alexis  Sanchez Zea",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 389,
+    "nombre": "Recepcion Packing",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 390,
+    "nombre": "Recepcion Packing (Inoperativo)",
+    "cargo": "Packing",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 392,
+    "nombre": "Renato  Contreras Gastañadui",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 393,
+    "nombre": "Renato Nicolas  Donoso Geldres",
+    "cargo": "Analista Junion De Oficina De Control",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 394,
+    "nombre": "Renzo Zegarra Ballon",
+    "cargo": "Atc",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 395,
+    "nombre": "Ricardo Lichui",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 396,
+    "nombre": "Ricardo Roberto  Roque Fernandez",
+    "cargo": "Analista Jr. De Sistema Integrado De Gestion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 397,
+    "nombre": "Roberto Pablo  Chang Corbetta",
+    "cargo": "Coordinador De Desarrollo Y Mantenimiento",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 398,
+    "nombre": "Rocio Del Carmen  Medina Ninacondor",
+    "cargo": "Jefe De Logistica De Entrada",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 399,
+    "nombre": "Rodolfo Antonio  Villasante Martinez",
+    "cargo": "Gerente De Operación Logistica",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 400,
+    "nombre": "Rodrigo Alonso  Ravines Castañeda",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 401,
+    "nombre": "Rodrigo Villalon Vilchez",
+    "cargo": "Practicante De Proyectos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 402,
+    "nombre": "Ronald Vladimir  Montoya Gamarra",
+    "cargo": "Planner De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 403,
+    "nombre": "Rosa Veronica  Ramirez Jimenez",
+    "cargo": "Coordinador De Compras Y Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 404,
+    "nombre": "Rosmery Awuapara",
+    "cargo": "Practicante De Tesoreria",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 405,
+    "nombre": "Roxana  Sevillano Manani",
+    "cargo": "Coordinador De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 406,
+    "nombre": "Segundo Piso Administracion",
+    "cargo": "Segundo Piso Administracion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 407,
+    "nombre": "Sharon Porras",
+    "cargo": "Gestor De Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 408,
+    "nombre": "Silvia Pamela  Castañeda Ames",
+    "cargo": "Jefe De Sistemas Integrados De Gestion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 409,
+    "nombre": "Sol Sandoval Oré",
+    "cargo": "Asistente De Lista De Precios",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 410,
+    "nombre": "Soporte",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 411,
+    "nombre": "Soporte",
+    "cargo": "Vhs Brocal",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 412,
+    "nombre": "Soporte",
+    "cargo": "Oficina Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 413,
+    "nombre": "Stock Arequipa",
+    "cargo": "Lider Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 414,
+    "nombre": "Stock Soporte",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 415,
+    "nombre": "Stock Soporte Data Center Chorrillos",
+    "cargo": "Stock Soporte Data Center Chorrillos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 416,
+    "nombre": "Stock Soporte Data Center Chorrillos",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 417,
+    "nombre": "Susan Jennifer  Ortiz Roncal",
+    "cargo": "Secretaria De Gerencia",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 418,
+    "nombre": "Sw Comedor",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 419,
+    "nombre": "Tania Tueros",
+    "cargo": "Auxiliar De Procesos De Servicios De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 420,
+    "nombre": "Tercer Piso Comedor",
+    "cargo": "Tercer Piso Comedor",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 421,
+    "nombre": "Teresa Cecilia  Boza Rivera",
+    "cargo": "Jefe De Gestion Y Desarrollo Humano",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 422,
+    "nombre": "Tomasini Luis  Sanchez Alegre",
+    "cargo": "Analista De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 423,
+    "nombre": "Uap-Ac-Lite",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 424,
+    "nombre": "Valeria Elvira  Huaman Rojas",
+    "cargo": "Practicante De Logistica De Entrada",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 425,
+    "nombre": "Valeria Malpartida Chiscul",
+    "cargo": "Asistente De Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 426,
+    "nombre": "Ventas & Sac",
+    "cargo": "Ventas & Sac",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 427,
+    "nombre": "Veronica Cornejo",
+    "cargo": "Analista De Planillas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 428,
+    "nombre": "Vhs Brocal",
+    "cargo": "Vhs Brocal",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 429,
+    "nombre": "Victor Manuel  Panebra Chavez",
+    "cargo": "Asistente De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 430,
+    "nombre": "Vigilancia Chorrillos",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 431,
+    "nombre": "Vivian Moscoso",
+    "cargo": "Expeditor De Compras",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 432,
+    "nombre": "Viviana Martinez Huachaca",
+    "cargo": "Cotizador Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 433,
+    "nombre": "Walter Alexis Castillo",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 434,
+    "nombre": "Wendy Maribel  Candela Carbonel",
+    "cargo": "Cotizador Nacional",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 435,
+    "nombre": "Wilbert Arturo  Galdos Ojeda",
+    "cargo": "Lider Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 436,
+    "nombre": "Wilfredo Andres  Floriano Rivas",
+    "cargo": "Programador De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 437,
+    "nombre": "Yasmin Rossylin  Ccasihue Sauñe",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 438,
+    "nombre": "Yessit  Monteagudo Gongora - Almacen 5",
+    "cargo": "Supervisor De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 439,
+    "nombre": "Yoselyn Salinas",
+    "cargo": "Expeditor De Compras",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 441,
+    "nombre": "Ap Importaciones",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 442,
+    "nombre": "Ap Of.Quesada",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 443,
+    "nombre": "Ap Oficina Arequipa",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 444,
+    "nombre": "Ap Oficina Quesada",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 445,
+    "nombre": "Ap Piso 1 Compras",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 446,
+    "nombre": "Ap Piso 1 Importaciones",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 447,
+    "nombre": "Ap Piso 1 Oficina Volante",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 448,
+    "nombre": "Ap Piso 2 Administracion",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 449,
+    "nombre": "Ap Piso 2 Contabilidad",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 450,
+    "nombre": "Ap Piso 2 Sac",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 451,
+    "nombre": "Ap Piso 2Gesco",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 452,
+    "nombre": "Ap Piso 3 Comedor",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 453,
+    "nombre": "Ap Piso 3 Gps",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 454,
+    "nombre": "Ap Recepcion Piso 2",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 455,
+    "nombre": "Ap Sala 1",
+    "cargo": "Ap Sala 1",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 456,
+    "nombre": "Ap Sala 2",
+    "cargo": "Ap Sala 2",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 457,
+    "nombre": "Ap Sala 3",
+    "cargo": "Ap Sala 3",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 458,
+    "nombre": "Ap Sala 4",
+    "cargo": "Ap Sala 4",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 459,
+    "nombre": "Ap Sala 5",
+    "cargo": "Ap Sala 5",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 460,
+    "nombre": "Ap Sistemas",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 461,
+    "nombre": "Ap Tesoreria",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 462,
+    "nombre": "Aranxa Carlos Reyes",
+    "cargo": "Asistente De Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 463,
+    "nombre": "Ariana Caparó",
+    "cargo": "Practicante De Direccion",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 464,
+    "nombre": "Arturo  Pastor Acasiete",
+    "cargo": "Recepcionista",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 465,
+    "nombre": "Baja Soporte",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 466,
+    "nombre": "Brian Machuca",
+    "cargo": "Coordinador De Alineamiento De Cadena",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 467,
+    "nombre": "Brien Josep  Arias Prada",
+    "cargo": "Analista De Ocn",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 468,
+    "nombre": "Carla Boggiano (Externo)",
+    "cargo": "Analista De Planillas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 469,
+    "nombre": "Carlos Enrique  Baes Quispe",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 470,
+    "nombre": "Carlos Manuel Soto Castillo",
+    "cargo": "Analista De Gdn",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 471,
+    "nombre": "Carlos Neimel  Meza Espinoza",
+    "cargo": "Gestor De Caja Bancos",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 472,
+    "nombre": "Carmen Andrea  Valenzuela Higinio",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 473,
+    "nombre": "Carmen Medalit  Bueno Catter",
+    "cargo": "Gerentr De Excelencia Operacional",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 474,
+    "nombre": "Carpinteria",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 475,
+    "nombre": "Cecilia Jimena  Obando Contreras",
+    "cargo": "Cotizador Nacional",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 476,
+    "nombre": "Cesar Callalli",
+    "cargo": "Practicante De Sig",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 477,
+    "nombre": "Cesar Eddie  Terrones Guimaray",
+    "cargo": "Expeditor De Compras",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 478,
+    "nombre": "Cesar Orlando  Alarcon Espinoza",
+    "cargo": "Asistente De Facturacion Y Cobranzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 479,
+    "nombre": "Choferes",
+    "cargo": "Choferes",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 480,
+    "nombre": "Chorrillos Cho",
+    "cargo": "Chorrillos Cho",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 481,
+    "nombre": "Christian Remuzgo",
+    "cargo": "Coordinador De Cotizaciones Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 482,
+    "nombre": "Cinthia Lorena  Condo Ayñayanque",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 483,
+    "nombre": "Cinthya Lorena  Del Castillo Luis",
+    "cargo": "Coordinador De Operación Logística",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 484,
+    "nombre": "Ciro Andres  Reyes Carrion",
+    "cargo": "Coordinador De Planeamiento",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 485,
+    "nombre": "Claudia Sofia  Vera Arrascue",
+    "cargo": "Auxiliar De Maestro De Articulos",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 486,
+    "nombre": "Clementina  Palacios Durand",
+    "cargo": "Asistente De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 487,
+    "nombre": "Compras",
+    "cargo": "Compras",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 488,
+    "nombre": "Cynthia Lady  Acevedo Acuña",
+    "cargo": "Auxiliar De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 489,
+    "nombre": "Dante Muñoz",
+    "cargo": "Abogado Externo",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 490,
+    "nombre": "Dario Bedoya",
+    "cargo": "Kam",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 491,
+    "nombre": "Data Center",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 492,
+    "nombre": "Data Center Cho",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 493,
+    "nombre": "Data Center Pulmon",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 494,
+    "nombre": "Data Center Quesada",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 495,
+    "nombre": "Data Center Surquillo",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 496,
+    "nombre": "Datacenter",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 497,
+    "nombre": "Datacenter Cho",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 498,
+    "nombre": "David Abraham Taipe Silva",
+    "cargo": "Asistente De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 499,
+    "nombre": "David Alfonso  Melinchon Espinosa",
+    "cargo": "Gerente General",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 500,
+    "nombre": "David Huaman",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 501,
+    "nombre": "Deisy Carem  Garcia Ramos",
+    "cargo": "Asistente De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 502,
+    "nombre": "Derecha Externa",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 503,
+    "nombre": "Dharma Zorell Rubiños Guevara",
+    "cargo": "Practicante De Proyectos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 504,
+    "nombre": "Diego Santillan",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 505,
+    "nombre": "Directorio Arequipa",
+    "cargo": "Directorio Arequipa",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 506,
+    "nombre": "Directorio Importaciones",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 507,
+    "nombre": "Directorio Tercer Piso",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 508,
+    "nombre": "Disa  Canteño Tolentino",
+    "cargo": "Auxiliar De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 509,
+    "nombre": "Dora Chacon Vela",
+    "cargo": "Asistente De Logistica De Salida",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 510,
+    "nombre": "Eddy Roger  Cueva Chu",
+    "cargo": "Gestor De Maestro De Articulos",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 511,
+    "nombre": "Edgard Paira",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 512,
+    "nombre": "Eduardo Diaz Liquidacion Ruta",
+    "cargo": "Asistente Administrativo De Logistica",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 513,
+    "nombre": "Eduardo Enrique  Yamashiro Noel",
+    "cargo": "Analista De Gestión De La Información",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 514,
+    "nombre": "Eduardo Salomon  Diaz Linares",
+    "cargo": "Asistente Administrativo De Logistica De Salida",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 515,
+    "nombre": "Eduardo Sulca",
+    "cargo": "Practicante De Ti",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 516,
+    "nombre": "Edward  Gonzales",
+    "cargo": "Coordinador De Acuerdos Comerciales",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 517,
+    "nombre": "Efc Pasco",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 518,
+    "nombre": "Eliana Lidia  Iraola Mayorca",
+    "cargo": "Recepcionista",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 519,
+    "nombre": "Elizabeth Del Carmen  Samame Flores",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 520,
+    "nombre": "Erick Fernando Tello Corpus",
+    "cargo": "Practicante De Control Presupuestal Y Gestión",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 521,
+    "nombre": "Erickson  Huapaya Villegas",
+    "cargo": "Gerente De Desarollo De Negocios",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 522,
+    "nombre": "Ermes Melinchon",
+    "cargo": "Director Ejecutivo",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 523,
+    "nombre": "Ervin  Olayunca Zurita",
+    "cargo": "Coordinador De Operación Logística",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 524,
+    "nombre": "Estanteria  2",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 525,
+    "nombre": "Estanteria 1",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 526,
+    "nombre": "Estanteria 3",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 527,
+    "nombre": "Estefany Castro",
+    "cargo": "Ejecutivo Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 528,
+    "nombre": "Evelyn  Collado Bastidas",
+    "cargo": "Asistente De Procesos Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 529,
+    "nombre": "Evelyn Amelia  Davila Murga",
+    "cargo": "Analista Senior Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 530,
+    "nombre": "Evelyn Rossy  Becerra Saavedra",
+    "cargo": "Coordinadora De Tesoreria",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 531,
+    "nombre": "Eymi Giselle  Aybar Del Aguila",
+    "cargo": "Ejecutiva Junior De Publicidad Y Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 532,
+    "nombre": "Ezviz Cs Cb1 Wifi",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 533,
+    "nombre": "Ezviz Cs Cb1 Wifi",
+    "cargo": "Tercer Piso",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 534,
+    "nombre": "Ezviz Cs-Cv246",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 535,
+    "nombre": "Ezviz Cs-Cv246",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 536,
+    "nombre": "Fabian Cerna",
+    "cargo": "Asistente De Logística Inversa",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 537,
+    "nombre": "Facturación",
+    "cargo": "Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 538,
+    "nombre": "Fanny Rosario  Manrique Caballero",
+    "cargo": "Lider De Logistica De Entrada",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 539,
+    "nombre": "Felipe Santiago  Alvarez Castillo",
+    "cargo": "Asistente De Compras",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 540,
+    "nombre": "Felix Arturo  Loza Ttito",
+    "cargo": "Supervisor De Inventarios",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 541,
+    "nombre": "Felix Melchor  Uriarte Barranzuela",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 542,
+    "nombre": "Flavio Rodolfo Balarezo Huayta",
+    "cargo": "Practicante Administrativo De Gocn",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 543,
+    "nombre": "Franck Arnold  Mattos Rojas",
+    "cargo": "Asistente De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 544,
+    "nombre": "Franklin Cuenca",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 545,
+    "nombre": "Gabinete Compras",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 546,
+    "nombre": "Gabinete Gesco",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 547,
+    "nombre": "Gabinete Tercer Piso Comedor",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 548,
+    "nombre": "Gabriela Julve Aguirre",
+    "cargo": "Practicante De Proyectos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 549,
+    "nombre": "Gavina Yanett  Nieves Hinojosa",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 550,
+    "nombre": "German Mariano  Giraldo Cano",
+    "cargo": "Supervisor De Recepción Y Despacho",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 551,
+    "nombre": "Gesco",
+    "cargo": "Gesco",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 552,
+    "nombre": "Gianella Lujan Luyo",
+    "cargo": "Asistente De Documentación Técnica",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 553,
+    "nombre": "Giorgio Quintana",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 554,
+    "nombre": "Gisella Mabel  Mogollon Marquez",
+    "cargo": "Asistente Administrativo",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 555,
+    "nombre": "Gloria  Gutierrez Gutierrez",
+    "cargo": "Auxiliar De Facturacion Y Cobranzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 556,
+    "nombre": "Gloria Vasquez Alarcon",
+    "cargo": "Auxiliar Contable",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 557,
+    "nombre": "Gonzalo Eduardo  Sanchez Alarcon",
+    "cargo": "Asesor Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 558,
+    "nombre": "Guadalupe Antaccasa Cayetano",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 559,
+    "nombre": "Guiado",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 560,
+    "nombre": "Guiado",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 561,
+    "nombre": "Guiado Edwin Calderon",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 562,
+    "nombre": "Hernan Andre  Reyes Salazar",
+    "cargo": "Analista De Operaciónes Logistica",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 563,
+    "nombre": "Hever Diego  Alegria Alvarez",
+    "cargo": "Coordinador De Control Presupuestal Y De Gestion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 564,
+    "nombre": "Huber Andy  Huayllasco Picon",
+    "cargo": "Asistente De Facturacion Y Cobranzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 565,
+    "nombre": "Hugo  Almanza Quiroz",
+    "cargo": "Lider De Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 566,
+    "nombre": "Indicadores Comercial",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 567,
+    "nombre": "Infraestructura Monitoreo",
+    "cargo": "Infraestructura",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 568,
+    "nombre": "Ingreso Zorrilla",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 569,
+    "nombre": "Inventario Almacen",
+    "cargo": "Supervisor De Inventarios",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 570,
+    "nombre": "Ipad 1",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 571,
+    "nombre": "Ipad 2",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 572,
+    "nombre": "Ipad 3",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 573,
+    "nombre": "Ivan Flores",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 574,
+    "nombre": "Izquierda Externa",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 575,
+    "nombre": "Jack Paira",
+    "cargo": "Coordinador De Expedición",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 576,
+    "nombre": "Jackelin Daisy  Baca Florentino",
+    "cargo": "Coordinador De Logística De Produccion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 577,
+    "nombre": "Janedy Renteria Mayhua",
+    "cargo": "Practicante De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 578,
+    "nombre": "Javier Humberto  Valentin Calderon",
+    "cargo": "Coordinador De Proveedores",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 579,
+    "nombre": "Jeffrey Jehu  Cahuana Llauce",
+    "cargo": "Analista Programador Junior",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 580,
+    "nombre": "Jenny Patricia  Norabuena Cortez",
+    "cargo": "Comprador Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 581,
+    "nombre": "Jerry Contreras",
+    "cargo": "Asistente De Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 582,
+    "nombre": "Jessica De La Flor",
+    "cargo": "Externo",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 583,
+    "nombre": "Jessica Elizabeth  Piñas Mejía",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 584,
+    "nombre": "Jesus Emilio  Murrugarra Ramirez",
+    "cargo": "Asistente De Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 585,
+    "nombre": "Jesus Martin Segundo  Zevallos Aponte",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 586,
+    "nombre": "Jheny Jhovani  Sandoval Vidaurre",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 587,
+    "nombre": "Jhon Gheiner  Salcedo Roman",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 588,
+    "nombre": "Jimmy Junior  Gomez Vargas",
+    "cargo": "Coordinador De Gestion De La Informacion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 589,
+    "nombre": "Joel Canazaca",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 590,
+    "nombre": "Johan Adolfo  Chipana Navarro",
+    "cargo": "Asistente De Lista De Precios",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 591,
+    "nombre": "Jonathan Jesus Leyva Perez",
+    "cargo": "Analista De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 592,
+    "nombre": "Jonathan Melvin Valencia Nieto",
+    "cargo": "Líder Técnico Comercial Dei",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 593,
+    "nombre": "Jordi Huamani",
+    "cargo": "Auxiliar De Central De Asignaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 594,
+    "nombre": "Jorge Eduardo  Salas Maldonado",
+    "cargo": "Coordinador De E-Commerce",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 595,
+    "nombre": "Jorge Enrique  Castañeda Arambulo",
+    "cargo": "Coordinador De Tic",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 596,
+    "nombre": "Jorge Flores",
+    "cargo": "Coordinador De Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 597,
+    "nombre": "Jorge Luis  Mori Calagua",
+    "cargo": "Gestor De Caja Bancos",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 598,
+    "nombre": "Jorge Rolando  Lopez Chavez",
+    "cargo": "Asesor Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 599,
+    "nombre": "Jose Alberto  Castillo Quino",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 600,
+    "nombre": "Jose Brian  Cruz Meza",
+    "cargo": "Analista Junior De Operación Comercial Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 601,
+    "nombre": "Jose Enrique  Rengifo Lopez",
+    "cargo": "Jefe De Tic",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 602,
+    "nombre": "Jose Miguel  Lopez Garcia",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 603,
+    "nombre": "Jose Teobaldo  Coronado Arroyo",
+    "cargo": "Coordinador De Cadena Y Calidad De Procesos",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 604,
+    "nombre": "Jose Zevallos",
+    "cargo": "Practicante Pre Gdh",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 605,
+    "nombre": "Josefina  Vargas Ferrer",
+    "cargo": "Comprador Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 606,
+    "nombre": "Joshua Orellana",
+    "cargo": "Auxiliar De Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 607,
+    "nombre": "Juan Alberto  Hidalgo Gutierrez",
+    "cargo": "Coordinador De Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 608,
+    "nombre": "Juan Callupe",
+    "cargo": "Gestor De Servicio De Atención Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 609,
+    "nombre": "Juan Pablo Sanchez",
+    "cargo": "Ejecutivo Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 610,
+    "nombre": "Juaquin  Ramirez Cruz",
+    "cargo": "Cotizador Nacional",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 611,
+    "nombre": "Julio Humberto  Tordoya Falcon",
+    "cargo": "Controller De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 612,
+    "nombre": "Julisa Jeraly  Tejada Cotrina",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 613,
+    "nombre": "July Giuliana  Salazar Ramos",
+    "cargo": "Coordinador De Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 614,
+    "nombre": "Karen Andrea Carlos Nizana",
+    "cargo": "Analista De Tesorería",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 615,
+    "nombre": "Karlo Piero  Torres Gomez",
+    "cargo": "Asesor Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 616,
+    "nombre": "Katherine Esther  Lozada Flores",
+    "cargo": "Gerente De Ventas Y Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 617,
+    "nombre": "Kelly Leon Tipte",
+    "cargo": "Analista Jr De Gestión De La Información",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 618,
+    "nombre": "Lactario",
+    "cargo": "Lactario",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 619,
+    "nombre": "Laura Rosa  Aranda Chavez",
+    "cargo": "Coordinadora De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 620,
+    "nombre": "Lesly Adriana  Vidal Jaeger",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 621,
+    "nombre": "Lesly Antonella  Vega Solorzano",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 622,
+    "nombre": "Lisseth Medina",
+    "cargo": "Asistenta Social",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 623,
+    "nombre": "Litzy Magaly  Salas Muñoz",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 624,
+    "nombre": "Liz Eriely  Cardoso Hernandez",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 625,
+    "nombre": "Lizbeth  Pallarta Mogollon",
+    "cargo": "Auxiliar De Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 626,
+    "nombre": "Lizeth Karina  Neyra Fernandez",
+    "cargo": "Analista De Proyectos Y Procesos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 627,
+    "nombre": "Logistica De Entrada",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 628,
+    "nombre": "Logistica De Salida",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 629,
+    "nombre": "Lorenzo Alfonso  Villanueva Ugaz",
+    "cargo": "Asistente De E-Commerce",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 630,
+    "nombre": "Lourdes Paulet",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 631,
+    "nombre": "Lucia  Grey Gutierrez",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 632,
+    "nombre": "Lucy Arlin  Ordinola Juarez",
+    "cargo": "Analista Jr De Gestion Estrategica De Proveedores",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 633,
+    "nombre": "Luis Alberto  Chevez Ramirez",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 634,
+    "nombre": "Luis Alberto  Huaman Fuentes",
+    "cargo": "Jefe De Logistica De Salida",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 635,
+    "nombre": "Luis Alberto Agustin  Benites Velasquez",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 636,
+    "nombre": "Luis Egoavil",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 637,
+    "nombre": "Luis Franco  Lara Seguil",
+    "cargo": "Analista De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 638,
+    "nombre": "Luis Pablo  Peñaranda Talavera",
+    "cargo": "Analista De Operación Comercial Nacional Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 639,
+    "nombre": "Luz Marina  Rondon Soto",
+    "cargo": "Jefe De Finanzas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 640,
+    "nombre": "Luz Valeria  Azurin Lopez",
+    "cargo": "Auxiliar Administrativo De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 641,
+    "nombre": "Manuel Jose Antonio  Berrospi Marin",
+    "cargo": "Analista De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 642,
+    "nombre": "Marcador Primer Piso",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 643,
+    "nombre": "Marcador Segundo Piso",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 644,
+    "nombre": "Marco Antonio  De La Cruz Sanchez",
+    "cargo": "Controller De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 645,
+    "nombre": "Maria Benites",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 646,
+    "nombre": "Maria Celia  Flores Salas",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 647,
+    "nombre": "Maria De Los Angeles Palacios",
+    "cargo": "Gestor De Servicio Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 648,
+    "nombre": "Maria Del Carmen  Luna Legrand",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 649,
+    "nombre": "Maria Fernanda  Pajares Corcuera",
+    "cargo": "Practicante De Sig",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 650,
+    "nombre": "María Fernanda Huerta Vidales",
+    "cargo": "Practicante De Operación Comercial",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 651,
+    "nombre": "Maria Vergaray",
+    "cargo": "Lider De Operación Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 652,
+    "nombre": "Maribel  Aguilar Vargas",
+    "cargo": "Auxiliar Comercial",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 653,
+    "nombre": "Mariela Rocio  Calderon Reynoso",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 654,
+    "nombre": "Mario Galvan",
+    "cargo": "Comprador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 655,
+    "nombre": "Marisol Sabina  Martinez Huaman",
+    "cargo": "Ejecutivo De Cuentas",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 656,
+    "nombre": "Maritza Martinez Caycho",
+    "cargo": "Coordinadora De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 657,
+    "nombre": "Maritza Miranda Solano",
+    "cargo": "Ejecutivo De Cuenta",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 658,
+    "nombre": "Martin Zevallos Guiado",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 659,
+    "nombre": "Maryoret  Osorio Gomez",
+    "cargo": "Auxiliar De Facturacion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 660,
+    "nombre": "Mauricio Melinchon",
+    "cargo": "Gerente Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 661,
+    "nombre": "Melanie Ambar  Arcos Escobar",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 662,
+    "nombre": "Melissa Naomi Endo Nakahodo",
+    "cargo": "Asistente De Gdn",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 663,
+    "nombre": "Miguel Alonso  Cordova Vega",
+    "cargo": "Asistente De Devoluciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 664,
+    "nombre": "Miguel Angel  Martinez Lopez",
+    "cargo": "Asistente De Ecommerce",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 665,
+    "nombre": "Miguel Martin  Chujutalli Palacios",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 666,
+    "nombre": "Miguel Suchero",
+    "cargo": "Lider De Ventas",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 667,
+    "nombre": "Mijail Huanca",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 668,
+    "nombre": "Milagros  Antayhua Chipana",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 669,
+    "nombre": "Milagros Chavely  Suarez Roque",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 670,
+    "nombre": "Milagros Yessica  Rojas Rodriguez",
+    "cargo": "Asistente De Tesoreria",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 671,
+    "nombre": "Miryam Patricia  Guzmán Cueva",
+    "cargo": "Jefe De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 672,
+    "nombre": "Monitoreo Gps Chorrillos",
+    "cargo": "Controller De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 673,
+    "nombre": "Nadia Jacinta  Cuellar Luna",
+    "cargo": "Auxiliar De Central De Pedidos",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 674,
+    "nombre": "Nadia Stefany  Rodriguez Vega",
+    "cargo": "Analista Junior De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 675,
+    "nombre": "Nallely  Del Rocio Ruiz Jines",
+    "cargo": "Asistente De Logística Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 676,
+    "nombre": "Nathalia Stephania Ramos Moscoso",
+    "cargo": "Gestor Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 677,
+    "nombre": "Nelson  Rodriguez Vilchez",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 678,
+    "nombre": "Of. Cusco",
+    "cargo": "Of. Cusco",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 679,
+    "nombre": "Of. Gesco",
+    "cargo": "Of. Gesco",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 680,
+    "nombre": "Of. Soporte",
+    "cargo": "Of. Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 681,
+    "nombre": "Oficina Arequipa",
+    "cargo": "Administracion",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 682,
+    "nombre": "Oficina De Gdh",
+    "cargo": "Gdh",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 683,
+    "nombre": "Oficina Soporte",
+    "cargo": "Oficina Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 684,
+    "nombre": "Oficina Zorrila",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 685,
+    "nombre": "Olenka Rondon",
+    "cargo": "Analista De Reclutamiento Y Seleccion",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 686,
+    "nombre": "Operación Comercial",
+    "cargo": "Operación Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 687,
+    "nombre": "Operación Comercial",
+    "cargo": "Oficina Arequipa",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 688,
+    "nombre": "Oscar Damian  Huamanhorque Baca",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 689,
+    "nombre": "Oscar Felipe  Asencio Aranda",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 690,
+    "nombre": "Packing",
+    "cargo": "Packing",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 691,
+    "nombre": "Pamela Lucero  Euscategui Barzola",
+    "cargo": "Coodinador De Redes E Infra",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 692,
+    "nombre": "Paola Lucia Siria  Enero Vargas",
+    "cargo": "Key Account Manager",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 693,
+    "nombre": "Paola Rojas",
+    "cargo": "Coordinador De Soporte De Negocios",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 694,
+    "nombre": "Patio 1",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 695,
+    "nombre": "Patio 2",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 696,
+    "nombre": "Patricia Roxanna  Melinchon Espinosa",
+    "cargo": "Gerente De Operacion Comercial Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 697,
+    "nombre": "Pc Bizneo",
+    "cargo": "Gestion De Recursos Humanos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 698,
+    "nombre": "Pc Comedor Chorrillos",
+    "cargo": "Comedor",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 699,
+    "nombre": "Pc-Devoluciones",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 700,
+    "nombre": "Pedro Fabricio De Jesus  Leonardo Compan",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 701,
+    "nombre": "Pedro Orlando  Roon Corilla",
+    "cargo": "Lidre De Ventas",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 702,
+    "nombre": "Pierina Emma Consuelo  Foppiano Rabinovi",
+    "cargo": "Gerencia General Adjunto",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 703,
+    "nombre": "Piero Giordang  Tang Vidal",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 704,
+    "nombre": "Piso 03",
+    "cargo": "Oficina Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 705,
+    "nombre": "Poldar Gargarte",
+    "cargo": "Cotizador",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 706,
+    "nombre": "Primer Piso Compras",
+    "cargo": "Primer Piso Compras",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 707,
+    "nombre": "Programador Externo Carolina Reyes",
+    "cargo": "Externo",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 708,
+    "nombre": "Rafael Gonzalo  Mur Calderon",
+    "cargo": "Jefe De Cotizaciones",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 709,
+    "nombre": "Raul Alexis  Sanchez Zea",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 710,
+    "nombre": "Recepcion Packing",
+    "cargo": "Asistente Logistico",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 711,
+    "nombre": "Recepcion Packing (Inoperativo)",
+    "cargo": "Packing",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 712,
+    "nombre": "Renato  Contreras Gastañadui",
+    "cargo": "Cotizador Internacionales",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 713,
+    "nombre": "Renato Nicolas  Donoso Geldres",
+    "cargo": "Analista Junion De Oficina De Control",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 714,
+    "nombre": "Renzo Zegarra Ballon",
+    "cargo": "Atc",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 715,
+    "nombre": "Ricardo Lichui",
+    "cargo": "Operario De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 716,
+    "nombre": "Ricardo Roberto  Roque Fernandez",
+    "cargo": "Analista Jr. De Sistema Integrado De Gestion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 717,
+    "nombre": "Roberto Pablo  Chang Corbetta",
+    "cargo": "Coordinador De Desarrollo Y Mantenimiento",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 718,
+    "nombre": "Rocio Del Carmen  Medina Ninacondor",
+    "cargo": "Jefe De Logistica De Entrada",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 719,
+    "nombre": "Rodolfo Antonio  Villasante Martinez",
+    "cargo": "Gerente De Operación Logistica",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 720,
+    "nombre": "Rodrigo Alonso  Ravines Castañeda",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 721,
+    "nombre": "Rodrigo Villalon Vilchez",
+    "cargo": "Practicante De Proyectos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 722,
+    "nombre": "Ronald Vladimir  Montoya Gamarra",
+    "cargo": "Planner De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 723,
+    "nombre": "Rosa Veronica  Ramirez Jimenez",
+    "cargo": "Coordinador De Compras Y Logistica Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 724,
+    "nombre": "Rosmery Awuapara",
+    "cargo": "Practicante De Tesoreria",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 725,
+    "nombre": "Roxana  Sevillano Manani",
+    "cargo": "Coordinador De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 726,
+    "nombre": "Segundo Piso Administracion",
+    "cargo": "Segundo Piso Administracion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 727,
+    "nombre": "Sharon Porras",
+    "cargo": "Gestor De Sac",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 728,
+    "nombre": "Silvia Pamela  Castañeda Ames",
+    "cargo": "Jefe De Sistemas Integrados De Gestion",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 729,
+    "nombre": "Sol Sandoval Oré",
+    "cargo": "Asistente De Lista De Precios",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 730,
+    "nombre": "Soporte",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 731,
+    "nombre": "Soporte",
+    "cargo": "Vhs Brocal",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 732,
+    "nombre": "Soporte",
+    "cargo": "Oficina Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 733,
+    "nombre": "Stock Arequipa",
+    "cargo": "Lider Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 734,
+    "nombre": "Stock Soporte",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 735,
+    "nombre": "Stock Soporte Data Center Chorrillos",
+    "cargo": "Stock Soporte Data Center Chorrillos",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 736,
+    "nombre": "Stock Soporte Data Center Chorrillos",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 737,
+    "nombre": "Susan Jennifer  Ortiz Roncal",
+    "cargo": "Secretaria De Gerencia",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 738,
+    "nombre": "Sw Comedor",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 739,
+    "nombre": "Tania Tueros",
+    "cargo": "Auxiliar De Procesos De Servicios De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 740,
+    "nombre": "Tercer Piso Comedor",
+    "cargo": "Tercer Piso Comedor",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 741,
+    "nombre": "Teresa Cecilia  Boza Rivera",
+    "cargo": "Jefe De Gestion Y Desarrollo Humano",
+    "gerencia": "Direccion",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 742,
+    "nombre": "Tomasini Luis  Sanchez Alegre",
+    "cargo": "Analista De Sistemas",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 743,
+    "nombre": "Uap-Ac-Lite",
+    "cargo": "Soporte",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 744,
+    "nombre": "Valeria Elvira  Huaman Rojas",
+    "cargo": "Practicante De Logistica De Entrada",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 745,
+    "nombre": "Valeria Malpartida Chiscul",
+    "cargo": "Asistente De Marketing",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 746,
+    "nombre": "Ventas & Sac",
+    "cargo": "Ventas & Sac",
+    "gerencia": "Gerencia De Proyectos Y  Sistemas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 747,
+    "nombre": "Veronica Cornejo",
+    "cargo": "Analista De Planillas",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 748,
+    "nombre": "Vhs Brocal",
+    "cargo": "Vhs Brocal",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 749,
+    "nombre": "Victor Manuel  Panebra Chavez",
+    "cargo": "Asistente De Contabilidad",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 750,
+    "nombre": "Vigilancia Chorrillos",
+    "cargo": "Vigilancia",
+    "gerencia": "Gerencia De Administracion Y Finanzas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 751,
+    "nombre": "Vivian Moscoso",
+    "cargo": "Expeditor De Compras",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 752,
+    "nombre": "Viviana Martinez Huachaca",
+    "cargo": "Cotizador Internacional",
+    "gerencia": "Gerencia De Operación Comercial Internacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 753,
+    "nombre": "Walter Alexis Castillo",
+    "cargo": "Cotizador Senior",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 754,
+    "nombre": "Wendy Maribel  Candela Carbonel",
+    "cargo": "Cotizador Nacional",
+    "gerencia": "Gerencia De Operación Comercial Nacional",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 755,
+    "nombre": "Wilbert Arturo  Galdos Ojeda",
+    "cargo": "Lider Tecnico Comercial",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 756,
+    "nombre": "Wilfredo Andres  Floriano Rivas",
+    "cargo": "Programador De Distribucion",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 757,
+    "nombre": "Yasmin Rossylin  Ccasihue Sauñe",
+    "cargo": "Gestor De Servicio De Atencion Al Cliente",
+    "gerencia": "Gerencia Comercial",
+    "sede": "Surquillo"
+  },
+  {
+    "id": 758,
+    "nombre": "Yessit  Monteagudo Gongora - Almacen 5",
+    "cargo": "Supervisor De Almacen",
+    "gerencia": "Gerencia De Operaciones Logisticas",
+    "sede": "Chorrillos"
+  },
+  {
+    "id": 759,
+    "nombre": "Yoselyn Salinas",
+    "cargo": "Expeditor De Compras",
+    "gerencia": "Gerencia De Excelencia Operacional",
+    "sede": "Surquillo"
+  }
+]

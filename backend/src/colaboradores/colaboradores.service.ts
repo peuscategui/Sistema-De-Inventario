@@ -11,6 +11,7 @@ interface FindAllParams {
     nombre?: string;
     cargo?: string;
     gerencia?: string;
+    search?: string; // <-- Agregado
   };
 }
 
@@ -42,29 +43,36 @@ export class ColaboradoresService {
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 
-    // Construir el objeto where basado en los filtros
-    const where: Prisma.empleadoWhereInput = {
-      AND: [
-        ...filters.nombre ? [{
-          nombre: {
-            contains: filters.nombre,
-            mode: Prisma.QueryMode.insensitive
-          }
-        }] : [],
-        ...filters.cargo ? [{
-          cargo: {
-            contains: filters.cargo,
-            mode: Prisma.QueryMode.insensitive
-          }
-        }] : [],
-        ...filters.gerencia ? [{
-          gerencia: {
-            contains: filters.gerencia,
-            mode: Prisma.QueryMode.insensitive
-          }
-        }] : []
-      ]
-    };
+    // Construir el objeto where basado en los filtros y búsqueda
+    let where: Prisma.empleadoWhereInput = {};
+    if (filters.search) {
+      where = {
+        nombre: { contains: filters.search, mode: Prisma.QueryMode.insensitive }
+      };
+    } else {
+      where = {
+        AND: [
+          ...filters.nombre ? [{
+            nombre: {
+              contains: filters.nombre,
+              mode: Prisma.QueryMode.insensitive
+            }
+          }] : [],
+          ...filters.cargo ? [{
+            cargo: {
+              contains: filters.cargo,
+              mode: Prisma.QueryMode.insensitive
+            }
+          }] : [],
+          ...filters.gerencia ? [{
+            gerencia: {
+              contains: filters.gerencia,
+              mode: Prisma.QueryMode.insensitive
+            }
+          }] : []
+        ]
+      };
+    }
 
     const [data, totalCount] = await this.prisma.$transaction([
       this.prisma.empleado.findMany({

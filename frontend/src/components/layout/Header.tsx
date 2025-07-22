@@ -1,39 +1,96 @@
-import { Bell, Search, User, Archive } from "lucide-react";
-import Link from "next/link";
+'use client';
+
+import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { ChevronDown, User, LogOut, Settings } from 'lucide-react';
 
 export default function Header() {
-  return (
-    <header className="bg-secondary text-white shadow-md">
-      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <Link href="/" className="flex items-center space-x-2 text-white hover:text-gray-200">
-            <Archive size={28} />
-            <span className="text-xl font-bold">Tinventory Manager</span>
-          </Link>
-        </div>
-        
-        <div className="flex-1 max-w-md mx-4">
-          <div className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Search className="h-5 w-5 text-gray-400" />
-            </span>
-            <input 
-              type="text" 
-              className="w-full pl-10 pr-4 py-2 rounded-full bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-accent"
-              placeholder="Buscar..."
-            />
-          </div>
-        </div>
+  const { user, logout } = useAuth();
+  const [showDropdown, setShowDropdown] = useState(false);
 
-        <div className="flex items-center space-x-5">
-          <button className="text-white hover:text-gray-200 focus:outline-none">
-            <Bell size={22} />
+  const handleLogout = () => {
+    logout();
+    setShowDropdown(false);
+  };
+
+  return (
+    <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6">
+      <div className="flex items-center">
+        <h1 className="text-xl font-semibold text-gray-800">
+          Sistema de Inventario EFC
+        </h1>
+      </div>
+
+      <div className="flex items-center space-x-4">
+        {/* Información del usuario */}
+        <div className="relative">
+          <button
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-2"
+          >
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <User className="w-4 h-4 text-blue-600" />
+              </div>
+              <div className="text-left">
+                <div className="text-sm font-medium">
+                  {user?.fullName || user?.username}
+                </div>
+                <div className="text-xs text-gray-500">
+                  {user?.isAdmin ? 'Administrador' : 'Usuario'}
+                </div>
+              </div>
+            </div>
+            <ChevronDown className="w-4 h-4" />
           </button>
-          <button className="text-white hover:text-gray-200 focus:outline-none">
-            <User size={22} />
-          </button>
+
+          {/* Dropdown menu */}
+          {showDropdown && (
+            <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+              <div className="p-4 border-b border-gray-100">
+                <div className="text-sm font-medium text-gray-900">
+                  {user?.fullName || user?.username}
+                </div>
+                <div className="text-sm text-gray-500">{user?.email}</div>
+                <div className="mt-1">
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    user?.isAdmin 
+                      ? 'bg-purple-100 text-purple-800' 
+                      : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {user?.isAdmin ? 'Administrador' : 'Usuario'}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="py-2">
+                <button
+                  onClick={() => setShowDropdown(false)}
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  <Settings className="w-4 h-4 mr-3" />
+                  Configuración
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                >
+                  <LogOut className="w-4 h-4 mr-3" />
+                  Cerrar Sesión
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Overlay para cerrar dropdown */}
+      {showDropdown && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setShowDropdown(false)}
+        />
+      )}
     </header>
   );
 } 

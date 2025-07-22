@@ -1,0 +1,11 @@
+id,familia,sub_familia,tipo_equipo,vida_util,valor_reposicion
+1,Computadoras,Desktop,PC de Escritorio,5 años,1500.00
+2,Computadoras,Laptop,Portátil,4 años,2000.00
+3,Impresoras,Laser,Impresora Laser,3 años,800.00
+4,Impresoras,Inyección,Impresora de Inyección,3 años,300.00
+5,Redes,Switch,Switch de Red,7 años,500.00
+6,Redes,Router,Router,5 años,400.00
+7,Almacenamiento,Disco Duro,Disco Duro Externo,4 años,200.00
+8,Almacenamiento,SSD,Disco SSD,4 años,300.00
+9,Monitores,LCD,Monitor LCD,6 años,400.00
+10,Monitores,LED,Monitor LED,6 años,500.00 

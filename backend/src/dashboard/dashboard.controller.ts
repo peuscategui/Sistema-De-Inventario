@@ -1,22 +1,28 @@
 import { Controller, Get } from '@nestjs/common';
-import { DashboardService } from './dashboard.service';
 
 @Controller('dashboard')
 export class DashboardController {
-  constructor(private readonly dashboardService: DashboardService) {}
-
   @Get()
-  async getDashboardStats() {
-    return this.dashboardService.getDashboardStats();
+  getDashboard() {
+    return {
+      totalEquipos: 100,
+      porcentajeBuenEstado: 85,
+      equiposObsoletos: 15,
+      familiaMasComun: {
+        familia: 'COMPUTADORA',
+        _count: { id: 40 }
+      }
+    };
   }
 
   @Get('distribucion-familia')
-  async getDistribucionPorFamilia() {
-    return this.dashboardService.getDistribucionPorFamilia();
-  }
-
-  @Get('estado-gerencia')
-  async getEstadoPorGerencia() {
-    return this.dashboardService.getEstadoPorGerencia();
+  getDistribucionFamilia() {
+    return [
+      { familia: 'COMPUTADORA', _count: { id: 40 } },
+      { familia: 'SERVIDOR', _count: { id: 20 } },
+      { familia: 'SWITCH', _count: { id: 15 } },
+      { familia: 'MONITOR', _count: { id: 10 } },
+      { familia: 'IMPRESORA', _count: { id: 5 } }
+    ];
   }
 } 

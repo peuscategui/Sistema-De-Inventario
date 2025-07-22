@@ -1,0 +1,9 @@
+id,nombre,descripcion,codigo,activo
+1,Tecnología,Departamento de Tecnología de la Información,TEC,true
+2,Analytics,Departamento de Análisis de Datos,ANA,true
+3,Operaciones,Departamento de Operaciones,OPE,true
+4,Recursos Humanos,Departamento de Recursos Humanos,RH,true
+5,Finanzas,Departamento de Finanzas,FIN,true
+6,Marketing,Departamento de Marketing,MKT,true
+7,Ventas,Departamento de Ventas,VEN,true
+8,Logística,Departamento de Logística,LOG,true 

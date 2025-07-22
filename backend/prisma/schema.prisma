@@ -5,16 +5,16 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:postgres@192.168.40.129:5432/postgres"
+  url      = env("DATABASE_URL")
 }
 
 model clasificacion {
-  id               Int      @id @default(autoincrement())
-  familia          String?  @db.VarChar(100)
-  sub_familia      String?  @db.VarChar(100)
-  tipo_equipo      String?  @db.VarChar(100)
-  vida_util        String?  @db.VarChar(50)
-  valor_reposicion Decimal? @db.Decimal(10, 2)
+  id               Int         @id @default(autoincrement())
+  familia          String?     @db.VarChar(100)
+  sub_familia      String?     @db.VarChar(100)
+  tipo_equipo      String?     @db.VarChar(100)
+  vida_util        String?     @db.VarChar(50)
+  valor_reposicion Decimal?    @db.Decimal(10, 2)
   inventarios      inventory[]
 }
 
@@ -23,48 +23,172 @@ model empleado {
   nombre      String?     @db.VarChar(100)
   cargo       String?     @db.VarChar(100)
   gerencia    String?     @db.VarChar(100)
+  sede        String?     @db.VarChar(100)
   inventarios inventory[]
 }
 
 model inventory {
-  id                         Int          @id @default(autoincrement())
-  codigoEFC                  String?      @db.VarChar
-  tipoEquipo                 String?      @db.VarChar
-  familia                    String?      @db.VarChar
-  subFamilia                 String?      @db.VarChar
-  marca                      String?      @db.VarChar
-  modelo                     String?      @db.VarChar
+  id                         Int           @id @default(autoincrement())
+  codigoEFC                  String?       @db.VarChar
+  marca                      String?       @db.VarChar
+  modelo                     String?       @db.VarChar
   descripcion                String?
-  serie                      String?      @db.VarChar
-  procesador                 String?      @db.VarChar
+  serie                      String?       @db.VarChar
+  procesador                 String?       @db.VarChar
   anio                       Int?
-  ram                        String?      @db.VarChar
-  discoDuro                  String?      @db.VarChar
-  sistemaOperativo           String?      @db.VarChar
-  status                     String?      @db.VarChar @default("libre")
-  sede                        String?      @db.VarChar
-  estado                     String?      @db.VarChar
-  usuarios                   String?      @db.VarChar
-  cargo                      String?      @db.VarChar
-  gerencia                   String?      @db.VarChar
-  ubicacionEquipo            String?      @db.VarChar
+  ram                        String?       @db.VarChar
+  discoDuro                  String?       @db.VarChar
+  sistemaOperativo           String?       @db.VarChar
+  status                     String?       @default("libre") @db.VarChar
+  estado                     String?       @db.VarChar
+  ubicacionEquipo            String?       @db.VarChar
   qUsuarios                  Int?
-  condicion                  String?      @db.VarChar
-  repotenciadas             Boolean?
-  clasificacionObsolescencia String?      @db.VarChar
-  clasificacionRepotenciadas String?      @db.VarChar
-  motivoCompra              String?       @db.VarChar
-  precioReposicion          Decimal?     @db.Decimal(10, 2)
-  proveedor                 String?      @db.VarChar
-  factura                   String?      @db.VarChar
-  anioCompra               Int?
-  precioReposicion2024      Decimal?     @db.Decimal(10, 2)
-  observaciones             String?      @db.VarChar
-  vidaUtil                  String?      @db.VarChar
-  fecha_compra              DateTime?    @db.Date  // Formato YYYY-MM-DD
-  precioUnitarioSinIgv      String?      @db.VarChar
-  clasificacionId           Int?
-  empleadoId                Int?
-  clasificacion             clasificacion? @relation(fields: [clasificacionId], references: [id])
-  empleado                  empleado?     @relation(fields: [empleadoId], references: [id])
+  condicion                  String?       @db.VarChar
+  repotenciadas              Boolean?
+  clasificacionObsolescencia String?       @db.VarChar
+  clasificacionRepotenciadas String?       @db.VarChar
+  motivoCompra               String?       @db.VarChar
+  proveedor                  String?       @db.VarChar
+  factura                    String?       @db.VarChar
+  anioCompra                 Int?
+  observaciones              String?       @db.VarChar
+  fecha_compra               DateTime?     @db.Date
+  precioUnitarioSinIgv       String?       @db.VarChar
+  fecha_baja                 DateTime?     @db.Date
+  motivo_baja                String?       @db.VarChar(255)
+  clasificacionId            Int?
+  empleadoId                 Int?
+  clasificacion              clasificacion? @relation(fields: [clasificacionId], references: [id])
+  empleado                   empleado?      @relation(fields: [empleadoId], references: [id])
+}
+
+model area {
+  id          Int        @id @default(autoincrement())
+  nombre      String     @unique @db.VarChar(100)
+  descripcion String?    @db.VarChar(255)
+  codigo      String?    @unique @db.VarChar(20)
+  activo      Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  gerenciaId  Int?
+  gerencia    gerencia?  @relation(fields: [gerenciaId], references: [id])
+  licencias   licencia[]
+}
+
+model gerencia {
+  id          Int        @id @default(autoincrement())
+  nombre      String     @unique @db.VarChar(100)
+  descripcion String?    @db.VarChar(255)
+  codigo      String?    @unique @db.VarChar(20)
+  activo      Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  areas       area[]
+  licencias   licencia[]
+}
+
+model licencia {
+  id               Int            @id @default(autoincrement())
+  codigoLicencia   String         @unique @db.VarChar(50)
+  nombre           String         @db.VarChar(200)
+  tipoLicencia     TipoLicencia
+  proveedor        String         @db.VarChar(100)
+  fechaCompra      DateTime       @db.Date
+  fechaVencimiento DateTime?      @db.Date
+  costo            Decimal        @db.Decimal(10, 2)
+  moneda           String         @default("USD") @db.VarChar(3)
+  cantidadUsuarios Int            @default(1)
+  estado           EstadoLicencia @default(Activa)
+  asignadoA        String?        @db.VarChar(200)
+  descripcion      String?
+  documentos       String[]
+  observaciones    String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  areaId           Int?
+  gerenciaId       Int?
+  area             area?          @relation(fields: [areaId], references: [id])
+  gerencia         gerencia?      @relation(fields: [gerenciaId], references: [id])
+
+  @@index([estado])
+  @@index([fechaVencimiento])
+  @@index([tipoLicencia])
+}
+
+model user {
+  id              Int              @id @default(autoincrement())
+  username        String           @unique @db.VarChar(50)
+  email           String           @unique @db.VarChar(100)
+  password        String           @db.VarChar(255)
+  fullName        String?          @db.VarChar(100)
+  isActive        Boolean          @default(true)
+  isAdmin         Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  userPermissions UserPermission[]
+}
+
+model resource {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique @db.VarChar(50)
+  displayName String       @db.VarChar(100)
+  description String?      @db.VarChar(255)
+  permissions permission[]
+}
+
+model permission {
+  id              Int              @id @default(autoincrement())
+  action          String           @db.VarChar(50)
+  resourceId      Int
+  userPermissions UserPermission[]
+  resource        resource         @relation(fields: [resourceId], references: [id])
+
+  @@unique([action, resourceId])
+}
+
+model UserPermission {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  permissionId Int
+  granted      Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  permission   permission @relation(fields: [permissionId], references: [id])
+  user         user       @relation(fields: [userId], references: [id])
+
+  @@unique([userId, permissionId])
+}
+
+model tickets {
+  id          Int     @id @default(autoincrement())
+  fecha       String
+  sede        String
+  categoria   String
+  usuario     String
+  asunto      String
+  agente      String
+  descripcion String
+  hora        String?
+  prioridad   String?
+  estado      String? @default("abierto")
+}
+
+model usuarios {
+  id       Int    @id @default(autoincrement())
+  usuario  String @unique
+  clave    String
+  permisos String
+}
+
+enum TipoLicencia {
+  Software
+  Hardware
+  Servicio
+  Subscripcion
+}
+
+enum EstadoLicencia {
+  Activa
+  Vencida
+  PorVencer
+  Suspendida
 }

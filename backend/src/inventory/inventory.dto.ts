@@ -1,17 +1,8 @@
-import { IsOptional } from 'class-validator';
+import { IsOptional, IsInt, IsBoolean } from 'class-validator';
 
 export class CreateInventoryDto {
   @IsOptional()
   codigoEFC?: string;
-
-  @IsOptional()
-  tipoEquipo?: string;
-
-  @IsOptional()
-  familia?: string;
-
-  @IsOptional()
-  subFamilia?: string;
 
   @IsOptional()
   marca?: string;
@@ -44,19 +35,7 @@ export class CreateInventoryDto {
   status?: string;
 
   @IsOptional()
-  sede?: string;
-
-  @IsOptional()
   estado?: string;
-
-  @IsOptional()
-  usuarios?: string;
-
-  @IsOptional()
-  cargo?: string;
-
-  @IsOptional()
-  gerencia?: string;
 
   @IsOptional()
   ubicacionEquipo?: string;
@@ -68,10 +47,17 @@ export class CreateInventoryDto {
   condicion?: string;
 
   @IsOptional()
-  motivoCompra?: string;
+  @IsBoolean()
+  repotenciadas?: boolean;
 
   @IsOptional()
-  precioReposicion?: number;
+  clasificacionObsolescencia?: string;
+
+  @IsOptional()
+  clasificacionRepotenciadas?: string;
+
+  @IsOptional()
+  motivoCompra?: string;
 
   @IsOptional()
   proveedor?: string;
@@ -83,9 +69,6 @@ export class CreateInventoryDto {
   anioCompra?: number;
 
   @IsOptional()
-  vidaUtil?: string;
-
-  @IsOptional()
   fecha_compra?: string;
 
   @IsOptional()
@@ -94,8 +77,25 @@ export class CreateInventoryDto {
   @IsOptional()
   observaciones?: string;
 
+  // Campos de baja - CORREGIDO: agregar campos de baja
   @IsOptional()
-  precioReposicion2024?: number;
+  fecha_baja?: string;
+
+  @IsOptional()
+  motivo_baja?: string;
+
+  // Relaciones - CORREGIDO: opcionales como en el schema
+  @IsOptional()
+  @IsInt()
+  articuloId?: number;
+
+  @IsOptional()
+  @IsInt()
+  clasificacionId?: number;
+
+  @IsOptional()
+  @IsInt()
+  empleadoId?: number;
 }
 
 export class UpdateInventoryDto extends CreateInventoryDto {} 

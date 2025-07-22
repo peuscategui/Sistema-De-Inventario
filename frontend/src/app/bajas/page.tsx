@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Download, Search, X, Eye } from 'lucide-react';
-import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
+import React, { useState, useEffect } from 'react';
+import { Search, X, Download, Eye, Edit } from 'lucide-react';
 import { API_ENDPOINTS } from '@/config/api';
+import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
+import EditBajaModal from '@/components/inventario/EditBajaModal';
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -61,6 +62,9 @@ interface BajaItem {
   precioUnitarioSinIgv: number | null;
   fechaBaja: string | null;
   motivoBaja: string | null;
+  // Campos obligatorios para compatibilidad con InventoryItem
+  clasificacionId: number | null;
+  empleadoId: number | null;
   clasificacion: Clasificacion | null;
   empleado: Empleado | null;
 }
@@ -96,6 +100,10 @@ export default function BajasPage() {
   const [filterValue, setFilterValue] = useState<string>('');
   const [selectedBaja, setSelectedBaja] = useState<BajaItem | null>(null);
   const [detalleModalOpen, setDetalleModalOpen] = useState(false);
+  // CORREGIDO: Agregar estados para edición
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editBaja, setEditBaja] = useState<BajaItem | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [pagination, setPagination] = useState({
     total: 0,
     totalPages: 1,
@@ -104,7 +112,7 @@ export default function BajasPage() {
   const fetchBajas = async () => {
     setLoading(true);
     try {
-      let url = `${API_ENDPOINTS.bajas}?page=${page}&limit=${pageSize}`;
+      let url = `${API_ENDPOINTS.bajas}?page=${page}&pageSize=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -113,13 +121,25 @@ export default function BajasPage() {
         }
       });
 
+      console.log('🔍 DEBUG: URL de bajas:', url);
+
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Error al obtener los datos de bajas');
       }
       const data = await response.json();
-      setBajas(data.items);
-      setPagination(data.meta);
+      
+      console.log('🔍 DEBUG: Respuesta de bajas:', data);
+      
+      // Ajustar según la estructura del backend
+      const bajasData = data.data || data.items || data;
+      const paginationData = data.pagination || data.meta || {
+        total: Array.isArray(bajasData) ? bajasData.length : 0,
+        totalPages: 1
+      };
+      
+      setBajas(Array.isArray(bajasData) ? bajasData : []);
+      setPagination(paginationData);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -204,6 +224,48 @@ export default function BajasPage() {
   const openDetalleModal = (baja: BajaItem) => {
     setSelectedBaja(baja);
     setDetalleModalOpen(true);
+  };
+
+  // CORREGIDO: Agregar función para abrir modal de edición
+  const openEditModal = (baja: BajaItem) => {
+    setEditBaja(baja);
+    setEditModalOpen(true);
+  };
+
+  // CORREGIDO: Agregar función para manejar la edición
+  const handleEditSubmit = async (data: any) => {
+    setIsSubmitting(true);
+    try {
+      // Mapear campos de baja del frontend al backend
+      const bodyData = { ...data };
+      if (data.fechaBaja) {
+        bodyData.fecha_baja = data.fechaBaja;
+        delete bodyData.fechaBaja;
+      }
+      if (data.motivoBaja) {
+        bodyData.motivo_baja = data.motivoBaja;
+        delete bodyData.motivoBaja;
+      }
+
+      const response = await fetch(`${API_ENDPOINTS.inventario}/${editBaja?.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bodyData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al actualizar la baja');
+      }
+
+      setEditModalOpen(false);
+      setEditBaja(null);
+      fetchBajas(); // Recargar los datos
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (loading) {
@@ -334,6 +396,7 @@ export default function BajasPage() {
               <th className="py-3 px-4 text-left uppercase">Serie</th>
               <th className="py-3 px-4 text-left uppercase">Sede</th>
               <th className="py-3 px-4 text-left uppercase">Fecha Baja</th>
+              <th className="py-3 px-4 text-left uppercase">Motivo Baja</th>
               <th className="py-3 px-4 text-left uppercase">Acciones</th>
             </tr>
           </thead>
@@ -349,6 +412,7 @@ export default function BajasPage() {
                 <td className="py-3 px-4 uppercase">
                   {baja.fechaBaja ? new Date(baja.fechaBaja).toLocaleDateString() : '-'}
                 </td>
+                <td className="py-3 px-4 uppercase">{baja.motivoBaja || '-'}</td>
                 <td className="py-3 px-4">
                   <div className="flex items-center gap-2">
                     <button
@@ -357,6 +421,14 @@ export default function BajasPage() {
                       title="Ver detalles"
                     >
                       <Eye size={20} />
+                    </button>
+                    {/* CORREGIDO: Agregar botón de editar */}
+                    <button
+                      onClick={() => openEditModal(baja)}
+                      className="text-green-600 hover:text-green-800"
+                      title="Editar baja"
+                    >
+                      <Edit size={20} />
                     </button>
                   </div>
                 </td>
@@ -378,7 +450,96 @@ export default function BajasPage() {
           setDetalleModalOpen(false);
           setSelectedBaja(null);
         }}
-        item={selectedBaja}
+        item={selectedBaja as any}
+      />
+
+      {/* CORREGIDO: Agregar modal de edición */}
+      <EditBajaModal
+        isOpen={editModalOpen}
+        onClose={() => {
+          setEditModalOpen(false);
+          setEditBaja(null);
+        }}
+        onSubmit={handleEditSubmit}
+        baja={editBaja ? {
+          id: editBaja.id,
+          codigoEFC: editBaja.codigoEFC || '',
+          fechaBaja: editBaja.fechaBaja || '',
+          motivoBaja: editBaja.motivoBaja || '',
+        } : undefined}
+        isSubmitting={isSubmitting}
+      />
+    </div>
+  );
+} 
+          <tbody>
+            {bajas.map((baja) => (
+              <tr key={baja.id} className="border-t hover:bg-gray-50">
+                <td className="py-3 px-4 uppercase">{baja.codigoEFC || '-'}</td>
+                <td className="py-3 px-4 uppercase">{baja.tipoEquipo || '-'}</td>
+                <td className="py-3 px-4 uppercase">{baja.marca || '-'}</td>
+                <td className="py-3 px-4 uppercase">{baja.modelo || '-'}</td>
+                <td className="py-3 px-4 uppercase">{baja.serie || '-'}</td>
+                <td className="py-3 px-4 uppercase">{baja.sede || '-'}</td>
+                <td className="py-3 px-4 uppercase">
+                  {baja.fechaBaja ? new Date(baja.fechaBaja).toLocaleDateString() : '-'}
+                </td>
+                <td className="py-3 px-4 uppercase">{baja.motivoBaja || '-'}</td>
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => openDetalleModal(baja)}
+                      className="text-blue-600 hover:text-blue-800"
+                      title="Ver detalles"
+                    >
+                      <Eye size={20} />
+                    </button>
+                    {/* CORREGIDO: Agregar botón de editar */}
+                    <button
+                      onClick={() => openEditModal(baja)}
+                      className="text-green-600 hover:text-green-800"
+                      title="Editar baja"
+                    >
+                      <Edit size={20} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {bajas.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500">No se encontraron bajas</p>
+          </div>
+        )}
+      </div>
+
+      <InventarioDetalleModal
+        isOpen={detalleModalOpen}
+        onClose={() => {
+          setDetalleModalOpen(false);
+          setSelectedBaja(null);
+        }}
+        item={selectedBaja as any}
+      />
+
+      {/* CORREGIDO: Agregar modal de edición */}
+      <EditBajaModal
+        isOpen={editModalOpen}
+        onClose={() => {
+          setEditModalOpen(false);
+          setEditBaja(null);
+        }}
+        onSubmit={handleEditSubmit}
+        baja={editBaja ? {
+          id: editBaja.id,
+          codigoEFC: editBaja.codigoEFC || '',
+          fechaBaja: editBaja.fechaBaja || '',
+          motivoBaja: editBaja.motivoBaja || '',
+        } : undefined}
+        isSubmitting={isSubmitting}
       />
     </div>
   );

@@ -3,6 +3,7 @@ import InventarioForm from './InventarioForm';
 interface Inventario {
   id?: number;
   articuloId?: number;
+  articulo?: { id: number };
   sede?: string | null;
   estado?: string | null;
   ubicacionEquipo?: string | null;
@@ -10,7 +11,9 @@ interface Inventario {
   cumpleStandard?: boolean;
   observaciones?: string | null;
   clasificacionId?: number;
+  clasificacion?: { id: number };
   empleadoId?: number | null;
+  empleado?: { id: number; sede?: string | null };
   fechaBaja?: string | null;
   motivoBaja?: string | null;
   fechaDonacion?: string | null;
@@ -38,7 +41,22 @@ const InventarioModal = ({ isOpen, onClose, onSubmit, inventario, isSubmitting }
         <InventarioForm
           onSubmit={onSubmit}
           onCancel={onClose}
-          initialData={inventario as any || {}}
+          initialData={inventario ? {
+            ...inventario,
+            articuloId: typeof inventario.articuloId === 'number' ? inventario.articuloId : (inventario.articulo?.id ?? undefined),
+            clasificacionId: typeof inventario.clasificacionId === 'number' ? inventario.clasificacionId : (inventario.clasificacion?.id ?? undefined),
+            empleadoId: typeof inventario.empleadoId === 'number' ? inventario.empleadoId : (inventario.empleado?.id ?? undefined),
+            sede: inventario.sede ?? inventario.empleado?.sede ?? '',
+            estado: inventario.estado ?? '',
+            ubicacionEquipo: inventario.ubicacionEquipo ?? '',
+            condicion: inventario.condicion ?? '',
+            cumpleStandard: inventario.cumpleStandard ?? false,
+            observaciones: inventario.observaciones ?? '',
+            fechaBaja: inventario.fechaBaja ?? '',
+            motivoBaja: inventario.motivoBaja ?? '',
+            fechaDonacion: inventario.fechaDonacion ?? '',
+            motivoDonacion: inventario.motivoDonacion ?? '',
+          } : {}}
           isEditing={!!inventario}
         />
       </div>

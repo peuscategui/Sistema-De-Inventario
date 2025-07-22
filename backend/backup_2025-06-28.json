@@ -1,0 +1,3662 @@
+{
+  "inventory": [],
+  "clasificacion": [
+    {
+      "id": 2,
+      "familia": "Computadora",
+      "sub_familia": "Desktop SFF",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "760"
+    },
+    {
+      "id": 3,
+      "familia": "Computadora",
+      "sub_familia": "Desktop Mini",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "760"
+    },
+    {
+      "id": 4,
+      "familia": "Computadora",
+      "sub_familia": "All-in-One",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "400"
+    },
+    {
+      "id": 5,
+      "familia": "Computadora",
+      "sub_familia": "Laptop Entry-Level",
+      "tipo_equipo": "LAPTOP BASICA",
+      "vida_util": "4 años",
+      "valor_reposicion": "760"
+    },
+    {
+      "id": 6,
+      "familia": "Computadora",
+      "sub_familia": "Laptop Mid-Range",
+      "tipo_equipo": "LAPTOP STANDARD",
+      "vida_util": "4 años",
+      "valor_reposicion": "800"
+    },
+    {
+      "id": 7,
+      "familia": "Computadora",
+      "sub_familia": "Laptop High-Performance",
+      "tipo_equipo": "LAPTOP AVANZADA",
+      "vida_util": "4 años",
+      "valor_reposicion": "1400"
+    },
+    {
+      "id": 8,
+      "familia": "Tableta",
+      "sub_familia": "Tabletas Android",
+      "tipo_equipo": "TABLET",
+      "vida_util": "3 años",
+      "valor_reposicion": "150"
+    },
+    {
+      "id": 9,
+      "familia": "Tableta",
+      "sub_familia": "iPads",
+      "tipo_equipo": "IPAD",
+      "vida_util": "3 años",
+      "valor_reposicion": "700"
+    },
+    {
+      "id": 10,
+      "familia": "Servidor",
+      "sub_familia": "Servidor rackeable",
+      "tipo_equipo": "SERVIDOR",
+      "vida_util": "5 años",
+      "valor_reposicion": "10000"
+    },
+    {
+      "id": 11,
+      "familia": "Servidor",
+      "sub_familia": "Servidor torre",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "5000"
+    },
+    {
+      "id": 12,
+      "familia": "Servidor",
+      "sub_familia": "Servidor ensamblado ( Gamer)",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "3000"
+    },
+    {
+      "id": 13,
+      "familia": "Redes",
+      "sub_familia": "Switch de acceso",
+      "tipo_equipo": "SWITCH",
+      "vida_util": "7 años",
+      "valor_reposicion": "2000"
+    },
+    {
+      "id": 14,
+      "familia": "Redes",
+      "sub_familia": "Switch Core",
+      "tipo_equipo": null,
+      "vida_util": "7 años",
+      "valor_reposicion": "4000"
+    },
+    {
+      "id": 15,
+      "familia": "Redes",
+      "sub_familia": "Hub",
+      "tipo_equipo": null,
+      "vida_util": "7 años",
+      "valor_reposicion": "50"
+    },
+    {
+      "id": 16,
+      "familia": "Redes",
+      "sub_familia": "Access Points",
+      "tipo_equipo": "ACCES POINT",
+      "vida_util": "4 años",
+      "valor_reposicion": "200"
+    },
+    {
+      "id": 17,
+      "familia": "Impresora",
+      "sub_familia": "Laser",
+      "tipo_equipo": "IMPRESORA ESCRITORIO",
+      "vida_util": "3 años",
+      "valor_reposicion": "300"
+    },
+    {
+      "id": 18,
+      "familia": "Impresora",
+      "sub_familia": "Ticketera",
+      "tipo_equipo": null,
+      "vida_util": "3 años",
+      "valor_reposicion": "300"
+    },
+    {
+      "id": 19,
+      "familia": "Impresora",
+      "sub_familia": "Inyección",
+      "tipo_equipo": null,
+      "vida_util": "3 años",
+      "valor_reposicion": "200"
+    },
+    {
+      "id": 20,
+      "familia": "Impresora",
+      "sub_familia": "Matricial",
+      "tipo_equipo": null,
+      "vida_util": "3 años",
+      "valor_reposicion": "400"
+    },
+    {
+      "id": 21,
+      "familia": "Impresora",
+      "sub_familia": "Portátil",
+      "tipo_equipo": "IMPRESORA PORTATIL",
+      "vida_util": "3 años",
+      "valor_reposicion": "450"
+    },
+    {
+      "id": 22,
+      "familia": "Protección Eléctrica",
+      "sub_familia": "Sistemas de Alimentación Ininterrumpida (UPS)",
+      "tipo_equipo": "UPS ",
+      "vida_util": "5 años",
+      "valor_reposicion": "1000"
+    },
+    {
+      "id": 23,
+      "familia": "Protección Eléctrica",
+      "sub_familia": "Sistemas de Transferencia Automática (ATS)",
+      "tipo_equipo": "ATS",
+      "vida_util": "5 años",
+      "valor_reposicion": "800"
+    },
+    {
+      "id": 24,
+      "familia": "Colaboración",
+      "sub_familia": "Presentación inhalambrica",
+      "tipo_equipo": "VIDEO CONFERENCIA",
+      "vida_util": "3 años",
+      "valor_reposicion": "2500"
+    },
+    {
+      "id": 25,
+      "familia": "Colaboración",
+      "sub_familia": "Proyector",
+      "tipo_equipo": "PROYECTOR",
+      "vida_util": "5 años",
+      "valor_reposicion": "500"
+    },
+    {
+      "id": 26,
+      "familia": "Colaboración",
+      "sub_familia": "Altavoz",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "200"
+    },
+    {
+      "id": 27,
+      "familia": "Colaboración",
+      "sub_familia": "Cámara de videoconferencia",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "150"
+    },
+    {
+      "id": 28,
+      "familia": "Videovigilancia",
+      "sub_familia": "Cámara profesional fija",
+      "tipo_equipo": "CAMARA",
+      "vida_util": "3 años",
+      "valor_reposicion": "60"
+    },
+    {
+      "id": 29,
+      "familia": "Videovigilancia",
+      "sub_familia": "Cámara hogar fija",
+      "tipo_equipo": null,
+      "vida_util": "3 años",
+      "valor_reposicion": "50"
+    },
+    {
+      "id": 30,
+      "familia": "Videovigilancia",
+      "sub_familia": "Cámara profesional ptz",
+      "tipo_equipo": "CAMARA PTZ",
+      "vida_util": "3 años",
+      "valor_reposicion": "700"
+    },
+    {
+      "id": 31,
+      "familia": "Videovigilancia",
+      "sub_familia": "Cámara hogar ptz",
+      "tipo_equipo": null,
+      "vida_util": "3 años",
+      "valor_reposicion": "50"
+    },
+    {
+      "id": 32,
+      "familia": "Videovigilancia",
+      "sub_familia": "NVR (Network Video Recorder)",
+      "tipo_equipo": "NVR",
+      "vida_util": "5 años",
+      "valor_reposicion": "2000"
+    },
+    {
+      "id": 33,
+      "familia": "Telefonía",
+      "sub_familia": "Teléfono",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "200"
+    },
+    {
+      "id": 34,
+      "familia": "Telefonía",
+      "sub_familia": "Sistema IP PBX Appliance",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "4000"
+    },
+    {
+      "id": 35,
+      "familia": "Monitor",
+      "sub_familia": "Monitor",
+      "tipo_equipo": "Monitor",
+      "vida_util": "5 años",
+      "valor_reposicion": "200"
+    },
+    {
+      "id": 36,
+      "familia": "Rack",
+      "sub_familia": "Gabinete",
+      "tipo_equipo": "Gabinete",
+      "vida_util": "15 años",
+      "valor_reposicion": "1000"
+    },
+    {
+      "id": 37,
+      "familia": "Rack",
+      "sub_familia": "Rack",
+      "tipo_equipo": "Rack",
+      "vida_util": "15 años",
+      "valor_reposicion": "400"
+    },
+    {
+      "id": 38,
+      "familia": "Control Biométrico",
+      "sub_familia": "Control de Asistencia",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "200"
+    },
+    {
+      "id": 39,
+      "familia": "Colaboración",
+      "sub_familia": "Videoconferencia",
+      "tipo_equipo": null,
+      "vida_util": "5 años",
+      "valor_reposicion": "1000"
+    },
+    {
+      "id": 40,
+      "familia": "Protección Eléctrica",
+      "sub_familia": "Mini UPS",
+      "tipo_equipo": "UPS ",
+      "vida_util": "5 años",
+      "valor_reposicion": "80"
+    }
+  ],
+  "empleado": [
+    {
+      "id": 2,
+      "nombre": "YOSELIN ANLLELA  CHACHI PICHARDO ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 3,
+      "nombre": "YESSIT  MONTEAGUDO GONGORA - ALMACEN 5",
+      "cargo": "SUPERVISOR DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 4,
+      "nombre": "YASMIN ROSSYLIN  CCASIHUE SAUÑE ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 5,
+      "nombre": "WILMER SEBASTIAN  CELIS RAMOS ",
+      "cargo": "PRACTICANTE DE PROYECTOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 6,
+      "nombre": "WILFREDO ANDRES  FLORIANO RIVAS ",
+      "cargo": "Programador De Distribucion",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 7,
+      "nombre": "STOCK SOPORTE",
+      "cargo": "SOPORTE ",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 8,
+      "nombre": "WENDY MARIBEL  CANDELA CARBONEL ",
+      "cargo": "COTIZADOR NACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 9,
+      "nombre": "BAJA SOPORTE ",
+      "cargo": "SOPORTE ",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 10,
+      "nombre": "WALTER ALEXIS CASTILLO",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 11,
+      "nombre": "VICTOR MANUEL  PANEBRA CHAVEZ ",
+      "cargo": "ASISTENTE DE CONTABILIDAD",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 12,
+      "nombre": "VALERIA ELVIRA  HUAMAN ROJAS ",
+      "cargo": "PRACTICANTE DE LOGISTICA DE ENTRADA",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 13,
+      "nombre": "TOMASINI LUIS  SANCHEZ ALEGRE ",
+      "cargo": "ANALISTA DE SISTEMAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 14,
+      "nombre": "TERESA CECILIA  BOZA RIVERA ",
+      "cargo": "JEFE DE GESTION Y DESARROLLO HUMANO",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 15,
+      "nombre": "TANIA TUEROS",
+      "cargo": "AUXILIAR DE PROCESOS DE SERVICIOS DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 16,
+      "nombre": "SUSAN TATIANA  RAMIREZ RIVERA ",
+      "cargo": "ASISTENTE SOCIAL",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 17,
+      "nombre": "SUSAN JENNIFER  ORTIZ RONCAL ",
+      "cargo": "SECRETARIA DE GERENCIA",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 18,
+      "nombre": "CARLOS ENRIQUE  BAES QUISPE ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 19,
+      "nombre": "ELIZABETH DEL CARMEN  SAMAME FLORES ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 20,
+      "nombre": "KATHERINE MADELEY ESCOBAR  CARPIO ",
+      "cargo": "COORDINADOR JR DE OPERACIONES LOGISTICAS",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 21,
+      "nombre": "SOL  LEZCANO GONZALEZ DEL RIEGO ",
+      "cargo": "ASISTENTE DE GESTION Y DESARROLLO HUMANO",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 22,
+      "nombre": "SILVIA PAMELA  CASTAÑEDA AMES ",
+      "cargo": "Jefe de Sistemas Integrados de Gestion",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 23,
+      "nombre": "SILVIA CRISTINA  CASTILLO ALCANTARA ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 24,
+      "nombre": "SHIRLEY FERNANDEZ",
+      "cargo": "COMPRADOR INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 25,
+      "nombre": "ANGIE VALENCIA",
+      "cargo": "ASISTENTE DE COMPRAS",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 26,
+      "nombre": "ROXANA  SEVILLANO MANANI ",
+      "cargo": "COORDINADOR DE CONTABILIDAD",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 27,
+      "nombre": "ROSA VERONICA  RAMIREZ JIMENEZ ",
+      "cargo": "COORDINADOR DE COMPRAS Y LOGISTICA INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 28,
+      "nombre": "RONALD VLADIMIR  MONTOYA GAMARRA ",
+      "cargo": "PLANNER DE DISTRIBUCION",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 29,
+      "nombre": "RODRIGO ALONSO  RAVINES CASTAÑEDA ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 30,
+      "nombre": "MONITOREO CAMARAS GOL",
+      "cargo": "MONITOREO CAMARAS GOL",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 31,
+      "nombre": "RODOLFO ANTONIO  VILLASANTE MARTINEZ ",
+      "cargo": "GERENTE DE OPERACIÓN LOGISTICA",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 32,
+      "nombre": "ROCIO DEL CARMEN  MEDINA NINACONDOR ",
+      "cargo": "JEFE DE LOGISTICA DE ENTRADA",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 33,
+      "nombre": "ROBERTO PABLO  CHANG CORBETTA ",
+      "cargo": "COORDINADOR DE DESARROLLO Y MANTENIMIENTO",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 34,
+      "nombre": "ROBERTO ALMENABAR ASCURRA",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 35,
+      "nombre": "RICARDO ROBERTO  ROQUE FERNANDEZ ",
+      "cargo": "ANALISTA JR. DE SISTEMA INTEGRADO DE GESTION",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 36,
+      "nombre": "RICARDO LICHUI",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 37,
+      "nombre": "RICARDO ADRIAN  ZAPATA ALEJOS ",
+      "cargo": "PRACTICANTE PROFESIONAL DE PROYECTOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 38,
+      "nombre": "RENZO SANCHEZ CALIXTO",
+      "cargo": "EJECUTIVO DE COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 39,
+      "nombre": "RENATO NICOLAS  DONOSO GELDRES ",
+      "cargo": "ANALISTA JUNION DE OFICINA DE CONTROL",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 40,
+      "nombre": "RENATO  CONTRERAS GASTAÑADUI ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 41,
+      "nombre": "RECEPCION PACKING",
+      "cargo": "ASISTENTE LOGISTICO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 42,
+      "nombre": "JHENY JHOVANI  SANDOVAL VIDAURRE ",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 43,
+      "nombre": "RAFAEL RAYME",
+      "cargo": "ANALISTA DE CONTABILIDAD",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 44,
+      "nombre": "LUIS EGOAVIL",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 45,
+      "nombre": "PROGRAMADOR EXTERNO CAROLINA REYES ",
+      "cargo": "EXTERNO",
+      "gerencia": "EXTERNO"
+    },
+    {
+      "id": 46,
+      "nombre": "PIERO GIORDANG  TANG VIDAL ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 47,
+      "nombre": "PIERINA OLEGARIA  RUBINA GONZALES ",
+      "cargo": "COMPRADOR DE MARCAS",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 48,
+      "nombre": "PIERINA EMMA CONSUELO  FOPPIANO RABINOVI ",
+      "cargo": "GERENCIA GENERAL ADJUNTO",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 49,
+      "nombre": "PETER OMAR  URIBE MACHUCA (HURTO)",
+      "cargo": "EJECUTIVO DE CUENTA JR",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 50,
+      "nombre": "PEDRO ORLANDO  ROON CORILLA ",
+      "cargo": "LIDRE DE VENTAS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 51,
+      "nombre": "PEDRO FABRICIO DE JESUS  LEONARDO COMPAN ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 52,
+      "nombre": "PATRICIA ROXANNA  MELINCHON ESPINOSA ",
+      "cargo": "GERENTE DE OPERACION COMERCIAL INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 53,
+      "nombre": "PAOLA ROJAS",
+      "cargo": "COORDINADOR DE SOPORTE DE NEGOCIOS",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 54,
+      "nombre": "PAOLA LUCIA SIRIA  ENERO VARGAS ",
+      "cargo": "KEY ACCOUNT MANAGER",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 55,
+      "nombre": "PAMELA LUCERO  EUSCATEGUI BARZOLA ",
+      "cargo": "COODINADOR DE REDES E INFRA",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 56,
+      "nombre": "VIGILANCIA CHORRILLOS",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 57,
+      "nombre": "OSCAR FELIPE  ASENCIO ARANDA ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 58,
+      "nombre": "OSCAR DAMIAN  HUAMANHORQUE BACA ",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 59,
+      "nombre": "NELSON  RODRIGUEZ VILCHEZ ",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 60,
+      "nombre": "NADIA STEFANY  RODRIGUEZ VEGA ",
+      "cargo": "ANALISTA JUNIOR DE CONTABILIDAD",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 61,
+      "nombre": "NADIA JACINTA  CUELLAR LUNA ",
+      "cargo": "AUXILIAR DE CENTRAL DE PEDIDOS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 62,
+      "nombre": "MIRYAM PATRICIA  GUZMÁN CUEVA ",
+      "cargo": "JEFE DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 63,
+      "nombre": "MILAGROS YESSICA  ROJAS RODRIGUEZ ",
+      "cargo": "ASISTENTE DE TESORERIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 64,
+      "nombre": "MILAGROS CHAVELY  SUAREZ ROQUE ",
+      "cargo": "AUXILIAR DE CENTRAL DE PEDIDOS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 65,
+      "nombre": "MILAGROS  ANTAYHUA CHIPANA ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 66,
+      "nombre": "ALONDRA MENACHO",
+      "cargo": "ASISTENTE DE LOGISTICA INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 67,
+      "nombre": "MIJAIL HUANCA",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 68,
+      "nombre": "MIGUEL SUCHERO",
+      "cargo": "LIDER DE VENTAS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 69,
+      "nombre": "MIGUEL MARTIN  CHUJUTALLI PALACIOS ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 70,
+      "nombre": "MIGUEL ANGEL  MARTINEZ LOPEZ ",
+      "cargo": "ASISTENTE DE ECOMMERCE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 71,
+      "nombre": "MICHAEL EDUARDO  NOE CAMPOS ",
+      "cargo": "EJECUTIVO DE COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 72,
+      "nombre": "MIA ISAMAR  LINARES CARDOSO ",
+      "cargo": "COORDINADORA COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 73,
+      "nombre": "MELANIE AMBAR  ARCOS ESCOBAR ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 74,
+      "nombre": "MARYORET  OSORIO GOMEZ ",
+      "cargo": "AUXILIAR DE FACTURACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 75,
+      "nombre": "MARITZA MIRANDA SOLANO",
+      "cargo": "EJECUTIVO DE CUENTA",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 76,
+      "nombre": "MARISOL SABINA  MARTINEZ HUAMAN ",
+      "cargo": "EJECUTIVO DE CUENTAS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 77,
+      "nombre": "MARIO GALVAN",
+      "cargo": "COMPRADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 78,
+      "nombre": "MARIELA ROCIO  CALDERON REYNOSO ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 79,
+      "nombre": "MARIBEL  AGUILAR VARGAS ",
+      "cargo": "AUXILIAR COMERCIAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 80,
+      "nombre": "MARIA FERNANDA  PAJARES CORCUERA ",
+      "cargo": "PRACTICANTE DE SIG",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 81,
+      "nombre": "MARIA DEL CARMEN  LUNA LEGRAND ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 82,
+      "nombre": "MARIA CELIA  FLORES SALAS ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 83,
+      "nombre": "MARCOS ALBERTO ALEXANDER  CASTILLO RUIZ ",
+      "cargo": "ASISTENTE DE SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 84,
+      "nombre": "PC COMEDOR CHORRILLOS",
+      "cargo": "COMEDOR",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 85,
+      "nombre": "MARCO ANTONIO  DE LA CRUZ SANCHEZ ",
+      "cargo": "CONTROLLER DE DISTRIBUCION",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 86,
+      "nombre": "MONITOREO GPS CHORRILLOS",
+      "cargo": "CONTROLLER DE DISTRIBUCION",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 87,
+      "nombre": "MANUEL VASQUEZ",
+      "cargo": "ANALISTA JR DE GDN",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 88,
+      "nombre": "MANUEL JOSE ANTONIO  BERROSPI MARIN ",
+      "cargo": "ANALISTA DE SISTEMAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 89,
+      "nombre": "LUZ VALERIA  AZURIN LOPEZ ",
+      "cargo": "AUXILIAR ADMINISTRATIVO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 90,
+      "nombre": "NICOLAS PANIAGUA",
+      "cargo": "AUXILIAR ADMINISTRATIVO DE IMPORTACIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 91,
+      "nombre": "LUZ MARINA  RONDON SOTO ",
+      "cargo": "JEFE DE FINANZAS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 92,
+      "nombre": "LUIS PABLO  PEÑARANDA TALAVERA ",
+      "cargo": "ANALISTA DE OPERACIÓN COMERCIAL NACIONAL COTIZACIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 93,
+      "nombre": "LUIS FRED  PEÑALOZA PICCONE ",
+      "cargo": "ANALISTA DE GESTION DE LA INFORMACION",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 94,
+      "nombre": "LUIS FRANCO  LARA SEGUIL ",
+      "cargo": "ANALISTA DE SISTEMAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 95,
+      "nombre": "ELIANA LIDIA  IRAOLA MAYORCA ",
+      "cargo": "RECEPCIONISTA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 96,
+      "nombre": "LUIS ALBERTO AGUSTIN  BENITES VELASQUEZ ",
+      "cargo": "EJECUTIVO DE CUENTA",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 97,
+      "nombre": "LUIS ALBERTO  HUAMAN FUENTES ",
+      "cargo": "JEFE DE LOGISTICA DE SALIDA",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 98,
+      "nombre": "LUIS ALBERTO  CHEVEZ RAMIREZ ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 99,
+      "nombre": "LUCY ARLIN  ORDINOLA JUAREZ ",
+      "cargo": "ANALISTA JR DE GESTION ESTRATEGICA DE PROVEEDORES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 100,
+      "nombre": "LUCIA  GREY GUTIERREZ ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 101,
+      "nombre": "LORENZO ALFONSO  VILLANUEVA UGAZ ",
+      "cargo": "ASISTENTE DE E-COMMERCE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 102,
+      "nombre": "LIZETH KARINA  NEYRA FERNANDEZ ",
+      "cargo": "ANALISTA DE PROYECTOS Y PROCESOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 103,
+      "nombre": "LIZBETH  PALLARTA MOGOLLON ",
+      "cargo": "AUXILIAR DE LOGISTICA INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 104,
+      "nombre": "LIZ ERIELY  CARDOSO HERNANDEZ ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 105,
+      "nombre": "LITZY MAGALY  SALAS MUÑOZ ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 106,
+      "nombre": "YESSENIA MARTINEZ",
+      "cargo": "AUXILIAR DE FACTURACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 107,
+      "nombre": "LESLY ANTONELLA  VEGA SOLORZANO ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 108,
+      "nombre": "LESLY ADRIANA  VIDAL JAEGER ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 109,
+      "nombre": "KARLO PIERO  TORRES GOMEZ ",
+      "cargo": "ASESOR TECNICO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 110,
+      "nombre": "JUSTIN ALEXIS  VALDIVIESO SANDOVAL ",
+      "cargo": "ANALISTA JUNIOR DE LOGISTICA DE ENTRADA",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 111,
+      "nombre": "CINTHIA LORENA  CONDO AYÑAYANQUE ",
+      "cargo": "COTIZADOR INTERNACIONALES ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 112,
+      "nombre": "JULISA JERALY  TEJADA COTRINA ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 113,
+      "nombre": "JULIO HUMBERTO  TORDOYA FALCON ",
+      "cargo": "CONTROLLER DE DISTRIBUCION",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 114,
+      "nombre": "JUAN ALBERTO  HIDALGO GUTIERREZ ",
+      "cargo": "COORDINADOR DE COTIZACIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 115,
+      "nombre": "JOSEFINA  VARGAS FERRER ",
+      "cargo": "COMPRADOR INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 116,
+      "nombre": "JOSE TEOBALDO  CORONADO ARROYO ",
+      "cargo": "COORDINADOR DE CADENA Y CALIDAD DE PROCESOS",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 117,
+      "nombre": "JOSE MIGUEL  LOPEZ GARCIA ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 118,
+      "nombre": "JOSE LUIS  CAMPOS FERNANDEZ ",
+      "cargo": "GESTOR DE CUENTAS POR PAGAR",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 119,
+      "nombre": "JOSE ENRIQUE  RENGIFO LOPEZ ",
+      "cargo": "JEFE DE TIC",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 120,
+      "nombre": "JOSE BRIAN  CRUZ MEZA ",
+      "cargo": "Analista Junior De Operación Comercial INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 121,
+      "nombre": "FELIPE SANTIAGO  ALVAREZ CASTILLO ",
+      "cargo": "ASISTENTE DE COMPRAS",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 122,
+      "nombre": "JORGE ROLANDO  LOPEZ CHAVEZ ",
+      "cargo": "ASESOR TECNICO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 123,
+      "nombre": "JORGE LUIS  MORI CALAGUA ",
+      "cargo": "GESTOR DE CAJA BANCOS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 124,
+      "nombre": "JORGE ENRIQUE  CASTAÑEDA ARAMBULO ",
+      "cargo": "COORDINADOR DE TIC",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 125,
+      "nombre": "JORGE EDUARDO  SALAS MALDONADO ",
+      "cargo": "COORDINADOR DE E-COMMERCE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 126,
+      "nombre": "DANA CASAS",
+      "cargo": "ASISTENTE DE LISTA DE COSTOS",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 127,
+      "nombre": "JOHAN ADOLFO  CHIPANA NAVARRO ",
+      "cargo": "ASISTENTE DE LISTA DE PRECIOS",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 128,
+      "nombre": "JOEL CANAZACA",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 129,
+      "nombre": "PETER OMAR  URIBE MACHUCA ",
+      "cargo": "EJECUTIVO DE CUENTA JR",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 130,
+      "nombre": "JHON VEGA ",
+      "cargo": "Coordinador De La Oficina De ProyeCTOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 131,
+      "nombre": "JHON GHEINER  SALCEDO ROMAN ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 132,
+      "nombre": "JORDI HUAMANI",
+      "cargo": "AUXILIAR DE CENTRAL DE ASIGNACIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 133,
+      "nombre": "JESUS MARTIN SEGUNDO  ZEVALLOS APONTE ",
+      "cargo": "ASISTENTE LOGISTICO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 134,
+      "nombre": "SIREE ROJAS ",
+      "cargo": "Gestor de Servicio de Atención al Cliente",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 135,
+      "nombre": "JESSICA ELIZABETH  PIÑAS MEJÍA ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 136,
+      "nombre": "JESSICA DE LA FLOR",
+      "cargo": "EXTERNO",
+      "gerencia": "EXTERNO"
+    },
+    {
+      "id": 137,
+      "nombre": "JENNY STEPHANY  BRINGAS UGARTE ",
+      "cargo": "ASISTENTE DE COMPRAS",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 138,
+      "nombre": "JENNY PATRICIA  NORABUENA CORTEZ ",
+      "cargo": "COMPRADOR INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 139,
+      "nombre": "JEFFREY JEHU  CAHUANA LLAUCE ",
+      "cargo": "ANALISTA PROGRAMADOR JUNIOR",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 140,
+      "nombre": "JAVIER HUMBERTO  VALENTIN CALDERON ",
+      "cargo": "COORDINADOR DE PROVEEDORES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 141,
+      "nombre": "JAIR ISRAEL  LLICAN CARDENAS ",
+      "cargo": "PRACTICANTE DE SISTEMAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 142,
+      "nombre": "JACKELIN DAISY  BACA FLORENTINO ",
+      "cargo": "Coordinador de Logística de Produccion",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 143,
+      "nombre": "JUAQUIN  RAMIREZ CRUZ ",
+      "cargo": "COTIZADOR NACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 144,
+      "nombre": "HUBER ANDY  HUAYLLASCO PICON ",
+      "cargo": "ASISTENTE DE FACTURACION Y COBRANZAS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 145,
+      "nombre": "GIORGIO QUINTANA",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 146,
+      "nombre": "HERNAN ANDRE  REYES SALAZAR ",
+      "cargo": "ANALISTA DE OPERACIÓNES LOGISTICA",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 147,
+      "nombre": "GUIADO EDWIN CALDERON",
+      "cargo": "ASISTENTE LOGISTICO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 148,
+      "nombre": "GONZALO EDUARDO  SANCHEZ ALARCON ",
+      "cargo": "ASESOR TECNICO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 149,
+      "nombre": "GLORIA VASQUEZ ALARCON",
+      "cargo": "AUXILIAR CONTABLE",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 150,
+      "nombre": "GLORIA  GUTIERREZ GUTIERREZ ",
+      "cargo": "AUXILIAR DE FACTURACION Y COBRANZAS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 151,
+      "nombre": "GIULLIANA JACQUELINE  VALENCIA SERRANO ",
+      "cargo": "ASISTENTE DE LOGISTICA INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 152,
+      "nombre": "GISELLA MABEL  MOGOLLON MARQUEZ ",
+      "cargo": "ASISTENTE ADMINISTRATIVO",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 153,
+      "nombre": "GERMAN MARIANO  GIRALDO CANO ",
+      "cargo": "SUPERVISOR DE RECEPCIÓN Y DESPACHO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 154,
+      "nombre": "GERARDO ANTONIO  SANCHEZ HIDALGO ",
+      "cargo": "ASISTENTE DE GESTION DE LA INFORMACION",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 155,
+      "nombre": "GAVINA YANETT  NIEVES HINOJOSA ",
+      "cargo": "EJECUTIVO DE CUENTA",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 156,
+      "nombre": "FRANKLIN CUENCA",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 157,
+      "nombre": "FRANCK ARNOLD  MATTOS ROJAS ",
+      "cargo": "ASISTENTE DE LOGISTICA INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 158,
+      "nombre": "FELIX MELCHOR  URIARTE BARRANZUELA ",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 159,
+      "nombre": "INVENTARIO ALMACEN",
+      "cargo": "Supervisor de Inventarios",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 160,
+      "nombre": "FELIX ARTURO  LOZA TTITO",
+      "cargo": "Supervisor de Inventarios",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 161,
+      "nombre": "ANDREA FASANANDO",
+      "cargo": "EXPEDITADOR DE COMPRAS",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 162,
+      "nombre": "DAVID HUAMAN ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 163,
+      "nombre": "ELMER ANDRE  GONZALEZ LOYOLA ",
+      "cargo": "ASESOR TECNICO COMERCIAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 164,
+      "nombre": "EVELYN ROSSY  BECERRA SAAVEDRA ",
+      "cargo": "COORDINADORA DE TESORERIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 165,
+      "nombre": "EVELYN AMELIA  DAVILA MURGA ",
+      "cargo": "ANALISTA SENIOR COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 166,
+      "nombre": "EVELYN  COLLADO BASTIDAS ",
+      "cargo": "ASISTENTE DE PROCESOS SAC",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 167,
+      "nombre": "ESPERANZA UGAZ",
+      "cargo": "GESTOR DE COBRANZAS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 168,
+      "nombre": "ERVIN  OLAYUNCA ZURITA ",
+      "cargo": "Coordinador De Operación Logística",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 169,
+      "nombre": "ERMES MELINCHON",
+      "cargo": "DIRECTOR EJECUTIVO",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 170,
+      "nombre": "ERICKSON  HUAPAYA VILLEGAS ",
+      "cargo": "GERENTE DE DESAROLLO DE NEGOCIOS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 171,
+      "nombre": "EDGARD PAIRA",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 172,
+      "nombre": "CLAUDIA VALENCIA",
+      "cargo": "PRACTICANTE GDN",
+      "gerencia": "GERENCIA DESARROLLO DE NEGOCIOS"
+    },
+    {
+      "id": 173,
+      "nombre": "EFC PASCO ",
+      "cargo": "ASISTENTE LOGISTICO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 174,
+      "nombre": "EDITH MARICRUZ  ROBLES OROPEZA ",
+      "cargo": "ANALISTA DE PLANILLAS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 175,
+      "nombre": "EDDY ROGER  CUEVA CHU ",
+      "cargo": "GESTOR DE MAESTRO DE ARTICULOS",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 176,
+      "nombre": "DORA CHACON VELA",
+      "cargo": "Asistente De Logistica De Salida",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 177,
+      "nombre": "DISA  CANTEÑO TOLENTINO ",
+      "cargo": "AUXILIAR DE FACTURACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 178,
+      "nombre": "IVAN FLORES",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 179,
+      "nombre": "DHARMA ZORELL RUBIÑOS GUEVARA",
+      "cargo": "PRACTICANTE DE PROYECTOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 180,
+      "nombre": "DEISY CAREM  GARCIA RAMOS ",
+      "cargo": "ASISTENTE DE LOGISTICA INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 181,
+      "nombre": "DAVID ALFONSO  MELINCHON ESPINOSA ",
+      "cargo": "GERENTE GENERAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 182,
+      "nombre": "DAVID ABRAHAM TAIPE SILVA",
+      "cargo": "ASISTENTE DE SISTEMAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 183,
+      "nombre": "ALVARO CAYRA",
+      "cargo": "Auxiliar de Procesos de Servicio de Atención al Cliente",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 184,
+      "nombre": "CYNTHIA LADY  ACEVEDO ACUÑA ",
+      "cargo": "AUXILIAR DE LOGISTICA INTERNACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 185,
+      "nombre": "CLEMENTINA  PALACIOS DURAND ",
+      "cargo": "ASISTENTE DE CONTABILIDAD",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 186,
+      "nombre": "CLAUDIA SOFIA  VERA ARRASCUE ",
+      "cargo": "AUXILIAR DE MAESTRO DE ARTICULOS",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 187,
+      "nombre": "CIRO ANDRES  REYES CARRION ",
+      "cargo": "COORDINADOR DE PLANEAMIENTO",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 188,
+      "nombre": "CINTHYA LORENA  DEL CASTILLO LUIS ",
+      "cargo": "Coordinador de Operación Logística",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 189,
+      "nombre": "PC BIZNEO",
+      "cargo": "GESTION DE RECURSOS HUMANOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 190,
+      "nombre": "CHRISTIAN REMUZGO",
+      "cargo": "Coordinador De Cotizaciones internacionales",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 191,
+      "nombre": "CESAR ORLANDO  ALARCON ESPINOZA ",
+      "cargo": "ASISTENTE DE FACTURACION Y COBRANZAS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 192,
+      "nombre": "CESAR EDDIE  TERRONES GUIMARAY ",
+      "cargo": "EXPEDITOR DE COMPRAS",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 193,
+      "nombre": "CELIA LISSETH  ACHANCCARAY GONZALES ",
+      "cargo": "ANALISTA JR DE TESORERIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 194,
+      "nombre": "CECILIA JIMENA  OBANDO CONTRERAS ",
+      "cargo": "COTIZADOR NACIONAL",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 195,
+      "nombre": "CARMEN MEDALIT  BUENO CATTER ",
+      "cargo": "GERENTR DE EXCELENCIA OPERACIONAL",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 196,
+      "nombre": "CARMEN ANDREA  VALENZUELA HIGINIO ",
+      "cargo": "GESTOR DE SERVICIO DE ATENCION AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 197,
+      "nombre": "CARLOS NEIMEL  MEZA ESPINOZA ",
+      "cargo": "GESTOR DE CAJA BANCOS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 198,
+      "nombre": "CARLOS ALONSO  CANALES GLASINOVICH ",
+      "cargo": "ANALISTA JR. DE DEI",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 199,
+      "nombre": "CARLOS ALFREDO  TIRADO CORNEJO ",
+      "cargo": "ANALISTA JUNIOR COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 200,
+      "nombre": "ANGELICA MARÍA LIRA  PACHECO ",
+      "cargo": "PRACTICANTE DE PROYECTOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 201,
+      "nombre": "ANGIELA LUCIA  SILVA TATAJE ",
+      "cargo": "ANALISTA JR DE PROYECTOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 202,
+      "nombre": "MIGUEL ALONSO  CORDOVA VEGA ",
+      "cargo": "ASISTENTE DE DEVOLUCIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 203,
+      "nombre": "MARICIELO GRANDEZ PAUCAR",
+      "cargo": "AUXILIAR DE CENTRAL DE PEDIDOS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 204,
+      "nombre": "AYRTON ANDRES  REQUEJO MARTEL ",
+      "cargo": "ANALISTA JUNIOR DE MARKETING",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 205,
+      "nombre": "ARTURO  PASTOR ACASIETE ",
+      "cargo": "RECEPCIONISTA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 206,
+      "nombre": "ANTONI FRANCISCO  RAFAEL ABAD ",
+      "cargo": "COMPRADOR",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 207,
+      "nombre": "ANTHONY ROLANDO  LOZANO TORREJON ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 208,
+      "nombre": "ANTHONY  QUINTANA RAFAEL ",
+      "cargo": "ANALISTA JR DE E-COMMERCE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 209,
+      "nombre": "ANTAPACCAY  - EFC CUSCO",
+      "cargo": "ASISTENTE LOGISTICO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 210,
+      "nombre": "ANGIE STEFANY  SAENZ SANCHEZ ",
+      "cargo": "ANALISTA JUNIOR DE GDH",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 211,
+      "nombre": "JESUS EMILIO  MURRUGARRA RAMIREZ ",
+      "cargo": "ASISTENTE DE SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 212,
+      "nombre": "ANGELA FELICITAS  CACERES ZEVALLOS ",
+      "cargo": "JEFE DE GESTION DE LA INFORMACION",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 213,
+      "nombre": "DIEGO SANTILLAN",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 214,
+      "nombre": "YOSELYN SALINAS",
+      "cargo": "EXPEDITOR DE COMPRAS",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 215,
+      "nombre": "ANDREA GOMEZ",
+      "cargo": "ASISTENTE DE GDN",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 216,
+      "nombre": "ANA MARIA  BRAVO SALAS ",
+      "cargo": "COORDINADOR DE COTIZACIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 217,
+      "nombre": "ALONSO LOZANO ",
+      "cargo": "Analista Jr. De Planeamiento de Stock",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 218,
+      "nombre": "ALVARO RODRIGO  PATIÑO CONTRERAS ",
+      "cargo": "COMPRADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 219,
+      "nombre": "ALONSO VALDIVIA ",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 220,
+      "nombre": "ALLISON URBINA",
+      "cargo": "Analista de Proyectos y Procesos",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 221,
+      "nombre": "ALEX SEBASTIAN  GUERRA FARFAN ",
+      "cargo": "EJECUTIVO DE CUENTA",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 222,
+      "nombre": "ALEX EDUARDO  HERRERA PACHAS ",
+      "cargo": "ANALISTA DE PROYECTOS Y PROCESOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 223,
+      "nombre": "ALEJANDRA CECILIA  MERCHOR SANTANA ",
+      "cargo": "COORDINADOR DE PROYECTOS DIGITALES",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 224,
+      "nombre": "ALANN ERNESTO  REYES JAUREGUI ",
+      "cargo": "GERENTE DE PROYECTOS Y SISTEMAS ",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 225,
+      "nombre": "ADELAIDA MARIBEL  QUINECHE COLAN ",
+      "cargo": "ASISTENTE DE TESORERIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 226,
+      "nombre": "ABEL  PAJUELO SANCHEZ ",
+      "cargo": "Jefe de Logística de Producción",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 227,
+      "nombre": "EDUARDO SALOMON  DIAZ LINARES",
+      "cargo": "Asistente Administrativo De Logistica De Salida",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 228,
+      "nombre": "FANNY ROSARIO  MANRIQUE CABALLERO ",
+      "cargo": "LIDER DE LOGISTICA DE ENTRADA",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 229,
+      "nombre": "INFRAESTRUCTURA MONITOREO",
+      "cargo": "INFRAESTRUCTURA",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 230,
+      "nombre": "ALVARO QUESADA NUÑEZ",
+      "cargo": "JEFE COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 231,
+      "nombre": "RENZO ZEGARRA BALLON",
+      "cargo": "ATC",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 232,
+      "nombre": "MARIA VERGARAY",
+      "cargo": "LIDER DE OPERACIÓN COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 233,
+      "nombre": "HEVER DIEGO  ALEGRIA ALVAREZ ",
+      "cargo": "Coordinador De Control PresupuestaL Y DE GESTION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 234,
+      "nombre": "RAFAEL GONZALO  MUR CALDERON ",
+      "cargo": "JEFE DE COTIZACIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 235,
+      "nombre": "MAGIE CAROLINA  CONTRERAS LLANOS ",
+      "cargo": "ASISTENTE DE MARKETING",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 236,
+      "nombre": "JORGE FLORES",
+      "cargo": "COORDINADOR DE ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 237,
+      "nombre": "BRIAN MACHUCA",
+      "cargo": "COORDINADOR DE ALINEAMIENTO DE CADENA",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 238,
+      "nombre": "HUGO  ALMANZA QUIROZ ",
+      "cargo": "LIDER DE MARKETING",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 239,
+      "nombre": "JULY GIULIANA  SALAZAR RAMOS ",
+      "cargo": "COORDINADOR DE SAC",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 240,
+      "nombre": "JOSE ALBERTO  CASTILLO QUINO ",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 241,
+      "nombre": "ANGI MILAGROS  JIMENEZ VENEGAS ",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 242,
+      "nombre": "JIMMY JUNIOR  GOMEZ VARGAS ",
+      "cargo": "COORDINADOR DE GESTION DE LA INFORMACION",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 243,
+      "nombre": "RAUL ALEXIS  SANCHEZ ZEA ",
+      "cargo": "COTIZADOR SENIOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 244,
+      "nombre": "LAPTOP NUEVA AREQUIPA 1 BACKUP",
+      "cargo": "DIRECCION",
+      "gerencia": "SOPORTE "
+    },
+    {
+      "id": 245,
+      "nombre": "WILBERT ARTURO  GALDOS OJEDA ",
+      "cargo": "LIDER TECNICO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 246,
+      "nombre": "JACK PAIRA",
+      "cargo": "Coordinador de Expedición",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 247,
+      "nombre": "IPAD 1",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 248,
+      "nombre": "IPAD 2",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 249,
+      "nombre": "IPAD 3",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 250,
+      "nombre": "LUIS FERNANDO PELLA ",
+      "cargo": "LIDER TECNICO COMERCIAL",
+      "gerencia": "GERENCIA DESARROLLO DE NEGOCIOS"
+    },
+    {
+      "id": 251,
+      "nombre": "DANNER ENMANUEL  CASTRO FARFAN ",
+      "cargo": "ANALISTA DE OCN",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 252,
+      "nombre": "BRIEN JOSEP  ARIAS PRADA ",
+      "cargo": "ANALISTA DE OCN",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 253,
+      "nombre": "EDUARDO ENRIQUE  YAMASHIRO NOEL ",
+      "cargo": "Analista de Gestión de la Información",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 254,
+      "nombre": "EYMI GISELLE  AYBAR DEL AGUILA ",
+      "cargo": "Ejecutiva Junior de Publicidad y Marketing",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 255,
+      "nombre": "ALVARO ARAUJO",
+      "cargo": "EJECUTIVO DE GDH",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 256,
+      "nombre": "RICARDO VELASQUEZ",
+      "cargo": "ASESOR TECNICO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 257,
+      "nombre": "KATHERINE ESTHER  LOZADA FLORES ",
+      "cargo": "GERENTE DE VENTAS Y SAC",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 258,
+      "nombre": "LAURA ROSA  ARANDA CHAVEZ",
+      "cargo": "COORDINADORA DE FACTURACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 259,
+      "nombre": "MARITZA MARTINEZ CAYCHO",
+      "cargo": "COORDINADORA DE FACTURACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 260,
+      "nombre": "OFICINA DE GDH",
+      "cargo": "GDH",
+      "gerencia": "DIRECCION                                         "
+    },
+    {
+      "id": 261,
+      "nombre": "MARKETING",
+      "cargo": "MARKETING",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 262,
+      "nombre": "CAJA",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 263,
+      "nombre": "PLANILLAS",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 264,
+      "nombre": "OFICINA AREQUIPA",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 265,
+      "nombre": "DATACENTER",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 266,
+      "nombre": "CHORRILLOS CHO",
+      "cargo": "CHORRILLOS CHO",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 267,
+      "nombre": "OF. SOPORTE",
+      "cargo": "OF. SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 268,
+      "nombre": "ADMINISTRACION",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 269,
+      "nombre": "LACTARIO",
+      "cargo": "LACTARIO",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 270,
+      "nombre": "COMPRAS",
+      "cargo": "COMPRAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 271,
+      "nombre": "CAM COMEDOR",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 272,
+      "nombre": "GESCO",
+      "cargo": "GESCO",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 273,
+      "nombre": "SOPORTE",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 274,
+      "nombre": "DATACENTER CHO",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 275,
+      "nombre": "GUIADO",
+      "cargo": "ASISTENTE LOGISTICO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 276,
+      "nombre": "FACTURACIÓN",
+      "cargo": "FACTURACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS"
+    },
+    {
+      "id": 277,
+      "nombre": "EDUARDO DIAZ LIQUIDACION RUTA",
+      "cargo": "ASISTENTE ADMINISTRATIVO DE LOGISTICA",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 278,
+      "nombre": "Almacén RLICHUI",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 279,
+      "nombre": "Martin zevallos GUIADO",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 280,
+      "nombre": "Ggiraldo GUIADO",
+      "cargo": "SUPERVISOR DE RECEPCION Y DESPACHO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 281,
+      "nombre": "RODOLFO VILLASANTE",
+      "cargo": "GERENTE DE OPERACION Y LOGISTICA",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 282,
+      "nombre": "SILVIA CASTAÑEDA",
+      "cargo": "JEFE DE SISTEMAS INTEGRADOS DE GESTION",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 283,
+      "nombre": "JORGE MORI CAJA ",
+      "cargo": "GESTOR DE CAJA BANCOS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS"
+    },
+    {
+      "id": 284,
+      "nombre": "JORGE MORI CAJA (BACKUP)",
+      "cargo": "GESTOR DE CAJA BANCOS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS"
+    },
+    {
+      "id": 285,
+      "nombre": "ALMACEN ",
+      "cargo": "ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 286,
+      "nombre": "CHOFERES",
+      "cargo": "CHOFERES",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 287,
+      "nombre": "VHS BROCAL",
+      "cargo": "VHS BROCAL",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 288,
+      "nombre": "OPERACIÓN COMERCIAL",
+      "cargo": "OPERACIÓN COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 289,
+      "nombre": "SOPORTE",
+      "cargo": "VHS BROCAL",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 290,
+      "nombre": "DATA CENTER",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 291,
+      "nombre": "OFICINA SOPORTE",
+      "cargo": "OFICINA SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 292,
+      "nombre": "DATA CENTER CHO",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 293,
+      "nombre": "DATA CENTER SURQUILLO",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 294,
+      "nombre": "DIRECTORIO TERCER PISO",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 295,
+      "nombre": "VENTAS & SAC",
+      "cargo": "VENTAS & SAC",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 296,
+      "nombre": "OPERACIÓN COMERCIAL",
+      "cargo": "OFICINA AREQUIPA",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 297,
+      "nombre": "EZVIZ CS-CV246",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 298,
+      "nombre": "EZVIZ CS-CV246",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 299,
+      "nombre": "EZVIZ CS CB1 WIFI",
+      "cargo": "ADMINISTRACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 300,
+      "nombre": "EZVIZ CS CB1 WIFI",
+      "cargo": "Tercer piso ",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 301,
+      "nombre": "Camera 01_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 302,
+      "nombre": "Camera 01_NVR QUESADA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 303,
+      "nombre": "Camera 01_NVR QUESADA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 304,
+      "nombre": "Camera 01_NVR QUESADA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 305,
+      "nombre": "Camera 01_NVR QUESADA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 306,
+      "nombre": "Ingreso_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 307,
+      "nombre": "Comedor_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 308,
+      "nombre": "Camara IP3_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 309,
+      "nombre": "Camara IP4_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 310,
+      "nombre": "Camera 01_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 311,
+      "nombre": "Camara IP6_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 312,
+      "nombre": "Camera 01_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 313,
+      "nombre": "IPCamera 08_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 314,
+      "nombre": "Estanteria 2_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 315,
+      "nombre": "Oficina B_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 316,
+      "nombre": "Camara IP11_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 317,
+      "nombre": "Recepcion Stop_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 318,
+      "nombre": "Camara IP13_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 319,
+      "nombre": "Despacho_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 320,
+      "nombre": "Camara IP15_NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 321,
+      "nombre": "Pacio 2B_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 322,
+      "nombre": "Cmara2_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 323,
+      "nombre": "Pacio 3_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 324,
+      "nombre": "Pacio 4_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 325,
+      "nombre": "Pacio 1B_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 326,
+      "nombre": "Pacio 2A_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 327,
+      "nombre": "Cmara7_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 328,
+      "nombre": "Cmara8_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 329,
+      "nombre": "Channel-zero1_DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 330,
+      "nombre": "camera_01",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 331,
+      "nombre": "camera_02",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 332,
+      "nombre": "camera_03",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 333,
+      "nombre": "camera_04",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 334,
+      "nombre": "NVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 335,
+      "nombre": "NVR QUESADA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 336,
+      "nombre": "DVR ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 337,
+      "nombre": "NVR PACKING ",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 338,
+      "nombre": "PISO 03",
+      "cargo": "OFICINA SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 339,
+      "nombre": "SOPORTE",
+      "cargo": "OFICINA SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 340,
+      "nombre": "UAP-AC-Lite",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 341,
+      "nombre": "AP - Almacén 1",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 342,
+      "nombre": "AP - Logistica de Produccion",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 343,
+      "nombre": "AP - Logística de Salida",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 344,
+      "nombre": "AP- ALMACEN",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 345,
+      "nombre": "AP - Almacen 2",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 346,
+      "nombre": "AP Gesco2",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 347,
+      "nombre": "AP Gesco1",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 348,
+      "nombre": "AP Tesoreria",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 349,
+      "nombre": "AP Importaciones",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 350,
+      "nombre": "AP Comercial 2 Piso",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 351,
+      "nombre": "AP escalera 3 piso",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 352,
+      "nombre": "AP Comercial 3 Piso",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 353,
+      "nombre": "AP Compras",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 354,
+      "nombre": "AP Recepcion Piso 2",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 355,
+      "nombre": "AP Sistemas",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 356,
+      "nombre": "TERCER PISO",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 357,
+      "nombre": "NUEVO COMEDOR",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 358,
+      "nombre": "OFICINA SOPORTE",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 359,
+      "nombre": "IMPORTACIONES",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 360,
+      "nombre": "STOCK SOPORTE DATA CENTER CHORRILLOS",
+      "cargo": "STOCK SOPORTE DATA CENTER CHORRILLOS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 361,
+      "nombre": "DERECHA EXTERNA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 362,
+      "nombre": "IZQUIERDA EXTERNA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 363,
+      "nombre": "NVR AREQUIPA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 364,
+      "nombre": "AP SALA 1",
+      "cargo": "AP SALA 1",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 365,
+      "nombre": "AP SALA 2",
+      "cargo": "AP SALA 2",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 366,
+      "nombre": "AP SALA 3",
+      "cargo": "AP SALA 3",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 367,
+      "nombre": "AP SALA 4",
+      "cargo": "AP SALA 4",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 368,
+      "nombre": "AP SALA 5",
+      "cargo": "AP SALA 5",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 369,
+      "nombre": "MAURICIO MELINCHON",
+      "cargo": "GERENTE COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 370,
+      "nombre": "STOCK AREQUIPA",
+      "cargo": "LIDER TECNICO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 371,
+      "nombre": "TOMASINI SANCHEZ (INOPERATIVO)",
+      "cargo": "ANALISTA DE SISTEMAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 372,
+      "nombre": "RECEPCION PACKING (INOPERATIVO)",
+      "cargo": "PACKING",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 373,
+      "nombre": "LILIAN LAGUA (HURTO)",
+      "cargo": "ASISTENTE DE FACTURACION",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 374,
+      "nombre": "CARLA BOGGIANO (EXTERNO)",
+      "cargo": "ANALISTA DE PLANILLAS",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 375,
+      "nombre": "JUAN PABLO SANCHEZ",
+      "cargo": "EJECUTIVO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 376,
+      "nombre": "PRIMER PISO COMPRAS",
+      "cargo": "PRIMER PISO COMPRAS",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 377,
+      "nombre": "SEGUNDO PISO ADMINISTRACION",
+      "cargo": "SEGUNDO PISO ADMINISTRACION",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 378,
+      "nombre": "OF. GESCO",
+      "cargo": "OF. GESCO",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 379,
+      "nombre": "CAM TERCER PISO COMEDOR",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 380,
+      "nombre": "PACKING",
+      "cargo": "PACKING",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 381,
+      "nombre": "CAM PRIMER PISO RECEPCION",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 382,
+      "nombre": "INGRESO ZORRILLA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 383,
+      "nombre": "LOGISTICA DE ENTRADA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 384,
+      "nombre": "LOGISTICA DE SALIDA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 385,
+      "nombre": "GUIADO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 386,
+      "nombre": "ESTANTERIA 1",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 387,
+      "nombre": "PATIO 1",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 388,
+      "nombre": "PATIO 2",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 389,
+      "nombre": "ESTANTERIA  2",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 390,
+      "nombre": "ESTANTERIA 3",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 391,
+      "nombre": "CARPINTERIA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 392,
+      "nombre": "CAMARA 1",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 393,
+      "nombre": "STOCK SOPORTE DATA CENTER CHORRILLOS",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 394,
+      "nombre": "DIRECTORIO IMPORTACIONES",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 395,
+      "nombre": "AVERIA SOPORTE",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 396,
+      "nombre": "DIRECTORIO AREQUIPA",
+      "cargo": "DIRECTORIO AREQUIPA",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 397,
+      "nombre": "DARIO BEDOYA",
+      "cargo": "KAM",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 398,
+      "nombre": "AMMY OLIVA",
+      "cargo": "KAM",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 399,
+      "nombre": "OF. CUSCO",
+      "cargo": "OF. CUSCO",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 400,
+      "nombre": "MARIA DE LOS ANGELES PALACIOS",
+      "cargo": "GESTOR DE SERVICIO AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 401,
+      "nombre": "ANDY ALESSANDRO ACEVEDO CANO ",
+      "cargo": "GESTOR DE SERVICIO AL CLIENTE",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 402,
+      "nombre": "INDICADORES COMERCIAL",
+      "cargo": "SOPORTE",
+      "gerencia": "SOPORTE"
+    },
+    {
+      "id": 403,
+      "nombre": "MARIA BENITES",
+      "cargo": "AUXILIAR DE CENTRAL DE PEDIDOS",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 404,
+      "nombre": "ANGIE AVILA",
+      "cargo": "AUXILIAR DE CONTABILIDAD",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 405,
+      "nombre": "ROSMERY AWUAPARA",
+      "cargo": "PRACTICANTE DE TESORERIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 406,
+      "nombre": "306 COLABORADORES EFC",
+      "cargo": null,
+      "gerencia": null
+    },
+    {
+      "id": 407,
+      "nombre": "246 OFICINA",
+      "cargo": null,
+      "gerencia": null
+    },
+    {
+      "id": 408,
+      "nombre": "LOURDES ZAPATA",
+      "cargo": "Coordinador de Acuerdos Comerciales",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 409,
+      "nombre": "SILVANA CRISTINA NOVOA",
+      "cargo": "Analista Jr de Proyectos y Procesos",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 410,
+      "nombre": "LIZBETH VILLEGAS",
+      "cargo": "Analista de Planillas",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 411,
+      "nombre": "FABIAN CERNA",
+      "cargo": "Asistente de Logística Inversa",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 412,
+      "nombre": "JUAN CALLUPE",
+      "cargo": "Gestor de Servicio de Atención al Cliente",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 413,
+      "nombre": "FLAVIO RODOLFO BALAREZO HUAYTA",
+      "cargo": "Practicante Administrativo de GOCN",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 414,
+      "nombre": "RENZO ANTONIO LEYVA MISARI",
+      "cargo": "Analista Jr de GDN",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 415,
+      "nombre": "Elizabeth Bravo de Rueda Dumett",
+      "cargo": "Jefe de Compras Internacionales",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 416,
+      "nombre": "Jonathan Melvin Valencia Nieto",
+      "cargo": "Líder Técnico Comercial DEI",
+      "gerencia": "GERENCIA COMERCIAL                                "
+    },
+    {
+      "id": 417,
+      "nombre": "Nallely  Del Rocio Ruiz Jines",
+      "cargo": "Asistente de Logística Internacional",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 418,
+      "nombre": "AP OF.QUESADA",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 419,
+      "nombre": "KELLY LEON TIPTE",
+      "cargo": "Analista Jr de Gestión de la Información",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 420,
+      "nombre": "DAVID CHOQUE (EXTERNO)",
+      "cargo": "PROGRAMADOR EXTERNO",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 421,
+      "nombre": "ESTEFANY CASTRO",
+      "cargo": "EJECUTIVO COMERCIAL",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 422,
+      "nombre": "POLDAR GARGARTE",
+      "cargo": "COTIZADOR",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 423,
+      "nombre": "VICTOR BAZAN",
+      "cargo": "Trainee de Gerencia de Excelencia Operacional",
+      "gerencia": "GERENCIA DE EXCELENCIA OPERACIONAL"
+    },
+    {
+      "id": 424,
+      "nombre": "Lourdes Paulet",
+      "cargo": "Auxiliar de Central de Pedidos",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 425,
+      "nombre": "Jonathan Jesus Leyva Perez",
+      "cargo": "Analista de Contabilidad",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 426,
+      "nombre": "Karen Andrea Carlos Nizana",
+      "cargo": "Analista de Tesorería",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 427,
+      "nombre": "Jhon Javier Camacho Mozo ",
+      "cargo": "Analista Jr de GDN",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 428,
+      "nombre": "OLENKA RONDON",
+      "cargo": "ANALISTA DE RECLUTAMIENTO Y SELECCION",
+      "gerencia": "DIRECCION"
+    },
+    {
+      "id": 429,
+      "nombre": "LISSETH MEDINA",
+      "cargo": "ASISTENTA SOCIAL",
+      "gerencia": "DIRECCION"
+    },
+    {
+      "id": 430,
+      "nombre": "Viviana Martinez Huachaca",
+      "cargo": "Cotizador Internacional",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL INTERNACIONAL"
+    },
+    {
+      "id": 431,
+      "nombre": "Carlos Manuel Soto Castillo",
+      "cargo": "ANALISTA DE GDN",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 432,
+      "nombre": "Aranxa Carlos Reyes",
+      "cargo": "Asistente de Marketing",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 433,
+      "nombre": "VERONICA CORNEJO",
+      "cargo": "Analista de Planillas",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 434,
+      "nombre": "ALONSO QUISPE MARTINEZ",
+      "cargo": "PRACTICANTE DE SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 435,
+      "nombre": "ALONSO BERNALES",
+      "cargo": "PRACTICANTE DE TI",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 436,
+      "nombre": "EDUARDO SULCA",
+      "cargo": "PRACTICANTE DE TI",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 437,
+      "nombre": "JERRY CONTRERAS",
+      "cargo": "ASISTENTE DE SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 438,
+      "nombre": "EDWARD  GONZALES",
+      "cargo": "Coordinador de Acuerdos Comerciales",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 439,
+      "nombre": "JOSHUA ORELLANA",
+      "cargo": "AUXILIAR DE COTIZACIONES",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 440,
+      "nombre": "CESAR CALLALLI",
+      "cargo": "PRACTICANTE DE SIG",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 441,
+      "nombre": "ANDRES CORREA",
+      "cargo": "PRACTICANTE DE TI",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 442,
+      "nombre": "Erick Fernando Tello Corpus",
+      "cargo": "Practicante de Control Presupuestal y Gestión",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 443,
+      "nombre": "Guadalupe Antaccasa Cayetano ",
+      "cargo": "Auxiliar de Central de Pedidos",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 444,
+      "nombre": "Adrián Balarezo Prado ",
+      "cargo": "Trainee Comercial",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 445,
+      "nombre": "Gabriela Julve Aguirre",
+      "cargo": "Practicante de Proyectos",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 446,
+      "nombre": "Valeria Malpartida Chiscul",
+      "cargo": "Asistente de Marketing",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 447,
+      "nombre": "Melissa Naomi Endo Nakahodo",
+      "cargo": "Asistente de GDN",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 448,
+      "nombre": "María Fernanda Huerta Vidales",
+      "cargo": "Practicante de Operación Comercial",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 449,
+      "nombre": "COLINA",
+      "cargo": "COLINA",
+      "gerencia": "COLINA"
+    },
+    {
+      "id": 450,
+      "nombre": "CAM EXTERNA ESTACIONAMIENTO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 451,
+      "nombre": "CAM PISO 1 OFICINA VOLANTE",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 452,
+      "nombre": "CAM PISO 3 COMEDOR",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 453,
+      "nombre": "CAM PISO 2 SAC",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 454,
+      "nombre": "CAM PISO 2 CONTABILIDAD",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 455,
+      "nombre": "CAM PISO 2 ADMINISTRACION",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 456,
+      "nombre": "CAM PISO 1 IMPORTACIONES",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 457,
+      "nombre": "CAM PISO 3 GPS",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 458,
+      "nombre": "CAM PISO 2GESCO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 459,
+      "nombre": "CAM PISO 2 COMERCIAL",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 460,
+      "nombre": "CAM PISO 3 NUEVO COMEDOR",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 461,
+      "nombre": "CAM PISO 1 COMPRAS",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 462,
+      "nombre": "CAM OF. COMPRAS",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 463,
+      "nombre": "CAM OF. TESORERIA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 464,
+      "nombre": "DATA CENTER QUESADA",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 465,
+      "nombre": "GABINETE COMPRAS",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 466,
+      "nombre": "GABINETE TERCER PISO COMEDOR",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 467,
+      "nombre": "GABINETE GESCO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 468,
+      "nombre": "MARCADOR PRIMER PISO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 469,
+      "nombre": "MARCADOR SEGUNDO PISO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 470,
+      "nombre": "SW COMEDOR",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 471,
+      "nombre": "AP PISO 1 OFICINA VOLANTE",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 472,
+      "nombre": "AP PISO 3 COMEDOR",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 473,
+      "nombre": "AP PISO 2 SAC",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 474,
+      "nombre": "AP PISO 2 CONTABILIDAD",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 475,
+      "nombre": "AP PISO 2 ADMINISTRACION",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 476,
+      "nombre": "AP PISO 1 IMPORTACIONES",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 477,
+      "nombre": "AP PISO 3 GPS",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 478,
+      "nombre": "AP PISO 2GESCO",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 479,
+      "nombre": "AP Comercial 2 Piso",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 480,
+      "nombre": "AP  PISO 3 NUEVO COMEDOR",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 481,
+      "nombre": "AP PISO 1 COMPRAS",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 482,
+      "nombre": "CAM COLINA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 483,
+      "nombre": "CAM  VENTAS & SAC",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 484,
+      "nombre": "CAM OF. TESORERIA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 485,
+      "nombre": "CAM COLINA",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 486,
+      "nombre": "CAM GESCO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 487,
+      "nombre": "CAM PISO 3 NUEVO COMEDOR",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 488,
+      "nombre": "CAM OF. COMPRAS",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 489,
+      "nombre": "CAM OF. SOPORTE",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 490,
+      "nombre": "CAM SALA 1",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 491,
+      "nombre": "CAM SALA 2",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 492,
+      "nombre": "CAM SALA 3",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 493,
+      "nombre": "CAM SALA 4",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 494,
+      "nombre": "CAM SALA 5",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 495,
+      "nombre": "AP OFICINA AREQUIPA",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 496,
+      "nombre": "CAM GUIADO",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 497,
+      "nombre": "TERCER PISO COMEDOR",
+      "cargo": "TERCER PISO COMEDOR",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 498,
+      "nombre": "PC-DEVOLUCIONES",
+      "cargo": "OPERARIO DE ALMACEN",
+      "gerencia": "GERENCIA DE OPERACIONES LOGISTICAS"
+    },
+    {
+      "id": 499,
+      "nombre": "SHARON PORRAS",
+      "cargo": "GESTOR DE SAC",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 500,
+      "nombre": "OFICINA ZORRILA",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 501,
+      "nombre": "VIVIAN MOSCOSO",
+      "cargo": "EXPEDITOR DE COMPRAS",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 502,
+      "nombre": "ARIANA CAPARÓ",
+      "cargo": "PRACTICANTE DE DIRECCION",
+      "gerencia": "DIRECCION"
+    },
+    {
+      "id": 503,
+      "nombre": "Janedy Renteria Mayhua",
+      "cargo": "PRACTICANTE DE CONTABILIDAD",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 504,
+      "nombre": "Sara Egusquiza Pereda",
+      "cargo": "ASISTENTE DE DOCUMENTACION TECNICA",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    },
+    {
+      "id": 505,
+      "nombre": "DANTE MUÑOZ",
+      "cargo": "ABOGADO EXTERNO",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 506,
+      "nombre": "JOSE ZEVALLOS",
+      "cargo": "PRACTICANTE PRE GDH",
+      "gerencia": "DIRECCION"
+    },
+    {
+      "id": 507,
+      "nombre": "AP OFICINA QUESADA",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 508,
+      "nombre": "Camera 01 NVR PULMON",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 509,
+      "nombre": "NVR PULMON",
+      "cargo": "VIGILANCIA",
+      "gerencia": "GERENCIA DE ADMINISTRACION Y FINANZAS             "
+    },
+    {
+      "id": 510,
+      "nombre": "DATA CENTER PULMON",
+      "cargo": "SOPORTE",
+      "gerencia": "GERENCIA DE PROYECTOS Y SISTEMAS"
+    },
+    {
+      "id": 511,
+      "nombre": "Nathalia Stephania Ramos Moscoso",
+      "cargo": "Gestor SAC",
+      "gerencia": "GERENCIA COMERCIAL"
+    },
+    {
+      "id": 512,
+      "nombre": "Gianella Lujan Luyo",
+      "cargo": "Asistente de Documentación Técnica ",
+      "gerencia": "GERENCIA DE OPERACIÓN COMERCIAL NACIONAL"
+    }
+  ],
+  "usuarios": [],
+  "user": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@inventario-efc.com",
+      "password": "$2b$10$/gu3q0lG.90OK.C1If.GH.7V.2jsw5FFdliBXtvILy20129cJnL1O",
+      "fullName": "Administrador del Sistema",
+      "isActive": true,
+      "isAdmin": true,
+      "createdAt": "2025-06-27T21:33:54.894Z",
+      "updatedAt": "2025-06-27T21:33:54.894Z"
+    }
+  ],
+  "licencias": [
+    {
+      "id": 1,
+      "codigoLicencia": "prueba",
+      "nombre": "nnkjn",
+      "tipoLicencia": "Software",
+      "proveedor": "nmnm",
+      "fechaCompra": "2025-06-27T00:00:00.000Z",
+      "fechaVencimiento": null,
+      "costo": "999",
+      "moneda": "USD",
+      "cantidadUsuarios": 12,
+      "estado": "Activa",
+      "asignadoA": "",
+      "descripcion": "",
+      "documentos": [],
+      "observaciones": null,
+      "createdAt": "2025-06-28T02:07:05.852Z",
+      "updatedAt": "2025-06-28T02:07:23.045Z",
+      "areaId": null,
+      "gerenciaId": null,
+      "area": null,
+      "gerencia": null
+    }
+  ],
+  "areas": [
+    {
+      "id": 1,
+      "nombre": "Desarrollo de Software",
+      "descripcion": null,
+      "codigo": "DEV",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.912Z",
+      "updatedAt": "2025-06-28T00:47:09.912Z",
+      "gerenciaId": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Infraestructura",
+      "descripcion": null,
+      "codigo": "INF",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.954Z",
+      "updatedAt": "2025-06-28T00:47:09.954Z",
+      "gerenciaId": 1
+    },
+    {
+      "id": 3,
+      "nombre": "Seguridad Informática",
+      "descripcion": null,
+      "codigo": "SEC",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.977Z",
+      "updatedAt": "2025-06-28T00:47:09.977Z",
+      "gerenciaId": 1
+    },
+    {
+      "id": 4,
+      "nombre": "Soporte Técnico",
+      "descripcion": null,
+      "codigo": "SUP",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.004Z",
+      "updatedAt": "2025-06-28T00:47:10.004Z",
+      "gerenciaId": 1
+    },
+    {
+      "id": 5,
+      "nombre": "Contabilidad",
+      "descripcion": null,
+      "codigo": "CON",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.026Z",
+      "updatedAt": "2025-06-28T00:47:10.026Z",
+      "gerenciaId": 2
+    },
+    {
+      "id": 6,
+      "nombre": "Tesorería",
+      "descripcion": null,
+      "codigo": "TES",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.053Z",
+      "updatedAt": "2025-06-28T00:47:10.053Z",
+      "gerenciaId": 2
+    },
+    {
+      "id": 7,
+      "nombre": "Compras",
+      "descripcion": null,
+      "codigo": "COM",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.077Z",
+      "updatedAt": "2025-06-28T00:47:10.077Z",
+      "gerenciaId": 2
+    },
+    {
+      "id": 8,
+      "nombre": "Selección de Personal",
+      "descripcion": null,
+      "codigo": "SEL",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.104Z",
+      "updatedAt": "2025-06-28T00:47:10.104Z",
+      "gerenciaId": 3
+    },
+    {
+      "id": 9,
+      "nombre": "Capacitación",
+      "descripcion": null,
+      "codigo": "CAP",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.127Z",
+      "updatedAt": "2025-06-28T00:47:10.127Z",
+      "gerenciaId": 3
+    },
+    {
+      "id": 10,
+      "nombre": "Nómina",
+      "descripcion": null,
+      "codigo": "NOM",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.152Z",
+      "updatedAt": "2025-06-28T00:47:10.152Z",
+      "gerenciaId": 3
+    },
+    {
+      "id": 11,
+      "nombre": "Logística",
+      "descripcion": null,
+      "codigo": "LOG",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.179Z",
+      "updatedAt": "2025-06-28T00:47:10.179Z",
+      "gerenciaId": 4
+    },
+    {
+      "id": 12,
+      "nombre": "Calidad",
+      "descripcion": null,
+      "codigo": "CAL",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.217Z",
+      "updatedAt": "2025-06-28T00:47:10.217Z",
+      "gerenciaId": 4
+    },
+    {
+      "id": 13,
+      "nombre": "Producción",
+      "descripcion": null,
+      "codigo": "PRO",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.244Z",
+      "updatedAt": "2025-06-28T00:47:10.244Z",
+      "gerenciaId": 4
+    },
+    {
+      "id": 14,
+      "nombre": "Ventas",
+      "descripcion": null,
+      "codigo": "VEN",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.269Z",
+      "updatedAt": "2025-06-28T00:47:10.269Z",
+      "gerenciaId": 5
+    },
+    {
+      "id": 15,
+      "nombre": "Marketing",
+      "descripcion": null,
+      "codigo": "MKT",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.296Z",
+      "updatedAt": "2025-06-28T00:47:10.296Z",
+      "gerenciaId": 5
+    },
+    {
+      "id": 16,
+      "nombre": "Atención al Cliente",
+      "descripcion": null,
+      "codigo": "ATC",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.318Z",
+      "updatedAt": "2025-06-28T00:47:10.318Z",
+      "gerenciaId": 5
+    },
+    {
+      "id": 17,
+      "nombre": "Asesoría Legal",
+      "descripcion": null,
+      "codigo": "ASE",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.348Z",
+      "updatedAt": "2025-06-28T00:47:10.348Z",
+      "gerenciaId": 6
+    },
+    {
+      "id": 18,
+      "nombre": "Cumplimiento",
+      "descripcion": null,
+      "codigo": "CUM",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:10.374Z",
+      "updatedAt": "2025-06-28T00:47:10.374Z",
+      "gerenciaId": 6
+    }
+  ],
+  "gerencias": [
+    {
+      "id": 1,
+      "nombre": "Tecnología",
+      "descripcion": "Gerencia de Tecnología de la Información",
+      "codigo": "TEC",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.717Z",
+      "updatedAt": "2025-06-28T00:47:09.717Z"
+    },
+    {
+      "id": 2,
+      "nombre": "Administración",
+      "descripcion": "Gerencia de Administración y Finanzas",
+      "codigo": "ADM",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.779Z",
+      "updatedAt": "2025-06-28T00:47:09.779Z"
+    },
+    {
+      "id": 3,
+      "nombre": "Recursos Humanos",
+      "descripcion": "Gerencia de Recursos Humanos",
+      "codigo": "RRHH",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.806Z",
+      "updatedAt": "2025-06-28T00:47:09.806Z"
+    },
+    {
+      "id": 4,
+      "nombre": "Operaciones",
+      "descripcion": "Gerencia de Operaciones",
+      "codigo": "OPE",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.837Z",
+      "updatedAt": "2025-06-28T00:47:09.837Z"
+    },
+    {
+      "id": 5,
+      "nombre": "Comercial",
+      "descripcion": "Gerencia Comercial y Ventas",
+      "codigo": "COM",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.860Z",
+      "updatedAt": "2025-06-28T00:47:09.860Z"
+    },
+    {
+      "id": 6,
+      "nombre": "Legal",
+      "descripcion": "Gerencia Legal y Cumplimiento",
+      "codigo": "LEG",
+      "activo": true,
+      "createdAt": "2025-06-28T00:47:09.888Z",
+      "updatedAt": "2025-06-28T00:47:09.888Z"
+    }
+  ]
+}

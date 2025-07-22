@@ -5,11 +5,17 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import { API_ENDPOINTS } from '@/config/api';
 
 // Esquema de validación Zod
-const inventarioSchema = z.object({
+const inventarioSchemaCreate = z.object({
   articuloId: z.coerce.number().min(1, 'Debe seleccionar un artículo'),
+  codigoEFC: z.string().optional(),
+  marca: z.string().optional(),
+  modelo: z.string().optional(),
+  serie: z.string().optional(),
+  descripcion: z.string().optional(),
   sede: z.string().min(1, 'La sede es requerida'),
   estado: z.string().min(1, 'El estado es requerido'),
   ubicacionEquipo: z.string().optional(),
@@ -39,18 +45,58 @@ const inventarioSchema = z.object({
   path: ["fechaBaja"] // Esto mostrará el error en el campo fechaBaja
 });
 
-type InventarioFormData = z.infer<typeof inventarioSchema>;
+const inventarioSchemaEdit = z.object({
+  articuloId: z.coerce.number().min(1, 'Debe seleccionar un artículo'),
+  codigoEFC: z.string().optional(),
+  marca: z.string().optional(),
+  modelo: z.string().optional(),
+  serie: z.string().optional(),
+  descripcion: z.string().optional(),
+  sede: z.string().optional(),
+  estado: z.string().optional(),
+  ubicacionEquipo: z.string().optional(),
+  condicion: z.string().optional(),
+  cumpleStandard: z.boolean().optional(),
+  observaciones: z.string().optional(),
+  clasificacionId: z.coerce.number().optional(),
+  empleadoId: z.coerce.number().optional().nullable(),
+  fechaBaja: z.string().optional(),
+  motivoBaja: z.string().optional(),
+  fechaDonacion: z.string().optional(),
+  motivoDonacion: z.string().optional(),
+}).refine((data) => {
+  // Si el estado es BAJA, fechaBaja y motivoBaja son requeridos
+  if (data.estado === 'BAJA') {
+    return data.fechaBaja && data.fechaBaja.length > 0 && 
+           data.motivoBaja && data.motivoBaja.length > 0;
+  }
+  // Si el estado es DONACION, fechaDonacion y motivoDonacion son requeridos
+  if (data.estado === 'DONACION') {
+    return data.fechaDonacion && data.fechaDonacion.length > 0 && 
+           data.motivoDonacion && data.motivoDonacion.length > 0;
+  }
+  return true;
+}, {
+  message: "Los campos de fecha y motivo son requeridos según el estado seleccionado",
+  path: ["fechaBaja"]
+});
+
+type InventarioFormData = z.infer<typeof inventarioSchemaCreate>;
 
 // Interfaces para los datos de la API
 interface Clasificacion {
   id: number;
   familia: string | null;
   sub_familia: string | null;
+  tipo_equipo?: string | null;
+  vida_util?: string | null;
+  valor_reposicion?: number | null;
 }
 
 interface Empleado {
   id: number;
   nombre: string | null;
+  usuario: string | null; // Nuevo campo para el usuario
 }
 
 interface Articulo {
@@ -59,6 +105,9 @@ interface Articulo {
   marca: string | null;
   modelo: string | null;
   codigoEFC: string | null;
+  status: string;
+  estado?: string | null;
+  descripcion?: string | null;
 }
 
 // Opciones estáticas
@@ -81,6 +130,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
   const [isLoading, setIsLoading] = useState(true);
   const [estadoSeleccionado, setEstadoSeleccionado] = useState<string>('');
 
+  const schemaToUse = isEditing ? inventarioSchemaEdit : inventarioSchemaCreate;
   const {
     register,
     handleSubmit,
@@ -88,8 +138,8 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
     control,
     setValue,
     watch,
-  } = useForm<InventarioFormData>({
-    resolver: zodResolver(inventarioSchema),
+  } = useForm({
+    resolver: zodResolver(schemaToUse),
     defaultValues: {
       cumpleStandard: false,
       ...initialData
@@ -121,35 +171,90 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
   }, [estadoValue, setValue]);
 
   useEffect(() => {
+    if (isEditing && initialData) {
+      Object.entries(initialData).forEach(([key, value]) => {
+        setValue(key as any, value);
+      });
+    }
+  }, [isEditing, initialData, setValue]);
+
+  useEffect(() => {
     const fetchDatos = async () => {
       try {
         setIsLoading(true);
 
+        // Fetch paginado de colaboradores para traer todos
+        const fetchAllColaboradores = async (): Promise<Empleado[]> => {
+          let all: Empleado[] = [];
+          let page = 1;
+          let hasMore = true;
+          const limit = 100;
+          while (hasMore) {
+            const res = await fetch(`${API_ENDPOINTS.colaboradores}?pageSize=${limit}&page=${page}`);
+            const data = await res.json();
+            console.log('DEBUG colaboradores respuesta:', data); // <-- LOG DE DEPURACIÓN
+            let arr: Empleado[] = [];
+            if (Array.isArray(data)) {
+              arr = data;
+            } else if (Array.isArray(data.items)) {
+              arr = data.items;
+            } else if (Array.isArray(data.data)) {
+              arr = data.data;
+            } else if (Array.isArray(data.colaboradores)) {
+              arr = data.colaboradores;
+            }
+            all = all.concat(arr);
+            hasMore = arr.length === limit;
+            page++;
+          }
+          return all;
+        };
 
+        // Fetch paginado de artículos para traer todos (igual que colaboradores)
+        const fetchAllArticulos = async (): Promise<Articulo[]> => {
+          let all: Articulo[] = [];
+          let page = 1;
+          let hasMore = true;
+          const pageSize = 100;
+          while (hasMore) {
+            const res = await fetch(`${API_ENDPOINTS.inventory}?pageSize=${pageSize}&page=${page}`);
+            const data = await res.json();
+            console.log('DEBUG artículos respuesta:', data); // <-- LOG DE DEPURACIÓN
+            let arr: Articulo[] = [];
+            if (Array.isArray(data)) {
+              arr = data;
+            } else if (Array.isArray(data.items)) {
+              arr = data.items;
+            } else if (Array.isArray(data.data)) {
+              arr = data.data;
+            } else if (Array.isArray(data.inventory)) {
+              arr = data.inventory;
+            }
+            all = all.concat(arr);
+            hasMore = arr.length === pageSize;
+            page++;
+          }
+          return all;
+        };
 
-        const [clasificacionesRes, colaboradoresRes, articulosRes] = await Promise.all([
-          fetch(`${API_ENDPOINTS.clasificacion}?limit=1000`),
-          fetch(`${API_ENDPOINTS.colaboradores}?limit=1000`),
-          fetch(`${API_ENDPOINTS.inventory}?limit=1000`)
+        const [clasificacionesRes, colaboradoresAll, articulosAll] = await Promise.all([
+          fetch(`${API_ENDPOINTS.clasificacion}?pageSize=1000`),
+          fetchAllColaboradores(),
+          fetchAllArticulos() // CORREGIDO: Usar función paginada
         ]);
 
+        // Clasificaciones
         if (clasificacionesRes.ok) {
           const clasificacionesData = await clasificacionesRes.json();
           const clasificacionesArray = clasificacionesData.items || clasificacionesData.data || clasificacionesData;
           setClasificaciones(Array.isArray(clasificacionesArray) ? clasificacionesArray : []);
         }
 
-        if (colaboradoresRes.ok) {
-          const colaboradoresData = await colaboradoresRes.json();
-          const colaboradoresArray = colaboradoresData.items || colaboradoresData.data || colaboradoresData;
-          setEmpleados(Array.isArray(colaboradoresArray) ? colaboradoresArray : []);
-        }
+        // Colaboradores (ya es array)
+        setEmpleados(Array.isArray(colaboradoresAll) ? colaboradoresAll : []);
 
-        if (articulosRes.ok) {
-          const articulosData = await articulosRes.json();
-          const articulosArray = articulosData.items || articulosData.data || articulosData;
-          setArticulos(Array.isArray(articulosArray) ? articulosArray : []);
-        }
+        // Artículos (ya es array)
+        setArticulos(Array.isArray(articulosAll) ? articulosAll : []);
       } catch (error) {
         console.error('Error al cargar datos:', error);
       } finally {
@@ -160,17 +265,166 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
     fetchDatos();
   }, []);
 
-  const empleadoOptions = Array.isArray(empleados) ? empleados.map(e => ({ value: e.id, label: e.nombre || 'Sin nombre' })) : [];
-  const articuloOptions = Array.isArray(articulos) ? articulos.map(a => ({
-    value: a.id,
-    label: `${a.codigoEFC || 'Sin código'} - Serie: ${a.serie || 'N/A'} (Marca: ${a.marca || 'N/A'}, Modelo: ${a.modelo || 'N/A'})`
-  })) : [];
+  const empleadoOptions = Array.isArray(empleados)
+    ? empleados.map(e => ({
+        value: e.id,
+        label:
+          (e.nombre && e.nombre.trim()) ? e.nombre :
+          (e.usuario && e.usuario.trim()) ? e.usuario :
+          `Colaborador ID ${e.id}`
+      }))
+    : [];
+  const articuloOptions = Array.isArray(articulos) ? articulos
+    .filter(a => {
+      // En modo de edición, incluir también el artículo que se está editando
+      if (isEditing && initialData?.articuloId && a.id === initialData.articuloId) {
+        return true;
+      }
+      // En modo de creación, solo artículos libres
+      return a.status === 'libre';
+    })
+    .map(a => {
+      const codigo = a.codigoEFC || 'Sin código';
+      const marca = a.marca || 'N/A';
+      const modelo = a.modelo || 'N/A';
+      const serie = a.serie || 'N/A';
+      const status = a.status || 'N/A';
+      return {
+        value: a.id,
+        label: `${codigo} - ${marca} ${modelo} (Serie: ${serie}) [${status}]`
+      };
+    }) : [];
+
+  useEffect(() => {
+    if (
+      isEditing &&
+      initialData &&
+      articuloOptions.length > 0 &&
+      empleadoOptions.length > 0 &&
+      clasificaciones.length > 0
+    ) {
+      console.log('🔍 DEBUG: Estableciendo valores iniciales en modo edición');
+      console.log('🔍 DEBUG: initialData.articuloId:', initialData.articuloId);
+      console.log('🔍 DEBUG: articuloOptions disponibles:', articuloOptions.map(a => ({ id: a.value, label: a.label })));
+      
+      if (initialData.articuloId) {
+        const articuloEncontrado = articuloOptions.some(a => a.value === initialData.articuloId);
+        console.log('🔍 DEBUG: ¿Artículo encontrado en opciones?', articuloEncontrado);
+        if (articuloEncontrado) {
+          setValue('articuloId', initialData.articuloId);
+          console.log('🔍 DEBUG: Valor articuloId establecido:', initialData.articuloId);
+        }
+      }
+      if (initialData.empleadoId && empleadoOptions.some(e => e.value === initialData.empleadoId)) {
+        setValue('empleadoId', initialData.empleadoId);
+      }
+      if (initialData.clasificacionId && clasificaciones.some(c => c.id === initialData.clasificacionId)) {
+        setValue('clasificacionId', initialData.clasificacionId);
+      }
+    }
+  }, [
+    isEditing,
+    initialData,
+    articuloOptions,
+    empleadoOptions,
+    clasificaciones,
+    setValue,
+  ]);
+
+  // Si el valor inicial no está en las opciones, lo agregamos temporalmente para que el select lo muestre
+  const safeArticuloOptions = articuloOptions.slice();
+  if (
+    initialData?.articuloId &&
+    !safeArticuloOptions.some(a => a.value === initialData.articuloId)
+  ) {
+    // Buscar el artículo en la lista completa de artículos para obtener más información
+    const articuloCompleto = articulos.find(a => a.id === initialData.articuloId);
+    let label = '';
+    if (articuloCompleto) {
+      const codigo = articuloCompleto.codigoEFC || 'Sin código';
+      const marca = articuloCompleto.marca || 'N/A';
+      const modelo = articuloCompleto.modelo || 'N/A';
+      const serie = articuloCompleto.serie || 'N/A';
+      const status = articuloCompleto.status || 'N/A';
+      label = `${codigo} - ${marca} ${modelo} (Serie: ${serie}) [${status}] (artículo actual)`;
+    } else {
+      label = `Artículo ID ${initialData.articuloId} (no encontrado en la lista)`;
+    }
+    safeArticuloOptions.push({ value: initialData.articuloId, label });
+    console.log('🔍 DEBUG: Artículo agregado a safeArticuloOptions:', { id: initialData.articuloId, label });
+  }
+
+  const safeEmpleadoOptions = empleadoOptions.slice();
+  if (
+    initialData?.empleadoId &&
+    !safeEmpleadoOptions.some(e => e.value === initialData.empleadoId)
+  ) {
+    // Busca el nombre del colaborador en initialData (usando 'as any' para evitar error de TS)
+    let label = '';
+    const anyInitial = initialData as any;
+    if (anyInitial.empleadoNombre) {
+      label = anyInitial.empleadoNombre;
+    } else if (anyInitial.empleado && anyInitial.empleado.nombre) {
+      label = anyInitial.empleado.nombre;
+    } else {
+      label = `Colaborador ID ${initialData.empleadoId} (no encontrado)`;
+    }
+    safeEmpleadoOptions.push({ value: initialData.empleadoId, label });
+  }
+
+  const safeClasificaciones = clasificaciones.slice();
+  if (
+    initialData?.clasificacionId &&
+    !safeClasificaciones.some(c => c.id === initialData.clasificacionId)
+  ) {
+    safeClasificaciones.push({ id: initialData.clasificacionId, familia: 'Clasificación desconocida', sub_familia: '', tipo_equipo: '', vida_util: '', valor_reposicion: null });
+  }
+
+  // DEBUG: Logs para depuración robusta
+  console.log('InitialData:', initialData);
+  console.log('safeArticuloOptions:', safeArticuloOptions);
+  console.log('safeEmpleadoOptions:', safeEmpleadoOptions);
+  console.log('safeClasificaciones:', safeClasificaciones);
+  console.log('🔍 DEBUG: Valor actual del campo articuloId:', watch('articuloId'));
+  console.log('🔍 DEBUG: Valores de campos en modo edición:', {
+    ubicacionEquipo: watch('ubicacionEquipo'),
+    estado: watch('estado'),
+    condicion: watch('condicion'),
+    initialData_ubicacionEquipo: initialData?.ubicacionEquipo,
+    initialData_estado: initialData?.estado,
+    initialData_condicion: initialData?.condicion
+  });
+
+  // DEBUG: Log del estado actual
+  console.log('🔍 DEBUG: Estado actual del formulario:', {
+    isEditing,
+    totalArticulos: articulos.length,
+    articulosLibres: articulos.filter(a => a.status === 'libre').length,
+    articulosAsignados: articulos.filter(a => a.status === 'asignado').length,
+    totalOpciones: articuloOptions.length,
+    articuloIdEnEdicion: initialData?.articuloId,
+    primerosArticulosLibres: articulos.filter(a => a.status === 'libre').slice(0, 3),
+    URL_usada: `${API_ENDPOINTS.inventory} (con paginación)`
+  });
 
 
 
   const handleArticuloChange = (option: any) => {
     setValue('articuloId', option ? option.value : 0);
-    // Opcional: podrías usar esta selección para pre-rellenar otros campos si fuera necesario
+    
+    // Si se seleccionó un artículo, obtener sus datos para pre-rellenar campos
+    if (option) {
+      const articuloSeleccionado = articulos.find(a => a.id === option.value);
+      if (articuloSeleccionado) {
+        console.log('🔍 DEBUG: Artículo seleccionado:', articuloSeleccionado);
+        // Pre-rellenar campos con datos del artículo seleccionado
+        setValue('codigoEFC' as any, articuloSeleccionado.codigoEFC || '');
+        setValue('marca' as any, articuloSeleccionado.marca || '');
+        setValue('modelo' as any, articuloSeleccionado.modelo || '');
+        setValue('serie' as any, articuloSeleccionado.serie || '');
+        setValue('descripcion' as any, articuloSeleccionado.descripcion || '');
+      }
+    }
   };
 
   if (isLoading && !isEditing) {
@@ -218,8 +472,26 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
     })
   };
 
+  // Normaliza el valor inicial de los selects a mayúsculas para que coincida con las opciones
+  const normalizeSelectValue = (val: string | undefined) => (val ? val.toUpperCase() : '');
+
+  // Función para encontrar la opción más parecida al valor actual (ignorando mayúsculas/minúsculas y espacios)
+  const findMatchingOption = (options: string[], value: string | undefined) => {
+    if (!value) return '';
+    const normalizedValue = value.normalize('NFD').replace(/\s+/g, '').toLowerCase();
+    const found = options.find(opt =>
+      opt.normalize('NFD').replace(/\s+/g, '').toLowerCase() === normalizedValue
+    );
+    return found || '';
+  };
+
   return (
-    <form onSubmit={handleSubmit(data => onSubmit({ ...data, id: data.articuloId }))} className="space-y-6">
+    <form onSubmit={handleSubmit(data => {
+      console.log('DATOS ENVIADOS AL BACKEND:', data);
+      onSubmit({ ...data, id: (initialData as any)?.id });
+    }, (errors) => {
+      console.error('🔍 DEBUG: Errores de validación:', errors);
+    })} className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
         
         {/* Columna 1: Asignación y Estado */}
@@ -233,13 +505,19 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               control={control}
               render={({ field }) => (
                 <Select
-                  options={articuloOptions}
+                  options={safeArticuloOptions}
                   isClearable
                   isSearchable
                   isLoading={isLoading}
-                  placeholder="Buscar por código EFC, marca, modelo o serie"
+                  placeholder={isEditing ? "Seleccionar artículo (incluye el actual)" : "Seleccionar artículo (solo artículos libres)"}
                   styles={customSelectStyles}
-                  value={articuloOptions.find(c => c.value === field.value)}
+                  value={safeArticuloOptions.find(c => c.value === field.value)}
+                  onMenuOpen={() => {
+                    console.log('🔍 DEBUG: Menú de artículos abierto');
+                    console.log('🔍 DEBUG: field.value:', field.value);
+                    console.log('🔍 DEBUG: safeArticuloOptions:', safeArticuloOptions);
+                    console.log('🔍 DEBUG: Opción encontrada:', safeArticuloOptions.find(c => c.value === field.value));
+                  }}
                   onChange={handleArticuloChange}
                 />
               )}
@@ -254,13 +532,13 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               control={control}
               render={({ field }) => (
                 <Select
-                  options={empleadoOptions}
+                  options={safeEmpleadoOptions}
                   isClearable
                   isSearchable
                   isLoading={isLoading}
-                  placeholder="Buscar..."
+                  placeholder="Seleccionar colaborador"
                   styles={customSelectStyles}
-                  value={empleadoOptions.find(c => c.value === field.value)}
+                  value={safeEmpleadoOptions.find(e => e.value === field.value)}
                   onChange={val => field.onChange(val ? val.value : null)}
                 />
               )}
@@ -268,55 +546,90 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
             {errors.empleadoId && <p className="text-red-500 text-xs mt-1">{errors.empleadoId.message}</p>}
           </div>
 
+          {/* Solo mostrar Sede en modo creación, no en edición */}
+          {!isEditing && (
+            <div>
+              <label className="block text-sm font-medium mb-1">Sede *</label>
+              <select {...register('sede')} className={inputClass} value={findMatchingOption(SEDE_OPTIONS, watch('sede') || initialData?.sede)}>
+                <option value="">Seleccionar sede</option>
+                {SEDE_OPTIONS.map(option => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              {errors.sede && <p className="text-red-500 text-xs mt-1">{errors.sede.message}</p>}
+            </div>
+          )}
+
           <div>
             <label className="block text-sm font-medium mb-1">Clasificación *</label>
-            <select {...register('clasificacionId')} className={inputClass} disabled={isLoading}>
-              <option value="">{isLoading ? 'Cargando...' : 'Seleccionar clasificación'}</option>
-              {Array.isArray(clasificaciones) && clasificaciones.map(c => (<option key={c.id} value={c.id}>{c.familia} - {c.sub_familia}</option>))}
-            </select>
+            <Controller
+              name="clasificacionId"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  options={safeClasificaciones.map(c => ({
+                    value: c.id,
+                    label: `${c.tipo_equipo || ''}${c.tipo_equipo && c.sub_familia ? ' - ' : ''}${c.sub_familia || ''}`.trim()
+                  }))}
+                  isClearable
+                  isSearchable
+                  isLoading={isLoading}
+                  placeholder="Seleccionar clasificación"
+                  styles={customSelectStyles}
+                  value={safeClasificaciones
+                    .map(c => ({
+                      value: c.id,
+                      label: `${c.tipo_equipo || ''}${c.tipo_equipo && c.sub_familia ? ' - ' : ''}${c.sub_familia || ''}`.trim()
+                    }))
+                    .find(option => option.value === field.value) || null}
+                  onChange={val => field.onChange(val ? val.value : null)}
+                />
+              )}
+            />
             {errors.clasificacionId && <p className="text-red-500 text-xs mt-1">{errors.clasificacionId.message}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Sede *</label>
-            <select {...register('sede')} className={inputClass}>
-              <option value="">Seleccionar sede</option>
-              {SEDE_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
-            </select>
-            {errors.sede && <p className="text-red-500 text-xs mt-1">{errors.sede.message}</p>}
-          </div>
-
-          <div>
             <label className="block text-sm font-medium mb-1">Ubicación del Equipo</label>
-            <select {...register('ubicacionEquipo')} className={inputClass}>
+            <select {...register('ubicacionEquipo')} className={inputClass} defaultValue={initialData?.ubicacionEquipo || ''}>
               <option value="">Seleccionar ubicación</option>
-              {UBICACION_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
+              {UBICACION_OPTIONS.map(option => (
+                <option key={option} value={option}>
+                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
+                </option>
+              ))}
             </select>
             {errors.ubicacionEquipo && <p className="text-red-500 text-xs mt-1">{errors.ubicacionEquipo.message}</p>}
           </div>
           
           <div>
             <label className="block text-sm font-medium mb-1">Estado *</label>
-            <select {...register('estado')} className={inputClass}>
+            <select {...register('estado')} className={inputClass} defaultValue={initialData?.estado || ''}>
               <option value="">Seleccionar estado</option>
-              {ESTADO_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
+              {ESTADO_OPTIONS.map(option => (
+                <option key={option} value={option}>
+                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
+                </option>
+              ))}
             </select>
             {errors.estado && <p className="text-red-500 text-xs mt-1">{errors.estado.message}</p>}
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Condición</label>
-            <select 
-              {...register('condicion')} 
-              className={inputClass}
-              disabled={estadoValue === 'BAJA' || estadoValue === 'DONACION'}
-            >
+            <select {...register('condicion')} className={inputClass} defaultValue={initialData?.condicion || ''} disabled={estadoValue === 'BAJA' || estadoValue === 'DONACION'}>
               <option value="">
                 {estadoValue === 'BAJA' ? 'No aplica (Estado: BAJA)' : 
                  estadoValue === 'DONACION' ? 'No aplica (Estado: DONACION)' : 
                  'Seleccionar condición'}
               </option>
-              {CONDICION_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
+              {CONDICION_OPTIONS.map(option => (
+                <option key={option} value={option}>
+                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
+                </option>
+              ))}
             </select>
             {errors.condicion && <p className="text-red-500 text-xs mt-1">{errors.condicion.message}</p>}
           </div>
@@ -378,7 +691,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
         <div className="space-y-4">
           <h3 className="text-lg font-semibold border-b pb-2 mb-4">Detalles Adicionales</h3>
           <div className="flex items-center gap-2 pt-2">
-            <input {...register('cumpleStandard')} type="checkbox" id="cumpleStandard" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
+            <input {...register('cumpleStandard')} type="checkbox" id="cumpleStandard" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" checked={!!watch('cumpleStandard')} />
             <label htmlFor="cumpleStandard" className="text-sm font-medium">Cumple Standard</label>
           </div>
           <div>

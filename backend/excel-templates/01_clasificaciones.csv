@@ -1,0 +1,39 @@
+id,familia,sub_familia,tipo_equipo,vida_util,valor_reposicion
+1,Computadora,Desktop,Compatibles,Compatibles,5 años,500
+2,Computadora,Desktop,Desktop SFF,Desktop SFF,5 años,760
+3,Computadora,Desktop,Desktop Mini,Desktop Mini,5 años,760
+4,Computadora,Todo-en-uno,All-in-One,All-in-One,5 años,400
+5,Computadora,Laptop,Laptop Básica,Laptop Básica,4 años,760
+6,Computadora,Laptop,Laptop Estándar,Laptop Estándar,4 años,800
+7,Computadora,Laptop,Laptop Avanzada,Laptop Avanzada,4 años,1400
+8,Tablet,Tablet,Tablets,Tablets,3 años,150
+9,Tablet,Tablet,iPad,iPad,3 años,700
+10,Servidor,Servidor ,Servidor Rack,Servidor Rack,5 años,10000
+11,Servidor,Servidor ,Servidor torre,Servidor torre,5 años,5000
+12,Servidor,Servidor ,Servidor ensamblado (Gamer),Servidor ensamblado (Gamer),5 años,3000
+13,Redes,Switch,Switch de acceso,Switch de acceso,7 años,2000
+14,Redes,Switch,Switch Core,Switch Core,7 años,4000
+15,Redes,Hub,Hub,Hub,7 años,50
+16,Redes,Access Point,Access Points,Access Points,4 años,200
+17,Impresora,Impresora de escritorio,Impresora Láser,Impresora Láser,3 años,300
+18,Impresora,Impresora de escritorio,Impresora Ticketera,Impresora Ticketera,3 años,300
+19,Impresora,Impresora de escritorio,Impresora de Inyección,Impresora de Inyección,3 años,200
+20,Impresora,Impresora de escritorio,Impresora Matricial,Impresora Matricial,3 años,400
+21,Impresora,Impresora Portátil,Impresora Portátil,Impresora Portátil,3 años,450
+22,Protección Eléctrica,UPS,Sistema de Alimentación Ininterrumpida (UPS),Sistema de Alimentación Ininterrumpida (UPS),5 años,1000
+23,Protección Eléctrica,ATS,Sistemas de Transferencia Automática (ATS),Sistemas de Transferencia Automática (ATS),5 años,800
+24,Colaboración,Videoconferencia,Presentación Inalámbrica,Presentación Inalámbrica,3 años,2500
+25,Colaboración,Proyector,Proyector,Proyector,5 años,500
+26,Colaboración,Videoconferencia,Altavoz,Altavoz,5 años,200
+27,Colaboración,Videoconferencia,Cámara de Videoconferencia,Cámara de Videoconferencia,5 años,150
+28,Videovigilancia,Cámara,Cámara profesional fija,Cámara profesional fija,3 años,60
+29,Videovigilancia,Cámara,Cámara hogar fija,Cámara hogar fija,3 años,50
+30,Videovigilancia,Cámara,Cámara profesional ptz,Cámara profesional ptz,3 años,700
+31,Videovigilancia,Cámara,Cámara hogar ptz,Cámara hogar ptz,3 años,50
+32,Videovigilancia,NVR,NVR (Network Video Recorder),NVR (Network Video Recorder),5 años,2000
+33,Telefonía,IP PBX,Sistema IP PBX Appliance,Sistema IP PBX Appliance,5 años,4000
+34,Monitor,Monitor,Monitor,Monitor,5 años,200
+35,Rack,Gabinete,Gabinete,Gabinete,15 años,1000
+36,Rack,Rack,Rack,Rack,15 años,400
+37,Control Biométrico,Control de Asistencia,Marcador,Marcador,5 años,200
+38,Protección Eléctrica, Mini UPS,UPS ,UPS ,5 años,80

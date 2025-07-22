@@ -14,6 +14,7 @@ export class ColaboradoresController {
     @Query('nombre') nombre?: string,
     @Query('cargo') cargo?: string,
     @Query('gerencia') gerencia?: string,
+    @Query('search') search?: string,
   ) {
     return this.colaboradoresService.findAll({ 
       page, 
@@ -21,7 +22,8 @@ export class ColaboradoresController {
       filters: {
         nombre,
         cargo,
-        gerencia
+        gerencia,
+        search
       }
     });
   }

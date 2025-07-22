@@ -1,0 +1,221 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@192.168.40.129:5432/postgres"
+}
+
+model clasificacion {
+  id               Int         @id @default(autoincrement())
+  familia          String?     @db.VarChar(100)
+  sub_familia      String?     @db.VarChar(100)
+  tipo_equipo      String?     @db.VarChar(100)
+  vida_util        String?     @db.VarChar(50)
+  valor_reposicion Decimal?    @db.Decimal(10, 2)
+  inventarios      inventory[]
+}
+
+model empleado {
+  id          Int         @id @default(autoincrement())
+  nombre      String?     @db.VarChar(100)
+  cargo       String?     @db.VarChar(100)
+  gerencia    String?     @db.VarChar(100)
+  sede        String?     @db.VarChar(100)
+  inventarios inventory[]
+}
+
+// TABLA INVENTORY LIMPIA - ELIMINANDO CAMPOS DUPLICADOS
+model inventory {
+  id                         Int            @id @default(autoincrement())
+  
+  // ✅ CAMPOS ÚNICOS DEL EQUIPO (mantener)
+  codigoEFC                  String?        @db.VarChar(50)
+  marca                      String?        @db.VarChar(100)
+  modelo                     String?        @db.VarChar(100)
+  descripcion                String?
+  serie                      String?        @db.VarChar(100)
+  procesador                 String?        @db.VarChar(100)
+  anio                       Int?
+  ram                        String?        @db.VarChar(50)
+  discoDuro                  String?        @db.VarChar(100)
+  sistemaOperativo           String?        @db.VarChar(100)
+  
+  // ✅ ESTADO Y UBICACIÓN DEL EQUIPO (mantener)
+  status                     String?        @default("libre") @db.VarChar(20)
+  sedeActual                 String?        @db.VarChar(100)  // Sede física del equipo (puede diferir del empleado)
+  estado                     String?        @db.VarChar(50)   // Operativo, Averiado, etc.
+  ubicacionEquipo            String?        @db.VarChar(200)  // Ubicación física específica
+  condicion                  String?        @db.VarChar(50)   // Bueno, Regular, Malo
+  
+  // ✅ INFORMACIÓN ADMINISTRATIVA (mantener)
+  repotenciadas              Boolean?
+  clasificacionObsolescencia String?        @db.VarChar(50)
+  clasificacionRepotenciadas String?        @db.VarChar(50)
+  motivoCompra               String?        @db.VarChar(200)
+  
+  // ✅ INFORMACIÓN FINANCIERA (mantener)
+  precioReposicion           Decimal?       @db.Decimal(10, 2)
+  proveedor                  String?        @db.VarChar(200)
+  factura                    String?        @db.VarChar(100)
+  anioCompra                 Int?
+  precioReposicion2024       Decimal?       @db.Decimal(10, 2)
+  fecha_compra               DateTime?      @db.Date
+  precioUnitarioSinIgv       String?        @db.VarChar(50)
+  observaciones              String?        @db.VarChar(500)
+  
+  // ✅ RELACIONES (mantener - estas son las que importan)
+  clasificacionId            Int?
+  empleadoId                 Int?
+  
+  // ❌ CAMPOS A ELIMINAR (ya están en otras tablas):
+  // tipoEquipo     -> usar clasificacion.tipo_equipo
+  // familia        -> usar clasificacion.familia  
+  // subFamilia     -> usar clasificacion.sub_familia
+  // usuarios       -> usar empleado.nombre
+  // cargo          -> usar empleado.cargo
+  // gerencia       -> usar empleado.gerencia
+  // sede           -> usar empleado.sede (aunque sedeActual puede ser diferente)
+  // vidaUtil       -> usar clasificacion.vida_util
+  // qUsuarios      -> no necesario si usamos empleadoId
+  
+  clasificacion              clasificacion? @relation(fields: [clasificacionId], references: [id])
+  empleado                   empleado?      @relation(fields: [empleadoId], references: [id])
+}
+
+// RESTO DE MODELOS SIN CAMBIOS
+model area {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique @db.VarChar(100)
+  descripcion String?   @db.VarChar(255)
+  codigo      String?   @unique @db.VarChar(20)
+  activo      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  licencias   licencia[]
+  gerenciaId  Int?
+  gerencia    gerencia? @relation(fields: [gerenciaId], references: [id])
+}
+
+model gerencia {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique @db.VarChar(100)
+  descripcion String?   @db.VarChar(255)
+  codigo      String?   @unique @db.VarChar(20)
+  activo      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  areas       area[]
+  licencias   licencia[]
+}
+
+model licencia {
+  id                 Int            @id @default(autoincrement())
+  codigoLicencia     String         @unique @db.VarChar(50)
+  nombre             String         @db.VarChar(200)
+  tipoLicencia       TipoLicencia
+  proveedor          String         @db.VarChar(100)
+  fechaCompra        DateTime       @db.Date
+  fechaVencimiento   DateTime?      @db.Date
+  costo              Decimal        @db.Decimal(10, 2)
+  moneda             String         @default("USD") @db.VarChar(3)
+  cantidadUsuarios   Int            @default(1)
+  estado             EstadoLicencia @default(Activa)
+  asignadoA          String?        @db.VarChar(200)
+  descripcion        String?        @db.Text
+  documentos         String[]
+  observaciones      String?        @db.Text
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  
+  areaId             Int?
+  area               area?          @relation(fields: [areaId], references: [id])
+  gerenciaId         Int?
+  gerencia           gerencia?      @relation(fields: [gerenciaId], references: [id])
+  
+  @@index([estado])
+  @@index([fechaVencimiento])
+  @@index([tipoLicencia])
+}
+
+enum TipoLicencia {
+  Software
+  Hardware
+  Servicio
+  Subscripcion
+}
+
+enum EstadoLicencia {
+  Activa
+  Vencida
+  PorVencer
+  Suspendida
+}
+
+model user {
+  id              Int              @id @default(autoincrement())
+  username        String           @unique @db.VarChar(50)
+  email           String           @unique @db.VarChar(100)
+  password        String           @db.VarChar(255)
+  fullName        String?          @db.VarChar(100)
+  isActive        Boolean          @default(true)
+  isAdmin         Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  userPermissions UserPermission[]
+}
+
+model resource {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique @db.VarChar(50)
+  displayName String       @db.VarChar(100)
+  description String?      @db.VarChar(255)
+  permissions permission[]
+}
+
+model permission {
+  id              Int              @id @default(autoincrement())
+  action          String           @db.VarChar(50)
+  resourceId      Int
+  userPermissions UserPermission[]
+  resource        resource         @relation(fields: [resourceId], references: [id])
+
+  @@unique([action, resourceId])
+}
+
+model UserPermission {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  permissionId Int
+  granted      Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  permission   permission @relation(fields: [permissionId], references: [id])
+  user         user       @relation(fields: [userId], references: [id])
+
+  @@unique([userId, permissionId])
+}
+
+model tickets {
+  id          Int     @id @default(autoincrement())
+  fecha       String
+  sede        String
+  categoria   String
+  usuario     String
+  asunto      String
+  agente      String
+  descripcion String
+  hora        String?
+  prioridad   String?
+  estado      String? @default("abierto")
+}
+
+model usuarios {
+  id       Int    @id @default(autoincrement())
+  usuario  String @unique
+  clave    String
+  permisos String
+} 

@@ -1,0 +1,19 @@
+codigoEFC,marca,modelo,descripcion,serie,procesador,anio,ram,discoDuro,sistemaOperativo,status,estado,ubicacionEquipo,qUsuarios,condicion,repotenciadas,clasificacionObsolescencia,clasificacionRepotenciadas,motivoCompra,proveedor,factura,anioCompra,observaciones,fecha_compra,precioUnitarioSinIgv,fecha_baja,motivo_baja,clasificacionId,empleadoId
+Ap-Almacen1,UBIQUITI,AC PRO,-,No aplica,No aplica,2019,No aplica,No aplica,No aplica,Asignado,Operativo,Almacen 1,1,Obsoleto,-,-,-,-,-,-,-,-,-,-,16,33
+Ap-Almacen2,UBIQUITI,AC PRO,-,No aplica,No aplica,2019,No aplica,No aplica,No aplica,Asignado,Operativo,Almacen  2,1,Obsoleto,-,-,-,-,-,-,-,-,-,-,16,34
+Ap-Logistica De Produccion,UBIQUITI,AC PRO,-,No aplica,No aplica,2019,No aplica,No aplica,No aplica,Asignado,Operativo,Logistica De Produccion,1,Obsoleto,-,-,-,-,-,-,-,-,-,-,16,35
+Ap-Logística De Salida,UBIQUITI,AC PRO,-,No aplica,No aplica,2019,No aplica,No aplica,No aplica,Asignado,Operativo,Logística De Salida,1,Obsoleto,-,-,-,-,-,-,-,-,-,-,16,36
+Ap-Almacen3,UBIQUITI,AC PRO,-,No aplica,No aplica,2019,No aplica,No aplica,No aplica,Asignado,Operativo,Almacen 3,1,Obsoleto,-,-,-,-,-,-,-,-,-,-,16,38
+Ap-Of.Quesada,UBIQUITI,AC PRO,-,No aplica,No aplica,2019,No aplica,No aplica,No aplica,Asignado,Operativo,Oficina Quesada,2,Obsoleto,-,-,-,-,-,-,-,-,-,-,16,47
+Ap-Of.Quesada,UBIQUITI,AC PRO,-,No aplica,No aplica,2019,No aplica,No aplica,No aplica,Asignado,Operativo,Oficina Quesada,2,Obsoleto,-,-,-,-,-,-,-,-,-,-,16,47
+Ap-Piso1-Oficina Volante,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 1 Oficina Volante,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,52
+Ap-Piso3-Comedor,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 3 Comedor,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,57
+Ap-Piso2-Sac,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 2 Sac,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,55
+Ap-Piso2-Contabilidad,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 2 Contabilidad,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,54
+Ap-Piso2-Administracion,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 2 Administracion,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,53
+Ap-Piso1-Importaciones,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 1 Importaciones,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,51
+Ap-Piso3-Gps,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 3 Gps,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,58
+Ap-Piso2-Gesco,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 2Gesco,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,56
+Ap-Comercial2-Piso,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Comercial 2 Piso,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,39
+Ap-Piso3NuevoComedor,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap  Piso 3 Nuevo Comedor,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,37
+Ap-Piso1-Compras,HPE,ARUBA AP-615,-,No aplica,No aplica,2025,No aplica,No aplica,No aplica,Asignado,Operativo,Ap Piso 1 Compras,1,Operativo,-,-,-,Renovación tecnológica,,E001-277,2025,,45737,$353,00 ,16,50

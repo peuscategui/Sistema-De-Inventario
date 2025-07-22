@@ -5,6 +5,7 @@ import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, 
 import InventarioModal from '@/components/inventario/InventarioModal';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
 import { API_ENDPOINTS } from '@/config/api';
+// import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -21,15 +22,13 @@ interface Empleado {
   nombre: string | null;
   cargo: string | null;
   gerencia: string | null;
+  sede: string | null;
 }
 
-// Interface principal para el item de inventario
+// Interface principal para el item de inventario - CORREGIDA para coincidir con schema
 interface InventoryItem {
   id: number;
   codigoEFC: string | null;
-  tipoEquipo: string | null;
-  familia: string | null;
-  subFamilia: string | null;
   marca: string | null;
   modelo: string | null;
   descripcion: string | null;
@@ -39,11 +38,8 @@ interface InventoryItem {
   ram: string | null;
   discoDuro: string | null;
   sistemaOperativo: string | null;
-  sede: string | null;
-  estado: string | null;
-  usuarios: string | null;
-  cargo: string | null;
-  gerencia: string | null;
+  status: string | null; // CORREGIDO: en schema es 'status' no 'estado'
+  estado: string | null; // Campo adicional del frontend
   ubicacionEquipo: string | null;
   qUsuarios: number | null;
   condicion: string | null;
@@ -51,17 +47,20 @@ interface InventoryItem {
   clasificacionObsolescencia: string | null;
   clasificacionRepotenciadas: string | null;
   motivoCompra: string | null;
-  precioReposicion: number | null;
   proveedor: string | null;
   factura: string | null;
   anioCompra: number | null;
-  precioReposicion2024: number | null;
   observaciones: string | null;
-  vidaUtil: string | null;
   fecha_compra: string | null;
-  precioUnitarioSinIgv: number | null;
+  precioUnitarioSinIgv: string | null; // CORREGIDO: en schema es string
+  // Relaciones - CORREGIDAS: son opcionales
+  clasificacionId: number | null;
+  empleadoId: number | null;
   clasificacion: Clasificacion | null;
   empleado: Empleado | null;
+  // CORREGIDO: Agregar campos de baja
+  fechaBaja?: string | null;
+  motivoBaja?: string | null;
 }
 
 interface Filters {
@@ -69,26 +68,19 @@ interface Filters {
   marca?: string;
   modelo?: string;
   estado?: string;
-  sede?: string;
-  gerencia?: string;
-  familia?: string;
   empleado?: string;
-  tipoEquipo?: string;
 }
 
 const filterOptions = [
   { value: 'codigoEFC', label: 'Código EFC' },
   { value: 'marca', label: 'Marca' },
   { value: 'modelo', label: 'Modelo' },
-  { value: 'tipoEquipo', label: 'Tipo de Equipo' },
   { value: 'estado', label: 'Estado' },
-  { value: 'sede', label: 'Sede' },
-  { value: 'gerencia', label: 'Gerencia' },
-  { value: 'familia', label: 'Familia' },
   { value: 'empleado', label: 'Empleado' },
 ];
 
 export default function InventarioPage() {
+  // const { authenticatedFetch } = useAuthenticatedFetch(); // TEMPORALMENTE DESACTIVADO
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -111,7 +103,8 @@ export default function InventarioPage() {
   const fetchInventory = async () => {
     setLoading(true);
     try {
-      let url = `${API_ENDPOINTS.inventario}?page=${page}&limit=${pageSize}`;
+      // CORREGIDO: usar pageSize en lugar de limit para coincidir con backend
+      let url = `${API_ENDPOINTS.inventario}?page=${page}&pageSize=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -120,14 +113,31 @@ export default function InventarioPage() {
         }
       });
 
+      // IMPORTANTE: Excluir items con estado BAJA y DONACION de la página de Inventario
+      // Solo mostrar items activos (ASIGNADO, STOCK, EN SERVICIO, etc.)
+      url += '&excludeEstados=BAJA,DONACION';
+
+      console.log('🔍 DEBUG: URL de solicitud:', url);
+
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Error al obtener los datos del inventario');
       }
       const data = await response.json();
-      setInventory(data.items);
-      setPagination(data.meta);
+      
+      console.log('🔍 DEBUG: Respuesta del servidor:', data);
+      
+      // CORREGIDO: ajustar según la estructura real del backend
+      const inventoryData = data.data || data.items || data;
+      const paginationData = data.pagination || data.meta || {
+        total: Array.isArray(inventoryData) ? inventoryData.length : 0,
+        totalPages: 1
+      };
+      
+      setInventory(Array.isArray(inventoryData) ? inventoryData : []);
+      setPagination(paginationData);
     } catch (err: any) {
+      console.error('❌ Error al cargar inventario:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -187,26 +197,29 @@ export default function InventarioPage() {
 
   const exportToCSV = async () => {
     try {
-      let url = API_ENDPOINTS.inventarioExport;
+      // TEMPORAL: mientras se implementa el endpoint de export, usar datos actuales
+      let url = API_ENDPOINTS.inventario;
       
-      // Agregar filtros a la URL
+      // Agregar filtros a la URL para obtener todos los datos
       const params = new URLSearchParams();
+      params.append('page', '1');
+      params.append('pageSize', '1000'); // Obtener muchos registros para exportar
+      
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
           params.append(key, value);
         }
       });
       
-      if (params.toString()) {
-        url += `?${params.toString()}`;
-      }
+      url += `?${params.toString()}`;
 
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Error al exportar datos');
       }
       
-      const data = await response.json();
+      const result = await response.json();
+      const data = result.data || result.items || result;
       
       // Convertir a CSV
       const headers = Object.keys(data[0] || {});
@@ -242,9 +255,7 @@ export default function InventarioPage() {
     try {
       const response = await fetch(API_ENDPOINTS.inventarioBatch, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: selectedItems }),
       });
 
@@ -261,27 +272,61 @@ export default function InventarioPage() {
 
   const handleModalSubmit = async (data: any) => {
     setIsSubmitting(true);
-    const url = editItem
-      ? `${API_ENDPOINTS.inventory}/${editItem.id}`
-      : API_ENDPOINTS.inventory;
-    const method = editItem ? 'PUT' : 'POST';
-
+    let url: string = API_ENDPOINTS.inventario;
+    let method = 'POST';
+    let bodyData = { ...data };
+    
+    console.log('🔍 DEBUG: handleModalSubmit - editItem:', editItem);
+    console.log('🔍 DEBUG: handleModalSubmit - data recibida:', data);
+    
+    // CORREGIDO: Mapear campos de baja del frontend al backend
+    if (data.fechaBaja) {
+      bodyData.fecha_baja = data.fechaBaja;
+      delete bodyData.fechaBaja;
+    }
+    if (data.motivoBaja) {
+      bodyData.motivo_baja = data.motivoBaja;
+      delete bodyData.motivoBaja;
+    }
+    
+    if (editItem && editItem.id && !isNaN(editItem.id)) {
+      url = `${API_ENDPOINTS.inventario}/${editItem.id}` as string;
+      method = 'PUT';
+      const { id, ...rest } = bodyData;
+      bodyData = rest;
+      console.log('🔍 DEBUG: Actualizando inventario con id:', editItem.id, 'URL:', url);
+      console.log('🔍 DEBUG: Body data (sin id):', bodyData);
+    } else {
+      console.log('🔍 DEBUG: Creando nuevo inventario');
+    }
     try {
+      console.log('🔍 DEBUG: Enviando request a:', url);
+      console.log('🔍 DEBUG: Método:', method);
+      console.log('🔍 DEBUG: Body data final:', JSON.stringify(bodyData, null, 2));
+      
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(bodyData),
       });
-
+      
+      console.log('🔍 DEBUG: Response status:', response.status);
+      console.log('🔍 DEBUG: Response ok:', response.ok);
+      
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('🔍 DEBUG: Error response:', errorData);
         throw new Error(errorData.message || `Error al ${editItem ? 'actualizar' : 'crear'} el item`);
       }
-
+      
+      const result = await response.json();
+      console.log('🔍 DEBUG: Success response:', result);
+      
       setModalOpen(false);
       setEditItem(null);
       fetchInventory(); // Recargar los datos
     } catch (err: any) {
+      console.error('🔍 DEBUG: Error completo:', err);
       setError(err.message);
     } finally {
       setIsSubmitting(false);
@@ -289,11 +334,47 @@ export default function InventarioPage() {
   };
 
   const openEditModal = (item: InventoryItem) => {
-    setEditItem(item);
+    // Validar que el item y su ID sean válidos
+    if (!item || !item.id || isNaN(item.id)) {
+      console.error('❌ ERROR: Item o ID inválido para editar:', item);
+      setError('Item inválido para editar');
+      return;
+    }
+
+    console.log('🔍 DEBUG: Abriendo modal de edición con item:', item);
+    console.log('🔍 DEBUG: ID del item:', item.id);
+    console.log('🔍 DEBUG: articuloId que se pasará:', item.id);
+    
+    // Usar el objeto original que tiene el id correcto
+    setEditItem({
+      id: item.id, // IMPORTANTE: Incluir el id original
+      articuloId: item.id, // CORREGIDO: El articuloId es el mismo que el id del item
+      clasificacionId: item.clasificacion?.id ?? (typeof item.clasificacionId === 'number' ? item.clasificacionId : null),
+      empleadoId: item.empleado?.id ?? (typeof item.empleadoId === 'number' ? item.empleadoId : null),
+      empleadoNombre: item.empleado?.nombre ?? '',
+      sede: item.empleado?.sede ?? '',
+      estado: item.estado ?? '',
+      ubicacionEquipo: item.ubicacionEquipo ?? '',
+      condicion: item.condicion ?? '',
+      observaciones: item.observaciones ?? '',
+      // CORREGIDO: Agregar campos de baja para que se carguen en el formulario
+      fechaBaja: item.fechaBaja ?? '',
+      motivoBaja: item.motivoBaja ?? '',
+      // Otros campos si necesitas
+    } as any);
     setModalOpen(true);
   };
 
   const handleDelete = async (id: number) => {
+    // Validar que el ID sea válido
+    if (!id || isNaN(id)) {
+      console.error('❌ ERROR: ID inválido para eliminar:', id);
+      setError('ID inválido para eliminar el item');
+      return;
+    }
+
+    console.log('🔍 DEBUG: Eliminando item con ID:', id);
+
     if (!confirm('¿Estás seguro de que quieres eliminar este item?')) {
       return;
     }
@@ -314,6 +395,16 @@ export default function InventarioPage() {
   };
 
   const openDetalleModal = (item: InventoryItem) => {
+    // Validar que el item y su ID sean válidos
+    if (!item || !item.id || isNaN(item.id)) {
+      console.error('❌ ERROR: Item o ID inválido para ver detalles:', item);
+      setError('Item inválido para ver detalles');
+      return;
+    }
+
+    console.log('🔍 DEBUG: Abriendo modal de detalles con item:', item);
+    console.log('🔍 DEBUG: ID del item:', item.id);
+    
     setSelectedItem(item);
     setDetalleModalOpen(true);
   };
@@ -466,11 +557,11 @@ export default function InventarioPage() {
                   />
                 </td>
                 <td className="py-3 px-4 uppercase">{item.codigoEFC || '-'}</td>
-                <td className="py-3 px-4 uppercase">{item.tipoEquipo || '-'}</td>
+                <td className="py-3 px-4 uppercase">{item.clasificacion?.tipo_equipo || '-'}</td>
                 <td className="py-3 px-4 uppercase">{item.marca || '-'}</td>
                 <td className="py-3 px-4 uppercase">{item.modelo || '-'}</td>
                 <td className="py-3 px-4 uppercase">{item.estado || '-'}</td>
-                <td className="py-3 px-4 uppercase">{item.usuarios || '-'}</td>
+                <td className="py-3 px-4 uppercase">{item.empleado?.nombre || '-'}</td>
                 <td className="py-3 px-4">
                   <div className="flex items-center gap-2">
                     <button

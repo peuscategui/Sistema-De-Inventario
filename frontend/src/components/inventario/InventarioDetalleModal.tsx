@@ -1,11 +1,25 @@
 import { X } from 'lucide-react';
 
+interface Clasificacion {
+  id: number;
+  familia: string | null;
+  sub_familia: string | null;
+  tipo_equipo: string | null;
+  vida_util: string | null;
+  valor_reposicion: number | null;
+}
+
+interface Empleado {
+  id: number;
+  nombre: string | null;
+  cargo: string | null;
+  gerencia: string | null;
+  sede: string | null;
+}
+
 interface InventoryItem {
   id: number;
   codigoEFC: string | null;
-  tipoEquipo: string | null;
-  familia: string | null;
-  subFamilia: string | null;
   marca: string | null;
   modelo: string | null;
   descripcion: string | null;
@@ -15,11 +29,7 @@ interface InventoryItem {
   ram: string | null;
   discoDuro: string | null;
   sistemaOperativo: string | null;
-  sede: string | null;
   estado: string | null;
-  usuarios: string | null;
-  cargo: string | null;
-  gerencia: string | null;
   ubicacionEquipo: string | null;
   qUsuarios: number | null;
   condicion: string | null;
@@ -33,9 +43,13 @@ interface InventoryItem {
   anioCompra: number | null;
   precioReposicion2024: number | null;
   observaciones: string | null;
-  vidaUtil: string | null;
   fecha_compra: string | null;
   precioUnitarioSinIgv: number | null;
+  // Relaciones - campos únicos del inventario
+  clasificacionId: number;
+  empleadoId: number;
+  clasificacion: Clasificacion;
+  empleado: Empleado;
   // Campos específicos para donaciones y bajas
   fechaBaja?: string | null;
   motivoBaja?: string | null;
@@ -58,9 +72,9 @@ const InventarioDetalleModal = ({ isOpen, onClose, item }: InventarioDetalleModa
 
   const detalles = [
     { label: 'Código EFC', value: item.codigoEFC },
-    { label: 'Tipo de Equipo', value: item.tipoEquipo },
-    { label: 'Familia', value: item.familia },
-    { label: 'Sub Familia', value: item.subFamilia },
+    { label: 'Tipo de Equipo', value: item.clasificacion?.tipo_equipo },
+    { label: 'Familia', value: item.clasificacion?.familia },
+    { label: 'Sub Familia', value: item.clasificacion?.sub_familia },
     { label: 'Marca', value: item.marca },
     { label: 'Modelo', value: item.modelo },
     { label: 'Descripción', value: item.descripcion },
@@ -70,11 +84,11 @@ const InventarioDetalleModal = ({ isOpen, onClose, item }: InventarioDetalleModa
     { label: 'RAM', value: item.ram },
     { label: 'Disco Duro', value: item.discoDuro },
     { label: 'Sistema Operativo', value: item.sistemaOperativo },
-    { label: 'Sede', value: item.sede },
+    { label: 'Sede', value: item.empleado?.sede },
     { label: 'Estado', value: item.estado },
-    { label: 'Usuario', value: item.usuarios },
-    { label: 'Cargo', value: item.cargo },
-    { label: 'Gerencia', value: item.gerencia },
+    { label: 'Usuario', value: item.empleado?.nombre },
+    { label: 'Cargo', value: item.empleado?.cargo },
+    { label: 'Gerencia', value: item.empleado?.gerencia },
     { label: 'Ubicación', value: item.ubicacionEquipo },
     { label: 'Cantidad de Usuarios', value: item.qUsuarios },
     { label: 'Condición', value: item.condicion },
@@ -88,7 +102,7 @@ const InventarioDetalleModal = ({ isOpen, onClose, item }: InventarioDetalleModa
     { label: 'Año de Compra', value: item.anioCompra },
     { label: 'Precio Reposición 2024', value: item.precioReposicion2024 ? item.precioReposicion2024.toLocaleString('es-PE') : null },
     { label: 'Observaciones', value: item.observaciones },
-    { label: 'Vida Útil', value: item.vidaUtil },
+    { label: 'Vida Útil', value: item.clasificacion?.vida_util },
     { label: 'Fecha de Compra', value: formatDate(item.fecha_compra) },
     { label: 'Precio Unitario sin IGV', value: item.precioUnitarioSinIgv },
     // Campos específicos según el estado

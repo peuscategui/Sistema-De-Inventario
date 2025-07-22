@@ -12,4 +12,8 @@ export class CreateColaboradorDto {
   @IsString()
   @IsOptional()
   gerencia?: string;
+
+  @IsString()
+  @IsOptional()
+  sede?: string;
 } 

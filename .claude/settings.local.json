@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npm run lint)",
+      "Bash(docker-compose:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(timeout 30s npm run build)",
+      "Bash(npx tsc:*)",
+      "Bash(timeout 60s npm run build)"
+    ],
+    "deny": []
+  }
+}

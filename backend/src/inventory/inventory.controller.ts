@@ -15,17 +15,166 @@ export class InventoryController {
     @Query('modelo') modelo?: string,
     @Query('serie') serie?: string,
     @Query('status') status?: string,
+    @Query('excludeEstados') excludeEstados?: string,
   ) {
+    console.log('🔍 DEBUG: findAll controlador - excludeEstados:', excludeEstados);
+    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, excludeEstados });
+    
     return this.inventoryService.findAll({ 
       page, 
       pageSize,
-      filters: { codigoEFC, marca, modelo, serie, status }
+      filters: { codigoEFC, marca, modelo, serie, status },
+      excludeEstados
     });
+  }
+
+  // CORREGIDO: Mover rutas específicas ANTES de la ruta genérica :id
+  @Get('export')
+  async exportData(
+    @Query('codigoEFC') codigoEFC?: string,
+    @Query('marca') marca?: string,
+    @Query('modelo') modelo?: string,
+    @Query('serie') serie?: string,
+    @Query('status') status?: string,
+  ) {
+    try {
+      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status });
+      
+      // Usar el servicio existente para obtener todos los datos
+      const result = await this.inventoryService.findAll({ 
+        page: 1, 
+        pageSize: 10000, // Obtener muchos registros
+        filters: { codigoEFC, marca, modelo, serie, status }
+      });
+      
+      return {
+        success: true,
+        data: result.data,
+        count: result.pagination.total
+      };
+    } catch (error) {
+      console.error('Error en export:', error);
+      throw error;
+    }
+  }
+
+  @Get('donaciones')
+  async getDonaciones() {
+    try {
+      // CORREGIDO: Filtrar por estado 'DONACION' en lugar de status 'donacion'
+      const result = await this.inventoryService.findAll({ 
+        page: 1, 
+        pageSize: 10000,
+        filters: { estado: 'DONACION' }
+      });
+      
+      return {
+        success: true,
+        data: result.data,
+        count: result.pagination.total
+      };
+    } catch (error) {
+      console.error('Error en donaciones:', error);
+      throw error;
+    }
+  }
+
+  @Get('donaciones/search')
+  async searchDonaciones(@Query() query: any) {
+    try {
+      // CORREGIDO: Buscar en donaciones con filtros adicionales
+      const result = await this.inventoryService.findAll({ 
+        page: query.page || 1, 
+        pageSize: query.pageSize || 10,
+        filters: { ...query, estado: 'DONACION' }
+      });
+      
+      return {
+        success: true,
+        data: result.data,
+        pagination: result.pagination
+      };
+    } catch (error) {
+      console.error('Error en search donaciones:', error);
+      throw error;
+    }
+  }
+
+  @Get('bajas')
+  async getBajas(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('pageSize', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+    @Query('codigoEFC') codigoEFC?: string,
+    @Query('marca') marca?: string,
+    @Query('modelo') modelo?: string,
+    @Query('serie') serie?: string,
+  ) {
+    try {
+      console.log('🔍 DEBUG: Obteniendo bajas con filtros:', { codigoEFC, marca, modelo, serie });
+      
+      // CORREGIDO: Filtrar por estado 'BAJA' en lugar de status 'baja'
+      // Los items en baja deben tener estado = 'BAJA'
+      const result = await this.inventoryService.findAll({ 
+        page, 
+        pageSize,
+        filters: { 
+          estado: 'BAJA', // CORREGIDO: usar estado en lugar de status
+          codigoEFC,
+          marca,
+          modelo,
+          serie
+        }
+      });
+      
+      console.log('🔍 DEBUG: Bajas encontradas:', result.data.length);
+      
+      return {
+        success: true,
+        data: result.data,
+        pagination: result.pagination,
+        count: result.pagination.total
+      };
+    } catch (error) {
+      console.error('Error en bajas:', error);
+      throw error;
+    }
+  }
+
+  @Get('bajas/search')
+  async searchBajas(@Query() query: any) {
+    try {
+      // CORREGIDO: Buscar en bajas con filtros adicionales
+      const result = await this.inventoryService.findAll({ 
+        page: query.page || 1, 
+        pageSize: query.pageSize || 10,
+        filters: { ...query, estado: 'BAJA' }
+      });
+      
+      return {
+        success: true,
+        data: result.data,
+        pagination: result.pagination
+      };
+    } catch (error) {
+      console.error('Error en search bajas:', error);
+      throw error;
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.inventoryService.findOne(Number(id));
+    console.log('🔍 DEBUG: findOne controlador - ID recibido:', id);
+    console.log('🔍 DEBUG: findOne controlador - Tipo de ID:', typeof id);
+    
+    const numericId = Number(id);
+    console.log('🔍 DEBUG: findOne controlador - ID convertido:', numericId);
+    
+    if (isNaN(numericId)) {
+      console.error('❌ ERROR: ID inválido en controlador:', id);
+      throw new Error(`ID inválido: ${id}`);
+    }
+    
+    return this.inventoryService.findOne(numericId);
   }
 
   @Post()
@@ -85,4 +234,6 @@ export class InventoryController {
       throw error;
     }
   }
+
+
 }

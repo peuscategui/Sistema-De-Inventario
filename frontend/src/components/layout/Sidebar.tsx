@@ -17,6 +17,8 @@ import {
   LogOut,
   Heart,
   X,
+  Shield,
+  KeySquare,
 } from 'lucide-react'
 import Image from 'next/image'
 
@@ -28,6 +30,8 @@ const navItems = [
   { href: '/clasificacion', label: 'Clasificación', icon: Shapes },
   { href: '/colaboradores', label: 'Colaboradores', icon: Users },
   { href: '/articulos', label: 'Artículos', icon: Package },
+  { href: '/licencias', label: 'Licencias', icon: KeySquare },
+  { href: '/admin', label: 'Administrador', icon: Shield },
 ]
 
 export default function Sidebar() {

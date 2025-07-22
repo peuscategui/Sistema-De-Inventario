@@ -18,18 +18,18 @@ console.log('🔧 window.location.origin:', typeof window !== 'undefined' ? wind
 
 // URLs específicas del API - Usando detección automática de entorno
 export const API_ENDPOINTS = {
-  // Inventario
-  inventario: `${API_BASE_URL}/inventario-relacional`,
-  inventarioExport: `${API_BASE_URL}/inventario-relacional/export`,
-  inventarioBatch: `${API_BASE_URL}/inventario-relacional/batch`,
+  // Inventario - CORREGIDO: apunta al módulo correcto
+  inventario: `${API_BASE_URL}/inventory`,
+  inventarioExport: `${API_BASE_URL}/inventory/export`,
+  inventarioBatch: `${API_BASE_URL}/inventory/batch`,
   
-  // Donaciones
-  donaciones: `${API_BASE_URL}/inventario-relacional/donaciones/all`,
-  donacionesSearch: `${API_BASE_URL}/inventario-relacional/donaciones/search`,
+  // Donaciones - NOTA: estas funcionalidades deben implementarse en inventory
+  donaciones: `${API_BASE_URL}/inventory/donaciones`,
+  donacionesSearch: `${API_BASE_URL}/inventory/donaciones/search`,
   
-  // Bajas
-  bajas: `${API_BASE_URL}/inventario-relacional/bajas/all`,
-  bajasSearch: `${API_BASE_URL}/inventario-relacional/bajas/search`,
+  // Bajas - NOTA: estas funcionalidades deben implementarse en inventory
+  bajas: `${API_BASE_URL}/inventory/bajas`,
+  bajasSearch: `${API_BASE_URL}/inventory/bajas/search`,
   
   // Artículos
   inventory: `${API_BASE_URL}/inventory`,
@@ -42,10 +42,28 @@ export const API_ENDPOINTS = {
   // Colaboradores
   colaboradores: `${API_BASE_URL}/colaboradores`,
   colaboradoresBatch: `${API_BASE_URL}/colaboradores/batch`,
+
+  // Empleados
+  empleados: `${API_BASE_URL}/empleados`,
   
-  // Dashboard
+  // Dashboard - NOTA: módulo temporalmente deshabilitado
   dashboard: `${API_BASE_URL}/dashboard`,
   dashboardDistribucion: `${API_BASE_URL}/dashboard/distribucion-familia`,
+  
+  // Usuarios y permisos (Sistema de administración)
+  users: `${API_BASE_URL}/users`,
+  permissions: `${API_BASE_URL}/permissions`,
+  
+  // Autenticación
+  auth: `${API_BASE_URL}/auth`,
+  
+  // Licencias y estructura organizacional
+  licencias: `${API_BASE_URL}/licencias`,
+  licenciasDashboard: `${API_BASE_URL}/licencias/dashboard`,
+  areas: `${API_BASE_URL}/areas`,
+  areasActive: `${API_BASE_URL}/areas/active`,
+  gerencias: `${API_BASE_URL}/gerencias`,
+  gerenciasActive: `${API_BASE_URL}/gerencias/active`,
 } as const;
 
 // Función helper para construir URLs dinámicas

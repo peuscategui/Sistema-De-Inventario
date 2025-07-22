@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ColaboradorModal from '@/components/colaboradores/ColaboradorModal';
 import { API_ENDPOINTS } from '@/config/api';
+// import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 export interface Empleado {
   id: number;
@@ -15,6 +16,7 @@ export interface Empleado {
 }
 
 export default function ColaboradoresPage() {
+  // const { authenticatedFetch } = useAuthenticatedFetch(); // TEMPORALMENTE DESACTIVADO
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,7 +56,8 @@ export default function ColaboradoresPage() {
   const fetchEmpleados = async () => {
     setLoading(true);
     try {
-      let url = `${API_ENDPOINTS.colaboradores}?page=${page}&limit=${pageSize}`;
+      // CORREGIDO: usar pageSize en lugar de limit
+      let url = `${API_ENDPOINTS.colaboradores}?page=${page}&pageSize=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -63,14 +66,27 @@ export default function ColaboradoresPage() {
         }
       });
 
+      console.log('🔍 DEBUG Colaboradores: URL de solicitud:', url);
+
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Error al obtener los empleados');
       }
-      const { data, pagination: paginationData } = await response.json();
-      setEmpleados(data);
+      const result = await response.json();
+      
+      console.log('🔍 DEBUG Colaboradores: Respuesta del servidor:', result);
+      
+      // Ajustar según la estructura real del backend
+      const empleadosData = result.data || result.items || result;
+      const paginationData = result.pagination || result.meta || {
+        totalCount: Array.isArray(empleadosData) ? empleadosData.length : 0,
+        totalPages: 1
+      };
+      
+      setEmpleados(Array.isArray(empleadosData) ? empleadosData : []);
       setPagination(paginationData);
     } catch (err: any) {
+      console.error('❌ Error al cargar colaboradores:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -79,7 +95,8 @@ export default function ColaboradoresPage() {
 
   const fetchAllEmpleados = async () => {
     try {
-      let url = `${API_ENDPOINTS.colaboradores}?page=1&limit=10000`;
+      // CORREGIDO: usar pageSize en lugar de limit
+      let url = `${API_ENDPOINTS.colaboradores}?page=1&pageSize=10000`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -90,8 +107,9 @@ export default function ColaboradoresPage() {
 
       const response = await fetch(url);
       if (!response.ok) throw new Error('Error al obtener todos los datos');
-      const { data } = await response.json();
-      return data;
+      const result = await response.json();
+      const data = result.data || result.items || result;
+      return Array.isArray(data) ? data : [];
     } catch (err: any) {
       throw new Error('Error al obtener todos los colaboradores');
     }

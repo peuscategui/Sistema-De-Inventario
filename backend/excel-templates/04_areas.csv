@@ -1,0 +1,9 @@
+id,nombre,descripcion,codigo,activo,gerenciaId
+1,Desarrollo,Área de Desarrollo de Software,DEV,true,1
+2,Infraestructura,Área de Infraestructura de TI,INF,true,1
+3,Soporte Técnico,Área de Soporte Técnico,SOP,true,1
+4,Seguridad,Área de Seguridad Informática,SEG,true,1
+5,Análisis de Datos,Área de Análisis de Datos,DAT,true,2
+6,Inteligencia de Negocios,Área de BI,BI,true,2
+7,Operaciones Comerciales,Área de Operaciones Comerciales,OPC,true,3
+8,Procesos,Área de Procesos,PRO,true,3 

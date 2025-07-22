@@ -1,0 +1,441 @@
+id,nombre,cargo,gerencia,sede
+1, Almacen ,Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+"2,
+Elizabeth Bravo De Rueda Dumett,Jefe De Compras Internacionales,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo"
+3,Abel  Pajuelo Sanchez ,Jefe De Logística De Producción,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+4,Adelaida Maribel  Quineche Colan ,Asistente De Tesoreria,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+5,Administracion,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+6,Adrián Balarezo Prado ,Trainee Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+7,Alann Ernesto  Reyes Jauregui ,Gerente De Proyectos Y Sistemas ,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+8,Alejandra Cecilia  Merchor Santana ,Coordinador De Proyectos Digitales,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+9,Alex Eduardo  Herrera Pachas ,Analista De Proyectos Y Procesos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+10,Alex Sebastian  Guerra Farfan ,Ejecutivo De Cuenta,Gerencia Comercial,Gerencia Comercial,Surquillo
+11,Allison Urbina,Analista De Proyectos Y Procesos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+12,Almacén Rlichui,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+13,Alonso Bernales,Practicante De Ti,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+14,Alonso Lozano ,Analista Jr. De Planeamiento De Stock,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+15,Alonso Quispe Martinez,Practicante De Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+16,Alonso Valdivia ,Cotizador,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+17,Alvaro Cayra,Auxiliar De Procesos De Servicio De Atención Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+18,Alvaro Quesada Nuñez,Jefe Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+19,Ammy Oliva,Kam,Gerencia Comercial,Gerencia Comercial,Surquillo
+20,Ana Maria  Bravo Salas ,Coordinador De Cotizaciones,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+21,Andrea Fasanando,Expeditador De Compras,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+22,Andres Correa,Practicante De Ti,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+23,Andy Alessandro Acevedo Cano ,Gestor De Servicio Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+24,Angela Felicitas  Caceres Zevallos ,Jefe De Gestion De La Informacion,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+25,Angi Milagros  Jimenez Venegas ,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+26,Angie Avila,Auxiliar De Contabilidad,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+27,Angie Stefany  Saenz Sanchez ,Analista Junior De Gdh,Direccion                                         ,Direccion                                         ,Surquillo
+28,Angie Valencia,Asistente De Compras,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+29,Antapaccay  - Efc Cusco,Asistente Logistico,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+30,Anthony  Quintana Rafael ,Analista Jr De E-Commerce,Gerencia Comercial,Gerencia Comercial,Surquillo
+31,Anthony Rolando  Lozano Torrejon ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+32,Antoni Francisco  Rafael Abad ,Comprador,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+33,Ap - Almacén 1,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+34,Ap - Almacen 2,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+35,Ap - Logistica De Produccion,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+36,Ap - Logística De Salida,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+37,Ap  Piso 3 Nuevo Comedor,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+38,Ap- Almacen,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+39,Ap Comercial 2 Piso,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+40,Ap Comercial 2 Piso,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+41,Ap Comercial 3 Piso,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+42,Ap Compras,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+43,Ap Escalera 3 Piso,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+44,Ap Gesco1,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+45,Ap Gesco2,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+46,Ap Importaciones,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+47,Ap Of.Quesada,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+48,Ap Oficina Arequipa,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+49,Ap Oficina Quesada,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+50,Ap Piso 1 Compras,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+51,Ap Piso 1 Importaciones,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+52,Ap Piso 1 Oficina Volante,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+53,Ap Piso 2 Administracion,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+54,Ap Piso 2 Contabilidad,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+55,Ap Piso 2 Sac,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+56,Ap Piso 2Gesco,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+57,Ap Piso 3 Comedor,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+58,Ap Piso 3 Gps,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+59,Ap Recepcion Piso 2,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+60,Ap Sala 1,Ap Sala 1,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+61,Ap Sala 2,Ap Sala 2,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+62,Ap Sala 3,Ap Sala 3,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+63,Ap Sala 4,Ap Sala 4,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+64,Ap Sala 5,Ap Sala 5,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+65,Ap Sistemas,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+66,Ap Tesoreria,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+67,Aranxa Carlos Reyes,Asistente De Marketing,Gerencia Comercial,Gerencia Comercial,Surquillo
+68,Ariana Caparó,Practicante De Direccion,Direccion,Direccion,Surquillo
+69,Arturo  Pastor Acasiete ,Recepcionista,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+70,Baja Soporte ,Soporte ,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+71,Brian Machuca,Coordinador De Alineamiento De Cadena,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+72,Brien Josep  Arias Prada ,Analista De Ocn,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+73,Cam  Ventas & Sac,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+74,Cam Colina,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+75,Cam Colina,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+76,Cam Comedor,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+77,Cam Externa Estacionamiento,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+78,Cam Gesco,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+79,Cam Guiado,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+80,Cam Of. Compras,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+81,Cam Of. Compras,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+82,Cam Of. Soporte,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+83,Cam Of. Tesoreria,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+84,Cam Of. Tesoreria,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+85,Cam Piso 1 Compras,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+86,Cam Piso 1 Importaciones,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+87,Cam Piso 1 Oficina Volante,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+88,Cam Piso 2 Administracion,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+89,Cam Piso 2 Comercial,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+90,Cam Piso 2 Contabilidad,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+91,Cam Piso 2 Sac,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+92,Cam Piso 2Gesco,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+93,Cam Piso 3 Comedor,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+94,Cam Piso 3 Gps,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+95,Cam Piso 3 Nuevo Comedor,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+96,Cam Piso 3 Nuevo Comedor,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+97,Cam Primer Piso Recepcion,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+98,Cam Sala 1,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+99,Cam Sala 2,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+100,Cam Sala 3,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+101,Cam Sala 4,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+102,Cam Sala 5,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+103,Cam Tercer Piso Comedor,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+104,Camara 1,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+105,Camara Ip11_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+106,Camara Ip13_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+107,Camara Ip15_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+108,Camara Ip3_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+109,Camara Ip4_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+110,Camara Ip6_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+111,Camera 01 Nvr Pulmon,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+112,Camera 01_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+113,Camera 01_Nvr Quesada,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+114,Camera 01_Nvr Quesada,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+115,Camera 01_Nvr Quesada,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+116,Camera 01_Nvr Quesada,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+117,Camera 01_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+118,Camera 01_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+119,Camera_01,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+120,Camera_02,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+121,Camera_03,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+122,Camera_04,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+123,Carla Boggiano (Externo),Analista De Planillas,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+124,Carlos Enrique  Baes Quispe ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+125,Carlos Manuel Soto Castillo,Analista De Gdn,Gerencia Comercial,Gerencia Comercial,Surquillo
+126,Carlos Neimel  Meza Espinoza ,Gestor De Caja Bancos,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+127,Carmen Andrea  Valenzuela Higinio ,Gestor De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+128,Carmen Medalit  Bueno Catter ,Gerentr De Excelencia Operacional,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+129,Carpinteria,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+130,Cecilia Jimena  Obando Contreras ,Cotizador Nacional,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+131,Cesar Callalli,Practicante De Sig,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+132,Cesar Eddie  Terrones Guimaray ,Expeditor De Compras,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+133,Cesar Orlando  Alarcon Espinoza ,Asistente De Facturacion Y Cobranzas,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+134,Channel-Zero1_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+135,Choferes,Choferes,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+136,Chorrillos Cho,Chorrillos Cho,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+137,Christian Remuzgo,Coordinador De Cotizaciones Internacionales,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+138,Cinthia Lorena  Condo Ayñayanque ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+139,Cinthya Lorena  Del Castillo Luis ,Coordinador De Operación Logística,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+140,Ciro Andres  Reyes Carrion ,Coordinador De Planeamiento,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+141,Claudia Sofia  Vera Arrascue ,Auxiliar De Maestro De Articulos,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+142,Clementina  Palacios Durand ,Asistente De Contabilidad,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+143,Cmara2_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+144,Cmara7_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+145,Cmara8_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+146,Comedor_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+147,Compras,Compras,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+148,Cynthia Lady  Acevedo Acuña ,Auxiliar De Logistica Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+149,Dante Muñoz,Abogado Externo,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+150,Dario Bedoya,Kam,Gerencia Comercial,Gerencia Comercial,Surquillo
+151,Data Center,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+152,Data Center Cho,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+153,Data Center Pulmon,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+154,Data Center Quesada,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+155,Data Center Surquillo,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+156,Datacenter,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+157,Datacenter Cho,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+158,David Abraham Taipe Silva,Asistente De Sistemas,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+159,David Alfonso  Melinchon Espinosa ,Gerente General,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+160,David Huaman ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+161,Deisy Carem  Garcia Ramos ,Asistente De Logistica Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+162,Derecha Externa,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+163,Despacho_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+164,Dharma Zorell Rubiños Guevara,Practicante De Proyectos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+165,Diego Santillan,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+166,Directorio Arequipa,Directorio Arequipa,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+167,Directorio Importaciones,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+168,Directorio Tercer Piso,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+169,Disa  Canteño Tolentino ,Auxiliar De Facturacion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+170,Dora Chacon Vela,Asistente De Logistica De Salida,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+171,Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+172,Eddy Roger  Cueva Chu ,Gestor De Maestro De Articulos,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+173,Edgard Paira,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+174,Eduardo Diaz Liquidacion Ruta,Asistente Administrativo De Logistica,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+175,Eduardo Enrique  Yamashiro Noel ,Analista De Gestión De La Información,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+176,Eduardo Salomon  Diaz Linares,Asistente Administrativo De Logistica De Salida,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+177,Eduardo Sulca,Practicante De Ti,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+178,Edward  Gonzales,Coordinador De Acuerdos Comerciales,Gerencia Comercial,Gerencia Comercial,Surquillo
+179,Efc Pasco ,Asistente Logistico,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+180,Eliana Lidia  Iraola Mayorca ,Recepcionista,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+181,Elizabeth Del Carmen  Samame Flores ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+182,Erick Fernando Tello Corpus,Practicante De Control Presupuestal Y Gestión,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+183,Erickson  Huapaya Villegas ,Gerente De Desarollo De Negocios,Gerencia Comercial,Gerencia Comercial,Surquillo
+184,Ermes Melinchon,Director Ejecutivo,Direccion                                         ,Direccion                                         ,Surquillo
+185,Ervin  Olayunca Zurita ,Coordinador De Operación Logística,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+186,Estanteria  2,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+187,Estanteria 1,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+188,Estanteria 2_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+189,Estanteria 3,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+190,Estefany Castro,Ejecutivo Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+191,Evelyn  Collado Bastidas ,Asistente De Procesos Sac,Gerencia Comercial,Gerencia Comercial,Surquillo
+192,Evelyn Amelia  Davila Murga ,Analista Senior Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+193,Evelyn Rossy  Becerra Saavedra ,Coordinadora De Tesoreria,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+194,Eymi Giselle  Aybar Del Aguila ,Ejecutiva Junior De Publicidad Y Marketing,Gerencia Comercial,Gerencia Comercial,Surquillo
+195,Ezviz Cs Cb1 Wifi,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+196,Ezviz Cs Cb1 Wifi,Tercer Piso ,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+197,Ezviz Cs-Cv246,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+198,Ezviz Cs-Cv246,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+199,Fabian Cerna,Asistente De Logística Inversa,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+200,Facturación,Facturacion,Gerencia De Administracion Y Finanzas,Gerencia De Administracion Y Finanzas,Surquillo
+201,Fanny Rosario  Manrique Caballero ,Lider De Logistica De Entrada,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+202,Felipe Santiago  Alvarez Castillo ,Asistente De Compras,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+203,Felix Arturo  Loza Ttito,Supervisor De Inventarios,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+204,Felix Melchor  Uriarte Barranzuela ,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+205,Flavio Rodolfo Balarezo Huayta,Practicante Administrativo De Gocn,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+206,Franck Arnold  Mattos Rojas ,Asistente De Logistica Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+207,Franklin Cuenca,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+208,Gabinete Compras,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+209,Gabinete Gesco,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+210,Gabinete Tercer Piso Comedor,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+211,Gabriela Julve Aguirre,Practicante De Proyectos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+212,Gavina Yanett  Nieves Hinojosa ,Ejecutivo De Cuenta,Gerencia Comercial,Gerencia Comercial,Surquillo
+213,German Mariano  Giraldo Cano ,Supervisor De Recepción Y Despacho,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+214,Gesco,Gesco,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+215,Gianella Lujan Luyo,Asistente De Documentación Técnica ,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+216,Giorgio Quintana,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+217,Gisella Mabel  Mogollon Marquez ,Asistente Administrativo,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+218,Gloria  Gutierrez Gutierrez ,Auxiliar De Facturacion Y Cobranzas,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+219,Gloria Vasquez Alarcon,Auxiliar Contable,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+220,Gonzalo Eduardo  Sanchez Alarcon ,Asesor Tecnico Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+221,Guadalupe Antaccasa Cayetano ,Auxiliar De Central De Pedidos,Gerencia Comercial,Gerencia Comercial,Surquillo
+222,Guiado,Asistente Logistico,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+223,Guiado,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+224,Guiado Edwin Calderon,Asistente Logistico,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+225,Hernan Andre  Reyes Salazar ,Analista De Operaciónes Logistica,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+226,Hever Diego  Alegria Alvarez ,Coordinador De Control Presupuestal Y De Gestion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+227,Huber Andy  Huayllasco Picon ,Asistente De Facturacion Y Cobranzas,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+228,Hugo  Almanza Quiroz ,Lider De Marketing,Gerencia Comercial,Gerencia Comercial,Surquillo
+229,Indicadores Comercial,Cotizador,Gerencia Comercial,Gerencia Comercial,Surquillo
+230,Infraestructura Monitoreo,Infraestructura,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+231,Ingreso Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+232,Ingreso_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+233,Inventario Almacen,Supervisor De Inventarios,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+234,Ipad 1,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+235,Ipad 2,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+236,Ipad 3,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+237,Ipcamera 08_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+238,Ivan Flores,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+239,Izquierda Externa,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+240,Jack Paira,Coordinador De Expedición,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+241,Jackelin Daisy  Baca Florentino ,Coordinador De Logística De Produccion,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+242,Janedy Renteria Mayhua,Practicante De Contabilidad,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+243,Javier Humberto  Valentin Calderon ,Coordinador De Proveedores,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+244,Jeffrey Jehu  Cahuana Llauce ,Analista Programador Junior,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+245,Jenny Patricia  Norabuena Cortez ,Comprador Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+246,Jerry Contreras,Asistente De Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+247,Jessica De La Flor,Externo,Direccion                                        ,Direccion                                        ,Surquillo
+248,Jessica Elizabeth  Piñas Mejía ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+249,Jesus Emilio  Murrugarra Ramirez ,Asistente De Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+250,Jesus Martin Segundo  Zevallos Aponte ,Asistente Logistico,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+251,Jheny Jhovani  Sandoval Vidaurre ,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+252,Jhon Gheiner  Salcedo Roman ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+253,Jimmy Junior  Gomez Vargas ,Coordinador De Gestion De La Informacion,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+254,Joel Canazaca,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+255,Johan Adolfo  Chipana Navarro ,Asistente De Lista De Precios,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+256,Jonathan Jesus Leyva Perez,Analista De Contabilidad,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+257,Jonathan Melvin Valencia Nieto,Líder Técnico Comercial Dei,Gerencia Comercial,Gerencia Comercial,Surquillo
+258,Jordi Huamani,Auxiliar De Central De Asignaciones,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+259,Jorge Eduardo  Salas Maldonado ,Coordinador De E-Commerce,Gerencia Comercial,Gerencia Comercial,Surquillo
+260,Jorge Enrique  Castañeda Arambulo ,Coordinador De Tic,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+261,Jorge Flores,Coordinador De Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+262,Jorge Luis  Mori Calagua ,Gestor De Caja Bancos,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+263,Jorge Rolando  Lopez Chavez ,Asesor Tecnico Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+264,Jose Alberto  Castillo Quino ,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+265,Jose Brian  Cruz Meza ,Analista Junior De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+266,Jose Enrique  Rengifo Lopez ,Jefe De Tic,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+267,Jose Luis  Campos Fernandez ,Gestor De Cuentas Por Pagar,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+268,Jose Miguel  Lopez Garcia ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+269,Jose Teobaldo  Coronado Arroyo ,Coordinador De Cadena Y Calidad De Procesos,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+270,Jose Zevallos,Practicante Pre Gdh,Direccion,Direccion,Surquillo
+271,Josefina  Vargas Ferrer ,Comprador Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+272,Joshua Orellana,Auxiliar De Cotizaciones,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+273,Juan Alberto  Hidalgo Gutierrez ,Coordinador De Cotizaciones,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+274,Juan Callupe,Gestor De Servicio De Atención Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+275,Juan Pablo Sanchez,Ejecutivo Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+276,Juaquin  Ramirez Cruz ,Cotizador Nacional,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+277,Julio Humberto  Tordoya Falcon ,Controller De Distribucion,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+278,Julisa Jeraly  Tejada Cotrina ,Gestor De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+279,July Giuliana  Salazar Ramos ,Coordinador De Sac,Gerencia Comercial,Gerencia Comercial,Surquillo
+280,Karen Andrea Carlos Nizana,Analista De Tesorería,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+281,Karlo Piero  Torres Gomez ,Asesor Tecnico Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+282,Katherine Esther  Lozada Flores ,Gerente De Ventas Y Sac,Gerencia Comercial,Gerencia Comercial,Surquillo
+283,Kelly Leon Tipte,Analista Jr De Gestión De La Información,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+284,Lactario,Lactario,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+285,Laura Rosa  Aranda Chavez,Coordinadora De Facturacion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+286,Lesly Adriana  Vidal Jaeger ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+287,Lesly Antonella  Vega Solorzano ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+288,Lisseth Medina,Asistenta Social,Direccion,Direccion,Surquillo
+289,Litzy Magaly  Salas Muñoz ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+290,Liz Eriely  Cardoso Hernandez ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+291,Lizbeth  Pallarta Mogollon ,Auxiliar De Logistica Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+292,Lizeth Karina  Neyra Fernandez ,Analista De Proyectos Y Procesos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+293,Logistica De Entrada,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+294,Logistica De Salida,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+295,Lorenzo Alfonso  Villanueva Ugaz ,Asistente De E-Commerce,Gerencia Comercial,Gerencia Comercial,Surquillo
+296,Lourdes Paulet,Auxiliar De Central De Pedidos,Gerencia Comercial,Gerencia Comercial,Surquillo
+297,Lucia  Grey Gutierrez ,Ejecutivo De Cuenta,Gerencia Comercial,Gerencia Comercial,Surquillo
+298,Lucy Arlin  Ordinola Juarez ,Analista Jr De Gestion Estrategica De Proveedores,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+299,Luis Alberto  Chevez Ramirez ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+300,Luis Alberto  Huaman Fuentes ,Jefe De Logistica De Salida,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+301,Luis Alberto Agustin  Benites Velasquez ,Ejecutivo De Cuenta,Gerencia Comercial,Gerencia Comercial,Surquillo
+302,Luis Egoavil,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+303,Luis Franco  Lara Seguil ,Analista De Sistemas,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+304,Luis Pablo  Peñaranda Talavera ,Analista De Operación Comercial Nacional Cotizaciones,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+305,Luz Marina  Rondon Soto ,Jefe De Finanzas,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+306,Luz Valeria  Azurin Lopez ,Auxiliar Administrativo De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+307,Manuel Jose Antonio  Berrospi Marin ,Analista De Sistemas,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+308,Marcador Primer Piso,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+309,Marcador Segundo Piso,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+310,Marco Antonio  De La Cruz Sanchez ,Controller De Distribucion,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+311,Maria Benites,Auxiliar De Central De Pedidos,Gerencia Comercial,Gerencia Comercial,Surquillo
+312,Maria Celia  Flores Salas ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+313,Maria De Los Angeles Palacios,Gestor De Servicio Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+314,Maria Del Carmen  Luna Legrand ,Gestor De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+315,Maria Fernanda  Pajares Corcuera ,Practicante De Sig,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+316,María Fernanda Huerta Vidales,Practicante De Operación Comercial,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+317,Maria Vergaray,Lider De Operación Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+318,Maribel  Aguilar Vargas ,Auxiliar Comercial,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+319,Mariela Rocio  Calderon Reynoso ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+320,Mario Galvan,Comprador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+321,Marisol Sabina  Martinez Huaman ,Ejecutivo De Cuentas,Gerencia Comercial,Gerencia Comercial,Surquillo
+322,Maritza Martinez Caycho,Coordinadora De Facturacion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+323,Maritza Miranda Solano,Ejecutivo De Cuenta,Gerencia Comercial,Gerencia Comercial,Surquillo
+324,Martin Zevallos Guiado,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+325,Maryoret  Osorio Gomez ,Auxiliar De Facturacion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+326,Mauricio Melinchon,Gerente Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+327,Melanie Ambar  Arcos Escobar ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+328,Melissa Naomi Endo Nakahodo,Asistente De Gdn,Gerencia Comercial,Gerencia Comercial,Surquillo
+329,Michael Eduardo  Noe Campos ,Ejecutivo De Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+330,Miguel Alonso  Cordova Vega ,Asistente De Devoluciones,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+331,Miguel Angel  Martinez Lopez ,Asistente De Ecommerce,Gerencia Comercial,Gerencia Comercial,Surquillo
+332,Miguel Martin  Chujutalli Palacios ,Gestor De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+333,Miguel Suchero,Lider De Ventas,Gerencia Comercial,Gerencia Comercial,Surquillo
+334,Mijail Huanca,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+335,Milagros  Antayhua Chipana ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+336,Milagros Chavely  Suarez Roque ,Auxiliar De Central De Pedidos,Gerencia Comercial,Gerencia Comercial,Surquillo
+337,Milagros Yessica  Rojas Rodriguez ,Asistente De Tesoreria,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+338,Miryam Patricia  Guzmán Cueva ,Jefe De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+339,Monitoreo Camaras Gol,Monitoreo Camaras Gol,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+340,Monitoreo Gps Chorrillos,Controller De Distribucion,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+341,Nadia Jacinta  Cuellar Luna ,Auxiliar De Central De Pedidos,Gerencia Comercial,Gerencia Comercial,Surquillo
+342,Nadia Stefany  Rodriguez Vega ,Analista Junior De Contabilidad,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+343,Nallely  Del Rocio Ruiz Jines,Asistente De Logística Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+344,Nathalia Stephania Ramos Moscoso,Gestor Sac,Gerencia Comercial,Gerencia Comercial,Surquillo
+345,Nelson  Rodriguez Vilchez ,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+346,Nvr Arequipa,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+347,Nvr Packing ,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+348,Nvr Pulmon,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+349,Nvr Quesada,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+350,Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+351,Of. Cusco,Of. Cusco,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+352,Of. Gesco,Of. Gesco,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+353,Of. Soporte,Of. Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+354,Oficina Arequipa,Administracion,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+355,Oficina B_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+356,Oficina De Gdh,Gdh,Direccion                                         ,Direccion                                         ,Surquillo
+357,Oficina Soporte,Oficina Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+358,Oficina Zorrila,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+359,Olenka Rondon,Analista De Reclutamiento Y Seleccion,Direccion,Direccion,Surquillo
+360,Operación Comercial,Operación Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+361,Operación Comercial,Oficina Arequipa,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+362,Oscar Damian  Huamanhorque Baca ,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+363,Oscar Felipe  Asencio Aranda ,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+364,Pacio 1B_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+365,Pacio 2A_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+366,Pacio 2B_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+367,Pacio 3_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+368,Pacio 4_Dvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+369,Packing,Packing,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+370,Pamela Lucero  Euscategui Barzola ,Coodinador De Redes E Infra,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+371,Paola Lucia Siria  Enero Vargas ,Key Account Manager,Gerencia Comercial,Gerencia Comercial,Surquillo
+372,Paola Rojas,Coordinador De Soporte De Negocios,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+373,Patio 1,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+374,Patio 2,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+375,Patricia Roxanna  Melinchon Espinosa ,Gerente De Operacion Comercial Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+376,Pc Bizneo,Gestion De Recursos Humanos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+377,Pc Comedor Chorrillos,Comedor,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+378,Pc-Devoluciones,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+379,Pedro Fabricio De Jesus  Leonardo Compan ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+380,Pedro Orlando  Roon Corilla ,Lidre De Ventas,Gerencia Comercial,Gerencia Comercial,Surquillo
+381,Pierina Emma Consuelo  Foppiano Rabinovi ,Gerencia General Adjunto,Direccion                                         ,Direccion                                         ,Surquillo
+382,Piero Giordang  Tang Vidal ,Gestor De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+383,Piso 03,Oficina Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+384,Poldar Gargarte,Cotizador,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+385,Primer Piso Compras,Primer Piso Compras,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+386,Programador Externo Carolina Reyes ,Externo,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+387,Rafael Gonzalo  Mur Calderon ,Jefe De Cotizaciones,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+388,Raul Alexis  Sanchez Zea ,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+389,Recepcion Packing,Asistente Logistico,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+390,Recepcion Packing (Inoperativo),Packing,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+391,Recepcion Stop_Nvr Zorrilla,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+392,Renato  Contreras Gastañadui ,Cotizador Internacionales ,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+393,Renato Nicolas  Donoso Geldres ,Analista Junion De Oficina De Control,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+394,Renzo Zegarra Ballon,Atc,Gerencia Comercial,Gerencia Comercial,Surquillo
+395,Ricardo Lichui,Operario De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+396,Ricardo Roberto  Roque Fernandez ,Analista Jr. De Sistema Integrado De Gestion,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+397,Roberto Pablo  Chang Corbetta ,Coordinador De Desarrollo Y Mantenimiento,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+398,Rocio Del Carmen  Medina Ninacondor ,Jefe De Logistica De Entrada,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+399,Rodolfo Antonio  Villasante Martinez ,Gerente De Operación Logistica,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+400,Rodrigo Alonso  Ravines Castañeda ,Gestor De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+401,Rodrigo Villalon Vilchez,Practicante De Proyectos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+402,Ronald Vladimir  Montoya Gamarra ,Planner De Distribucion,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+403,Rosa Veronica  Ramirez Jimenez ,Coordinador De Compras Y Logistica Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+404,Rosmery Awuapara,Practicante De Tesoreria,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+405,Roxana  Sevillano Manani ,Coordinador De Contabilidad,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+406,Segundo Piso Administracion,Segundo Piso Administracion,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+407,Sharon Porras,Gestor De Sac,Gerencia Comercial,Gerencia Comercial,Surquillo
+408,Silvia Pamela  Castañeda Ames ,Jefe De Sistemas Integrados De Gestion,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+409,Sol Sandoval Oré,Asistente De Lista De Precios ,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
+410,Soporte,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+411,Soporte,Vhs Brocal,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+412,Soporte,Oficina Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+413,Stock Arequipa,Lider Tecnico Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+414,Stock Soporte,Soporte ,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+415,Stock Soporte Data Center Chorrillos,Stock Soporte Data Center Chorrillos,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+416,Stock Soporte Data Center Chorrillos,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+417,Susan Jennifer  Ortiz Roncal ,Secretaria De Gerencia,Direccion                                         ,Direccion                                         ,Surquillo
+418,Sw Comedor,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+419,Tania Tueros,Auxiliar De Procesos De Servicios De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+420,Tercer Piso Comedor,Tercer Piso Comedor,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+421,Teresa Cecilia  Boza Rivera ,Jefe De Gestion Y Desarrollo Humano,Direccion                                         ,Direccion                                         ,Surquillo
+422,Tomasini Luis  Sanchez Alegre ,Analista De Sistemas,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+423,Uap-Ac-Lite,Soporte,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+424,Valeria Elvira  Huaman Rojas ,Practicante De Logistica De Entrada,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+425,Valeria Malpartida Chiscul,Asistente De Marketing,Gerencia Comercial,Gerencia Comercial,Surquillo
+426,Ventas & Sac,Ventas & Sac,Gerencia De Proyectos Y  Sistemas ,Gerencia De Proyectos Y  Sistemas ,Surquillo
+427,Veronica Cornejo,Analista De Planillas,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+428,Vhs Brocal,Vhs Brocal,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+429,Victor Manuel  Panebra Chavez ,Asistente De Contabilidad,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Surquillo
+430,Vigilancia Chorrillos,Vigilancia,Gerencia De Administracion Y Finanzas             ,Gerencia De Administracion Y Finanzas             ,Chorrillos
+431,Vivian Moscoso,Expeditor De Compras,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+432,Viviana Martinez Huachaca,Cotizador Internacional,Gerencia De Operación Comercial Internacional,Gerencia De Operación Comercial Internacional,Surquillo
+433,Walter Alexis Castillo,Cotizador Senior,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+434,Wendy Maribel  Candela Carbonel ,Cotizador Nacional,Gerencia De Operación Comercial Nacional,Gerencia De Operación Comercial Nacional,Surquillo
+435,Wilbert Arturo  Galdos Ojeda ,Lider Tecnico Comercial,Gerencia Comercial,Gerencia Comercial,Surquillo
+436,Wilfredo Andres  Floriano Rivas ,Programador De Distribucion,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+437,Yasmin Rossylin  Ccasihue Sauñe ,Gestor De Servicio De Atencion Al Cliente,Gerencia Comercial,Gerencia Comercial,Surquillo
+438,Yessit  Monteagudo Gongora - Almacen 5,Supervisor De Almacen,Gerencia De Operaciones Logisticas,Gerencia De Operaciones Logisticas,Chorrillos
+439,Yoselyn Salinas,Expeditor De Compras,Gerencia De Excelencia Operacional,Gerencia De Excelencia Operacional,Surquillo
