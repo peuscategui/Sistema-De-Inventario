@@ -600,7 +600,7 @@ export default function InventarioPage() {
           setEditItem(null);
         }}
         onSubmit={handleModalSubmit}
-        inventario={editItem}
+        inventario={editItem as any}
         isSubmitting={isSubmitting}
       />
       <InventarioDetalleModal
@@ -609,7 +609,7 @@ export default function InventarioPage() {
           setDetalleModalOpen(false);
           setSelectedItem(null);
         }}
-        item={selectedItem}
+        item={selectedItem as any}
       />
     </div>
   );
