@@ -6,14 +6,14 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 # Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar todo el proyecto
-COPY . .
-
-# Cambiar al directorio frontend
-WORKDIR /app/frontend
+# Copiar archivos de dependencias
+COPY frontend/package*.json ./
 
 # Instalar dependencias
 RUN npm install --legacy-peer-deps
+
+# Copiar el resto del código del frontend
+COPY frontend/ .
 
 # Variables de entorno para build
 ARG NEXT_PUBLIC_API_URL
