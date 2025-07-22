@@ -61,8 +61,12 @@ interface DonacionItem {
   precioUnitarioSinIgv: number | null;
   fechaDonacion: string | null;
   motivoDonacion: string | null;
+  // Campos de relación
   clasificacion: Clasificacion | null;
   empleado: Empleado | null;
+  // Campos ID para compatibilidad
+  clasificacionId: number | null;
+  empleadoId: number | null;
 }
 
 interface Filters {
@@ -378,7 +382,7 @@ export default function DonacionesPage() {
           setDetalleModalOpen(false);
           setSelectedDonacion(null);
         }}
-        item={selectedDonacion}
+        item={selectedDonacion as any}
       />
     </div>
   );
