@@ -386,18 +386,18 @@ export default function BajasPage() {
 
       {/* Tabla */}
       <div className="overflow-x-auto bg-white rounded-lg shadow">
-        <table className="min-w-full">
-          <thead>
-            <tr className="bg-primary/10 border-b">
-              <th className="py-3 px-4 text-left uppercase">Código EFC</th>
-              <th className="py-3 px-4 text-left uppercase">Tipo Equipo</th>
-              <th className="py-3 px-4 text-left uppercase">Marca</th>
-              <th className="py-3 px-4 text-left uppercase">Modelo</th>
-              <th className="py-3 px-4 text-left uppercase">Serie</th>
-              <th className="py-3 px-4 text-left uppercase">Sede</th>
-              <th className="py-3 px-4 text-left uppercase">Fecha Baja</th>
-              <th className="py-3 px-4 text-left uppercase">Motivo Baja</th>
-              <th className="py-3 px-4 text-left uppercase">Acciones</th>
+        <table className="min-w-full text-sm">
+          <thead className="bg-gray-100 text-gray-600 font-semibold">
+            <tr>
+              <th className="py-3 px-4 text-left">Código EFC</th>
+              <th className="py-3 px-4 text-left">Tipo de Equipo</th>
+              <th className="py-3 px-4 text-left">Marca</th>
+              <th className="py-3 px-4 text-left">Modelo</th>
+              <th className="py-3 px-4 text-left">Serie</th>
+              <th className="py-3 px-4 text-left">Sede</th>
+              <th className="py-3 px-4 text-left">Fecha de Baja</th>
+              <th className="py-3 px-4 text-left">Motivo de Baja</th>
+              <th className="py-3 px-4 text-left">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -422,7 +422,6 @@ export default function BajasPage() {
                     >
                       <Eye size={20} />
                     </button>
-                    {/* CORREGIDO: Agregar botón de editar */}
                     <button
                       onClick={() => openEditModal(baja)}
                       className="text-green-600 hover:text-green-800"
@@ -453,79 +452,6 @@ export default function BajasPage() {
         item={selectedBaja as any}
       />
 
-      {/* CORREGIDO: Agregar modal de edición */}
-      <EditBajaModal
-        isOpen={editModalOpen}
-        onClose={() => {
-          setEditModalOpen(false);
-          setEditBaja(null);
-        }}
-        onSubmit={handleEditSubmit}
-        baja={editBaja ? {
-          id: editBaja.id,
-          codigoEFC: editBaja.codigoEFC || '',
-          fechaBaja: editBaja.fechaBaja || '',
-          motivoBaja: editBaja.motivoBaja || '',
-        } : undefined}
-        isSubmitting={isSubmitting}
-      />
-    </div>
-  );
-} 
-          <tbody>
-            {bajas.map((baja) => (
-              <tr key={baja.id} className="border-t hover:bg-gray-50">
-                <td className="py-3 px-4 uppercase">{baja.codigoEFC || '-'}</td>
-                <td className="py-3 px-4 uppercase">{baja.tipoEquipo || '-'}</td>
-                <td className="py-3 px-4 uppercase">{baja.marca || '-'}</td>
-                <td className="py-3 px-4 uppercase">{baja.modelo || '-'}</td>
-                <td className="py-3 px-4 uppercase">{baja.serie || '-'}</td>
-                <td className="py-3 px-4 uppercase">{baja.sede || '-'}</td>
-                <td className="py-3 px-4 uppercase">
-                  {baja.fechaBaja ? new Date(baja.fechaBaja).toLocaleDateString() : '-'}
-                </td>
-                <td className="py-3 px-4 uppercase">{baja.motivoBaja || '-'}</td>
-                <td className="py-3 px-4">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => openDetalleModal(baja)}
-                      className="text-blue-600 hover:text-blue-800"
-                      title="Ver detalles"
-                    >
-                      <Eye size={20} />
-                    </button>
-                    {/* CORREGIDO: Agregar botón de editar */}
-                    <button
-                      onClick={() => openEditModal(baja)}
-                      className="text-green-600 hover:text-green-800"
-                      title="Editar baja"
-                    >
-                      <Edit size={20} />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {bajas.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No se encontraron bajas</p>
-          </div>
-        )}
-      </div>
-
-      <InventarioDetalleModal
-        isOpen={detalleModalOpen}
-        onClose={() => {
-          setDetalleModalOpen(false);
-          setSelectedBaja(null);
-        }}
-        item={selectedBaja as any}
-      />
-
-      {/* CORREGIDO: Agregar modal de edición */}
       <EditBajaModal
         isOpen={editModalOpen}
         onClose={() => {
