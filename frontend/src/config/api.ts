@@ -4,13 +4,18 @@ const developmentUrl = 'http://localhost:3002';
 
 // En producción, SIEMPRE usar la variable de entorno.
 // En desarrollo, usar la variable de entorno si está definida, si no, usar localhost.
-export const API_BASE_URL = isProduction 
-  ? process.env.NEXT_PUBLIC_API_URL
-  : (process.env.NEXT_PUBLIC_API_URL || developmentUrl);
+const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+if (isProduction && !configuredApiUrl) {
+  console.error('⚠️ NEXT_PUBLIC_API_URL no está configurada en producción');
+}
+
+export const API_BASE_URL = configuredApiUrl || developmentUrl;
 
 // Debug: Mostrar la URL que se está usando
 console.log('🔧 Entorno:', process.env.NODE_ENV);
 console.log('🔧 API_BASE_URL configurada:', API_BASE_URL);
+console.log('🔧 NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
 
 // URLs específicas del API - Usando detección automática de entorno
 export const API_ENDPOINTS = {
