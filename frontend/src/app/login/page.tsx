@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { API_ENDPOINTS } from '@/config/api';
+import { API_ENDPOINTS, API_BASE_URL } from '@/config/api';
 import Image from 'next/image';
 
 export default function LoginPage() {
@@ -20,13 +20,22 @@ export default function LoginPage() {
     setError('');
 
     try {
+      console.log('🔧 API Base URL:', API_BASE_URL);
+      console.log('🔧 Auth Endpoint:', API_ENDPOINTS.auth);
+      
       const response = await fetch(`${API_ENDPOINTS.auth}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al iniciar sesión');
+      }
 
       const data = await response.json();
 
