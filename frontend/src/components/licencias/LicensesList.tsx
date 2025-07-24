@@ -17,6 +17,8 @@ interface Licencia {
   asignadoA?: string;
   area?: { id: number; nombre: string };
   gerencia?: { id: number; nombre: string };
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface LicensesListProps {

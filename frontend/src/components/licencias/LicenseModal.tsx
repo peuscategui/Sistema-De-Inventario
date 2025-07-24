@@ -22,6 +22,8 @@ interface Licencia {
   gerenciaId?: number;
   area?: { id: number; nombre: string };
   gerencia?: { id: number; nombre: string };
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface Area {
