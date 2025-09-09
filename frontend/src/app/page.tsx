@@ -9,6 +9,7 @@ interface DashboardStats {
   totalEquipos: number;
   porcentajeBuenEstado: number;
   equiposObsoletos: number;
+  totalBajas: number;
   familiaMasComun: {
     familia: string;
     _count: {
@@ -113,8 +114,8 @@ export default function HomePage() {
   return (
     <div className="space-y-6 p-6">
       {/* Resumen General */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Total de Equipos</h3>
           <p className="text-3xl font-bold text-gray-900">{stats.totalEquipos.toLocaleString()}</p>
           <p className="text-gray-600 mt-1">Equipos registrados</p>
@@ -124,12 +125,17 @@ export default function HomePage() {
           <p className="text-3xl font-bold text-gray-900">{stats.porcentajeBuenEstado}%</p>
           <p className="text-gray-600 mt-1">Del total de equipos</p>
         </div>
-        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-yellow-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Equipos Obsoletos</h3>
           <p className="text-3xl font-bold text-gray-900">{stats.equiposObsoletos.toLocaleString()}</p>
           <p className="text-gray-600 mt-1">Requieren actualización</p>
         </div>
-        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-red-500 hover:shadow-xl transition-all">
+          <h3 className="text-lg font-semibold mb-2 text-gray-700">Total de Bajas</h3>
+          <p className="text-3xl font-bold text-gray-900">{stats.totalBajas.toLocaleString()}</p>
+          <p className="text-gray-600 mt-1">Equipos dados de baja</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Familia más Común</h3>
           <p className="text-xl font-bold text-gray-900">{stats.familiaMasComun?.familia || 'No hay datos'}</p>
           <p className="text-gray-600 mt-1">
