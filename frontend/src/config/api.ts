@@ -8,9 +8,11 @@ const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 if (isProduction && !configuredApiUrl) {
   console.error('⚠️ NEXT_PUBLIC_API_URL no está configurada en producción');
+  throw new Error('NEXT_PUBLIC_API_URL debe estar configurada en producción');
 }
 
-export const API_BASE_URL = configuredApiUrl || developmentUrl;
+// Forzar el uso de la variable de entorno en producción
+export const API_BASE_URL = isProduction ? configuredApiUrl : (configuredApiUrl || developmentUrl);
 
 // Debug: Mostrar la URL que se está usando
 console.log('🔧 Entorno:', process.env.NODE_ENV);

@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   
   // Variables de entorno públicas
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://192.168.40.79:3002',
   },
   
   // Configuración de experimental features
