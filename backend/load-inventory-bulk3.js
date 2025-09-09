@@ -25,12 +25,7 @@ function cleanValue(val) {
 function cleanPrice(price) {
   if (!price) return null;
   // Eliminar el símbolo $, las comas y los espacios
-  const cleaned = price.toString().replace(/[$,\s]/g, '');
-  // Si hay un punto decimal, mantenerlo
-  if (cleaned.includes('.')) {
-    return parseFloat(cleaned);
-  }
-  return parseInt(cleaned);
+  return price.replace(/[$,\s]/g, '');
 }
 
 function cleanId(id) {
@@ -91,7 +86,6 @@ async function loadInventory() {
         // Limpiar los valores
         values = values.map(val => cleanValue(val));
 
-        // Asignar valores específicos para laptops
         const query = `
           INSERT INTO inventory (
             "codigoEFC", marca, modelo, descripcion, serie, procesador, 
@@ -106,7 +100,23 @@ async function loadInventory() {
           )
         `;
 
-        // Asignar clasificacionId = 6 (Laptop) para todos los registros
+        // Encontrar el índice del precio y limpiarlo especialmente
+        const precioIndex = headers.findIndex(h => h === 'precioUnitarioSinIgv');
+        if (precioIndex >= 0 && values[precioIndex]) {
+          values[precioIndex] = cleanPrice(values[precioIndex]);
+        }
+
+        // Encontrar y limpiar los IDs
+        const clasificacionIdIndex = headers.findIndex(h => h === 'clasificacionId');
+        const empleadoIdIndex = headers.findIndex(h => h === 'empleadoId');
+
+        if (clasificacionIdIndex >= 0 && values[clasificacionIdIndex]) {
+          values[clasificacionIdIndex] = cleanId(values[clasificacionIdIndex]);
+        }
+        if (empleadoIdIndex >= 0 && values[empleadoIdIndex]) {
+          values[empleadoIdIndex] = cleanId(values[empleadoIdIndex]);
+        }
+
         const params = [
           values[0],                    // codigoEFC
           values[1],                    // marca
@@ -123,7 +133,7 @@ async function loadInventory() {
           values[12],                   // ubicacionEquipo
           values[13] ? parseInt(values[13]) : null, // qUsuarios
           values[14],                   // condicion
-          values[15] === 'SI',          // repotenciadas
+          false,                        // repotenciadas (default false)
           values[16],                   // clasificacionObsolescencia
           values[17],                   // clasificacionRepotenciadas
           values[18],                   // motivoCompra
@@ -132,9 +142,9 @@ async function loadInventory() {
           values[21] ? parseInt(values[21]) : null, // anioCompra
           values[22],                   // observaciones
           values[23] ? excelDateToJSDate(parseInt(values[23])) : null, // fecha_compra
-          cleanPrice(values[24]),       // precioUnitarioSinIgv
-          6,                           // clasificacionId (6 = Laptop)
-          values[26] ? parseInt(values[26]) : null  // empleadoId
+          values[24],                   // precioUnitarioSinIgv (ya limpio)
+          values[25],                   // clasificacionId (ya limpio)
+          values[26]                    // empleadoId (ya limpio)
         ];
 
         await client.query(query, params);

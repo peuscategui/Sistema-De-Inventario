@@ -36,6 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [permissions, setPermissions] = useState<Permission[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -43,6 +44,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const initAuth = async () => {
+      if (isInitialized) return;
+
       const token = localStorage.getItem('access_token');
       const savedUser = localStorage.getItem('user');
       const savedPermissions = localStorage.getItem('permissions');
@@ -80,11 +83,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         router.push('/login');
       }
       
+      setIsInitialized(true);
       setIsLoading(false);
     };
 
     initAuth();
-  }, [pathname, router]);
+  }, [pathname, router, isInitialized]);
 
   const login = async (token: string) => {
     try {

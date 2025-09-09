@@ -10,14 +10,25 @@ const client = new Client({
   password: 'postgres'
 });
 
+function excelDateToJSDate(excelDate) {
+  if (!excelDate) return null;
+  const date = new Date((excelDate - 25569) * 86400 * 1000);
+  return date.toISOString().split('T')[0];
+}
+
 async function loadInventory() {
   try {
     console.log('🔄 Conectando a la base de datos...');
     await client.connect();
     console.log('✅ Conexión exitosa');
 
+    // Limpiar tabla inventory primero
+    console.log('\n🧹 Limpiando tabla inventory...');
+    await client.query('DELETE FROM inventory');
+    console.log('✅ Tabla inventory limpiada');
+
     // Leer el archivo CSV
-    const csvPath = path.join(__dirname, 'excel-templates', '05_inventory.csv');
+    const csvPath = path.join(__dirname, 'excel-templates', '05_inventory_fixed.csv');
     console.log(`\n📂 Leyendo archivo: ${csvPath}`);
     
     const csvContent = fs.readFileSync(csvPath, 'utf8');
@@ -53,6 +64,9 @@ async function loadInventory() {
           )
         `;
 
+        // Convertir fecha de Excel a formato ISO
+        const fechaCompra = cleanValues[23] ? excelDateToJSDate(parseInt(cleanValues[23])) : null;
+
         const params = [
           cleanValues[0],                    // codigoEFC
           cleanValues[1],                    // marca
@@ -77,8 +91,8 @@ async function loadInventory() {
           cleanValues[20],                   // factura
           cleanValues[21] ? parseInt(cleanValues[21]) : null, // anioCompra
           cleanValues[22],                   // observaciones
-          cleanValues[23],                   // fecha_compra
-          cleanValues[24] ? cleanValues[24].replace('$', '').replace(',', '') : null, // precioUnitarioSinIgv
+          fechaCompra,                       // fecha_compra
+          cleanValues[24],                   // precioUnitarioSinIgv
           cleanValues[25] ? parseInt(cleanValues[25]) : null, // clasificacionId
           cleanValues[26] ? parseInt(cleanValues[26]) : null  // empleadoId
         ];
@@ -89,6 +103,7 @@ async function loadInventory() {
 
       } catch (error) {
         console.error(`❌ Error en línea ${count + 2}:`, error.message);
+        console.error('Datos:', line);
       }
     }
 

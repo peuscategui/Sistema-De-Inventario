@@ -15,20 +15,22 @@ RUN npm install --legacy-peer-deps
 # Copiar el resto del código del frontend
 COPY frontend/ .
 
-# Variables de entorno para build
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+# Variables de entorno para build y runtime
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3005
+ENV HOSTNAME=0.0.0.0
 
-# Construir la aplicación
+# La variable NEXT_PUBLIC_API_URL debe ser proporcionada durante el build
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
+# Limpiar caché y construir la aplicación
+RUN rm -rf .next
 RUN npm run build
 
 # Exponer puerto
-EXPOSE 3000
+EXPOSE 3005
 
-# Variables de entorno
-ENV PORT=3000
-
-# Comando para iniciar
-CMD ["npm", "start"] 
+# Comando para iniciar con hostname específico
+CMD ["npm", "start", "--", "--hostname", "0.0.0.0", "--port", "3005"] 

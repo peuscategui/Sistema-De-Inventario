@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { AreasModule } from './areas/areas.module';
 import { GerenciasModule } from './gerencias/gerencias.module';
 import { LicenciasModule } from './licencias/licencias.module';
+import { TicketsModule } from './tickets/tickets.module';
 import { join } from 'path';
 
 @Module({
@@ -43,6 +44,7 @@ import { join } from 'path';
     AreasModule,
     GerenciasModule,
     LicenciasModule,
+    TicketsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

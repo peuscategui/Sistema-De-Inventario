@@ -25,12 +25,7 @@ function cleanValue(val) {
 function cleanPrice(price) {
   if (!price) return null;
   // Eliminar el símbolo $, las comas y los espacios
-  const cleaned = price.toString().replace(/[$,\s]/g, '');
-  // Si hay un punto decimal, mantenerlo
-  if (cleaned.includes('.')) {
-    return parseFloat(cleaned);
-  }
-  return parseInt(cleaned);
+  return price.replace(/[$,\s]/g, '');
 }
 
 function cleanId(id) {
@@ -53,7 +48,7 @@ async function loadInventory() {
     console.log('✅ Tabla inventory limpiada');
 
     // Leer el archivo CSV
-    const csvPath = path.join(__dirname, 'excel-templates', '05_inventory.csv');
+    const csvPath = path.join(__dirname, 'excel-templates', '05_inventory_fixed.csv');
     console.log(`\n📂 Leyendo archivo: ${csvPath}`);
     
     const csvContent = fs.readFileSync(csvPath, 'utf8');
@@ -132,7 +127,7 @@ async function loadInventory() {
           values[21] ? parseInt(values[21]) : null, // anioCompra
           values[22],                   // observaciones
           values[23] ? excelDateToJSDate(parseInt(values[23])) : null, // fecha_compra
-          cleanPrice(values[24]),       // precioUnitarioSinIgv
+          values[24],                   // precioUnitarioSinIgv
           6,                           // clasificacionId (6 = Laptop)
           values[26] ? parseInt(values[26]) : null  // empleadoId
         ];

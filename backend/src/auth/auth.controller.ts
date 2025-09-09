@@ -55,19 +55,25 @@ export class AuthController {
       this.logger.log('Callback de Microsoft recibido');
       
       const frontendUrl = this.configService.get('FRONTEND_URL') || 'http://localhost:3000';
+      this.logger.log(`Frontend URL: ${frontendUrl}`);
       
       if (!req.user) {
         this.logger.error('No user found in Microsoft callback');
         return res.redirect(`${frontendUrl}/login?error=authentication_failed`);
       }
 
+      this.logger.log(`Usuario recibido de Microsoft: ${JSON.stringify(req.user)}`);
+
       // Generar JWT token
       const authResult = await this.authService.login(req.user);
       
       this.logger.log(`Usuario autenticado: ${req.user.email}`);
+      this.logger.log(`Token generado: ${authResult.access_token.substring(0, 20)}...`);
       
       // Redirigir al frontend con el token
       const redirectUrl = `${frontendUrl}/auth/callback?token=${authResult.access_token}&user=${encodeURIComponent(JSON.stringify(authResult.user))}`;
+      this.logger.log(`Redirigiendo a: ${redirectUrl.substring(0, 100)}...`);
+      
       res.redirect(redirectUrl);
       
     } catch (error) {

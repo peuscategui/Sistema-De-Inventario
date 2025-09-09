@@ -1,61 +1,81 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function AuthCallbackPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { login } = useAuth();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('Procesando autenticación...');
+  const isProcessing = useRef(false);
 
   useEffect(() => {
-    const token = searchParams?.get('token');
-    const userParam = searchParams?.get('user');
-    const error = searchParams?.get('error');
+    const processAuth = async () => {
+      if (isProcessing.current) return;
+      isProcessing.current = true;
 
-    if (error) {
-      setStatus('error');
-      setMessage(`Error en la autenticación: ${error}`);
-      setTimeout(() => {
-        router.push('/login');
-      }, 3000);
-      return;
-    }
+      const token = searchParams?.get('token');
+      const userParam = searchParams?.get('user');
+      const error = searchParams?.get('error');
 
-    if (token && userParam) {
-      try {
-        // Decodificar información del usuario
-        const user = JSON.parse(decodeURIComponent(userParam));
-        
-        // Guardar token y usuario en localStorage
-        localStorage.setItem('authToken', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        
-        setStatus('success');
-        setMessage(`¡Bienvenido, ${user.fullName || user.username}!`);
-        
-        // Redirigir al dashboard después de 2 segundos
-        setTimeout(() => {
-          router.push('/');
-        }, 2000);
-        
-      } catch (error) {
-        console.error('Error procesando callback:', error);
+      console.log('Token recibido:', token ? 'Sí' : 'No');
+      console.log('User param recibido:', userParam ? 'Sí' : 'No');
+      console.log('Error recibido:', error || 'No');
+
+      if (error) {
+        console.error('Error de autenticación:', error);
         setStatus('error');
-        setMessage('Error al procesar la información de autenticación');
+        setMessage(`Error en la autenticación: ${error}`);
         setTimeout(() => {
           router.push('/login');
         }, 3000);
+        return;
       }
-    } else {
-      setStatus('error');
-      setMessage('Información de autenticación incompleta');
-      setTimeout(() => {
-        router.push('/login');
-      }, 3000);
-    }
-  }, [searchParams, router]);
+
+      if (token && userParam) {
+        try {
+          // Decodificar información del usuario
+          const user = JSON.parse(decodeURIComponent(userParam));
+          console.log('Usuario decodificado:', user);
+          
+          // Usar el contexto de autenticación para manejar el login
+          await login(token);
+          console.log('Login exitoso');
+          setStatus('success');
+          setMessage(`¡Bienvenido, ${user.fullName || user.username}!`);
+          
+          // Redirigir al dashboard después de 2 segundos
+          setTimeout(() => {
+            console.log('Redirigiendo al dashboard...');
+            router.push('/');
+            isProcessing.current = false;
+          }, 2000);
+          
+        } catch (error) {
+          console.error('Error procesando callback:', error);
+          setStatus('error');
+          setMessage('Error al procesar la información de autenticación');
+          setTimeout(() => {
+            router.push('/login');
+            isProcessing.current = false;
+          }, 3000);
+        }
+      } else {
+        console.error('Información de autenticación incompleta');
+        setStatus('error');
+        setMessage('Información de autenticación incompleta');
+        setTimeout(() => {
+          router.push('/login');
+          isProcessing.current = false;
+        }, 3000);
+      }
+    };
+
+    processAuth();
+  }, [searchParams, router, login]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

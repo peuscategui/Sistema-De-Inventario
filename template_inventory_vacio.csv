@@ -1,6 +1,0 @@
-codigoEFC,marca,modelo,descripcion,serie,procesador,anio,ram,discoDuro,sistemaOperativo,status,estado,ubicacionEquipo,qUsuarios,condicion,repotenciadas,clasificacionObsolescencia,clasificacionRepotenciadas,motivoCompra,proveedor,factura,anioCompra,observaciones,fecha_compra,precioUnitarioSinIgv,clasificacionId,empleadoId
-EFC-NEW-001,,,,,,,,,,,,,,,FALSE,Normal,N/A,,,,,,,,,
-EFC-NEW-002,,,,,,,,,,,,,,,FALSE,Normal,N/A,,,,,,,
-EFC-NEW-003,,,,,,,,,,,,,,,FALSE,Normal,N/A,,,,,,,
-EFC-NEW-004,,,,,,,,,,,,,,,FALSE,Normal,N/A,,,,,,,
-EFC-NEW-005,,,,,,,,,,,,,,,FALSE,Normal,N/A,,,,,,, 

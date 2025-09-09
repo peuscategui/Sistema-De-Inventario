@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { API_ENDPOINTS } from '@/config/api';
+import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface DashboardStats {
   totalEquipos: number;
@@ -44,13 +46,19 @@ export default function HomePage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { authenticatedFetch } = useAuthenticatedFetch();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
+      if (!isAuthenticated) {
+        return;
+      }
+
       try {
         const [statsResponse, distribucionResponse] = await Promise.all([
-          fetch(API_ENDPOINTS.dashboard),
-          fetch(API_ENDPOINTS.dashboardDistribucion)
+          authenticatedFetch(API_ENDPOINTS.dashboard),
+          authenticatedFetch(API_ENDPOINTS.dashboardDistribucion)
         ]);
 
         if (!statsResponse.ok || !distribucionResponse.ok) {
@@ -73,7 +81,7 @@ export default function HomePage() {
     };
 
     fetchDashboardData();
-  }, []);
+  }, [authenticatedFetch, isAuthenticated]);
 
   if (loading) {
     return (
