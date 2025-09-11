@@ -14,14 +14,14 @@ export class DashboardController {
       // Total de equipos en buen estado (OPERATIVO)
       const equiposBuenEstado = await this.prisma.inventory.count({
         where: {
-          estado: 'OPERATIVO'
+          condicion: 'OPERATIVO'
         }
       });
 
-      // Total de equipos obsoletos
+      // Total de equipos obsoletos (por condición)
       const equiposObsoletos = await this.prisma.inventory.count({
         where: {
-          estado: 'OBSOLETO'
+          condicion: 'OBSOLETA'
         }
       });
 
@@ -44,11 +44,11 @@ export class DashboardController {
 
       // Obtener el nombre de la clasificación más común
       let familiaMasComunNombre = 'N/A';
-      if (familiaMasComun.length > 0) {
+      if (familiaMasComun.length > 0 && familiaMasComun[0].clasificacionId) {
         const clasificacion = await this.prisma.clasificacion.findUnique({
           where: { id: familiaMasComun[0].clasificacionId }
         });
-        familiaMasComunNombre = clasificacion?.nombre || 'N/A';
+        familiaMasComunNombre = clasificacion?.familia || 'N/A';
       }
 
       // Total de bajas (equipos con estado BAJA)
@@ -103,7 +103,7 @@ export class DashboardController {
       const clasificaciones = await this.prisma.clasificacion.findMany({
         select: {
           id: true,
-          nombre: true
+          familia: true
         }
       });
 
@@ -111,7 +111,7 @@ export class DashboardController {
       const resultado = distribucion.map(item => {
         const clasificacion = clasificaciones.find(c => c.id === item.clasificacionId);
         return {
-          familia: clasificacion?.nombre || 'Sin clasificar',
+          familia: clasificacion?.familia || 'Sin clasificar',
           _count: { id: item._count.id }
         };
       });

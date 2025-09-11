@@ -198,13 +198,17 @@ export class InventoryController {
   @Put(':id')
   async update(@Param('id') id: string, @Body() data: UpdateInventoryDto) {
     try {
-      console.log('Datos recibidos en el controlador update:', data);
-      console.log('ID:', id);
+      console.log('🔍 DEBUG: ===== ACTUALIZACIÓN DE INVENTARIO =====');
+      console.log('🔍 DEBUG: ID del inventario:', id);
+      console.log('🔍 DEBUG: Datos recibidos en el controlador update:', JSON.stringify(data, null, 2));
+      console.log('🔍 DEBUG: empleadoId específico:', data.empleadoId);
+      console.log('🔍 DEBUG: Tipo de empleadoId:', typeof data.empleadoId);
+      
       const result = await this.inventoryService.update(Number(id), data);
-      console.log('Resultado del servicio update:', result);
+      console.log('🔍 DEBUG: Resultado del servicio update:', JSON.stringify(result, null, 2));
       return result;
     } catch (error) {
-      console.error('Error en el controlador update:', error);
+      console.error('❌ ERROR: Error en el controlador update:', error);
       throw error;
     }
   }

@@ -212,10 +212,16 @@ export class InventoryService {
 
   async update(id: number, data: any) {
     try {
-      console.log('Datos recibidos en el servicio update:', data);
-      console.log('ID a actualizar:', id);
+      console.log('🔍 DEBUG: ===== SERVICIO UPDATE INVENTARIO =====');
+      console.log('🔍 DEBUG: ID a actualizar:', id);
+      console.log('🔍 DEBUG: Datos recibidos en el servicio update:', JSON.stringify(data, null, 2));
+      console.log('🔍 DEBUG: empleadoId específico en servicio:', data.empleadoId);
+      console.log('🔍 DEBUG: Tipo de empleadoId en servicio:', typeof data.empleadoId);
       
       const { articuloId, empleadoId, clasificacionId, fecha_compra, ...inventoryData } = data;
+      
+      console.log('🔍 DEBUG: empleadoId extraído:', empleadoId);
+      console.log('🔍 DEBUG: Tipo de empleadoId extraído:', typeof empleadoId);
       
       // La fecha_compra no debe ser editable, se excluye de las actualizaciones
       console.log('articuloId excluido de la actualización:', articuloId);
@@ -265,6 +271,11 @@ export class InventoryService {
         }
       }
       
+      console.log('🔍 DEBUG: Construyendo dataToUpdate...');
+      console.log('🔍 DEBUG: empleadoId para connect/disconnect:', empleadoId);
+      console.log('🔍 DEBUG: ¿empleadoId es truthy?', !!empleadoId);
+      console.log('🔍 DEBUG: ¿empleadoId es null?', empleadoId === null);
+      
       const dataToUpdate = {
         ...inventoryData,
         status,
@@ -280,7 +291,8 @@ export class InventoryService {
         } : undefined
       };
       
-      console.log('Datos que se van a actualizar:', dataToUpdate);
+      console.log('🔍 DEBUG: dataToUpdate construido:', JSON.stringify(dataToUpdate, null, 2));
+      console.log('🔍 DEBUG: empleado en dataToUpdate:', dataToUpdate.empleado);
       
       const result = await this.prisma.inventory.update({
         where: { id },

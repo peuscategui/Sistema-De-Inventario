@@ -117,29 +117,29 @@ export default function HomePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Total de Equipos</h3>
-          <p className="text-3xl font-bold text-gray-900">{stats.totalEquipos.toLocaleString()}</p>
+          <p className="text-3xl font-bold text-gray-900">{(stats.totalEquipos || 0).toLocaleString()}</p>
           <p className="text-gray-600 mt-1">Equipos registrados</p>
         </div>
         <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Equipos en Buen Estado</h3>
-          <p className="text-3xl font-bold text-gray-900">{stats.porcentajeBuenEstado}%</p>
+          <p className="text-3xl font-bold text-gray-900">{stats.porcentajeBuenEstado || 0}%</p>
           <p className="text-gray-600 mt-1">Del total de equipos</p>
         </div>
         <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-yellow-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Equipos Obsoletos</h3>
-          <p className="text-3xl font-bold text-gray-900">{stats.equiposObsoletos.toLocaleString()}</p>
+          <p className="text-3xl font-bold text-gray-900">{(stats.equiposObsoletos || 0).toLocaleString()}</p>
           <p className="text-gray-600 mt-1">Requieren actualización</p>
         </div>
         <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-red-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Total de Bajas</h3>
-          <p className="text-3xl font-bold text-gray-900">{stats.totalBajas.toLocaleString()}</p>
+          <p className="text-3xl font-bold text-gray-900">{(stats.totalBajas || 0).toLocaleString()}</p>
           <p className="text-gray-600 mt-1">Equipos dados de baja</p>
         </div>
         <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-500 hover:shadow-xl transition-all">
           <h3 className="text-lg font-semibold mb-2 text-gray-700">Familia más Común</h3>
           <p className="text-xl font-bold text-gray-900">{stats.familiaMasComun?.familia || 'No hay datos'}</p>
           <p className="text-gray-600 mt-1">
-            {stats.familiaMasComun?._count.id.toLocaleString() || '0'} unidades
+            {(stats.familiaMasComun?._count.id || 0).toLocaleString()} unidades
           </p>
         </div>
       </div>
@@ -164,7 +164,7 @@ export default function HomePage() {
                 <div>
                   <h3 className="text-base font-semibold text-gray-800 mb-1">{familia.familia}</h3>
                   <p className="text-lg font-bold text-green-600">
-                    {familia._count.id} {familia._count.id === 1 ? 'equipo' : 'equipos'}
+                    {familia._count?.id || 0} {(familia._count?.id || 0) === 1 ? 'equipo' : 'equipos'}
                   </p>
                 </div>
               </div>

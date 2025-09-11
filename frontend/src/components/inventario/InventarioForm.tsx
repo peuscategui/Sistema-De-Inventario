@@ -112,9 +112,9 @@ interface Articulo {
 
 // Opciones estáticas
 const SEDE_OPTIONS = ["Chorrillos", "Surquillo", "Arequipa", "Cusco", "Pasco"];
-const ESTADO_OPTIONS = ["ASIGNADO", "BAJA", "STOCK", "EN SERVICIO", "DONACION"];
-const CONDICION_OPTIONS = ["OPERATIVO", "OBSOLETO", "AVERIADO"];
-const UBICACION_OPTIONS = ["AREQUIPA", "CHORRILLOS", "SURQUILLO", "CUZCO", "ESPAÑA", "HIBRIDO", "PASCO", "CASA"];
+const ESTADO_OPTIONS = ["ASIGNADO", "ASIGNADA", "BAJA", "STOCK", "EN SERVICIO", "DONACION"];
+const CONDICION_OPTIONS = ["OPERATIVO", "OBSOLETO", "OBSOLETA", "AVERIADO"];
+const UBICACION_OPTIONS = ["AREQUIPA", "CHORRILLOS", "SURQUILLO", "CUZCO", "CUSCO", "ESPAÑA", "HIBRIDO", "PASCO", "CASA"];
 
 interface InventarioFormProps {
   onSubmit: (data: any) => void;
@@ -124,11 +124,20 @@ interface InventarioFormProps {
 }
 
 export default function InventarioForm({ onSubmit, onCancel, initialData, isEditing = false }: InventarioFormProps) {
+  console.log('🔍 DEBUG: ===== INVENTARIO FORM RENDERIZADO =====');
+  console.log('🔍 DEBUG: isEditing:', isEditing);
+  console.log('🔍 DEBUG: initialData:', initialData);
+  
   const [clasificaciones, setClasificaciones] = useState<Clasificacion[]>([]);
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
   const [articulos, setArticulos] = useState<Articulo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [estadoSeleccionado, setEstadoSeleccionado] = useState<string>('');
+  const [forceUpdate, setForceUpdate] = useState(0);
+  
+  // Estado local para el colaborador
+  const [selectedEmpleado, setSelectedEmpleado] = useState<any>(null);
+  const [initialValuesSet, setInitialValuesSet] = useState(false);
 
   const schemaToUse = isEditing ? inventarioSchemaEdit : inventarioSchemaCreate;
   const {
@@ -301,11 +310,18 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
       initialData &&
       articuloOptions.length > 0 &&
       empleadoOptions.length > 0 &&
-      clasificaciones.length > 0
+      clasificaciones.length > 0 &&
+      !initialValuesSet
     ) {
-      console.log('🔍 DEBUG: Estableciendo valores iniciales en modo edición');
+      console.log('🔍 DEBUG: Estableciendo valores iniciales en modo edición (SOLO UNA VEZ)');
+      console.log('🔍 DEBUG: initialData completo:', JSON.stringify(initialData, null, 2));
       console.log('🔍 DEBUG: initialData.articuloId:', initialData.articuloId);
+      console.log('🔍 DEBUG: initialData.empleadoId:', initialData.empleadoId);
+      console.log('🔍 DEBUG: initialData.estado:', initialData.estado);
+      console.log('🔍 DEBUG: initialData.condicion:', initialData.condicion);
+      console.log('🔍 DEBUG: initialData.ubicacionEquipo:', initialData.ubicacionEquipo);
       console.log('🔍 DEBUG: articuloOptions disponibles:', articuloOptions.map(a => ({ id: a.value, label: a.label })));
+      console.log('🔍 DEBUG: empleadoOptions disponibles:', empleadoOptions.map(e => ({ id: e.value, label: e.label })));
       
       if (initialData.articuloId) {
         const articuloEncontrado = articuloOptions.some(a => a.value === initialData.articuloId);
@@ -315,12 +331,43 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
           console.log('🔍 DEBUG: Valor articuloId establecido:', initialData.articuloId);
         }
       }
-      if (initialData.empleadoId && empleadoOptions.some(e => e.value === initialData.empleadoId)) {
-        setValue('empleadoId', initialData.empleadoId);
+      
+      if (initialData.empleadoId) {
+        const empleadoEncontrado = empleadoOptions.some(e => e.value === initialData.empleadoId);
+        console.log('🔍 DEBUG: ¿Empleado encontrado en opciones?', empleadoEncontrado);
+        if (empleadoEncontrado) {
+          setValue('empleadoId', initialData.empleadoId);
+          console.log('🔍 DEBUG: Valor empleadoId establecido:', initialData.empleadoId);
+          
+          // Establecer el estado local del colaborador
+          const empleadoSeleccionado = empleadoOptions.find(e => e.value === initialData.empleadoId);
+          setSelectedEmpleado(empleadoSeleccionado);
+          console.log('🔍 DEBUG: selectedEmpleado establecido:', empleadoSeleccionado);
+        }
       }
+      
       if (initialData.clasificacionId && clasificaciones.some(c => c.id === initialData.clasificacionId)) {
         setValue('clasificacionId', initialData.clasificacionId);
       }
+      
+      // Establecer estado y condición
+      if (initialData.estado) {
+        setValue('estado', initialData.estado);
+        console.log('🔍 DEBUG: Valor estado establecido:', initialData.estado);
+      }
+      
+      if (initialData.condicion) {
+        setValue('condicion', initialData.condicion);
+        console.log('🔍 DEBUG: Valor condicion establecido:', initialData.condicion);
+      }
+      
+      if (initialData.ubicacionEquipo) {
+        setValue('ubicacionEquipo', initialData.ubicacionEquipo);
+        console.log('🔍 DEBUG: Valor ubicacionEquipo establecido:', initialData.ubicacionEquipo);
+      }
+      
+      // Marcar que los valores iniciales ya se establecieron
+      setInitialValuesSet(true);
     }
   }, [
     isEditing,
@@ -329,6 +376,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
     empleadoOptions,
     clasificaciones,
     setValue,
+    initialValuesSet,
   ]);
 
   // Si el valor inicial no está en las opciones, lo agregamos temporalmente para que el select lo muestre
@@ -527,21 +575,66 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
 
           <div>
             <label className="block text-sm font-medium mb-1">Colaborador</label>
-            <Controller
-              name="empleadoId"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  options={safeEmpleadoOptions}
-                  isClearable
-                  isSearchable
-                  isLoading={isLoading}
-                  placeholder="Seleccionar colaborador"
-                  styles={customSelectStyles}
-                  value={safeEmpleadoOptions.find(e => e.value === field.value)}
-                  onChange={val => field.onChange(val ? val.value : null)}
-                />
-              )}
+            
+            {/* Botón de prueba */}
+            <button 
+              type="button" 
+              onClick={() => {
+                console.log('🔍 DEBUG: ===== BOTÓN DE PRUEBA CLICKEADO =====');
+                console.log('🔍 DEBUG: selectedEmpleado actual:', selectedEmpleado);
+                console.log('🔍 DEBUG: safeEmpleadoOptions.length:', safeEmpleadoOptions.length);
+                alert('Botón de prueba clickeado - revisa la consola');
+              }}
+              className="mb-2 px-2 py-1 bg-red-500 text-white text-xs rounded"
+            >
+              PRUEBA LOGS
+            </button>
+            
+            <Select
+              options={safeEmpleadoOptions}
+              isClearable
+              isSearchable
+              isLoading={isLoading}
+              placeholder="Seleccionar colaborador"
+              styles={customSelectStyles}
+              value={selectedEmpleado}
+              onChange={(val) => {
+                console.log('🔍 DEBUG: ===== CAMBIO DE COLABORADOR (ESTADO LOCAL) =====');
+                console.log('🔍 DEBUG: Valor seleccionado:', val);
+                console.log('🔍 DEBUG: Valor anterior selectedEmpleado:', selectedEmpleado);
+                console.log('🔍 DEBUG: ¿Es null (X clickeada)?', val === null);
+                console.log('🔍 DEBUG: ¿Es undefined?', val === undefined);
+                
+                // Actualizar estado local
+                setSelectedEmpleado(val);
+                
+                // Actualizar formulario
+                const newValue = val ? val.value : null;
+                console.log('🔍 DEBUG: Nuevo valor empleadoId:', newValue);
+                setValue('empleadoId', newValue);
+                
+                console.log('🔍 DEBUG: Valor después de setValue:', watch('empleadoId'));
+                
+                // Forzar re-render
+                setForceUpdate(prev => prev + 1);
+              }}
+              onInputChange={(inputValue) => {
+                console.log('🔍 DEBUG: Input change en colaborador:', inputValue);
+              }}
+              onMenuOpen={() => {
+                console.log('🔍 DEBUG: Menú de colaboradores abierto');
+                console.log('🔍 DEBUG: Valor actual selectedEmpleado:', selectedEmpleado);
+                console.log('🔍 DEBUG: Opciones disponibles:', safeEmpleadoOptions.slice(0, 5));
+              }}
+              onMenuClose={() => {
+                console.log('🔍 DEBUG: Menú de colaboradores cerrado');
+              }}
+              onFocus={() => {
+                console.log('🔍 DEBUG: Select de colaborador enfocado');
+              }}
+              onBlur={() => {
+                console.log('🔍 DEBUG: Select de colaborador perdió el foco');
+              }}
             />
             {errors.empleadoId && <p className="text-red-500 text-xs mt-1">{errors.empleadoId.message}</p>}
           </div>
@@ -593,7 +686,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
 
           <div>
             <label className="block text-sm font-medium mb-1">Ubicación del Equipo</label>
-            <select {...register('ubicacionEquipo')} className={inputClass} defaultValue={initialData?.ubicacionEquipo || ''}>
+            <select {...register('ubicacionEquipo')} className={inputClass} value={watch('ubicacionEquipo') || ''}>
               <option value="">Seleccionar ubicación</option>
               {UBICACION_OPTIONS.map(option => (
                 <option key={option} value={option}>
@@ -606,7 +699,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
           
           <div>
             <label className="block text-sm font-medium mb-1">Estado *</label>
-            <select {...register('estado')} className={inputClass} defaultValue={initialData?.estado || ''}>
+            <select {...register('estado')} className={inputClass} value={watch('estado') || ''}>
               <option value="">Seleccionar estado</option>
               {ESTADO_OPTIONS.map(option => (
                 <option key={option} value={option}>
@@ -619,7 +712,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
 
           <div>
             <label className="block text-sm font-medium mb-1">Condición</label>
-            <select {...register('condicion')} className={inputClass} defaultValue={initialData?.condicion || ''} disabled={estadoValue === 'BAJA' || estadoValue === 'DONACION'}>
+            <select {...register('condicion')} className={inputClass} value={watch('condicion') || ''} disabled={estadoValue === 'BAJA' || estadoValue === 'DONACION'}>
               <option value="">
                 {estadoValue === 'BAJA' ? 'No aplica (Estado: BAJA)' : 
                  estadoValue === 'DONACION' ? 'No aplica (Estado: DONACION)' : 
