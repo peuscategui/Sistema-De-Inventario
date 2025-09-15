@@ -21,6 +21,7 @@ interface AnalisisFamilia {
 }
 
 interface AnalisisSubfamilia {
+  familia: string;
   subfamilia: string;
   cantidad: number;
   valorTotalReposicion: number;
