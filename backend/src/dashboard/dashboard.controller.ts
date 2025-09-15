@@ -1,11 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('dashboard')
 export class DashboardController {
   constructor(private prisma: PrismaService) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async getDashboard() {
     try {
       // Total de equipos en inventario
@@ -107,6 +109,7 @@ export class DashboardController {
   }
 
   @Get('distribucion-familia')
+  @UseGuards(JwtAuthGuard)
   async getDistribucionFamilia() {
     try {
       // Obtener distribución agrupando directamente por familia desde la tabla clasificacion
@@ -160,6 +163,7 @@ export class DashboardController {
   }
 
   @Get('analisis-financiero')
+  @UseGuards(JwtAuthGuard)
   async getAnalisisFinanciero() {
     try {
       // Obtener datos de inventario con clasificaciones
