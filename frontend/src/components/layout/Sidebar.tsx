@@ -19,12 +19,14 @@ import {
   X,
   Shield,
   KeySquare,
+  DollarSign,
 } from 'lucide-react'
 import Image from 'next/image'
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/inventario', label: 'Inventario', icon: Box },
+  { href: '/analisis-financiero', label: 'Análisis Financiero', icon: DollarSign },
   { href: '/donaciones', label: 'Donaciones', icon: Heart },
   { href: '/bajas', label: 'Bajas', icon: X },
   { href: '/clasificacion', label: 'Clasificación', icon: Shapes },

@@ -239,5 +239,18 @@ export class InventoryController {
     }
   }
 
+  @Delete('clear')
+  async clearInventory() {
+    try {
+      console.log('🧹 Limpiando tabla inventory...');
+      const result = await this.inventoryService.clearInventory();
+      console.log(`✅ Eliminados ${result.count} registros de inventory`);
+      return { message: `Eliminados ${result.count} registros de inventory`, count: result.count };
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      throw error;
+    }
+  }
+
 
 }

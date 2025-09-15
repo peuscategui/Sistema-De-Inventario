@@ -52,6 +52,7 @@ export const API_ENDPOINTS = {
   // Dashboard - NOTA: módulo temporalmente deshabilitado
   dashboard: `${API_BASE_URL}/dashboard`,
   dashboardDistribucion: `${API_BASE_URL}/dashboard/distribucion-familia`,
+  dashboardFinanciero: `${API_BASE_URL}/dashboard/analisis-financiero`,
   
   // Usuarios y permisos (Sistema de administración)
   users: `${API_BASE_URL}/users`,

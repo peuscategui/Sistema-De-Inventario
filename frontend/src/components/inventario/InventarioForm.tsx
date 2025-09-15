@@ -112,9 +112,9 @@ interface Articulo {
 
 // Opciones estáticas
 const SEDE_OPTIONS = ["Chorrillos", "Surquillo", "Arequipa", "Cusco", "Pasco"];
-const ESTADO_OPTIONS = ["ASIGNADO", "ASIGNADA", "BAJA", "STOCK", "EN SERVICIO", "DONACION"];
-const CONDICION_OPTIONS = ["OPERATIVO", "OBSOLETO", "OBSOLETA", "AVERIADO"];
-const UBICACION_OPTIONS = ["AREQUIPA", "CHORRILLOS", "SURQUILLO", "CUZCO", "CUSCO", "ESPAÑA", "HIBRIDO", "PASCO", "CASA"];
+const ESTADO_OPTIONS = ["ASIGNADA", "OPERATIVO", "STOCK", "AVERIADA", "PRESTAMO", "REPARACION", "BAJA", "DONACION"];
+const CONDICION_OPTIONS = ["OPERATIVO", "OBSOLETO", "OBSOLETA", "AVERIADA", "VIGENTE"];
+const UBICACION_OPTIONS = ["Arequipa", "Chorrillos", "Surquillo", "Cuzco", "Cusco", "España", "Hibrido", "Pasco", "Casa"];
 
 interface InventarioFormProps {
   onSubmit: (data: any) => void;
@@ -576,20 +576,6 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
           <div>
             <label className="block text-sm font-medium mb-1">Colaborador</label>
             
-            {/* Botón de prueba */}
-            <button 
-              type="button" 
-              onClick={() => {
-                console.log('🔍 DEBUG: ===== BOTÓN DE PRUEBA CLICKEADO =====');
-                console.log('🔍 DEBUG: selectedEmpleado actual:', selectedEmpleado);
-                console.log('🔍 DEBUG: safeEmpleadoOptions.length:', safeEmpleadoOptions.length);
-                alert('Botón de prueba clickeado - revisa la consola');
-              }}
-              className="mb-2 px-2 py-1 bg-red-500 text-white text-xs rounded"
-            >
-              PRUEBA LOGS
-            </button>
-            
             <Select
               options={safeEmpleadoOptions}
               isClearable
@@ -690,7 +676,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               <option value="">Seleccionar ubicación</option>
               {UBICACION_OPTIONS.map(option => (
                 <option key={option} value={option}>
-                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
+                  {option}
                 </option>
               ))}
             </select>
@@ -703,7 +689,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               <option value="">Seleccionar estado</option>
               {ESTADO_OPTIONS.map(option => (
                 <option key={option} value={option}>
-                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
+                  {option}
                 </option>
               ))}
             </select>
@@ -720,7 +706,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               </option>
               {CONDICION_OPTIONS.map(option => (
                 <option key={option} value={option}>
-                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
+                  {option}
                 </option>
               ))}
             </select>

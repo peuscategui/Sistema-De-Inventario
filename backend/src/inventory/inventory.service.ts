@@ -78,7 +78,19 @@ export class InventoryService {
     const formattedItems = items.map(item => ({
       ...item,
       fecha_compra: item.fecha_compra ? 
-        item.fecha_compra.toISOString().split('T')[0]
+        (() => {
+          try {
+            const date = new Date(item.fecha_compra);
+            if (isNaN(date.getTime())) {
+              console.warn(`⚠️ Fecha inválida para item ${item.id}: ${item.fecha_compra}`);
+              return null;
+            }
+            return date.toISOString().split('T')[0];
+          } catch (error) {
+            console.warn(`⚠️ Error al formatear fecha para item ${item.id}: ${error.message}`);
+            return null;
+          }
+        })()
         : null,
       precioUnitarioSinIgv: item.precioUnitarioSinIgv ? `$${item.precioUnitarioSinIgv}` : null,
       // Usar valor_reposicion de la clasificación relacionada
@@ -408,6 +420,29 @@ export class InventoryService {
     } catch (e) {
       console.error('Error en batchCreate:', e);
       throw new Error('Error al insertar los datos en la base de datos.');
+    }
+  }
+
+  async clearInventory() {
+    try {
+      console.log('🧹 Iniciando limpieza de tabla inventory...');
+      
+      // Contar registros antes de eliminar
+      const countBefore = await this.prisma.inventory.count();
+      console.log(`📊 Registros antes de limpiar: ${countBefore}`);
+      
+      // Eliminar todos los registros
+      const deleteResult = await this.prisma.inventory.deleteMany({});
+      console.log(`🗑️ Eliminados ${deleteResult.count} registros`);
+      
+      // Resetear la secuencia del ID
+      await this.prisma.$executeRaw`ALTER SEQUENCE inventory_id_seq RESTART WITH 1`;
+      console.log('🔄 Secuencia del ID reseteada');
+      
+      return { count: deleteResult.count };
+    } catch (error) {
+      console.error('❌ Error limpiando inventory:', error);
+      throw error;
     }
   }
 }
