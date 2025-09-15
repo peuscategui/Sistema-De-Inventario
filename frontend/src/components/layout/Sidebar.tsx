@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Logo from './Logo'
 import {
   Boxes,
   ChevronLeft,
@@ -48,13 +49,11 @@ export default function Sidebar() {
         isCollapsed ? 'w-20' : 'w-64'
       }`}
     >
-      <div className="flex items-center justify-center h-24 border-b border-border">
-        <Image
-          src="/efc-logo.png"
-          alt="Logo"
-          width={isCollapsed ? 40 : 56}
-          height={isCollapsed ? 40 : 56}
-          className="transition-all duration-300"
+      <div className="flex items-center justify-center h-24 border-b border-border px-4">
+        <Logo 
+          size={isCollapsed ? 'sm' : 'md'}
+          showText={!isCollapsed}
+          variant="white"
         />
       </div>
 

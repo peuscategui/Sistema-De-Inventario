@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { API_ENDPOINTS, API_BASE_URL } from '@/config/api';
-import Image from 'next/image';
+import Logo from '@/components/layout/Logo';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,14 +71,8 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center">
           <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
-              <Image
-                src="/efc-logo.png"
-                alt="EFC Logo"
-                width={60}
-                height={60}
-                className="rounded-full"
-              />
+            <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg ring-4 ring-blue-100">
+              <Logo size="lg" showText={false} />
             </div>
           </div>
           <h2 className="text-3xl font-bold text-gray-900">

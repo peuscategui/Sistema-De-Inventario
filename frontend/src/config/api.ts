@@ -1,18 +1,23 @@
 // Configuración de la API
-const isProduction = process.env.NODE_ENV === 'production';
 const developmentUrl = 'http://localhost:3002';
+const productionUrl = 'http://192.168.40.79:3002';
 
-// En producción, SIEMPRE usar la variable de entorno.
-// En desarrollo, usar la variable de entorno si está definida, si no, usar localhost.
+// Usar la variable de entorno si está definida, si no, usar la IP de producción por defecto
+// Esto asegura que en producción siempre use la IP correcta
 const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-if (isProduction && !configuredApiUrl) {
-  console.error('⚠️ NEXT_PUBLIC_API_URL no está configurada en producción');
-  throw new Error('NEXT_PUBLIC_API_URL debe estar configurada en producción');
+// Determinar la URL a usar
+// Prioridad: 1) Variable de entorno, 2) IP de producción, 3) localhost
+let apiUrl;
+if (configuredApiUrl) {
+  apiUrl = configuredApiUrl;
+} else {
+  // Si no hay variable de entorno, usar IP de producción por defecto
+  // Esto es más seguro para producción
+  apiUrl = productionUrl;
 }
 
-// Forzar el uso de la variable de entorno en producción
-export const API_BASE_URL = isProduction ? configuredApiUrl : (configuredApiUrl || developmentUrl);
+export const API_BASE_URL = apiUrl;
 
 // Debug: Mostrar la URL que se está usando
 console.log('🔧 Entorno:', process.env.NODE_ENV);

@@ -9,12 +9,24 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   
+  // Configuración de archivos estáticos para producción
+  async rewrites() {
+    return [
+      {
+        source: '/efc-logo.png',
+        destination: process.env.NODE_ENV === 'production' 
+          ? '/etc/easypanel/projects/sistemas/efc-logo.png'
+          : '/efc-logo.png',
+      },
+    ];
+  },
+  
   // Configuración de trailing slash
   trailingSlash: false,
   
   // Variables de entorno públicas
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://192.168.40.79:3002',
   },
   
   // Configuración de experimental features
