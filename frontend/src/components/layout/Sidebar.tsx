@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Logo from './Logo'
 import {
   Boxes,
   ChevronLeft,
@@ -50,11 +49,12 @@ export default function Sidebar() {
       }`}
     >
       <div className="flex items-center justify-center h-24 border-b border-border px-4">
-        <Logo 
-          size={isCollapsed ? 'sm' : 'md'}
-          showText={!isCollapsed}
-          variant="white"
-        />
+        <div className="text-center">
+          <h1 className="text-white font-bold text-lg">EFC</h1>
+          {!isCollapsed && (
+            <p className="text-white text-xs font-medium">INVENTARIO</p>
+          )}
+        </div>
       </div>
 
       <nav className="flex-1 px-4 py-4 space-y-2">

@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { ChevronDown, User, LogOut, Settings } from 'lucide-react';
-import Logo from './Logo';
 
 export default function Header() {
   const { user, logout } = useAuth();
@@ -17,7 +16,7 @@ export default function Header() {
   return (
     <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6">
       <div className="flex items-center">
-        <Logo size="sm" showText={true} variant="dark" />
+        <h1 className="text-xl font-bold text-gray-800">EFC INVENTARIO</h1>
       </div>
 
       <div className="flex items-center space-x-4">

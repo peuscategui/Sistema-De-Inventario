@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { API_ENDPOINTS, API_BASE_URL } from '@/config/api';
-import Logo from '@/components/layout/Logo';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +71,10 @@ export default function LoginPage() {
         <div className="text-center">
           <div className="flex justify-center mb-6">
             <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg ring-4 ring-blue-100">
-              <Logo size="lg" showText={false} />
+              <div className="text-center">
+                <h1 className="text-2xl font-bold text-blue-600">EFC</h1>
+                <p className="text-xs font-medium text-blue-500">INVENTARIO</p>
+              </div>
             </div>
           </div>
           <h2 className="text-3xl font-bold text-gray-900">

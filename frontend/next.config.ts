@@ -10,16 +10,7 @@ const nextConfig: NextConfig = {
   },
   
   // Configuración de archivos estáticos para producción
-  async rewrites() {
-    return [
-      {
-        source: '/efc-logo.png',
-        destination: process.env.NODE_ENV === 'production' 
-          ? '/etc/easypanel/projects/sistemas/efc-logo.png'
-          : '/efc-logo.png',
-      },
-    ];
-  },
+  // (removido - ya no se usa logo)
   
   // Configuración de trailing slash
   trailingSlash: false,
