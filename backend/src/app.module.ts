@@ -22,13 +22,17 @@ import { join } from 'path';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: join(__dirname, '..', '.env'),
-      // Debug: Mostrar la ruta del archivo .env
+      // En producción, usar variables de entorno del sistema
+      // En desarrollo, usar archivo .env
+      envFilePath: process.env.NODE_ENV === 'production' ? undefined : join(__dirname, '..', '.env'),
+      // Debug: Mostrar configuración cargada
       load: [() => {
-        console.log('🔧 CONFIG - Ruta del archivo .env:', join(__dirname, '..', '.env'));
+        console.log('🔧 CONFIG - Entorno:', process.env.NODE_ENV || 'development');
         console.log('🔧 CONFIG - Variables Microsoft cargadas:');
         console.log('- MICROSOFT_CLIENT_ID:', process.env.MICROSOFT_CLIENT_ID || '[NO ENCONTRADO]');
         console.log('- MICROSOFT_TENANT_ID:', process.env.MICROSOFT_TENANT_ID || '[NO ENCONTRADO]');
+        console.log('- MICROSOFT_CLIENT_SECRET:', process.env.MICROSOFT_CLIENT_SECRET ? '[CONFIGURADO]' : '[NO ENCONTRADO]');
+        console.log('- MICROSOFT_REDIRECT_URI:', process.env.MICROSOFT_REDIRECT_URI || '[NO ENCONTRADO]');
         return {};
       }],
     }),
