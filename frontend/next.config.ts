@@ -9,15 +9,12 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   
-  // Configuración de archivos estáticos para producción
-  // (removido - ya no se usa logo)
-  
   // Configuración de trailing slash
   trailingSlash: false,
   
   // Variables de entorno públicas
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://192.168.40.79:3002',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://tiinventory.efc.com.pe',
   },
   
   // Configuración de experimental features
