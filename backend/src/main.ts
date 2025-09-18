@@ -34,8 +34,10 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000', // Desarrollo local
-      'http://192.168.40.79:3005', // Frontend en EasyPanel
+      'http://192.168.40.79:3005', // Frontend en EasyPanel (HTTP)
       'http://192.168.40.79:3000', // Por si usa puerto 3000
+      'https://pc.tiinventory.efc.com.pe', // Frontend en producción
+      'https://tiinventory.efc.com.pe', // Backend en producción
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
