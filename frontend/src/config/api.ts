@@ -1,6 +1,6 @@
 // Configuración de la API
 const developmentUrl = 'http://localhost:3002';
-const productionUrl = 'http://192.168.40.79:3002';
+const productionUrl = 'https://tiinventory.efc.com.pe';
 
 // Usar la variable de entorno si está definida, si no, usar la IP de producción por defecto
 // Esto asegura que en producción siempre use la IP correcta
@@ -79,4 +79,4 @@ export const API_ENDPOINTS = {
 export const buildApiUrl = (endpoint: string, id?: string | number) => {
   const baseUrl = API_BASE_URL + endpoint;
   return id ? `${baseUrl}/${id}` : baseUrl;
-}; 
+};
