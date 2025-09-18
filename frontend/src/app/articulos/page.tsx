@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search, Eye } from 'lucide-react';
 import ArticuloModal from '@/components/articulos/ArticuloModal';
 import { API_ENDPOINTS } from '@/config/api';
+import { useAuth } from '@/contexts/AuthContext';
+import { CreateGuard, EditGuard, DeleteGuard } from '@/components/auth/RoleGuard';
+import { ImportGuard } from '@/components/auth/ImportGuard';
 // import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 
@@ -67,6 +70,7 @@ const formatDate = (date: Date | null) => {
 
 export default function ArticulosPage() {
   // const { authenticatedFetch } = useAuthenticatedFetch(); // TEMPORALMENTE DESACTIVADO
+  const { canCreate, canEdit, canDelete, user } = useAuth();
   const [articulos, setArticulos] = useState<Articulo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -364,13 +368,15 @@ export default function ArticulosPage() {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Artículos</h1>
         <div className="flex gap-2">
-          <button
-            onClick={handleCreate}
-            className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90"
-          >
-            <PlusCircle size={20} />
-            Nuevo Artículo
-          </button>
+          <CreateGuard>
+            <button
+              onClick={handleCreate}
+              className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90"
+            >
+              <PlusCircle size={20} />
+              Nuevo Artículo
+            </button>
+          </CreateGuard>
         </div>
       </div>
 
@@ -484,13 +490,15 @@ export default function ArticulosPage() {
             Actualizar
           </button>
           {selectedArticulos.length > 0 && (
-            <button
-              onClick={handleBulkDelete}
-              className="bg-destructive text-destructive-foreground px-4 py-2 rounded-lg flex items-center gap-2"
-            >
-              <Trash2 size={20} />
-              Eliminar ({selectedArticulos.length})
-            </button>
+            <DeleteGuard>
+              <button
+                onClick={handleBulkDelete}
+                className="bg-destructive text-destructive-foreground px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <Trash2 size={20} />
+                Eliminar ({selectedArticulos.length})
+              </button>
+            </DeleteGuard>
           )}
         </div>
         <div className="flex gap-2">
@@ -527,16 +535,18 @@ export default function ArticulosPage() {
               </div>
             )}
           </div>
-          <label className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer">
-            <Upload size={20} />
-            Importar
-            <input
-              type="file"
-              accept=".csv"
-              onChange={handleImport}
-              className="hidden"
-            />
-          </label>
+          <ImportGuard>
+            <label className="bg-primary/10 text-primary px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer">
+              <Upload size={20} />
+              Importar
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleImport}
+                className="hidden"
+              />
+            </label>
+          </ImportGuard>
         </div>
       </div>
 
@@ -546,14 +556,16 @@ export default function ArticulosPage() {
           <table className="w-full">
             <thead className="bg-primary/10">
               <tr>
-                <th className="px-4 py-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedArticulos.length === articulos.length}
-                    onChange={(e) => handleSelectAll()}
-                    className="rounded"
-                  />
-                </th>
+                <DeleteGuard>
+                  <th className="px-4 py-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedArticulos.length === articulos.length}
+                      onChange={(e) => handleSelectAll()}
+                      className="rounded"
+                    />
+                  </th>
+                </DeleteGuard>
                 {tableHeaders.map((header) => (
                   <th key={header.key} className="px-4 py-2 text-left uppercase">
                     {header.label}
@@ -578,14 +590,16 @@ export default function ArticulosPage() {
               ) : (
                 articulos.map((articulo) => (
                   <tr key={articulo.id} className="border-t hover:bg-gray-50">
-                    <td className="px-4 py-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedArticulos.includes(articulo.id)}
-                        onChange={(e) => handleSelectArticulo(articulo.id)}
-                        className="rounded"
-                      />
-                    </td>
+                    <DeleteGuard>
+                      <td className="px-4 py-2">
+                        <input
+                          type="checkbox"
+                          checked={selectedArticulos.includes(articulo.id)}
+                          onChange={(e) => handleSelectArticulo(articulo.id)}
+                          className="rounded"
+                        />
+                      </td>
+                    </DeleteGuard>
                     {tableHeaders.map((header) => (
                       <td key={header.key} className="px-4 py-2 uppercase">
                         {header.key === 'status' && articulo[header.key] ? (
@@ -610,20 +624,24 @@ export default function ArticulosPage() {
                         >
                           <Eye size={20} />
                         </button>
-                        <button
-                          onClick={() => handleEdit(articulo)}
-                          className="text-primary hover:text-primary/80"
-                          title="Editar"
-                        >
-                          <Edit size={20} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(articulo.id)}
-                          className="text-destructive hover:text-destructive/80"
-                          title="Eliminar"
-                        >
-                          <Trash2 size={20} />
-                        </button>
+                        <EditGuard>
+                          <button
+                            onClick={() => handleEdit(articulo)}
+                            className="text-primary hover:text-primary/80"
+                            title="Editar"
+                          >
+                            <Edit size={20} />
+                          </button>
+                        </EditGuard>
+                        <DeleteGuard>
+                          <button
+                            onClick={() => handleDelete(articulo.id)}
+                            className="text-destructive hover:text-destructive/80"
+                            title="Eliminar"
+                          >
+                            <Trash2 size={20} />
+                          </button>
+                        </DeleteGuard>
                       </div>
                     </td>
                   </tr>
@@ -754,16 +772,18 @@ export default function ArticulosPage() {
             </div>
             
             <div className="flex justify-end gap-2 mt-6">
-              <button
-                onClick={() => {
-                  handleCloseViewModal();
-                  handleEdit(viewingArticulo);
-                }}
-                className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90"
-              >
-                <Edit size={16} />
-                Editar
-              </button>
+              <EditGuard>
+                <button
+                  onClick={() => {
+                    handleCloseViewModal();
+                    handleEdit(viewingArticulo);
+                  }}
+                  className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90"
+                >
+                  <Edit size={16} />
+                  Editar
+                </button>
+              </EditGuard>
               <button
                 onClick={handleCloseViewModal}
                 className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"

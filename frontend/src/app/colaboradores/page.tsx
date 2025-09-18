@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ColaboradorModal from '@/components/colaboradores/ColaboradorModal';
 import { API_ENDPOINTS } from '@/config/api';
+import { CreateGuard, EditGuard, DeleteGuard } from '@/components/auth/RoleGuard';
+import { ImportGuard } from '@/components/auth/ImportGuard';
 // import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 export interface Empleado {
@@ -328,13 +330,15 @@ export default function ColaboradoresPage() {
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Colaboradores</h1>
-        <button
-          onClick={() => handleOpenModal()}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-        >
-          <PlusCircle size={20} />
-          Nuevo Colaborador
-        </button>
+        <CreateGuard>
+          <button
+            onClick={() => handleOpenModal()}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            <PlusCircle size={20} />
+            Nuevo Colaborador
+          </button>
+        </CreateGuard>
       </div>
 
       {/* Barra de filtros y acciones */}
@@ -435,16 +439,18 @@ export default function ColaboradoresPage() {
             <Download size={20} />
             Exportar
           </button>
-          <label className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100 cursor-pointer">
-            <Upload size={20} />
-            Importar
-            <input
-              type="file"
-              accept=".csv"
-              onChange={handleImport}
-              className="hidden"
-            />
-          </label>
+          <ImportGuard>
+            <label className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100 cursor-pointer">
+              <Upload size={20} />
+              Importar
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleImport}
+                className="hidden"
+              />
+            </label>
+          </ImportGuard>
         </div>
       </div>
 
@@ -510,20 +516,24 @@ export default function ColaboradoresPage() {
                         >
                           <Eye size={20} />
                         </button>
-                        <button
-                          onClick={() => handleOpenModal(empleado)}
-                          className="text-primary hover:text-primary/80"
-                          title="Editar"
-                        >
-                          <Edit size={20} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(empleado.id)}
-                          className="text-destructive hover:text-destructive/80"
-                          title="Eliminar"
-                        >
-                          <Trash2 size={20} />
-                        </button>
+                        <EditGuard>
+                          <button
+                            onClick={() => handleOpenModal(empleado)}
+                            className="text-primary hover:text-primary/80"
+                            title="Editar"
+                          >
+                            <Edit size={20} />
+                          </button>
+                        </EditGuard>
+                        <DeleteGuard>
+                          <button
+                            onClick={() => handleDelete(empleado.id)}
+                            className="text-destructive hover:text-destructive/80"
+                            title="Eliminar"
+                          >
+                            <Trash2 size={20} />
+                          </button>
+                        </DeleteGuard>
                       </div>
                     </td>
                   </tr>

@@ -5,6 +5,7 @@ import { Search, X, Download, Eye, Edit } from 'lucide-react';
 import { API_ENDPOINTS } from '@/config/api';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
 import EditBajaModal from '@/components/inventario/EditBajaModal';
+import { EditGuard } from '@/components/auth/RoleGuard';
 
 // Interfaces para los datos relacionados
 interface Clasificacion {
@@ -422,13 +423,15 @@ export default function BajasPage() {
                     >
                       <Eye size={20} />
                     </button>
-                    <button
-                      onClick={() => openEditModal(baja)}
-                      className="text-green-600 hover:text-green-800"
-                      title="Editar baja"
-                    >
-                      <Edit size={20} />
-                    </button>
+                    <EditGuard>
+                      <button
+                        onClick={() => openEditModal(baja)}
+                        className="text-green-600 hover:text-green-800"
+                        title="Editar baja"
+                      >
+                        <Edit size={20} />
+                      </button>
+                    </EditGuard>
                   </div>
                 </td>
               </tr>

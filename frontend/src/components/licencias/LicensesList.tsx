@@ -1,6 +1,7 @@
 'use client';
 
 import { Edit, Trash2, Eye, AlertTriangle, Calendar, DollarSign, Users, Building2 } from 'lucide-react';
+import { EditGuard, DeleteGuard } from '@/components/auth/RoleGuard';
 
 interface Licencia {
   id: number;
@@ -299,20 +300,24 @@ export default function LicensesList({
                       >
                         <Eye className="h-4 w-4" />
                       </button>
-                      <button
-                        onClick={() => onEdit(licencia)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
-                        title="Editar licencia"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => onDelete(licencia.id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
-                        title="Eliminar licencia"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                      <EditGuard>
+                        <button
+                          onClick={() => onEdit(licencia)}
+                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                          title="Editar licencia"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                      </EditGuard>
+                      <DeleteGuard>
+                        <button
+                          onClick={() => onDelete(licencia.id)}
+                          className="p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                          title="Eliminar licencia"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </DeleteGuard>
                     </div>
                   </td>
                 </tr>

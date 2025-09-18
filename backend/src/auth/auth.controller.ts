@@ -87,8 +87,13 @@ export class AuthController {
   @Get('profile')
   async getProfile(@Request() req: any) {
     const permissions = await this.authService.getUserPermissions(req.user.id);
+    const roles = await this.authService.getUserRoles(req.user.id);
     return {
-      user: req.user,
+      user: {
+        ...req.user,
+        roles: roles.map(ur => ur.role.nombre),
+        permissions,
+      },
       permissions,
     };
   }

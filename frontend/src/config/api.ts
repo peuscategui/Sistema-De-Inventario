@@ -2,19 +2,21 @@
 const developmentUrl = 'http://localhost:3002';
 const productionUrl = 'https://tiinventory.efc.com.pe';
 
-// Usar la variable de entorno si está definida, si no, usar la IP de producción por defecto
-// Esto asegura que en producción siempre use la IP correcta
+// Usar la variable de entorno si está definida, si no, detectar entorno automáticamente
 const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 // Determinar la URL a usar
-// Prioridad: 1) Variable de entorno, 2) IP de producción, 3) localhost
+// Prioridad: 1) Variable de entorno, 2) Detección automática de entorno
 let apiUrl;
 if (configuredApiUrl) {
   apiUrl = configuredApiUrl;
 } else {
-  // Si no hay variable de entorno, usar IP de producción por defecto
-  // Esto es más seguro para producción
-  apiUrl = productionUrl;
+  // Detectar entorno automáticamente
+  if (process.env.NODE_ENV === 'development') {
+    apiUrl = developmentUrl;
+  } else {
+    apiUrl = productionUrl;
+  }
 }
 
 export const API_BASE_URL = apiUrl;
@@ -62,6 +64,7 @@ export const API_ENDPOINTS = {
   // Usuarios y permisos (Sistema de administración)
   users: `${API_BASE_URL}/users`,
   permissions: `${API_BASE_URL}/permissions`,
+  roles: `${API_BASE_URL}/roles`,
   
   // Autenticación
   auth: `${API_BASE_URL}/auth`,

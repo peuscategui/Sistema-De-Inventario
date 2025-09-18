@@ -10,6 +10,8 @@ interface User {
   email: string;
   fullName?: string;
   isAdmin: boolean;
+  roles?: string[];
+  permissions?: string[];
 }
 
 interface Permission {
@@ -26,6 +28,15 @@ interface AuthContextType {
   login: (token: string) => Promise<void>;
   logout: () => void;
   hasPermission: (resource: string, action: string) => boolean;
+  hasRole: (role: string) => boolean;
+  canCreate: () => boolean;
+  canEdit: () => boolean;
+  canDelete: () => boolean;
+  isSuperAdmin: () => boolean;
+  canManageUsers: () => boolean;
+  canManagePermissions: () => boolean;
+  canViewSection: (section: string) => boolean;
+  canImport: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -127,7 +138,139 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const hasPermission = (resource: string, action: string): boolean => {
     if (user?.isAdmin) return true; // Los admins tienen todos los permisos
+    
+    // Verificar permisos del nuevo sistema de roles
+    if (user?.permissions) {
+      return user.permissions.includes('*') || user.permissions.includes(`${resource}:${action}`);
+    }
+    
+    // Fallback al sistema anterior
     return permissions.some(p => p.resource === resource && p.action === action);
+  };
+
+  const hasRole = (role: string): boolean => {
+    if (!user?.roles) return false;
+    return user.roles.includes(role);
+  };
+
+  const canCreate = (): boolean => {
+    if (!user) return false;
+    
+    // SUPER_ADMIN, ADMIN y MANAGER pueden crear
+    if (hasRole('SUPER_ADMIN') || hasRole('ADMIN') || hasRole('MANAGER')) {
+      return true;
+    }
+    
+    // USER y VIEWER no pueden crear
+    if (hasRole('USER') || hasRole('VIEWER')) {
+      return false;
+    }
+    
+    // Fallback al sistema anterior
+    if (user.isAdmin) return true;
+    if (user.permissions) {
+      return user.permissions.includes('*') || 
+             user.permissions.some(p => p.includes('write') || p.includes('create'));
+    }
+    return hasPermission('inventory', 'write');
+  };
+
+  const canEdit = (): boolean => {
+    if (!user) return false;
+    
+    // SUPER_ADMIN, ADMIN y MANAGER pueden editar
+    if (hasRole('SUPER_ADMIN') || hasRole('ADMIN') || hasRole('MANAGER')) {
+      return true;
+    }
+    
+    // USER y VIEWER no pueden editar
+    if (hasRole('USER') || hasRole('VIEWER')) {
+      return false;
+    }
+    
+    // Fallback al sistema anterior
+    if (user.isAdmin) return true;
+    if (user.permissions) {
+      return user.permissions.includes('*') || 
+             user.permissions.some(p => p.includes('write') || p.includes('edit'));
+    }
+    return hasPermission('inventory', 'write');
+  };
+
+  const canDelete = (): boolean => {
+    if (!user) return false;
+    
+    // SUPER_ADMIN, ADMIN y MANAGER pueden eliminar
+    if (hasRole('SUPER_ADMIN') || hasRole('ADMIN') || hasRole('MANAGER')) {
+      return true;
+    }
+    
+    // USER y VIEWER no pueden eliminar
+    if (hasRole('USER') || hasRole('VIEWER')) {
+      return false;
+    }
+    
+    // Fallback al sistema anterior
+    if (user.isAdmin) return true;
+    if (user.permissions) {
+      return user.permissions.includes('*') || 
+             user.permissions.some(p => p.includes('delete'));
+    }
+    return hasPermission('inventory', 'delete');
+  };
+
+  const isSuperAdmin = (): boolean => {
+    return hasRole('SUPER_ADMIN');
+  };
+
+  const canManageUsers = (): boolean => {
+    // Solo SUPER_ADMIN puede gestionar usuarios
+    return isSuperAdmin();
+  };
+
+  const canManagePermissions = (): boolean => {
+    // Solo SUPER_ADMIN puede gestionar permisos
+    return isSuperAdmin();
+  };
+
+  const canViewSection = (section: string): boolean => {
+    if (!user) return false;
+    
+    // Si es SUPER_ADMIN o ADMIN, puede ver todo
+    if (hasRole('SUPER_ADMIN') || hasRole('ADMIN')) {
+      return true;
+    }
+    
+    // Si es MANAGER, puede ver todo excepto administración
+    if (hasRole('MANAGER')) {
+      return section !== 'admin';
+    }
+    
+    // Si es USER, puede ver todo excepto administración
+    if (hasRole('USER')) {
+      return section !== 'admin';
+    }
+    
+    // Si es VIEWER, solo puede ver secciones específicas
+    if (hasRole('VIEWER')) {
+      const allowedSections = ['dashboard', 'inventario', 'bajas', 'clasificacion', 'colaboradores'];
+      return allowedSections.includes(section);
+    }
+    
+    // Fallback: si no tiene roles, usar sistema anterior
+    return user.isAdmin;
+  };
+
+  const canImport = (): boolean => {
+    if (!user) return false;
+    
+    // VIEWER y USER no pueden importar
+    if (hasRole('VIEWER') || hasRole('USER')) {
+      return false;
+    }
+    
+    // Solo ADMIN, MANAGER y SUPER_ADMIN pueden importar
+    return true;
   };
 
   // No renderizar nada mientras está cargando
@@ -153,6 +296,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       login,
       logout,
       hasPermission,
+      hasRole,
+      canCreate,
+      canEdit,
+      canDelete,
+      isSuperAdmin,
+      canManageUsers,
+      canManagePermissions,
+      canViewSection,
+      canImport,
     }}>
       {children}
     </AuthContext.Provider>

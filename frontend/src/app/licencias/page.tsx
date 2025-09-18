@@ -7,6 +7,7 @@ import LicensesList from '@/components/licencias/LicensesList';
 import LicenseModal from '@/components/licencias/LicenseModal';
 import LicensesDashboard from '@/components/licencias/LicensesDashboard';
 import LicenseDetailModal from '@/components/licencias/LicenseDetailModal';
+import { CreateGuard, EditGuard, DeleteGuard } from '@/components/auth/RoleGuard';
 
 interface Licencia {
   id: number;
@@ -221,13 +222,15 @@ export default function LicenciasPage() {
             <Download className="h-4 w-4" />
             <span>Exportar Excel</span>
           </button>
-          <button
-            onClick={handleCreateLicencia}
-            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 flex items-center space-x-2"
-          >
-            <Plus className="h-4 w-4" />
-            <span>Nueva Licencia</span>
-          </button>
+          <CreateGuard>
+            <button
+              onClick={handleCreateLicencia}
+              className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 flex items-center space-x-2"
+            >
+              <Plus className="h-4 w-4" />
+              <span>Nueva Licencia</span>
+            </button>
+          </CreateGuard>
         </div>
       </div>
 

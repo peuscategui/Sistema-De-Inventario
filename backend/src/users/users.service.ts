@@ -45,7 +45,7 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       select: {
         id: true,
         username: true,
@@ -57,6 +57,25 @@ export class UsersService {
         updatedAt: true,
       },
     });
+
+    // Obtener roles para cada usuario usando raw query
+    const usersWithRoles = await Promise.all(
+      users.map(async (user) => {
+        const userRoles = await this.prisma.$queryRaw<any[]>`
+          SELECT r.nombre
+          FROM user_roles ur
+          JOIN roles r ON ur.role_id = r.id
+          WHERE ur.user_id = ${user.id}
+        `;
+
+        return {
+          ...user,
+          roles: userRoles.map((ur: any) => ur.nombre),
+        };
+      })
+    );
+
+    return usersWithRoles;
   }
 
   async findOne(id: number) {

@@ -4,6 +4,30 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { ChevronDown, User, LogOut, Settings } from 'lucide-react';
 
+const getRoleDisplay = (user: any) => {
+  if (user?.roles && user.roles.length > 0) {
+    // Priorizar SUPER_ADMIN sobre otros roles
+    if (user.roles.includes('SUPER_ADMIN')) {
+      return 'Super Administrador';
+    }
+    if (user.roles.includes('ADMIN')) {
+      return 'Administrador';
+    }
+    if (user.roles.includes('MANAGER')) {
+      return 'Gerente';
+    }
+    if (user.roles.includes('USER')) {
+      return 'Usuario';
+    }
+    if (user.roles.includes('VIEWER')) {
+      return 'Visualizador';
+    }
+  }
+  
+  // Fallback al sistema anterior
+  return user?.isAdmin ? 'Administrador' : 'Usuario';
+};
+
 export default function Header() {
   const { user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -35,7 +59,7 @@ export default function Header() {
                   {user?.fullName || user?.username}
                 </div>
                 <div className="text-xs text-gray-500">
-                  {user?.isAdmin ? 'Administrador' : 'Usuario'}
+                  {getRoleDisplay(user)}
                 </div>
               </div>
             </div>

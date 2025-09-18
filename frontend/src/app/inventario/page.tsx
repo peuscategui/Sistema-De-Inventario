@@ -5,6 +5,7 @@ import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, 
 import InventarioModal from '@/components/inventario/InventarioModal';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
 import { API_ENDPOINTS } from '@/config/api';
+import { CreateGuard, EditGuard, DeleteGuard } from '@/components/auth/RoleGuard';
 // import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 // Interfaces para los datos relacionados
@@ -413,13 +414,15 @@ export default function InventarioPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Inventario</h1>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-        >
-          <PlusCircle size={20} />
-          Nuevo Item
-        </button>
+        <CreateGuard>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            <PlusCircle size={20} />
+            Nuevo Item
+          </button>
+        </CreateGuard>
       </div>
 
       {/* Barra superior */}
@@ -571,20 +574,24 @@ export default function InventarioPage() {
                     >
                       <Eye size={20} />
                     </button>
-                    <button
-                      onClick={() => openEditModal(item)}
-                      className="text-blue-600 hover:text-blue-800"
-                      title="Editar"
-                    >
-                      <Edit size={20} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="text-red-600 hover:text-red-800"
-                      title="Eliminar"
-                    >
-                      <Trash2 size={20} />
-                    </button>
+                    <EditGuard>
+                      <button
+                        onClick={() => openEditModal(item)}
+                        className="text-blue-600 hover:text-blue-800"
+                        title="Editar"
+                      >
+                        <Edit size={20} />
+                      </button>
+                    </EditGuard>
+                    <DeleteGuard>
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="text-red-600 hover:text-red-800"
+                        title="Eliminar"
+                      >
+                        <Trash2 size={20} />
+                      </button>
+                    </DeleteGuard>
                   </div>
                 </td>
               </tr>

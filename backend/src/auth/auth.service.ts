@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma.service';
 import { UsersService } from '../users/users.service';
+import { RolesService } from './roles.service';
 import * as bcrypt from 'bcrypt';
 
 export interface MicrosoftProfile {
@@ -16,6 +17,8 @@ export interface JwtPayload {
   username: string;
   email: string;
   isAdmin: boolean;
+  roles?: string[];
+  permissions?: string[];
 }
 
 @Injectable()
@@ -24,6 +27,7 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
     private prisma: PrismaService,
+    private rolesService: RolesService,
   ) {}
 
   async validateLocalUser(username: string, password: string): Promise<any> {
@@ -72,11 +76,17 @@ export class AuthService {
   }
 
   async login(user: any) {
+    // Obtener roles y permisos del usuario
+    const userRoles = await this.rolesService.getUserRoles(user.id);
+    const permissions = await this.rolesService.getUserPermissions(user.id);
+    
     const payload: JwtPayload = {
       sub: user.id,
       username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
+      roles: userRoles.map(ur => ur.role.nombre),
+      permissions: permissions,
     };
 
     return {
@@ -87,6 +97,8 @@ export class AuthService {
         email: user.email,
         fullName: user.fullName,
         isAdmin: user.isAdmin,
+        roles: userRoles.map(ur => ur.role.nombre),
+        permissions: permissions,
       }
     };
   }
@@ -111,6 +123,10 @@ export class AuthService {
       action: up.permission.action,
       displayName: up.permission.resource.displayName
     }));
+  }
+
+  async getUserRoles(userId: number): Promise<any[]> {
+    return this.rolesService.getUserRoles(userId);
   }
 
   async validateJwtPayload(payload: JwtPayload): Promise<any> {

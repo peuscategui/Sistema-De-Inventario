@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   
   // Variables de entorno públicas
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://tiinventory.efc.com.pe',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3002' : 'https://tiinventory.efc.com.pe'),
   },
   
   // Configuración de experimental features
