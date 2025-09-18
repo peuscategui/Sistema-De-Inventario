@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma.service';
 import { UsersService } from '../users/users.service';
+import { Role, ROLE_PERMISSIONS } from './enums/role.enum';
 import * as bcrypt from 'bcrypt';
 
 export interface MicrosoftProfile {
@@ -16,6 +17,7 @@ export interface JwtPayload {
   username: string;
   email: string;
   isAdmin: boolean;
+  role: Role;
 }
 
 @Injectable()
@@ -33,6 +35,9 @@ export class AuthService {
           { username },
           { email: username }
         ]
+      },
+      include: {
+        rol: true
       }
     });
 
@@ -51,7 +56,10 @@ export class AuthService {
 
     // Buscar usuario existente
     let user = await this.prisma.user.findUnique({
-      where: { email }
+      where: { email },
+      include: {
+        rol: true
+      }
     });
 
     // Si no existe, crear uno nuevo
@@ -64,6 +72,10 @@ export class AuthService {
           fullName: profile.displayName,
           isActive: true,
           isAdmin: false, // Por defecto no es admin
+          rolId: 2, // USER por defecto
+        },
+        include: {
+          rol: true
         }
       });
     }
@@ -72,11 +84,14 @@ export class AuthService {
   }
 
   async login(user: any) {
+    const role = user.rol?.nombre as Role || Role.USER;
+    
     const payload: JwtPayload = {
       sub: user.id,
       username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
+      role: role,
     };
 
     return {
@@ -87,6 +102,8 @@ export class AuthService {
         email: user.email,
         fullName: user.fullName,
         isAdmin: user.isAdmin,
+        role: role,
+        permissions: ROLE_PERMISSIONS[role],
       }
     };
   }

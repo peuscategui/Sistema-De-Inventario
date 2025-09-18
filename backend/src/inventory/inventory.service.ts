@@ -447,3 +447,151 @@ export class InventoryService {
   }
 }
 
+        data: mappedData,
+        skipDuplicates: true,
+      });
+      return result;
+    } catch (e) {
+      console.error('Error en batchCreate:', e);
+      throw new Error('Error al insertar los datos en la base de datos.');
+    }
+  }
+
+  async clearInventory() {
+    try {
+      console.log('🧹 Iniciando limpieza de tabla inventory...');
+      
+      // Contar registros antes de eliminar
+      const countBefore = await this.prisma.inventory.count();
+      console.log(`📊 Registros antes de limpiar: ${countBefore}`);
+      
+      // Eliminar todos los registros
+      const deleteResult = await this.prisma.inventory.deleteMany({});
+      console.log(`🗑️ Eliminados ${deleteResult.count} registros`);
+      
+      // Resetear la secuencia del ID
+      await this.prisma.$executeRaw`ALTER SEQUENCE inventory_id_seq RESTART WITH 1`;
+      console.log('🔄 Secuencia del ID reseteada');
+      
+      return { count: deleteResult.count };
+    } catch (error) {
+      console.error('❌ Error limpiando inventory:', error);
+      throw error;
+    }
+  }
+}
+
+        data: mappedData,
+        skipDuplicates: true,
+      });
+      return result;
+    } catch (e) {
+      console.error('Error en batchCreate:', e);
+      throw new Error('Error al insertar los datos en la base de datos.');
+    }
+  }
+
+  async clearInventory() {
+    try {
+      console.log('🧹 Iniciando limpieza de tabla inventory...');
+      
+      // Contar registros antes de eliminar
+      const countBefore = await this.prisma.inventory.count();
+      console.log(`📊 Registros antes de limpiar: ${countBefore}`);
+      
+      // Eliminar todos los registros
+      const deleteResult = await this.prisma.inventory.deleteMany({});
+      console.log(`🗑️ Eliminados ${deleteResult.count} registros`);
+      
+      // Resetear la secuencia del ID
+      await this.prisma.$executeRaw`ALTER SEQUENCE inventory_id_seq RESTART WITH 1`;
+      console.log('🔄 Secuencia del ID reseteada');
+      
+      return { count: deleteResult.count };
+    } catch (error) {
+      console.error('❌ Error limpiando inventory:', error);
+      throw error;
+    }
+  }
+}
+
+
+        data: mappedData,
+        skipDuplicates: true,
+      });
+      return result;
+    } catch (e) {
+      console.error('Error en batchCreate:', e);
+      throw new Error('Error al insertar los datos en la base de datos.');
+    }
+  }
+
+  async clearInventory() {
+    try {
+      console.log('🧹 Iniciando limpieza de tabla inventory...');
+      
+      // Contar registros antes de eliminar
+      const countBefore = await this.prisma.inventory.count();
+      console.log(`📊 Registros antes de limpiar: ${countBefore}`);
+      
+      // Eliminar todos los registros
+      const deleteResult = await this.prisma.inventory.deleteMany({});
+      console.log(`🗑️ Eliminados ${deleteResult.count} registros`);
+      
+      // Resetear la secuencia del ID
+      await this.prisma.$executeRaw`ALTER SEQUENCE inventory_id_seq RESTART WITH 1`;
+      console.log('🔄 Secuencia del ID reseteada');
+      
+      return { count: deleteResult.count };
+    } catch (error) {
+      console.error('❌ Error limpiando inventory:', error);
+      throw error;
+    }
+  }
+}
+
+        data: mappedData,
+        skipDuplicates: true,
+      });
+      return result;
+    } catch (e) {
+      console.error('Error en batchCreate:', e);
+      throw new Error('Error al insertar los datos en la base de datos.');
+    }
+  }
+
+  async clearInventory() {
+    try {
+      console.log('🧹 Iniciando limpieza de tabla inventory...');
+      
+      // Contar registros antes de eliminar
+      const countBefore = await this.prisma.inventory.count();
+      console.log(`📊 Registros antes de limpiar: ${countBefore}`);
+      
+      // Eliminar todos los registros
+      const deleteResult = await this.prisma.inventory.deleteMany({});
+      console.log(`🗑️ Eliminados ${deleteResult.count} registros`);
+      
+      // Resetear la secuencia del ID
+      await this.prisma.$executeRaw`ALTER SEQUENCE inventory_id_seq RESTART WITH 1`;
+      console.log('🔄 Secuencia del ID reseteada');
+      
+      return { count: deleteResult.count };
+    } catch (error) {
+      console.error('❌ Error limpiando inventory:', error);
+      throw error;
+    }
+  }
+}
+
+
+        data: mappedData,
+        skipDuplicates: true,
+      });
+      return result;
+    } catch (e) {
+      console.error('Error en batchCreate:', e);
+      throw new Error('Error al insertar los datos en la base de datos.');
+    }
+  }
+
