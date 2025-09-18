@@ -1,8 +1,13 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query, ParseIntPipe, DefaultValuePipe } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, ParseIntPipe, DefaultValuePipe, UseGuards } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { CreateInventoryDto, UpdateInventoryDto } from './inventory.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/enums/role.enum';
 
 @Controller('inventory')
+@UseGuards(JwtAuthGuard)
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
@@ -178,6 +183,8 @@ export class InventoryController {
   }
 
   @Post()
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   async create(@Body() data: CreateInventoryDto) {
     try {
       console.log('Datos recibidos en el controlador:', data);
@@ -196,6 +203,8 @@ export class InventoryController {
   }
 
   @Put(':id')
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   async update(@Param('id') id: string, @Body() data: UpdateInventoryDto) {
     try {
       console.log('🔍 DEBUG: ===== ACTUALIZACIÓN DE INVENTARIO =====');
@@ -214,6 +223,8 @@ export class InventoryController {
   }
 
   @Delete('batch')
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   async batchDelete(@Body() data: { ids: number[] }) {
     try {
       console.log('IDs a eliminar:', data.ids);
@@ -227,6 +238,8 @@ export class InventoryController {
   }
 
   @Delete(':id')
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   async delete(@Param('id') id: string) {
     try {
       console.log('ID a eliminar (individual):', id);
@@ -240,8 +253,84 @@ export class InventoryController {
   }
 
   @Delete('clear')
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   async clearInventory() {
     try {
+      console.log('🧹 Limpiando tabla inventory...');
+      const result = await this.inventoryService.clearInventory();
+      console.log(`✅ Eliminados ${result.count} registros de inventory`);
+      return { message: `Eliminados ${result.count} registros de inventory`, count: result.count };
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      throw error;
+    }
+  }
+
+
+}
+
+      console.log('🧹 Limpiando tabla inventory...');
+      const result = await this.inventoryService.clearInventory();
+      console.log(`✅ Eliminados ${result.count} registros de inventory`);
+      return { message: `Eliminados ${result.count} registros de inventory`, count: result.count };
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      throw error;
+    }
+  }
+
+
+}
+      console.log('🧹 Limpiando tabla inventory...');
+      const result = await this.inventoryService.clearInventory();
+      console.log(`✅ Eliminados ${result.count} registros de inventory`);
+      return { message: `Eliminados ${result.count} registros de inventory`, count: result.count };
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      throw error;
+    }
+  }
+
+
+}
+      console.log('🧹 Limpiando tabla inventory...');
+      const result = await this.inventoryService.clearInventory();
+      console.log(`✅ Eliminados ${result.count} registros de inventory`);
+      return { message: `Eliminados ${result.count} registros de inventory`, count: result.count };
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      throw error;
+    }
+  }
+
+
+}
+      console.log('🧹 Limpiando tabla inventory...');
+      const result = await this.inventoryService.clearInventory();
+      console.log(`✅ Eliminados ${result.count} registros de inventory`);
+      return { message: `Eliminados ${result.count} registros de inventory`, count: result.count };
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      throw error;
+    }
+  }
+
+
+}
+
+      console.log('🧹 Limpiando tabla inventory...');
+      const result = await this.inventoryService.clearInventory();
+      console.log(`✅ Eliminados ${result.count} registros de inventory`);
+      return { message: `Eliminados ${result.count} registros de inventory`, count: result.count };
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      throw error;
+    }
+  }
+
+
+}
       console.log('🧹 Limpiando tabla inventory...');
       const result = await this.inventoryService.clearInventory();
       console.log(`✅ Eliminados ${result.count} registros de inventory`);

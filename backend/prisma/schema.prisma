@@ -177,6 +177,18 @@ model usuarios {
   usuario  String @unique
   clave    String
   permisos String
+  rolId    Int?
+  rol      rol?   @relation(fields: [rolId], references: [id])
+}
+
+model rol {
+  id          Int        @id @default(autoincrement())
+  nombre      String     @unique @db.VarChar(50)
+  descripcion String?    @db.Text
+  permisos    Json?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  usuarios    usuarios[]
 }
 
 enum TipoLicencia {

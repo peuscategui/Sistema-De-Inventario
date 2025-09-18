@@ -95,16 +95,16 @@ export class DashboardController {
       };
     } catch (error) {
       console.error('Error obteniendo estadísticas del dashboard:', error);
-      return {
+    return {
         totalEquipos: 0,
         porcentajeBuenEstado: 0,
         equiposObsoletos: 0,
         totalBajas: 0,
-        familiaMasComun: {
+      familiaMasComun: {
           familia: 'N/A',
           _count: { id: 0 }
-        }
-      };
+      }
+    };
     }
   }
 
@@ -296,3 +296,290 @@ export class DashboardController {
     }
   }
 } 
+      });
+
+      // Obtener nombres de las clasificaciones
+      const clasificaciones = await this.prisma.clasificacion.findMany({
+        select: {
+          id: true,
+          familia: true
+        }
+      });
+
+      // Agrupar por familia (sumando los conteos de las diferentes sub-familias)
+      const familiaCounts = new Map();
+      
+      distribucion.forEach(item => {
+        const clasificacion = clasificaciones.find(c => c.id === item.clasificacionId);
+        const familia = clasificacion?.familia || 'Sin clasificar';
+        
+        if (familiaCounts.has(familia)) {
+          familiaCounts.set(familia, familiaCounts.get(familia) + item._count.id);
+        } else {
+          familiaCounts.set(familia, item._count.id);
+        }
+      });
+
+      // Convertir a array y ordenar por cantidad
+      const resultado = Array.from(familiaCounts.entries())
+        .map(([familia, count]) => ({
+          familia,
+          _count: { id: count }
+        }))
+        .sort((a, b) => b._count.id - a._count.id);
+
+      return resultado;
+    } catch (error) {
+      console.error('Error obteniendo distribución por familia:', error);
+      return [];
+    }
+  }
+      });
+
+      // Obtener nombres de las clasificaciones
+      const clasificaciones = await this.prisma.clasificacion.findMany({
+        select: {
+          id: true,
+          familia: true
+        }
+      });
+
+      // Agrupar por familia (sumando los conteos de las diferentes sub-familias)
+      const familiaCounts = new Map();
+      
+      distribucion.forEach(item => {
+        const clasificacion = clasificaciones.find(c => c.id === item.clasificacionId);
+        const familia = clasificacion?.familia || 'Sin clasificar';
+        
+        if (familiaCounts.has(familia)) {
+          familiaCounts.set(familia, familiaCounts.get(familia) + item._count.id);
+        } else {
+          familiaCounts.set(familia, item._count.id);
+        }
+      });
+
+      // Convertir a array y ordenar por cantidad
+      const resultado = Array.from(familiaCounts.entries())
+        .map(([familia, count]) => ({
+          familia,
+          _count: { id: count }
+        }))
+        .sort((a, b) => b._count.id - a._count.id);
+
+      return resultado;
+    } catch (error) {
+      console.error('Error obteniendo distribución por familia:', error);
+      return [];
+    }
+  }
+
+  @Get('analisis-financiero')
+  @UseGuards(JwtAuthGuard)
+  async getAnalisisFinanciero() {
+    try {
+      // Obtener datos de inventario con clasificaciones
+      const inventarioConClasificacion = await this.prisma.inventory.findMany({
+        where: {
+          estado: {
+            not: 'BAJA' // Excluir equipos dados de baja
+          }
+        },
+        include: {
+          clasificacion: {
+            select: {
+              familia: true,
+              sub_familia: true,
+              valor_reposicion: true,
+              vida_util: true
+            }
+          }
+        }
+      });
+
+      // Agrupar por familia y subfamilia
+      const analisisPorFamilia = new Map();
+      const analisisPorSubfamilia = new Map();
+
+      inventarioConClasificacion.forEach(item => {
+        const clasificacion = item.clasificacion;
+        if (!clasificacion) return;
+
+        const familia = clasificacion.familia;
+        const subfamilia = clasificacion.sub_familia;
+        const valorReposicion = parseFloat(clasificacion.valor_reposicion?.toString() || '0') || 0;
+        const vidaUtil = parseInt(clasificacion.vida_util || '5') || 5;
+
+        // Agrupar por familia
+        if (!analisisPorFamilia.has(familia)) {
+          analisisPorFamilia.set(familia, {
+            familia,
+            cantidad: 0,
+            valorTotalReposicion: 0,
+            valorPromedioReposicion: 0,
+            vidaUtilPromedio: 0,
+            subfamilias: new Map()
+          });
+        }
+
+        const familiaData = analisisPorFamilia.get(familia);
+        familiaData.cantidad += 1;
+        familiaData.valorTotalReposicion += valorReposicion;
+
+        // Agrupar por subfamilia
+        const subfamiliaKey = `${familia} - ${subfamilia}`;
+        if (!analisisPorSubfamilia.has(subfamiliaKey)) {
+          analisisPorSubfamilia.set(subfamiliaKey, {
+            familia,
+            subfamilia,
+            cantidad: 0,
+            valorTotalReposicion: 0,
+            valorPromedioReposicion: 0,
+            vidaUtil: vidaUtil
+          });
+        }
+
+        const subfamiliaData = analisisPorSubfamilia.get(subfamiliaKey);
+        subfamiliaData.cantidad += 1;
+        subfamiliaData.valorTotalReposicion += valorReposicion;
+
+        // Agregar a subfamilias de la familia
+        if (!familiaData.subfamilias.has(subfamilia)) {
+          familiaData.subfamilias.set(subfamilia, {
+            subfamilia,
+            cantidad: 0,
+            valorTotalReposicion: 0,
+            valorPromedioReposicion: 0,
+            vidaUtil: vidaUtil
+          });
+        }
+
+        const subfamiliaEnFamilia = familiaData.subfamilias.get(subfamilia);
+        subfamiliaEnFamilia.cantidad += 1;
+        subfamiliaEnFamilia.valorTotalReposicion += valorReposicion;
+      });
+
+      // Calcular promedios y convertir a arrays
+      const familiasArray = Array.from(analisisPorFamilia.values()).map(familia => {
+        familia.valorPromedioReposicion = familia.cantidad > 0 ? 
+          Math.round(familia.valorTotalReposicion / familia.cantidad) : 0;
+        
+        // Calcular vida útil promedio
+        const subfamiliasArray = Array.from(familia.subfamilias.values()) as any[];
+        familia.vidaUtilPromedio = subfamiliasArray.length > 0 ? 
+          Math.round(subfamiliasArray.reduce((sum: number, sub: any) => sum + sub.vidaUtil, 0) / subfamiliasArray.length) : 5;
+
+        // Convertir subfamilias a array
+        familia.subfamilias = Array.from(familia.subfamilias.values()).map((sub: any) => ({
+          ...sub,
+          valorPromedioReposicion: sub.cantidad > 0 ? 
+            Math.round(sub.valorTotalReposicion / sub.cantidad) : 0
+        }));
+
+        return familia;
+      }).sort((a, b) => b.valorTotalReposicion - a.valorTotalReposicion);
+
+      const subfamiliasArray = Array.from(analisisPorSubfamilia.values()).map((subfamilia: any) => ({
+        ...subfamilia,
+        valorPromedioReposicion: subfamilia.cantidad > 0 ? 
+          Math.round(subfamilia.valorTotalReposicion / subfamilia.cantidad) : 0
+      })).sort((a: any, b: any) => b.valorTotalReposicion - a.valorTotalReposicion);
+
+      // Calcular totales generales
+      const totalEquipos = familiasArray.reduce((sum, f) => sum + f.cantidad, 0);
+      const valorTotalRenovacion = familiasArray.reduce((sum, f) => sum + f.valorTotalReposicion, 0);
+
+      return {
+        resumen: {
+          totalEquipos,
+          valorTotalRenovacion,
+          valorPromedioPorEquipo: totalEquipos > 0 ? Math.round(valorTotalRenovacion / totalEquipos) : 0
+        },
+        porFamilia: familiasArray,
+        porSubfamilia: subfamiliasArray
+      };
+    } catch (error) {
+      console.error('Error obteniendo análisis financiero:', error);
+      return {
+        resumen: { totalEquipos: 0, valorTotalRenovacion: 0, valorPromedioPorEquipo: 0 },
+        porFamilia: [],
+        porSubfamilia: []
+      };
+    }
+  }
+} 
+      });
+
+      // Obtener nombres de las clasificaciones
+      const clasificaciones = await this.prisma.clasificacion.findMany({
+        select: {
+          id: true,
+          familia: true
+        }
+      });
+
+      // Agrupar por familia (sumando los conteos de las diferentes sub-familias)
+      const familiaCounts = new Map();
+      
+      distribucion.forEach(item => {
+        const clasificacion = clasificaciones.find(c => c.id === item.clasificacionId);
+        const familia = clasificacion?.familia || 'Sin clasificar';
+        
+        if (familiaCounts.has(familia)) {
+          familiaCounts.set(familia, familiaCounts.get(familia) + item._count.id);
+        } else {
+          familiaCounts.set(familia, item._count.id);
+        }
+      });
+
+      // Convertir a array y ordenar por cantidad
+      const resultado = Array.from(familiaCounts.entries())
+        .map(([familia, count]) => ({
+          familia,
+          _count: { id: count }
+        }))
+        .sort((a, b) => b._count.id - a._count.id);
+
+      return resultado;
+    } catch (error) {
+      console.error('Error obteniendo distribución por familia:', error);
+      return [];
+    }
+  }
+      });
+
+      // Obtener nombres de las clasificaciones
+      const clasificaciones = await this.prisma.clasificacion.findMany({
+        select: {
+          id: true,
+          familia: true
+        }
+      });
+
+      // Agrupar por familia (sumando los conteos de las diferentes sub-familias)
+      const familiaCounts = new Map();
+      
+      distribucion.forEach(item => {
+        const clasificacion = clasificaciones.find(c => c.id === item.clasificacionId);
+        const familia = clasificacion?.familia || 'Sin clasificar';
+        
+        if (familiaCounts.has(familia)) {
+          familiaCounts.set(familia, familiaCounts.get(familia) + item._count.id);
+        } else {
+          familiaCounts.set(familia, item._count.id);
+        }
+      });
+
+      // Convertir a array y ordenar por cantidad
+      const resultado = Array.from(familiaCounts.entries())
+        .map(([familia, count]) => ({
+          familia,
+          _count: { id: count }
+        }))
+        .sort((a, b) => b._count.id - a._count.id);
+
+      return resultado;
+    } catch (error) {
+      console.error('Error obteniendo distribución por familia:', error);
+      return [];
+    }
+  }
