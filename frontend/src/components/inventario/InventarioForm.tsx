@@ -7,6 +7,7 @@ import { z } from 'zod';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import { API_ENDPOINTS } from '@/config/api';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Esquema de validación Zod
 const inventarioSchemaCreate = z.object({
@@ -112,9 +113,9 @@ interface Articulo {
 
 // Opciones estáticas
 const SEDE_OPTIONS = ["Chorrillos", "Surquillo", "Arequipa", "Cusco", "Pasco"];
-const ESTADO_OPTIONS = ["ASIGNADA", "OPERATIVO", "STOCK", "AVERIADA", "PRESTAMO", "REPARACION", "BAJA", "DONACION"];
-const CONDICION_OPTIONS = ["OPERATIVO", "OBSOLETO", "OBSOLETA", "AVERIADA", "VIGENTE"];
-const UBICACION_OPTIONS = ["Arequipa", "Chorrillos", "Surquillo", "Cuzco", "Cusco", "España", "Hibrido", "Pasco", "Casa"];
+const ESTADO_OPTIONS = ["ASIGNADO", "ASIGNADA", "BAJA", "STOCK", "EN SERVICIO", "DONACION"];
+const CONDICION_OPTIONS = ["OPERATIVO", "OBSOLETO", "OBSOLETA", "AVERIADO"];
+const UBICACION_OPTIONS = ["AREQUIPA", "CHORRILLOS", "SURQUILLO", "CUZCO", "CUSCO", "ESPAÑA", "HIBRIDO", "PASCO", "CASA"];
 
 interface InventarioFormProps {
   onSubmit: (data: any) => void;
@@ -128,6 +129,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
   console.log('🔍 DEBUG: isEditing:', isEditing);
   console.log('🔍 DEBUG: initialData:', initialData);
   
+  const { canCreate, canEdit } = useAuth();
   const [clasificaciones, setClasificaciones] = useState<Clasificacion[]>([]);
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
   const [articulos, setArticulos] = useState<Articulo[]>([]);
@@ -576,6 +578,20 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
           <div>
             <label className="block text-sm font-medium mb-1">Colaborador</label>
             
+            {/* Botón de prueba */}
+            <button 
+              type="button" 
+              onClick={() => {
+                console.log('🔍 DEBUG: ===== BOTÓN DE PRUEBA CLICKEADO =====');
+                console.log('🔍 DEBUG: selectedEmpleado actual:', selectedEmpleado);
+                console.log('🔍 DEBUG: safeEmpleadoOptions.length:', safeEmpleadoOptions.length);
+                alert('Botón de prueba clickeado - revisa la consola');
+              }}
+              className="mb-2 px-2 py-1 bg-red-500 text-white text-xs rounded"
+            >
+              PRUEBA LOGS
+            </button>
+            
             <Select
               options={safeEmpleadoOptions}
               isClearable
@@ -676,7 +692,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               <option value="">Seleccionar ubicación</option>
               {UBICACION_OPTIONS.map(option => (
                 <option key={option} value={option}>
-                  {option}
+                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -689,7 +705,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               <option value="">Seleccionar estado</option>
               {ESTADO_OPTIONS.map(option => (
                 <option key={option} value={option}>
-                  {option}
+                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -706,7 +722,7 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
               </option>
               {CONDICION_OPTIONS.map(option => (
                 <option key={option} value={option}>
-                  {option}
+                  {option.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -789,13 +805,15 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
         >
           Cancelar
         </button>
-        <button 
-          type="submit" 
-          disabled={isLoading} 
-          className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
-        >
-          {isEditing ? 'Actualizar' : 'Crear'} Inventario
-        </button>
+        {(isEditing ? canEdit() : canCreate()) && (
+          <button 
+            type="submit" 
+            disabled={isLoading} 
+            className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
+          >
+            {isEditing ? 'Actualizar' : 'Crear'} Inventario
+          </button>
+        )}
       </div>
     </form>
   );

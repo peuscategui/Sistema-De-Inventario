@@ -10,6 +10,8 @@ interface User {
   email: string;
   fullName?: string;
   isAdmin: boolean;
+  role: string;
+  permissions: Record<string, string[]>;
 }
 
 interface Permission {
@@ -26,6 +28,10 @@ interface AuthContextType {
   login: (token: string) => Promise<void>;
   logout: () => void;
   hasPermission: (resource: string, action: string) => boolean;
+  hasRole: (role: string) => boolean;
+  canEdit: () => boolean;
+  canDelete: () => boolean;
+  canCreate: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -130,6 +136,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return permissions.some(p => p.resource === resource && p.action === action);
   };
 
+  const hasRole = (role: string): boolean => {
+    return user?.role === role;
+  };
+
+  const canEdit = (): boolean => {
+    if (user?.isAdmin) return true;
+    return user?.permissions?.inventario?.includes('update') || false;
+  };
+
+  const canDelete = (): boolean => {
+    if (user?.isAdmin) return true;
+    return user?.permissions?.inventario?.includes('delete') || false;
+  };
+
+  const canCreate = (): boolean => {
+    if (user?.isAdmin) return true;
+    return user?.permissions?.inventario?.includes('create') || false;
+  };
+
   // No renderizar nada mientras está cargando
   if (isLoading) {
     return (
@@ -153,6 +178,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       login,
       logout,
       hasPermission,
+      hasRole,
+      canEdit,
+      canDelete,
+      canCreate,
     }}>
       {children}
     </AuthContext.Provider>
