@@ -45,7 +45,8 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.prisma.user.findMany({
+    // Obtener usuarios básicos
+    const users = await this.prisma.user.findMany({
       select: {
         id: true,
         username: true,
@@ -57,6 +58,25 @@ export class UsersService {
         updatedAt: true,
       },
     });
+
+    // Obtener roles asociados usando consulta RAW (tablas user_roles y roles)
+    const rolesRows = await this.prisma.$queryRaw<any[]>`
+      SELECT ur.user_id as "userId", r.nombre as role
+      FROM public.user_roles ur
+      JOIN public.roles r ON ur.role_id = r.id
+    `;
+
+    const userIdToRoles: Record<number, string[]> = {};
+    for (const row of rolesRows) {
+      const list = userIdToRoles[row.userId] || [];
+      list.push(row.role);
+      userIdToRoles[row.userId] = list;
+    }
+
+    return users.map(u => ({
+      ...u,
+      roles: userIdToRoles[u.id] || [],
+    }));
   }
 
   async findOne(id: number) {

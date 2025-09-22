@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { API_ENDPOINTS } from '@/config/api';
+import { ActionGuard } from '@/components/auth/PermissionGuard';
 
 interface User {
   id: number;
@@ -10,6 +11,7 @@ interface User {
   fullName?: string;
   isActive: boolean;
   isAdmin: boolean;
+  roles?: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -79,14 +81,65 @@ export default function AdminPage() {
     }
   };
 
+  const [selectedRole, setSelectedRole] = useState('USER');
+
   const fetchUserPermissions = async (userId: number) => {
     try {
-      const response = await fetch(`${API_ENDPOINTS.permissions}/user/${userId}`);
-      const data = await response.json();
-      setUserPermissions(Array.isArray(data) ? data : []);
+      // Obtener el rol actual del usuario desde la base de datos
+      const response = await fetch(`${API_ENDPOINTS.auth}/user-roles/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        // Establecer el rol actual en el selector
+        if (data.roles && data.roles.length > 0) {
+          setSelectedRole(data.roles[0]);
+        }
+        console.log('🔍 Rol actual del usuario:', data);
+      } else {
+        // Si no hay endpoint, usar rol por defecto
+        setSelectedRole('USER');
+      }
     } catch (error) {
-      console.error('Error al cargar permisos del usuario:', error);
-      setUserPermissions([]);
+      console.error('Error al cargar rol del usuario:', error);
+      setSelectedRole('USER');
+    }
+  };
+
+  const changeUserRole = async (userId: number, newRole: string) => {
+    try {
+      console.log(`🔄 Cambiando rol del usuario ${userId} a ${newRole}`);
+      
+      const response = await fetch(`${API_ENDPOINTS.auth}/change-role/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ role: newRole }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log(`✅ Rol cambiado exitosamente:`, data);
+        
+        // Actualizar la lista de usuarios para reflejar el cambio
+        fetchUsers();
+        
+        // Cerrar el modal
+        setShowPermissionModal(false);
+      } else {
+        const errorData = await response.json();
+        console.error('❌ Error al cambiar rol:', errorData);
+        alert(`Error al cambiar rol: ${errorData.message || 'Error desconocido'}`);
+      }
+      
+    } catch (error) {
+      console.error('Error al cambiar rol del usuario:', error);
+      alert(`Error al cambiar rol: ${error instanceof Error ? error.message : 'Error desconocido'}`);
     }
   };
 
@@ -123,9 +176,11 @@ export default function AdminPage() {
   };
 
   const handleUserPermissions = (user: User) => {
+    console.log('🔍 handleUserPermissions llamado para usuario:', user);
     setSelectedUser(user);
     fetchUserPermissions(user.id);
     setShowPermissionModal(true);
+    console.log('🔍 Modal de permisos abierto');
   };
 
   const updateUserPermissions = async (permissionIds: number[]) => {
@@ -180,6 +235,7 @@ export default function AdminPage() {
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Panel de Administración</h1>
+        <ActionGuard resource="users" action="create">
         <button
           onClick={() => setShowUserForm(true)}
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
@@ -187,6 +243,7 @@ export default function AdminPage() {
           <span>➕</span>
           Nuevo Usuario
         </button>
+        </ActionGuard>
       </div>
 
       {/* Lista de usuarios */}
@@ -238,19 +295,38 @@ export default function AdminPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      user.isAdmin ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {user.isAdmin ? 'Administrador' : 'Usuario'}
-                    </span>
+                    {(() => {
+                      const role = user.roles && user.roles.length > 0 ? user.roles[0] : (user.isAdmin ? 'ADMIN' : 'USER');
+                      const labelMap: Record<string, string> = {
+                        SUPER_ADMIN: 'Super Administrador',
+                        ADMIN: 'Administrador',
+                        USER: 'Usuario',
+                        VIEWER: 'Visualizador',
+                      };
+                      const colorMap: Record<string, string> = {
+                        SUPER_ADMIN: 'bg-yellow-100 text-yellow-800',
+                        ADMIN: 'bg-purple-100 text-purple-800',
+                        USER: 'bg-gray-100 text-gray-800',
+                        VIEWER: 'bg-gray-100 text-gray-800',
+                      };
+                      const label = labelMap[role] || 'Usuario';
+                      const color = colorMap[role] || 'bg-gray-100 text-gray-800';
+                      return (
+                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${color}`}>
+                          {label}
+                        </span>
+                      );
+                    })()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <ActionGuard resource="users" action="edit">
                     <button
                       onClick={() => handleUserPermissions(user)}
                       className="text-blue-600 hover:text-blue-900 mr-3"
                     >
                       🔐 Permisos
                     </button>
+                    </ActionGuard>
                   </td>
                 </tr>
               ))}
@@ -359,60 +435,25 @@ export default function AdminPage() {
       {/* Modal de permisos */}
       {showPermissionModal && selectedUser && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[80vh] overflow-y-auto">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4">
-              Permisos para {selectedUser.username}
+              Cambiar Rol para {selectedUser.username}
             </h3>
             
-            <div className="space-y-4">
-              {/* Agrupar permisos por recurso */}
-              {Array.from(new Set(permissions.map(p => p.resource.name))).map(resourceName => {
-                const resourcePermissions = permissions.filter(p => p.resource.name === resourceName);
-                const resource = resourcePermissions[0]?.resource;
-                
-                return (
-                  <div key={resourceName} className="border rounded-lg p-4">
-                    <h4 className="font-semibold text-gray-800 mb-3">
-                      {resource?.displayName} ({resource?.name})
-                    </h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      {resourcePermissions.map(permission => {
-                        const hasPermission = userPermissions.some(up => 
-                          up.permission.id === permission.id && up.granted
-                        );
-                        
-                        return (
-                          <label key={permission.id} className="flex items-center space-x-2">
-                            <input
-                              type="checkbox"
-                              checked={hasPermission}
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  // Agregar permiso
-                                  setUserPermissions(prev => [...prev, {
-                                    id: 0,
-                                    granted: true,
-                                    permission
-                                  }]);
-                                } else {
-                                  // Quitar permiso
-                                  setUserPermissions(prev => 
-                                    prev.filter(up => up.permission.id !== permission.id)
-                                  );
-                                }
-                              }}
-                              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                            />
-                            <span className="text-sm text-gray-700">
-                              {getActionIcon(permission.action)} {getActionName(permission.action)}
-                            </span>
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="space-y-3">
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700 mb-2 block">Seleccionar Rol:</span>
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  value={selectedRole}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                >
+                  <option value="VIEWER">👁️ Visualizador (Solo lectura)</option>
+                  <option value="USER">👤 Usuario (Lectura y edición básica)</option>
+                  <option value="ADMIN">⚙️ Administrador (Todas las funciones excepto gestión de usuarios)</option>
+                  <option value="SUPER_ADMIN">👑 Super Administrador (Todas las funciones)</option>
+                </select>
+              </label>
             </div>
             
             <div className="flex justify-end gap-2 mt-6">
@@ -424,14 +465,13 @@ export default function AdminPage() {
               </button>
               <button
                 onClick={() => {
-                  const permissionIds = userPermissions
-                    .filter(up => up.granted)
-                    .map(up => up.permission.id);
-                  updateUserPermissions(permissionIds);
+                  if (selectedUser) {
+                    changeUserRole(selectedUser.id, selectedRole);
+                  }
                 }}
                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               >
-                Guardar Permisos
+                Guardar Rol
               </button>
             </div>
           </div>

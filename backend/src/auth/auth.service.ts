@@ -113,6 +113,17 @@ export class AuthService {
     }));
   }
 
+  async getUserRoles(userId: number) {
+    const result = await this.prisma.$queryRaw`
+      SELECT r.nombre
+      FROM public.user_roles ur
+      JOIN public.roles r ON ur.role_id = r.id
+      WHERE ur.user_id = ${userId}
+    `;
+
+    return (result as any[]).map((row: any) => row.nombre);
+  }
+
   async validateJwtPayload(payload: JwtPayload): Promise<any> {
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub }
@@ -123,5 +134,56 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async changeUserRole(userId: number, newRole: string): Promise<any> {
+    try {
+      console.log(`🔄 Cambiando rol del usuario ${userId} a ${newRole}`);
+      
+      // Obtener el ID del rol
+      const rol = await this.prisma.$queryRaw`
+        SELECT id FROM public.roles WHERE nombre = ${newRole}
+      `;
+      
+      if (!rol || (rol as any[]).length === 0) {
+        throw new Error(`Rol ${newRole} no encontrado`);
+      }
+      
+      const roleId = (rol as any[])[0].id;
+      console.log(`📋 ID del rol ${newRole}: ${roleId}`);
+      
+      // Política: un solo rol por usuario. Eliminar roles existentes y asignar el nuevo
+      await this.prisma.$executeRawUnsafe(
+        'DELETE FROM public.user_roles WHERE user_id = $1',
+        userId,
+      );
+
+      await this.prisma.$queryRaw`
+        INSERT INTO public.user_roles (user_id, role_id)
+        VALUES (${userId}, ${roleId})
+      `;
+      console.log(`✅ Rol asignado para usuario ${userId}`);
+      
+      // Verificar el cambio
+      const usuarioConRol = await this.prisma.$queryRaw`
+        SELECT u.id, u.username, u.email, r.nombre as rol
+        FROM public.user u
+        LEFT JOIN public.user_roles ur ON u.id = ur.user_id
+        LEFT JOIN public.roles r ON ur.role_id = r.id
+        WHERE u.id = ${userId}
+      `;
+      
+      console.log(`📊 Usuario actualizado:`, (usuarioConRol as any[])[0]);
+      
+      return {
+        success: true,
+        message: `Rol cambiado exitosamente a ${newRole}`,
+        user: (usuarioConRol as any[])[0]
+      };
+      
+    } catch (error) {
+      console.error('❌ Error al cambiar rol:', error);
+      throw new Error(`Error al cambiar rol: ${error.message}`);
+    }
   }
 } 

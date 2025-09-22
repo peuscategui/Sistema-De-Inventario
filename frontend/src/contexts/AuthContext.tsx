@@ -10,6 +10,7 @@ interface User {
   email: string;
   fullName?: string;
   isAdmin: boolean;
+  roles?: string[];
 }
 
 interface Permission {
@@ -25,7 +26,13 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (token: string) => Promise<void>;
   logout: () => void;
-  hasPermission: (resource: string, action: string) => boolean;
+  hasPermission: (permission: string) => boolean;
+  hasRole: (role: string) => boolean;
+  canViewSection: (section: string) => boolean;
+  canCreate: (resource: string) => boolean;
+  canEdit: (resource: string) => boolean;
+  canDelete: (resource: string) => boolean;
+  canImport: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -66,6 +73,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
           if (response.ok) {
             const data = await response.json();
+            
+            // Debug: Mostrar información del usuario
+            console.log('🔍 Usuario verificado:', {
+              email: data.user.email,
+              username: data.user.username,
+              fullName: data.user.fullName,
+              isAdmin: data.user.isAdmin
+            });
+            
+            // Usar roles tal como vienen del backend
+            console.log('🔍 Roles desde backend:', data.user.roles);
+            
             setUser(data.user);
             setPermissions(data.permissions || []);
             localStorage.setItem('user', JSON.stringify(data.user));
@@ -102,6 +121,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (response.ok) {
         const data = await response.json();
+        
+        // Debug: Mostrar información del usuario
+        console.log('🔍 Usuario logueado:', {
+          email: data.user.email,
+          username: data.user.username,
+          fullName: data.user.fullName,
+          isAdmin: data.user.isAdmin
+        });
+        
+        // Usar roles tal como vienen del backend
+        console.log('🔍 Roles desde backend:', data.user.roles);
+        
         setUser(data.user);
         setPermissions(data.permissions || []);
         localStorage.setItem('user', JSON.stringify(data.user));
@@ -125,9 +156,104 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push('/login');
   };
 
-  const hasPermission = (resource: string, action: string): boolean => {
-    if (user?.isAdmin) return true; // Los admins tienen todos los permisos
-    return permissions.some(p => p.resource === resource && p.action === action);
+  // Función para verificar si el usuario tiene un rol específico
+  const hasRole = (role: string): boolean => {
+    return user?.roles?.includes(role) || false;
+  };
+
+  // Función para verificar permisos basada en roles
+  const hasPermission = (permission: string): boolean => {
+    if (!user) return false;
+    
+    // SUPER_ADMIN tiene todos los permisos
+    if (hasRole('SUPER_ADMIN')) return true;
+    
+    // Verificar permisos específicos
+    return permissions.some(p => 
+      p.resource === permission.split(':')[0] && 
+      p.action === permission.split(':')[1]
+    );
+  };
+
+  // Función para verificar si puede ver una sección
+  const canViewSection = (section: string): boolean => {
+    if (!user) return false;
+    
+    // SUPER_ADMIN puede ver todo
+    if (hasRole('SUPER_ADMIN')) return true;
+    
+    // ADMIN puede ver todo excepto administración de usuarios
+    if (hasRole('ADMIN')) {
+      return section !== 'admin';
+    }
+    
+    // USER puede ver todo excepto admin y análisis financiero
+    if (hasRole('USER')) {
+      return !['admin', 'analisis-financiero'].includes(section);
+    }
+    
+    // VIEWER solo puede ver secciones específicas
+    if (hasRole('VIEWER')) {
+      return ['dashboard', 'inventario', 'bajas', 'donaciones', 'articulos', 'colaboradores', 'clasificacion'].includes(section);
+    }
+    
+    return false;
+  };
+
+  // Función para verificar si puede crear
+  const canCreate = (resource: string): boolean => {
+    if (!user) return false;
+    
+    const canCreateResult = hasRole('SUPER_ADMIN') || 
+      (hasRole('ADMIN') && resource !== 'users') || 
+      (hasRole('USER') && ['inventario', 'articulos', 'colaboradores', 'clasificacion'].includes(resource));
+    
+    console.log(`🔍 canCreate(${resource}):`, {
+      user: user.email,
+      roles: user.roles,
+      hasRoleSUPER_ADMIN: hasRole('SUPER_ADMIN'),
+      hasRoleADMIN: hasRole('ADMIN'),
+      hasRoleUSER: hasRole('USER'),
+      result: canCreateResult
+    });
+    
+    return canCreateResult;
+  };
+
+  // Función para verificar si puede editar
+  const canEdit = (resource: string): boolean => {
+    if (!user) return false;
+    
+    const canEditResult = hasRole('SUPER_ADMIN') || 
+      (hasRole('ADMIN') && resource !== 'users') || 
+      (hasRole('USER') && ['inventario', 'articulos', 'colaboradores', 'clasificacion'].includes(resource));
+    
+    console.log(`🔍 canEdit(${resource}):`, {
+      user: user.email,
+      roles: user.roles,
+      hasRoleSUPER_ADMIN: hasRole('SUPER_ADMIN'),
+      hasRoleADMIN: hasRole('ADMIN'),
+      hasRoleUSER: hasRole('USER'),
+      result: canEditResult
+    });
+    
+    return canEditResult;
+  };
+
+  // Función para verificar si puede eliminar
+  const canDelete = (resource: string): boolean => {
+    if (!user) return false;
+    
+    // Solo SUPER_ADMIN puede eliminar usuarios, ADMIN puede eliminar otros recursos
+    return hasRole('SUPER_ADMIN') || (hasRole('ADMIN') && resource !== 'users');
+  };
+
+  // Función para verificar si puede importar
+  const canImport = (): boolean => {
+    if (!user) return false;
+    
+    // Solo SUPER_ADMIN y ADMIN pueden importar
+    return hasRole('SUPER_ADMIN') || hasRole('ADMIN');
   };
 
   // No renderizar nada mientras está cargando
@@ -153,6 +279,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       login,
       logout,
       hasPermission,
+      hasRole,
+      canViewSection,
+      canCreate,
+      canEdit,
+      canDelete,
+      canImport,
     }}>
       {children}
     </AuthContext.Provider>

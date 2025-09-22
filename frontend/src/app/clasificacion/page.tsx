@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import ClasificacionModal from '@/components/clasificacion/ClasificacionModal';
+import { ActionGuard } from '@/components/auth/PermissionGuard';
 import { API_ENDPOINTS } from '@/config/api';
 // import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
@@ -21,7 +22,7 @@ export default function ClasificacionPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(20);
   const [pagination, setPagination] = useState({ totalCount: 0, totalPages: 1 });
   const [activeFilter, setActiveFilter] = useState<'familia' | 'sub_familia' | 'tipo_equipo'>('familia');
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
@@ -318,13 +319,15 @@ export default function ClasificacionPage() {
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Clasificación</h1>
-        <button
-          onClick={handleOpenModal}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-        >
-          <PlusCircle size={20} />
-          Nueva Clasificación
-        </button>
+        <ActionGuard resource="clasificacion" action="create">
+          <button
+            onClick={handleOpenModal}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            <PlusCircle size={20} />
+            Nueva Clasificación
+          </button>
+        </ActionGuard>
       </div>
 
       {/* Barra de filtros y acciones */}
@@ -500,8 +503,8 @@ export default function ClasificacionPage() {
                         ? `$${clasificacion.valor_reposicion.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` 
                         : '-'}
                     </td>
-                    <td className="px-4 py-2">
-                      <div className="flex gap-2">
+                    <td className="px-4 py-2 text-center">
+                      <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={() => handleView(clasificacion)}
                           className="text-blue-600 hover:text-blue-800"
@@ -509,20 +512,24 @@ export default function ClasificacionPage() {
                         >
                           <Eye size={20} />
                         </button>
-                        <button
-                          onClick={() => handleEdit(clasificacion)}
-                          className="text-primary hover:text-primary/80"
-                          title="Editar"
-                        >
-                          <Edit size={20} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(clasificacion.id)}
-                          className="text-destructive hover:text-destructive/80"
-                          title="Eliminar"
-                        >
-                          <Trash2 size={20} />
-                        </button>
+                        <ActionGuard resource="clasificacion" action="edit">
+                          <button
+                            onClick={() => handleEdit(clasificacion)}
+                            className="text-primary hover:text-primary/80"
+                            title="Editar"
+                          >
+                            <Edit size={20} />
+                          </button>
+                        </ActionGuard>
+                        <ActionGuard resource="clasificacion" action="delete">
+                          <button
+                            onClick={() => handleDelete(clasificacion.id)}
+                            className="text-destructive hover:text-destructive/80"
+                            title="Eliminar"
+                          >
+                            <Trash2 size={20} />
+                          </button>
+                        </ActionGuard>
                       </div>
                     </td>
                   </tr>

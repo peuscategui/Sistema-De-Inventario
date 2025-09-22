@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, RefreshCw, Filter, Search, Eye } from 'lucide-react';
 import ArticuloModal from '@/components/articulos/ArticuloModal';
+import { ActionGuard } from '@/components/auth/PermissionGuard';
 import { API_ENDPOINTS } from '@/config/api';
 // import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
@@ -82,7 +83,7 @@ export default function ArticulosPage() {
 
   // Paginación
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(20);
   const [pagination, setPagination] = useState({ totalCount: 0, totalPages: 1 });
 
   // Filtros
@@ -364,6 +365,7 @@ export default function ArticulosPage() {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Artículos</h1>
         <div className="flex gap-2">
+          <ActionGuard resource="articulos" action="create">
           <button
             onClick={handleCreate}
             className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90"
@@ -371,6 +373,7 @@ export default function ArticulosPage() {
             <PlusCircle size={20} />
             Nuevo Artículo
           </button>
+          </ActionGuard>
         </div>
       </div>
 
@@ -484,6 +487,7 @@ export default function ArticulosPage() {
             Actualizar
           </button>
           {selectedArticulos.length > 0 && (
+            <ActionGuard resource="articulos" action="delete">
             <button
               onClick={handleBulkDelete}
               className="bg-destructive text-destructive-foreground px-4 py-2 rounded-lg flex items-center gap-2"
@@ -491,6 +495,7 @@ export default function ArticulosPage() {
               <Trash2 size={20} />
               Eliminar ({selectedArticulos.length})
             </button>
+            </ActionGuard>
           )}
         </div>
         <div className="flex gap-2">
@@ -601,8 +606,8 @@ export default function ArticulosPage() {
                         )}
                       </td>
                     ))}
-                    <td className="px-4 py-2">
-                      <div className="flex gap-2">
+                    <td className="px-4 py-2 text-center">
+                      <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={() => handleView(articulo)}
                           className="text-blue-600 hover:text-blue-800"
@@ -610,6 +615,7 @@ export default function ArticulosPage() {
                         >
                           <Eye size={20} />
                         </button>
+                        <ActionGuard resource="articulos" action="edit">
                         <button
                           onClick={() => handleEdit(articulo)}
                           className="text-primary hover:text-primary/80"
@@ -617,6 +623,8 @@ export default function ArticulosPage() {
                         >
                           <Edit size={20} />
                         </button>
+                        </ActionGuard>
+                        <ActionGuard resource="articulos" action="delete">
                         <button
                           onClick={() => handleDelete(articulo.id)}
                           className="text-destructive hover:text-destructive/80"
@@ -624,6 +632,7 @@ export default function ArticulosPage() {
                         >
                           <Trash2 size={20} />
                         </button>
+                        </ActionGuard>
                       </div>
                     </td>
                   </tr>

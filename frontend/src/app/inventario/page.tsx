@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import InventarioModal from '@/components/inventario/InventarioModal';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
+import { ActionGuard } from '@/components/auth/PermissionGuard';
 import { API_ENDPOINTS } from '@/config/api';
 // import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
@@ -85,7 +86,7 @@ export default function InventarioPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(20);
   const [filters, setFilters] = useState<Filters>({});
   const [selectedFilter, setSelectedFilter] = useState<string>(filterOptions[0].value);
   const [filterValue, setFilterValue] = useState<string>('');
@@ -413,13 +414,15 @@ export default function InventarioPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Inventario</h1>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-        >
-          <PlusCircle size={20} />
-          Nuevo Item
-        </button>
+        <ActionGuard resource="inventario" action="create">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            <PlusCircle size={20} />
+            Nuevo Item
+          </button>
+        </ActionGuard>
       </div>
 
       {/* Barra superior */}
@@ -503,13 +506,15 @@ export default function InventarioPage() {
       {/* Barra de acciones */}
       <div className="flex justify-between items-center mb-4">
         {selectedItems.length > 0 && (
-          <button
-            onClick={deleteSelected}
-            className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
-          >
-            <Trash2 size={20} />
-            Eliminar ({selectedItems.length})
-          </button>
+          <ActionGuard resource="inventario" action="delete">
+            <button
+              onClick={deleteSelected}
+              className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
+            >
+              <Trash2 size={20} />
+              Eliminar ({selectedItems.length})
+            </button>
+          </ActionGuard>
         )}
 
         <div className="flex gap-2 ml-auto">
@@ -562,8 +567,8 @@ export default function InventarioPage() {
                 <td className="py-3 px-4 uppercase">{item.modelo || '-'}</td>
                 <td className="py-3 px-4 uppercase">{item.estado || '-'}</td>
                 <td className="py-3 px-4 uppercase">{item.empleado?.nombre || '-'}</td>
-                <td className="py-3 px-4">
-                  <div className="flex items-center gap-2">
+                <td className="py-3 px-4 text-center">
+                  <div className="flex items-center justify-center gap-2">
                     <button
                       onClick={() => openDetalleModal(item)}
                       className="text-blue-600 hover:text-blue-800"
@@ -571,20 +576,24 @@ export default function InventarioPage() {
                     >
                       <Eye size={20} />
                     </button>
-                    <button
-                      onClick={() => openEditModal(item)}
-                      className="text-blue-600 hover:text-blue-800"
-                      title="Editar"
-                    >
-                      <Edit size={20} />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="text-red-600 hover:text-red-800"
-                      title="Eliminar"
-                    >
-                      <Trash2 size={20} />
-                    </button>
+                    <ActionGuard resource="inventario" action="edit">
+                      <button
+                        onClick={() => openEditModal(item)}
+                        className="text-blue-600 hover:text-blue-800"
+                        title="Editar"
+                      >
+                        <Edit size={20} />
+                      </button>
+                    </ActionGuard>
+                    <ActionGuard resource="inventario" action="delete">
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="text-red-600 hover:text-red-800"
+                        title="Eliminar"
+                      >
+                        <Trash2 size={20} />
+                      </button>
+                    </ActionGuard>
                   </div>
                 </td>
               </tr>

@@ -8,6 +8,7 @@ import {
   Res,
   UnauthorizedException,
   Logger,
+  Param,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -87,15 +88,43 @@ export class AuthController {
   @Get('profile')
   async getProfile(@Request() req: any) {
     const permissions = await this.authService.getUserPermissions(req.user.id);
+    const roles = await this.authService.getUserRoles(req.user.id);
     return {
-      user: req.user,
+      user: {
+        ...req.user,
+        roles
+      },
       permissions,
     };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('user-roles/:userId')
+  async getUserRolesForUser(@Param('userId') userId: string) {
+    const roles = await this.authService.getUserRoles(parseInt(userId));
+    return { roles };
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('logout')
   async logout() {
     return { message: 'Logged out successfully' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('change-role/:userId')
+  async changeUserRole(
+    @Request() req: any,
+    @Body() body: { role: string },
+    @Param('userId') userId: string
+  ) {
+    // Solo SUPER_ADMIN puede cambiar roles
+    const userRoles = await this.authService.getUserRoles(req.user.id);
+    if (!userRoles.includes('SUPER_ADMIN')) {
+      throw new UnauthorizedException('Solo Super Administradores pueden cambiar roles');
+    }
+
+    const result = await this.authService.changeUserRole(parseInt(userId), body.role);
+    return result;
   }
 } 

@@ -4,6 +4,27 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { ChevronDown, User, LogOut, Settings } from 'lucide-react';
 
+// Función para obtener el nombre del rol
+const getRoleDisplayName = (user: any) => {
+  if (!user?.roles || user.roles.length === 0) {
+    return user?.isAdmin ? 'Administrador' : 'Usuario';
+  }
+  
+  const role = user.roles[0]; // Tomar el primer rol
+  switch (role) {
+    case 'SUPER_ADMIN':
+      return 'Super Administrador';
+    case 'ADMIN':
+      return 'Administrador';
+    case 'USER':
+      return 'Usuario';
+    case 'VIEWER':
+      return 'Visualizador';
+    default:
+      return 'Usuario';
+  }
+};
+
 export default function Header() {
   const { user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -35,7 +56,7 @@ export default function Header() {
                   {user?.fullName || user?.username}
                 </div>
                 <div className="text-xs text-gray-500">
-                  {user?.isAdmin ? 'Administrador' : 'Usuario'}
+                  {getRoleDisplayName(user)}
                 </div>
               </div>
             </div>
@@ -52,11 +73,13 @@ export default function Header() {
                 <div className="text-sm text-gray-500">{user?.email}</div>
                 <div className="mt-1">
                   <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                    user?.isAdmin 
+                    user?.roles?.includes('SUPER_ADMIN')
                       ? 'bg-purple-100 text-purple-800' 
+                      : user?.roles?.includes('ADMIN')
+                      ? 'bg-blue-100 text-blue-800'
                       : 'bg-gray-100 text-gray-800'
                   }`}>
-                    {user?.isAdmin ? 'Administrador' : 'Usuario'}
+                    {getRoleDisplayName(user)}
                   </span>
                 </div>
               </div>
