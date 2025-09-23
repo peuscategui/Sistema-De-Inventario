@@ -77,7 +77,7 @@ const filterOptions = [
   { value: 'marca', label: 'Marca' },
   { value: 'modelo', label: 'Modelo' },
   { value: 'estado', label: 'Estado' },
-  { value: 'empleado', label: 'Empleado' },
+  { value: 'empleado', label: 'Usuario' },
 ];
 
 export default function InventarioPage() {
@@ -102,6 +102,10 @@ export default function InventarioPage() {
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
   const fetchInventory = async () => {
+    console.log('🔍 DEBUG: fetchInventory ejecutado');
+    console.log('🔍 DEBUG: filters actuales:', filters);
+    console.log('🔍 DEBUG: page:', page, 'pageSize:', pageSize);
+    
     setLoading(true);
     try {
       // CORREGIDO: usar pageSize en lugar de limit para coincidir con backend
@@ -159,10 +163,16 @@ export default function InventarioPage() {
   };
 
   const handleSearch = () => {
+    console.log('🔍 DEBUG: handleSearch ejecutado');
+    console.log('🔍 DEBUG: selectedFilter:', selectedFilter);
+    console.log('🔍 DEBUG: filterValue:', filterValue);
+    
     setPage(1); // Resetear a la primera página al buscar
     if (selectedFilter && filterValue) {
+      console.log('🔍 DEBUG: Estableciendo filtros:', { [selectedFilter]: filterValue });
       setFilters({ [selectedFilter]: filterValue });
     } else {
+      console.log('🔍 DEBUG: Limpiando filtros');
       setFilters({});
     }
   };

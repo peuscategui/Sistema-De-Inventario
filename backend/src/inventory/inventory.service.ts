@@ -12,6 +12,7 @@ interface FindAllOptions {
     serie?: string;
     status?: string;
     estado?: string; // CORREGIDO: agregar campo estado para filtros
+    empleado?: string; // Agregar filtro por empleado/usuario
   };
   excludeEstados?: string;
 }
@@ -28,22 +29,48 @@ export class InventoryService {
     
     const whereClause: Record<string, any> = {};
     if (filters.codigoEFC) {
-      whereClause['codigoEFC'] = { contains: filters.codigoEFC };
+      whereClause['codigoEFC'] = { 
+        contains: filters.codigoEFC,
+        mode: 'insensitive'
+      };
     }
     if (filters.marca) {
-      whereClause['marca'] = { contains: filters.marca };
+      whereClause['marca'] = { 
+        contains: filters.marca,
+        mode: 'insensitive'
+      };
     }
     if (filters.modelo) {
-      whereClause['modelo'] = { contains: filters.modelo };
+      whereClause['modelo'] = { 
+        contains: filters.modelo,
+        mode: 'insensitive'
+      };
     }
     if (filters.serie) {
-      whereClause['serie'] = { contains: filters.serie };
+      whereClause['serie'] = { 
+        contains: filters.serie,
+        mode: 'insensitive'
+      };
     }
     if (filters.status) {
-      whereClause['status'] = { equals: filters.status };
+      whereClause['status'] = { 
+        equals: filters.status,
+        mode: 'insensitive'
+      };
     }
     if (filters.estado) {
-      whereClause['estado'] = { equals: filters.estado };
+      whereClause['estado'] = { 
+        equals: filters.estado,
+        mode: 'insensitive'
+      };
+    }
+    if (filters.empleado) {
+      whereClause['empleado'] = {
+        nombre: { 
+          contains: filters.empleado,
+          mode: 'insensitive'
+        }
+      };
     }
     
     // Filtrar por estados a excluir

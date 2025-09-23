@@ -753,7 +753,12 @@ export default function ArticulosPage() {
               
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-gray-700 mb-1">Precio Sin IGV</label>
-                <p className="px-3 py-2 bg-gray-50 rounded-md">{viewingArticulo.precioUnitarioSinIgv || '-'}</p>
+                <p className="px-3 py-2 bg-gray-50 rounded-md">
+                  {viewingArticulo.precioUnitarioSinIgv ? (() => {
+                    const numericValue = parseFloat(viewingArticulo.precioUnitarioSinIgv);
+                    return isNaN(numericValue) ? viewingArticulo.precioUnitarioSinIgv : `$${numericValue.toLocaleString('es-PE')}`;
+                  })() : '-'}
+                </p>
               </div>
               
               <div className="flex flex-col">

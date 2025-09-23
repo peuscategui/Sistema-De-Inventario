@@ -15,15 +15,17 @@ export class InventoryController {
     @Query('modelo') modelo?: string,
     @Query('serie') serie?: string,
     @Query('status') status?: string,
+    @Query('estado') estado?: string,
+    @Query('empleado') empleado?: string,
     @Query('excludeEstados') excludeEstados?: string,
   ) {
     console.log('🔍 DEBUG: findAll controlador - excludeEstados:', excludeEstados);
-    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, excludeEstados });
+    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, estado, empleado, excludeEstados });
     
     return this.inventoryService.findAll({ 
       page, 
       pageSize,
-      filters: { codigoEFC, marca, modelo, serie, status },
+      filters: { codigoEFC, marca, modelo, serie, status, estado, empleado },
       excludeEstados
     });
   }
@@ -36,15 +38,17 @@ export class InventoryController {
     @Query('modelo') modelo?: string,
     @Query('serie') serie?: string,
     @Query('status') status?: string,
+    @Query('estado') estado?: string,
+    @Query('empleado') empleado?: string,
   ) {
     try {
-      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status });
+      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status, estado, empleado });
       
       // Usar el servicio existente para obtener todos los datos
       const result = await this.inventoryService.findAll({ 
         page: 1, 
         pageSize: 10000, // Obtener muchos registros
-        filters: { codigoEFC, marca, modelo, serie, status }
+        filters: { codigoEFC, marca, modelo, serie, status, estado, empleado }
       });
       
       return {
