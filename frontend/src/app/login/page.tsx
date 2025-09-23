@@ -43,8 +43,8 @@ export default function LoginPage() {
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
         
-        // Redirigir al dashboard
-        router.push('/');
+        // Redirigir a la portada de aplicaciones
+        router.push('/portada');
       } else {
         setError(data.message || 'Error al iniciar sesión');
       }

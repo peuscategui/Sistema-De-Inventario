@@ -47,10 +47,10 @@ export default function AuthCallbackPage() {
           setStatus('success');
           setMessage(`¡Bienvenido, ${user.fullName || user.username}!`);
           
-          // Redirigir al dashboard después de 2 segundos
+          // Redirigir a la portada de aplicaciones después de 2 segundos
           setTimeout(() => {
-            console.log('Redirigiendo al dashboard...');
-            router.push('/');
+            console.log('Redirigiendo a la portada de aplicaciones...');
+            router.push('/portada');
             isProcessing.current = false;
           }, 2000);
           

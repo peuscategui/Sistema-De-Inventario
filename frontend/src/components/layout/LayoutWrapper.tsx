@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
-const publicRoutes = ['/login', '/auth/callback'];
+const publicRoutes = ['/login', '/auth/callback', '/portada'];
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
