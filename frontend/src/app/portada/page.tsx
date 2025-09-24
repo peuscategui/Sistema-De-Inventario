@@ -108,9 +108,26 @@ export default function PortadaApps() {
               </div>
             </div>
             {user && (
-              <div className="text-right">
-                <div className="text-sm font-medium text-white">{user.fullName || user.username}</div>
-                <div className="text-xs text-gray-300">{user.email}</div>
+              <div className="flex items-center space-x-4">
+                <div className="text-right">
+                  <div className="text-sm font-medium text-white">{user.fullName || user.username}</div>
+                  <div className="text-xs text-gray-300">{user.email}</div>
+                </div>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('permissions');
+                    router.push('/login');
+                  }}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 flex items-center space-x-2"
+                  title="Cerrar Sesión"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  <span>Salir</span>
+                </button>
               </div>
             )}
           </div>
