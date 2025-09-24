@@ -120,7 +120,7 @@ export default function PortadaApps() {
                     localStorage.removeItem('permissions');
                     router.push('/login');
                   }}
-                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 flex items-center space-x-2"
+                  className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 flex items-center space-x-2"
                   title="Cerrar Sesión"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
