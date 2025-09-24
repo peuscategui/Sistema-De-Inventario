@@ -23,10 +23,12 @@ El sistema ahora detecta automáticamente el entorno:
 ### Desarrollo Local
 - **Frontend**: `http://localhost:3000`
 - **Backend**: `http://localhost:3002`
+- **Soporte EFC**: `http://localhost:3001`
 
 ### Producción
 - **Frontend**: `https://pc.tiinventory.efc.com.pe`
 - **Backend**: `https://tiinventory.efc.com.pe`
+- **Soporte EFC**: `https://soporte.efc.com.pe/`
 
 ## 📝 Pasos para Despliegue
 
@@ -52,6 +54,7 @@ El sistema ahora detecta automáticamente el entorno:
 - **Frontend**: https://pc.tiinventory.efc.com.pe
 - **Backend**: https://tiinventory.efc.com.pe
 - **Dashboard**: https://pc.tiinventory.efc.com.pe
+- **Soporte EFC**: https://soporte.efc.com.pe/
 
 ## ✅ Funcionalidades Implementadas
 

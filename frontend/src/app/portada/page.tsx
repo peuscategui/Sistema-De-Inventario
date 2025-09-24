@@ -48,7 +48,12 @@ export default function PortadaApps() {
       title: 'Dashboard de Soporte EFC',
       description: 'Panel con métricas de atención y tickets',
       color: 'from-indigo-500 to-indigo-600',
-      onClick: () => window.open('http://localhost:3001', '_blank'),
+      onClick: () => {
+        const soporteUrl = process.env.NODE_ENV === 'development' 
+          ? 'http://localhost:3001' 
+          : 'https://soporte.efc.com.pe/';
+        window.open(soporteUrl, '_blank');
+      },
       iconComponent: (
         <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg p-4 relative">
           {/* Iconos de soporte centrales */}
