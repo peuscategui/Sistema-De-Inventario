@@ -105,7 +105,9 @@ const InventarioDetalleModal = ({ isOpen, onClose, item }: InventarioDetalleModa
     { label: 'Vida Útil', value: item.clasificacion?.vida_util },
     { label: 'Fecha de Compra', value: formatDate(item.fecha_compra) },
     { label: 'Precio Unitario sin IGV', value: item.precioUnitarioSinIgv ? (() => {
-        const numericValue = parseFloat(item.precioUnitarioSinIgv);
+        const numericValue = typeof item.precioUnitarioSinIgv === 'string' 
+          ? parseFloat(item.precioUnitarioSinIgv) 
+          : item.precioUnitarioSinIgv;
         return isNaN(numericValue) ? item.precioUnitarioSinIgv : `$${numericValue.toLocaleString('es-PE')}`;
       })() : null },
     // Campos específicos según el estado
