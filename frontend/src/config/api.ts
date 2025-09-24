@@ -1,23 +1,7 @@
 // Configuración de la API
-const developmentUrl = 'http://localhost:3002';
-const productionUrl = 'https://tiinventory.efc.com.pe';
-
-// Usar la variable de entorno si está definida, si no, usar la IP de producción por defecto
-// Esto asegura que en producción siempre use la IP correcta
-const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-// Determinar la URL a usar
-// Prioridad: 1) Variable de entorno, 2) IP de producción, 3) localhost
-let apiUrl;
-if (configuredApiUrl) {
-  apiUrl = configuredApiUrl;
-} else {
-  // Si no hay variable de entorno, usar IP de producción por defecto
-  // Esto es más seguro para producción
-  apiUrl = productionUrl;
-}
-
-export const API_BASE_URL = apiUrl;
+// La URL se determina automáticamente desde las variables de entorno
+// configuradas en next.config.ts
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://tiinventory.efc.com.pe';
 
 // Debug: Mostrar la URL que se está usando
 console.log('🔧 Entorno:', process.env.NODE_ENV);

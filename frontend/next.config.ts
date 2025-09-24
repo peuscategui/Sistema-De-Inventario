@@ -12,11 +12,13 @@ const nextConfig: NextConfig = {
   // Configuración de trailing slash
   trailingSlash: false,
   
-  // Variables de entorno públicas
+  // Variables de entorno públicas - simplificado
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NODE_ENV === 'development' 
-      ? 'http://localhost:3002' 
-      : (process.env.NEXT_PUBLIC_API_URL || 'https://tiinventory.efc.com.pe'),
+    // Si no se define NEXT_PUBLIC_API_URL, usar detección automática por entorno
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 
+      (process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:3002' 
+        : 'https://tiinventory.efc.com.pe'),
   },
   
   // Configuración de experimental features
