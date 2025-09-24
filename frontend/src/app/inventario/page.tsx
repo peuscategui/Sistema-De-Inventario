@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PlusCircle, Edit, Trash2, Download, Upload, Search, Filter, RefreshCw, X, Eye } from 'lucide-react';
 import InventarioModal from '@/components/inventario/InventarioModal';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
@@ -68,7 +69,11 @@ interface Filters {
   codigoEFC?: string;
   marca?: string;
   modelo?: string;
+  serie?: string;
+  status?: string;
   estado?: string;
+  condicion?: string;
+  familia?: string;
   empleado?: string;
 }
 
@@ -77,17 +82,47 @@ const filterOptions = [
   { value: 'marca', label: 'Marca' },
   { value: 'modelo', label: 'Modelo' },
   { value: 'estado', label: 'Estado' },
+  { value: 'condicion', label: 'Condición' },
+  { value: 'familia', label: 'Familia' },
   { value: 'empleado', label: 'Usuario' },
 ];
 
 export default function InventarioPage() {
   // const { authenticatedFetch } = useAuthenticatedFetch(); // TEMPORALMENTE DESACTIVADO
+  const searchParams = useSearchParams();
+  
+  // Inicializar filtros desde URL inmediatamente
+  const getInitialFilters = (): Filters => {
+    const urlFilters: Filters = {};
+    
+    const condicion = searchParams.get('condicion');
+    const estado = searchParams.get('estado');
+    const familia = searchParams.get('familia');
+    const marca = searchParams.get('marca');
+    const modelo = searchParams.get('modelo');
+    const serie = searchParams.get('serie');
+    const status = searchParams.get('status');
+    const empleado = searchParams.get('empleado');
+    
+    if (condicion) urlFilters.condicion = condicion;
+    if (estado) urlFilters.estado = estado;
+    if (familia) urlFilters.familia = familia;
+    if (marca) urlFilters.marca = marca;
+    if (modelo) urlFilters.modelo = modelo;
+    if (serie) urlFilters.serie = serie;
+    if (status) urlFilters.status = status;
+    if (empleado) urlFilters.empleado = empleado;
+    
+    console.log('🔍 DEBUG: Filtros iniciales desde URL:', urlFilters);
+    return urlFilters;
+  };
+  
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
-  const [filters, setFilters] = useState<Filters>({});
+  const [filters, setFilters] = useState<Filters>(getInitialFilters());
   const [selectedFilter, setSelectedFilter] = useState<string>(filterOptions[0].value);
   const [filterValue, setFilterValue] = useState<string>('');
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -105,6 +140,7 @@ export default function InventarioPage() {
     console.log('🔍 DEBUG: fetchInventory ejecutado');
     console.log('🔍 DEBUG: filters actuales:', filters);
     console.log('🔍 DEBUG: page:', page, 'pageSize:', pageSize);
+    console.log('🔍 DEBUG: searchParams actuales:', searchParams.toString());
     
     setLoading(true);
     try {
@@ -149,7 +185,38 @@ export default function InventarioPage() {
     }
   };
 
+  // Actualizar filtros cuando cambien los parámetros de URL
   useEffect(() => {
+    const urlFilters: Filters = {};
+    
+    const condicion = searchParams.get('condicion');
+    const estado = searchParams.get('estado');
+    const familia = searchParams.get('familia');
+    const marca = searchParams.get('marca');
+    const modelo = searchParams.get('modelo');
+    const serie = searchParams.get('serie');
+    const status = searchParams.get('status');
+    const empleado = searchParams.get('empleado');
+    
+    if (condicion) urlFilters.condicion = condicion;
+    if (estado) urlFilters.estado = estado;
+    if (familia) urlFilters.familia = familia;
+    if (marca) urlFilters.marca = marca;
+    if (modelo) urlFilters.modelo = modelo;
+    if (serie) urlFilters.serie = serie;
+    if (status) urlFilters.status = status;
+    if (empleado) urlFilters.empleado = empleado;
+    
+    console.log('🔍 DEBUG: Parámetros de URL actualizados:', {
+      condicion, estado, familia, marca, modelo, serie, status, empleado
+    });
+    console.log('🔍 DEBUG: Actualizando filtros desde URL:', urlFilters);
+    
+    setFilters(urlFilters);
+  }, [searchParams]);
+
+  useEffect(() => {
+    console.log('🔍 DEBUG: useEffect fetchInventory ejecutado con filters:', filters);
     fetchInventory();
   }, [page, pageSize, filters]);
 

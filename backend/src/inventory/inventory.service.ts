@@ -12,6 +12,8 @@ interface FindAllOptions {
     serie?: string;
     status?: string;
     estado?: string; // CORREGIDO: agregar campo estado para filtros
+    condicion?: string; // Agregar filtro por condición
+    familia?: string; // Agregar filtro por familia
     empleado?: string; // Agregar filtro por empleado/usuario
   };
   excludeEstados?: string;
@@ -24,6 +26,7 @@ export class InventoryService {
   async findAll({ page = 1, pageSize = 10, filters = {}, excludeEstados }: FindAllOptions) {
     console.log('🔍 DEBUG: findAll - excludeEstados recibido:', excludeEstados);
     console.log('🔍 DEBUG: findAll - filters recibidos:', filters);
+    console.log('🔍 DEBUG: findAll - familia en filters:', filters.familia);
     
     const skip = (page - 1) * pageSize;
     
@@ -64,6 +67,14 @@ export class InventoryService {
         mode: 'insensitive'
       };
     }
+    if (filters.condicion) {
+      console.log('🔍 DEBUG: Aplicando filtro condicion:', filters.condicion);
+      whereClause['condicion'] = { 
+        equals: filters.condicion,
+        mode: 'insensitive'
+      };
+      console.log('🔍 DEBUG: whereClause después de condicion:', whereClause);
+    }
     if (filters.empleado) {
       whereClause['empleado'] = {
         nombre: { 
@@ -73,14 +84,25 @@ export class InventoryService {
       };
     }
     
-    // Filtrar por estados a excluir
-    if (excludeEstados) {
+    // Filtrar por estados a excluir (solo si no hay filtro de estado específico)
+    if (excludeEstados && !filters.estado) {
       const estadosExcluir = excludeEstados.split(',').map(estado => estado.trim());
       whereClause['estado'] = {
         notIn: estadosExcluir
       };
       console.log('🔍 DEBUG: findAll - estados a excluir:', estadosExcluir);
-      console.log('🔍 DEBUG: findAll - whereClause final:', whereClause);
+    }
+    
+    // Filtrar por familia (después de excludeEstados para evitar conflictos)
+    if (filters.familia) {
+      console.log('🔍 DEBUG: Aplicando filtro familia:', filters.familia);
+      whereClause['clasificacion'] = {
+        familia: {
+          equals: filters.familia,
+          mode: 'insensitive'
+        }
+      };
+      console.log('🔍 DEBUG: whereClause después de familia:', JSON.stringify(whereClause, null, 2));
     }
 
     console.log('🔍 DEBUG: findAll - whereClause final:', JSON.stringify(whereClause, null, 2));

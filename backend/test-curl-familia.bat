@@ -1,0 +1,3 @@
+@echo off
+echo Probando API con curl...
+curl -X GET "http://localhost:3002/inventory?page=1&pageSize=5&familia=Computadora" -H "Content-Type: application/json"

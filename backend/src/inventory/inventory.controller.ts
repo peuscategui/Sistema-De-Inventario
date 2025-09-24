@@ -16,16 +16,20 @@ export class InventoryController {
     @Query('serie') serie?: string,
     @Query('status') status?: string,
     @Query('estado') estado?: string,
+    @Query('condicion') condicion?: string,
+    @Query('familia') familia?: string,
     @Query('empleado') empleado?: string,
     @Query('excludeEstados') excludeEstados?: string,
   ) {
     console.log('🔍 DEBUG: findAll controlador - excludeEstados:', excludeEstados);
-    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, estado, empleado, excludeEstados });
+    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado, excludeEstados });
+    console.log('🔍 DEBUG: familia recibida:', familia);
+    console.log('🔍 DEBUG: filters object que se pasa al servicio:', { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado });
     
     return this.inventoryService.findAll({ 
       page, 
       pageSize,
-      filters: { codigoEFC, marca, modelo, serie, status, estado, empleado },
+      filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado },
       excludeEstados
     });
   }
@@ -39,16 +43,18 @@ export class InventoryController {
     @Query('serie') serie?: string,
     @Query('status') status?: string,
     @Query('estado') estado?: string,
+    @Query('condicion') condicion?: string,
+    @Query('familia') familia?: string,
     @Query('empleado') empleado?: string,
   ) {
     try {
-      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status, estado, empleado });
+      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado });
       
       // Usar el servicio existente para obtener todos los datos
       const result = await this.inventoryService.findAll({ 
         page: 1, 
         pageSize: 10000, // Obtener muchos registros
-        filters: { codigoEFC, marca, modelo, serie, status, estado, empleado }
+        filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado }
       });
       
       return {
