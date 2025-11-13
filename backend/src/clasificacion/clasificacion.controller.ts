@@ -58,4 +58,9 @@ export class ClasificacionController {
   delete(@Param('id') id: string) {
     return this.clasificacionService.delete(Number(id));
   }
+
+  @Get('tipos-equipo/unique')
+  async getUniqueTiposEquipo() {
+    return this.clasificacionService.getUniqueTiposEquipo();
+  }
 }

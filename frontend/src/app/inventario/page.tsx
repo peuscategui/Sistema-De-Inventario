@@ -73,7 +73,7 @@ interface Filters {
   status?: string;
   estado?: string;
   condicion?: string;
-  familia?: string;
+  tipoEquipo?: string;
   empleado?: string;
 }
 
@@ -83,7 +83,7 @@ const filterOptions = [
   { value: 'modelo', label: 'Modelo' },
   { value: 'estado', label: 'Estado' },
   { value: 'condicion', label: 'Condición' },
-  { value: 'familia', label: 'Familia' },
+  { value: 'tipoEquipo', label: 'Tipo de Equipo' },
   { value: 'empleado', label: 'Usuario' },
 ];
 
@@ -97,7 +97,7 @@ export default function InventarioPage() {
     
     const condicion = searchParams.get('condicion');
     const estado = searchParams.get('estado');
-    const familia = searchParams.get('familia');
+    const tipoEquipo = searchParams.get('tipoEquipo');
     const marca = searchParams.get('marca');
     const modelo = searchParams.get('modelo');
     const serie = searchParams.get('serie');
@@ -106,7 +106,7 @@ export default function InventarioPage() {
     
     if (condicion) urlFilters.condicion = condicion;
     if (estado) urlFilters.estado = estado;
-    if (familia) urlFilters.familia = familia;
+    if (tipoEquipo) urlFilters.tipoEquipo = tipoEquipo;
     if (marca) urlFilters.marca = marca;
     if (modelo) urlFilters.modelo = modelo;
     if (serie) urlFilters.serie = serie;
@@ -135,6 +135,22 @@ export default function InventarioPage() {
   const [editItem, setEditItem] = useState<InventoryItem | null>(null);
   const [detalleModalOpen, setDetalleModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
+  const [tiposEquipo, setTiposEquipo] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+
+  // Cargar tipos de equipo únicos
+  const fetchTiposEquipo = async () => {
+    try {
+      const response = await fetch(`${API_ENDPOINTS.clasificacion}/tipos-equipo/unique`);
+      if (response.ok) {
+        const data = await response.json();
+        setTiposEquipo(Array.isArray(data) ? data : []);
+      }
+    } catch (err) {
+      console.error('Error al cargar tipos de equipo:', err);
+    }
+  };
 
   const fetchInventory = async () => {
     console.log('🔍 DEBUG: fetchInventory ejecutado');
@@ -191,7 +207,7 @@ export default function InventarioPage() {
     
     const condicion = searchParams.get('condicion');
     const estado = searchParams.get('estado');
-    const familia = searchParams.get('familia');
+    const tipoEquipo = searchParams.get('tipoEquipo');
     const marca = searchParams.get('marca');
     const modelo = searchParams.get('modelo');
     const serie = searchParams.get('serie');
@@ -200,7 +216,7 @@ export default function InventarioPage() {
     
     if (condicion) urlFilters.condicion = condicion;
     if (estado) urlFilters.estado = estado;
-    if (familia) urlFilters.familia = familia;
+    if (tipoEquipo) urlFilters.tipoEquipo = tipoEquipo;
     if (marca) urlFilters.marca = marca;
     if (modelo) urlFilters.modelo = modelo;
     if (serie) urlFilters.serie = serie;
@@ -208,7 +224,7 @@ export default function InventarioPage() {
     if (empleado) urlFilters.empleado = empleado;
     
     console.log('🔍 DEBUG: Parámetros de URL actualizados:', {
-      condicion, estado, familia, marca, modelo, serie, status, empleado
+      condicion, estado, tipoEquipo, marca, modelo, serie, status, empleado
     });
     console.log('🔍 DEBUG: Actualizando filtros desde URL:', urlFilters);
     
@@ -220,6 +236,11 @@ export default function InventarioPage() {
     fetchInventory();
   }, [page, pageSize, filters]);
 
+  // Cargar tipos de equipo al montar el componente
+  useEffect(() => {
+    fetchTiposEquipo();
+  }, []);
+
   const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPageSize(Number(e.target.value));
     setPage(1);
@@ -227,12 +248,26 @@ export default function InventarioPage() {
 
   const handleFilterChange = (value: string) => {
     setFilterValue(value);
+    
+    // Si el filtro seleccionado es tipoEquipo, mostrar sugerencias
+    if (selectedFilter === 'tipoEquipo' && value.length > 0) {
+      const normalizedValue = value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const suggestions = tiposEquipo.filter(tipo => {
+        const normalizedTipo = tipo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return normalizedTipo.includes(normalizedValue);
+      });
+      setFilteredSuggestions(suggestions);
+      setShowSuggestions(suggestions.length > 0);
+    } else {
+      setShowSuggestions(false);
+    }
   };
 
   const handleSearch = () => {
     console.log('🔍 DEBUG: handleSearch ejecutado');
     console.log('🔍 DEBUG: selectedFilter:', selectedFilter);
     console.log('🔍 DEBUG: filterValue:', filterValue);
+    setShowSuggestions(false);
     
     setPage(1); // Resetear a la primera página al buscar
     if (selectedFilter && filterValue) {
@@ -275,13 +310,11 @@ export default function InventarioPage() {
 
   const exportToCSV = async () => {
     try {
-      // TEMPORAL: mientras se implementa el endpoint de export, usar datos actuales
-      let url = API_ENDPOINTS.inventario;
+      // Usar el endpoint de exportación que incluye datos relacionados
+      let url = API_ENDPOINTS.inventarioExport;
       
       // Agregar filtros a la URL para obtener todos los datos
       const params = new URLSearchParams();
-      params.append('page', '1');
-      params.append('pageSize', '1000'); // Obtener muchos registros para exportar
       
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {
@@ -289,7 +322,9 @@ export default function InventarioPage() {
         }
       });
       
-      url += `?${params.toString()}`;
+      if (params.toString()) {
+        url += `?${params.toString()}`;
+      }
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -297,14 +332,150 @@ export default function InventarioPage() {
       }
       
       const result = await response.json();
-      const data = result.data || result.items || result;
+      const data = result.data || result.items || [];
       
-      // Convertir a CSV
-      const headers = Object.keys(data[0] || {});
+      console.log('🔍 DEBUG Export: Datos recibidos del backend:', data.length, 'registros');
+      if (data.length > 0) {
+        console.log('🔍 DEBUG Export: Primer registro:', data[0]);
+        console.log('🔍 DEBUG Export: Campos disponibles:', Object.keys(data[0]));
+        console.log('🔍 DEBUG Export: ¿Tiene empleadoNombre?', 'empleadoNombre' in data[0]);
+        console.log('🔍 DEBUG Export: ¿Tiene clasificacionFamilia?', 'clasificacionFamilia' in data[0]);
+        console.log('🔍 DEBUG Export: ¿Tiene empleadoId?', 'empleadoId' in data[0]);
+        console.log('🔍 DEBUG Export: ¿Tiene clasificacionId?', 'clasificacionId' in data[0]);
+      }
+      
+      if (data.length === 0) {
+        alert('No hay datos para exportar');
+        return;
+      }
+      
+      // Definir el orden de las columnas para el CSV (con nombres descriptivos)
+      const columnOrder = [
+        'id',
+        'codigoEFC',
+        'marca',
+        'modelo',
+        'descripcion',
+        'serie',
+        'clasificacionFamilia',
+        'clasificacionSubFamilia',
+        'clasificacionTipoEquipo',
+        'clasificacionVidaUtil',
+        'clasificacionValorReposicion',
+        'empleadoNombre',
+        'empleadoCargo',
+        'empleadoGerencia',
+        'empleadoSede',
+        'procesador',
+        'anio',
+        'ram',
+        'discoDuro',
+        'sistemaOperativo',
+        'status',
+        'estado',
+        'ubicacionEquipo',
+        'qUsuarios',
+        'condicion',
+        'repotenciadas',
+        'clasificacionObsolescencia',
+        'clasificacionRepotenciadas',
+        'motivoCompra',
+        'precioReposicion',
+        'proveedor',
+        'factura',
+        'anioCompra',
+        'fecha_compra',
+        'precioUnitarioSinIgv',
+        'precioReposicion2024',
+        'fechaBaja',
+        'motivoBaja',
+        'observaciones'
+      ];
+      
+      // Mapear nombres de columnas a nombres más descriptivos
+      const columnNames: { [key: string]: string } = {
+        'id': 'ID',
+        'codigoEFC': 'Código EFC',
+        'marca': 'Marca',
+        'modelo': 'Modelo',
+        'descripcion': 'Descripción',
+        'serie': 'Serie',
+        'clasificacionFamilia': 'Familia',
+        'clasificacionSubFamilia': 'Sub Familia',
+        'clasificacionTipoEquipo': 'Tipo de Equipo',
+        'clasificacionVidaUtil': 'Vida Útil',
+        'clasificacionValorReposicion': 'Valor Reposición',
+        'empleadoNombre': 'Empleado',
+        'empleadoCargo': 'Cargo',
+        'empleadoGerencia': 'Gerencia',
+        'empleadoSede': 'Sede',
+        'procesador': 'Procesador',
+        'anio': 'Año',
+        'ram': 'RAM',
+        'discoDuro': 'Disco Duro',
+        'sistemaOperativo': 'Sistema Operativo',
+        'status': 'Estado Asignación',
+        'estado': 'Estado',
+        'ubicacionEquipo': 'Ubicación',
+        'qUsuarios': 'Cantidad Usuarios',
+        'condicion': 'Condición',
+        'repotenciadas': 'Repotenciadas',
+        'clasificacionObsolescencia': 'Obsolescencia',
+        'clasificacionRepotenciadas': 'Repotenciadas Clasificación',
+        'motivoCompra': 'Motivo Compra',
+        'precioReposicion': 'Precio Reposición',
+        'proveedor': 'Proveedor',
+        'factura': 'Factura',
+        'anioCompra': 'Año Compra',
+        'fecha_compra': 'Fecha Compra',
+        'precioUnitarioSinIgv': 'Precio Unitario Sin IGV',
+        'precioReposicion2024': 'Precio Reposición 2024',
+        'fechaBaja': 'Fecha Baja',
+        'motivoBaja': 'Motivo Baja',
+        'observaciones': 'Observaciones'
+      };
+      
+      // Filtrar columnas que existen en los datos y mantener el orden
+      const availableColumns = columnOrder.filter(col => 
+        data.some((row: any) => row.hasOwnProperty(col))
+      );
+      
+      // Agregar cualquier columna adicional que no esté en el orden definido
+      // PERO excluir IDs y objetos anidados
+      const excludedFields = ['clasificacion', 'empleado', 'createdAt', 'updatedAt', 'empleadoId', 'clasificacionId'];
+      const allColumns = new Set(availableColumns);
+      data.forEach((row: any) => {
+        Object.keys(row).forEach(key => {
+          if (!columnOrder.includes(key) && !excludedFields.includes(key)) {
+            allColumns.add(key);
+          }
+        });
+      });
+      
+      // Filtrar para excluir IDs explícitamente
+      const finalColumns = [...availableColumns, ...Array.from(allColumns).filter(col => 
+        !availableColumns.includes(col) && 
+        col !== 'empleadoId' && 
+        col !== 'clasificacionId' &&
+        !excludedFields.includes(col)
+      )];
+      
+      // Crear headers con nombres descriptivos
+      const headers = finalColumns.map(col => columnNames[col] || col);
+      
+      // Crear contenido CSV
       const csvContent = [
         headers.join(','),
         ...data.map((row: any) => 
-          headers.map(header => `"${row[header] || ''}"`).join(',')
+          finalColumns.map(col => {
+            const value = row[col];
+            // Manejar valores null, undefined, objetos y arrays
+            if (value === null || value === undefined) return '""';
+            if (typeof value === 'object') return '""';
+            // Escapar comillas dobles en el valor
+            const stringValue = String(value).replace(/"/g, '""');
+            return `"${stringValue}"`;
+          }).join(',')
         )
       ].join('\n');
 
@@ -320,6 +491,7 @@ export default function InventarioPage() {
       document.body.removeChild(link);
     } catch (err: any) {
       setError(err.message);
+      alert(`Error al exportar: ${err.message}`);
     }
   };
 
@@ -507,7 +679,11 @@ export default function InventarioPage() {
         <div className="flex items-center gap-2 flex-1">
           <select
             value={selectedFilter}
-            onChange={(e) => setSelectedFilter(e.target.value)}
+            onChange={(e) => {
+              setSelectedFilter(e.target.value);
+              setFilterValue('');
+              setShowSuggestions(false);
+            }}
             className="bg-green-50 text-green-600 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-green-200 [&>option]:bg-white"
           >
             {filterOptions.map(option => (
@@ -516,15 +692,46 @@ export default function InventarioPage() {
               </option>
             ))}
           </select>
-          <div className="flex-1 flex gap-2 max-w-xl">
+          <div className="flex-1 flex gap-2 max-w-xl relative">
             <input
               type="text"
               value={filterValue}
               onChange={(e) => handleFilterChange(e.target.value)}
               onKeyPress={handleKeyPress}
+              onFocus={() => {
+                if (selectedFilter === 'tipoEquipo' && filterValue.length > 0) {
+                  const normalizedValue = filterValue.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                  const suggestions = tiposEquipo.filter(tipo => {
+                    const normalizedTipo = tipo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    return normalizedTipo.includes(normalizedValue);
+                  });
+                  setFilteredSuggestions(suggestions);
+                  setShowSuggestions(suggestions.length > 0);
+                }
+              }}
+              onBlur={() => {
+                // Delay para permitir click en sugerencias
+                setTimeout(() => setShowSuggestions(false), 200);
+              }}
               placeholder={`Buscar por ${filterOptions.find(opt => opt.value === selectedFilter)?.label}`}
               className="flex-1 border rounded-lg px-4 py-2"
             />
+            {showSuggestions && selectedFilter === 'tipoEquipo' && filteredSuggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+                {filteredSuggestions.map((suggestion, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      setFilterValue(suggestion);
+                      setShowSuggestions(false);
+                    }}
+                    className="px-4 py-2 hover:bg-green-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                  >
+                    {suggestion}
+                  </div>
+                ))}
+              </div>
+            )}
             <button
               onClick={handleSearch}
               className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"

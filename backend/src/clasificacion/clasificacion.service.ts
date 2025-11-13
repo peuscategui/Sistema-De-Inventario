@@ -128,4 +128,26 @@ export class ClasificacionService {
   async delete(id: number) {
     return this.prisma.clasificacion.delete({ where: { id } });
   }
+
+  async getUniqueTiposEquipo() {
+    const clasificaciones = await this.prisma.clasificacion.findMany({
+      select: {
+        tipo_equipo: true,
+      },
+      distinct: ['tipo_equipo'],
+      where: {
+        tipo_equipo: {
+          not: null,
+        },
+      },
+      orderBy: {
+        tipo_equipo: 'asc',
+      },
+    });
+
+    return clasificaciones
+      .map(c => c.tipo_equipo)
+      .filter((tipo): tipo is string => tipo !== null)
+      .filter((tipo, index, self) => self.indexOf(tipo) === index); // Eliminar duplicados
+  }
 }

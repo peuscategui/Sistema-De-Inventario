@@ -17,19 +17,19 @@ export class InventoryController {
     @Query('status') status?: string,
     @Query('estado') estado?: string,
     @Query('condicion') condicion?: string,
-    @Query('familia') familia?: string,
+    @Query('tipoEquipo') tipoEquipo?: string,
     @Query('empleado') empleado?: string,
     @Query('excludeEstados') excludeEstados?: string,
   ) {
     console.log('🔍 DEBUG: findAll controlador - excludeEstados:', excludeEstados);
-    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado, excludeEstados });
-    console.log('🔍 DEBUG: familia recibida:', familia);
-    console.log('🔍 DEBUG: filters object que se pasa al servicio:', { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado });
+    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado, excludeEstados });
+    console.log('🔍 DEBUG: tipoEquipo recibida:', tipoEquipo);
+    console.log('🔍 DEBUG: filters object que se pasa al servicio:', { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado });
     
     return this.inventoryService.findAll({ 
       page, 
       pageSize,
-      filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado },
+      filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado },
       excludeEstados
     });
   }
@@ -44,22 +44,77 @@ export class InventoryController {
     @Query('status') status?: string,
     @Query('estado') estado?: string,
     @Query('condicion') condicion?: string,
-    @Query('familia') familia?: string,
+    @Query('tipoEquipo') tipoEquipo?: string,
     @Query('empleado') empleado?: string,
   ) {
     try {
-      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado });
+      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado });
       
       // Usar el servicio existente para obtener todos los datos
       const result = await this.inventoryService.findAll({ 
         page: 1, 
         pageSize: 10000, // Obtener muchos registros
-        filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, familia, empleado }
+        filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado }
       });
+      
+      // Formatear datos para exportación: incluir nombres en lugar de solo IDs
+      console.log('🔍 DEBUG: Total items recibidos:', result.data.length);
+      if (result.data.length > 0) {
+        console.log('🔍 DEBUG: Primer item antes de formatear:', JSON.stringify(result.data[0], null, 2));
+      }
+      
+      const exportData = result.data.map((item: any) => {
+        const exportItem: any = { ...item };
+        
+        // Reemplazar empleadoId con nombre del empleado
+        if (item.empleado) {
+          exportItem.empleadoNombre = item.empleado.nombre || '';
+          exportItem.empleadoCargo = item.empleado.cargo || '';
+          exportItem.empleadoGerencia = item.empleado.gerencia || '';
+          exportItem.empleadoSede = item.empleado.sede || '';
+        } else {
+          exportItem.empleadoNombre = '';
+          exportItem.empleadoCargo = '';
+          exportItem.empleadoGerencia = '';
+          exportItem.empleadoSede = '';
+        }
+        
+        // Reemplazar clasificacionId con datos de clasificación
+        if (item.clasificacion) {
+          exportItem.clasificacionFamilia = item.clasificacion.familia || '';
+          exportItem.clasificacionSubFamilia = item.clasificacion.sub_familia || '';
+          exportItem.clasificacionTipoEquipo = item.clasificacion.tipo_equipo || '';
+          exportItem.clasificacionVidaUtil = item.clasificacion.vida_util || '';
+          exportItem.clasificacionValorReposicion = item.clasificacion.valor_reposicion ? `$${item.clasificacion.valor_reposicion}` : '';
+        } else {
+          exportItem.clasificacionFamilia = '';
+          exportItem.clasificacionSubFamilia = '';
+          exportItem.clasificacionTipoEquipo = '';
+          exportItem.clasificacionVidaUtil = '';
+          exportItem.clasificacionValorReposicion = '';
+        }
+        
+        // Remover objetos anidados y campos internos que no son útiles para exportación
+        delete exportItem.clasificacion;
+        delete exportItem.empleado;
+        delete exportItem.createdAt;
+        delete exportItem.updatedAt;
+        
+        // Remover los IDs ya que ahora tenemos los nombres descriptivos
+        delete exportItem.empleadoId;
+        delete exportItem.clasificacionId;
+        
+        return exportItem;
+      });
+      
+      if (exportData.length > 0) {
+        console.log('🔍 DEBUG: Primer item después de formatear:', JSON.stringify(exportData[0], null, 2));
+        console.log('🔍 DEBUG: Campos del primer item:', Object.keys(exportData[0]));
+      }
       
       return {
         success: true,
-        data: result.data,
+        data: exportData,
         count: result.pagination.total
       };
     } catch (error) {

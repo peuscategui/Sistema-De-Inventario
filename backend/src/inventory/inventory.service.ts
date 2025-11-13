@@ -13,7 +13,7 @@ interface FindAllOptions {
     status?: string;
     estado?: string; // CORREGIDO: agregar campo estado para filtros
     condicion?: string; // Agregar filtro por condición
-    familia?: string; // Agregar filtro por familia
+    tipoEquipo?: string; // Agregar filtro por tipo de equipo
     empleado?: string; // Agregar filtro por empleado/usuario
   };
   excludeEstados?: string;
@@ -26,7 +26,7 @@ export class InventoryService {
   async findAll({ page = 1, pageSize = 10, filters = {}, excludeEstados }: FindAllOptions) {
     console.log('🔍 DEBUG: findAll - excludeEstados recibido:', excludeEstados);
     console.log('🔍 DEBUG: findAll - filters recibidos:', filters);
-    console.log('🔍 DEBUG: findAll - familia en filters:', filters.familia);
+    console.log('🔍 DEBUG: findAll - tipoEquipo en filters:', filters.tipoEquipo);
     
     const skip = (page - 1) * pageSize;
     
@@ -93,16 +93,17 @@ export class InventoryService {
       console.log('🔍 DEBUG: findAll - estados a excluir:', estadosExcluir);
     }
     
-    // Filtrar por familia (después de excludeEstados para evitar conflictos)
-    if (filters.familia) {
-      console.log('🔍 DEBUG: Aplicando filtro familia:', filters.familia);
+    // Filtrar por tipo de equipo (después de excludeEstados para evitar conflictos)
+    // Usar contains en lugar de equals para búsqueda más flexible
+    if (filters.tipoEquipo) {
+      console.log('🔍 DEBUG: Aplicando filtro tipoEquipo:', filters.tipoEquipo);
       whereClause['clasificacion'] = {
-        familia: {
-          equals: filters.familia,
+        tipo_equipo: {
+          contains: filters.tipoEquipo,
           mode: 'insensitive'
         }
       };
-      console.log('🔍 DEBUG: whereClause después de familia:', JSON.stringify(whereClause, null, 2));
+      console.log('🔍 DEBUG: whereClause después de tipoEquipo:', JSON.stringify(whereClause, null, 2));
     }
 
     console.log('🔍 DEBUG: findAll - whereClause final:', JSON.stringify(whereClause, null, 2));
