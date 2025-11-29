@@ -7,6 +7,7 @@ import { z } from 'zod';
 
 // Esquema de validación para editar bajas
 const editBajaSchema = z.object({
+  estado: z.string().min(1, 'El estado es requerido'),
   fechaBaja: z.string().min(1, 'La fecha de baja es requerida'),
   motivoBaja: z.string().min(1, 'El motivo de baja es requerido'),
 });
@@ -17,6 +18,7 @@ interface EditBajaFormProps {
   onSubmit: (data: EditBajaFormData) => void;
   onCancel: () => void;
   initialData?: {
+    estado?: string;
     fechaBaja?: string;
     motivoBaja?: string;
   };
@@ -31,6 +33,7 @@ export default function EditBajaForm({ onSubmit, onCancel, initialData, isSubmit
   } = useForm<EditBajaFormData>({
     resolver: zodResolver(editBajaSchema),
     defaultValues: {
+      estado: initialData?.estado || 'BAJA',
       fechaBaja: initialData?.fechaBaja || '',
       motivoBaja: initialData?.motivoBaja || '',
     },
@@ -41,6 +44,21 @@ export default function EditBajaForm({ onSubmit, onCancel, initialData, isSubmit
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Estado *</label>
+          <select
+            {...register('estado')}
+            className={inputClass}
+          >
+            <option value="BAJA">BAJA</option>
+            <option value="DONACION">DONACION</option>
+          </select>
+          <p className="text-xs text-gray-500 mt-1">
+            Seleccione DONACION para mover este artículo a la sección de donaciones
+          </p>
+          {errors.estado && <p className="text-red-500 text-xs mt-1">{errors.estado.message}</p>}
+        </div>
+
         <div>
           <label className="block text-sm font-medium mb-1">Fecha de Baja *</label>
           <input 

@@ -56,6 +56,8 @@ model inventory {
   precioUnitarioSinIgv       String?       @db.VarChar
   fecha_baja                 DateTime?     @db.Date
   motivo_baja                String?       @db.VarChar(255)
+  fecha_donacion             DateTime?     @db.Date
+  motivo_donacion            String?       @db.VarChar(255)
   clasificacionId            Int?
   empleadoId                 Int?
   clasificacion              clasificacion? @relation(fields: [clasificacionId], references: [id])

@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Download, Search, X, Eye } from 'lucide-react';
+import { Download, Search, X, Eye, Edit } from 'lucide-react';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
+import EditDonacionModal from '@/components/inventario/EditDonacionModal';
 import { API_ENDPOINTS } from '@/config/api';
 
 // Interfaces para los datos relacionados
@@ -61,6 +62,8 @@ interface DonacionItem {
   precioUnitarioSinIgv: number | null;
   fechaDonacion: string | null;
   motivoDonacion: string | null;
+  fechaBaja: string | null;
+  motivoBaja: string | null;
   // Campos de relación
   clasificacion: Clasificacion | null;
   empleado: Empleado | null;
@@ -100,6 +103,9 @@ export default function DonacionesPage() {
   const [filterValue, setFilterValue] = useState<string>('');
   const [selectedDonacion, setSelectedDonacion] = useState<DonacionItem | null>(null);
   const [detalleModalOpen, setDetalleModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editDonacion, setEditDonacion] = useState<DonacionItem | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [pagination, setPagination] = useState({
     total: 0,
     totalPages: 1,
@@ -108,7 +114,7 @@ export default function DonacionesPage() {
   const fetchDonaciones = async () => {
     setLoading(true);
     try {
-      let url = `${API_ENDPOINTS.donaciones}?page=${page}&limit=${pageSize}`;
+      let url = `${API_ENDPOINTS.donaciones}?page=${page}&pageSize=${pageSize}`;
       
       // Agregar filtros a la URL
       Object.entries(filters).forEach(([key, value]) => {
@@ -117,13 +123,25 @@ export default function DonacionesPage() {
         }
       });
 
+      console.log('🔍 DEBUG: URL de donaciones:', url);
+
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Error al obtener los datos de donaciones');
       }
       const data = await response.json();
-      setDonaciones(data.items);
-      setPagination(data.meta);
+      
+      console.log('🔍 DEBUG: Respuesta de donaciones:', data);
+      
+      // Ajustar según la estructura del backend
+      const donacionesData = data.data || data.items || data;
+      const paginationData = data.pagination || data.meta || {
+        total: Array.isArray(donacionesData) ? donacionesData.length : 0,
+        totalPages: 1
+      };
+      
+      setDonaciones(Array.isArray(donacionesData) ? donacionesData : []);
+      setPagination(paginationData);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -208,6 +226,46 @@ export default function DonacionesPage() {
   const openDetalleModal = (donacion: DonacionItem) => {
     setSelectedDonacion(donacion);
     setDetalleModalOpen(true);
+  };
+
+  const openEditModal = (donacion: DonacionItem) => {
+    setEditDonacion(donacion);
+    setEditModalOpen(true);
+  };
+
+  const handleEditSubmit = async (data: any) => {
+    setIsSubmitting(true);
+    try {
+      // Mapear campos de donación del frontend al backend
+      const bodyData = { ...data };
+      if (data.fechaDonacion) {
+        bodyData.fecha_donacion = data.fechaDonacion;
+        delete bodyData.fechaDonacion;
+      }
+      if (data.motivoDonacion) {
+        bodyData.motivo_donacion = data.motivoDonacion;
+        delete bodyData.motivoDonacion;
+      }
+
+      const response = await fetch(`${API_ENDPOINTS.inventario}/${editDonacion?.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bodyData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al actualizar la donación');
+      }
+
+      setEditModalOpen(false);
+      setEditDonacion(null);
+      fetchDonaciones(); // Recargar los datos
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (loading) {
@@ -337,7 +395,8 @@ export default function DonacionesPage() {
               <th className="py-3 px-4 text-left uppercase">Modelo</th>
               <th className="py-3 px-4 text-left uppercase">Serie</th>
               <th className="py-3 px-4 text-left uppercase">Sede</th>
-              <th className="py-3 px-4 text-left uppercase">Fecha Donación</th>
+              <th className="py-3 px-4 text-left uppercase">Fecha (Donación/Baja)</th>
+              <th className="py-3 px-4 text-left uppercase">Motivo (Donación/Baja)</th>
               <th className="py-3 px-4 text-left uppercase">Acciones</th>
             </tr>
           </thead>
@@ -351,7 +410,14 @@ export default function DonacionesPage() {
                 <td className="py-3 px-4 uppercase">{donacion.serie || '-'}</td>
                 <td className="py-3 px-4 uppercase">{donacion.sede || '-'}</td>
                 <td className="py-3 px-4 uppercase">
-                  {donacion.fechaDonacion ? new Date(donacion.fechaDonacion).toLocaleDateString() : '-'}
+                  {donacion.fechaDonacion 
+                    ? new Date(donacion.fechaDonacion).toLocaleDateString() 
+                    : donacion.fechaBaja 
+                      ? new Date(donacion.fechaBaja).toLocaleDateString() 
+                      : '-'}
+                </td>
+                <td className="py-3 px-4 uppercase">
+                  {donacion.motivoDonacion || donacion.motivoBaja || '-'}
                 </td>
                 <td className="py-3 px-4">
                   <div className="flex items-center gap-2">
@@ -361,6 +427,13 @@ export default function DonacionesPage() {
                       title="Ver detalles"
                     >
                       <Eye size={20} />
+                    </button>
+                    <button
+                      onClick={() => openEditModal(donacion)}
+                      className="text-green-600 hover:text-green-800"
+                      title="Editar donación"
+                    >
+                      <Edit size={20} />
                     </button>
                   </div>
                 </td>
@@ -383,6 +456,24 @@ export default function DonacionesPage() {
           setSelectedDonacion(null);
         }}
         item={selectedDonacion as any}
+      />
+
+      <EditDonacionModal
+        isOpen={editModalOpen}
+        onClose={() => {
+          setEditModalOpen(false);
+          setEditDonacion(null);
+        }}
+        onSubmit={handleEditSubmit}
+        donacion={editDonacion ? {
+          id: editDonacion.id,
+          codigoEFC: editDonacion.codigoEFC || '',
+          fechaDonacion: editDonacion.fechaDonacion || '',
+          motivoDonacion: editDonacion.motivoDonacion || '',
+          fechaBaja: editDonacion.fechaBaja || '',
+          motivoBaja: editDonacion.motivoBaja || '',
+        } : undefined}
+        isSubmitting={isSubmitting}
       />
     </div>
   );

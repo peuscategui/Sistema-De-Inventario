@@ -75,12 +75,14 @@ interface Filters {
   condicion?: string;
   tipoEquipo?: string;
   empleado?: string;
+  familia?: string; // CORREGIDO: Agregar filtro de familia
 }
 
 const filterOptions = [
   { value: 'codigoEFC', label: 'Código EFC' },
   { value: 'marca', label: 'Marca' },
   { value: 'modelo', label: 'Modelo' },
+  { value: 'serie', label: 'Serie' },
   { value: 'estado', label: 'Estado' },
   { value: 'condicion', label: 'Condición' },
   { value: 'tipoEquipo', label: 'Tipo de Equipo' },
@@ -103,6 +105,7 @@ export default function InventarioPage() {
     const serie = searchParams.get('serie');
     const status = searchParams.get('status');
     const empleado = searchParams.get('empleado');
+    const familia = searchParams.get('familia'); // CORREGIDO: Leer parámetro familia
     
     if (condicion) urlFilters.condicion = condicion;
     if (estado) urlFilters.estado = estado;
@@ -112,6 +115,7 @@ export default function InventarioPage() {
     if (serie) urlFilters.serie = serie;
     if (status) urlFilters.status = status;
     if (empleado) urlFilters.empleado = empleado;
+    if (familia) urlFilters.familia = familia; // CORREGIDO: Agregar familia a los filtros
     
     console.log('🔍 DEBUG: Filtros iniciales desde URL:', urlFilters);
     return urlFilters;
@@ -213,6 +217,7 @@ export default function InventarioPage() {
     const serie = searchParams.get('serie');
     const status = searchParams.get('status');
     const empleado = searchParams.get('empleado');
+    const familia = searchParams.get('familia'); // CORREGIDO: Leer parámetro familia
     
     if (condicion) urlFilters.condicion = condicion;
     if (estado) urlFilters.estado = estado;
@@ -222,9 +227,10 @@ export default function InventarioPage() {
     if (serie) urlFilters.serie = serie;
     if (status) urlFilters.status = status;
     if (empleado) urlFilters.empleado = empleado;
+    if (familia) urlFilters.familia = familia; // CORREGIDO: Agregar familia a los filtros
     
     console.log('🔍 DEBUG: Parámetros de URL actualizados:', {
-      condicion, estado, tipoEquipo, marca, modelo, serie, status, empleado
+      condicion, estado, tipoEquipo, marca, modelo, serie, status, empleado, familia
     });
     console.log('🔍 DEBUG: Actualizando filtros desde URL:', urlFilters);
     
@@ -332,20 +338,41 @@ export default function InventarioPage() {
       }
       
       const result = await response.json();
-      const data = result.data || result.items || [];
+      let data = result.data || result.items || [];
       
       console.log('🔍 DEBUG Export: Datos recibidos del backend:', data.length, 'registros');
+      
+      // CORREGIDO: Filtrar líneas vacías o inválidas antes de exportar
+      data = data.filter((row: any) => {
+        // Excluir registros sin ID válido
+        if (!row.id || isNaN(row.id)) {
+          return false;
+        }
+        
+        // Excluir registros marcados como BAJA (doble verificación)
+        if (row.estado === 'BAJA' || row.status === 'baja') {
+          return false;
+        }
+        
+        // Excluir registros completamente vacíos (sin ningún dato útil)
+        const hasValidData = row.codigoEFC || row.marca || row.modelo || row.serie || 
+                            row.descripcion || row.empleadoNombre || row.clasificacionFamilia;
+        if (!hasValidData) {
+          return false;
+        }
+        
+        return true;
+      });
+      
+      console.log('🔍 DEBUG Export: Registros válidos después de filtrar:', data.length);
+      
       if (data.length > 0) {
         console.log('🔍 DEBUG Export: Primer registro:', data[0]);
         console.log('🔍 DEBUG Export: Campos disponibles:', Object.keys(data[0]));
-        console.log('🔍 DEBUG Export: ¿Tiene empleadoNombre?', 'empleadoNombre' in data[0]);
-        console.log('🔍 DEBUG Export: ¿Tiene clasificacionFamilia?', 'clasificacionFamilia' in data[0]);
-        console.log('🔍 DEBUG Export: ¿Tiene empleadoId?', 'empleadoId' in data[0]);
-        console.log('🔍 DEBUG Export: ¿Tiene clasificacionId?', 'clasificacionId' in data[0]);
       }
       
       if (data.length === 0) {
-        alert('No hay datos para exportar');
+        alert('No hay datos válidos para exportar');
         return;
       }
       
@@ -463,15 +490,27 @@ export default function InventarioPage() {
       // Crear headers con nombres descriptivos
       const headers = finalColumns.map(col => columnNames[col] || col);
       
-      // Crear contenido CSV
+      // CORREGIDO: Filtrar filas vacías antes de crear el CSV
+      const validRows = data.filter((row: any) => {
+        // Verificar que la fila tenga al menos un campo con valor
+        return finalColumns.some((col: string) => {
+          const value = row[col];
+          return value !== null && value !== undefined && value !== '' && 
+                 (typeof value !== 'object' || (Array.isArray(value) && value.length > 0));
+        });
+      });
+      
+      console.log('🔍 DEBUG Export: Filas válidas para CSV:', validRows.length, 'de', data.length);
+      
+      // Crear contenido CSV solo con filas válidas
       const csvContent = [
         headers.join(','),
-        ...data.map((row: any) => 
+        ...validRows.map((row: any) => 
           finalColumns.map(col => {
             const value = row[col];
             // Manejar valores null, undefined, objetos y arrays
-            if (value === null || value === undefined) return '""';
-            if (typeof value === 'object') return '""';
+            if (value === null || value === undefined || value === '') return '';
+            if (typeof value === 'object' && !Array.isArray(value)) return '';
             // Escapar comillas dobles en el valor
             const stringValue = String(value).replace(/"/g, '""');
             return `"${stringValue}"`;

@@ -15,6 +15,7 @@ interface FindAllOptions {
     condicion?: string; // Agregar filtro por condición
     tipoEquipo?: string; // Agregar filtro por tipo de equipo
     empleado?: string; // Agregar filtro por empleado/usuario
+    familia?: string; // CORREGIDO: Agregar filtro por familia
   };
   excludeEstados?: string;
 }
@@ -25,8 +26,9 @@ export class InventoryService {
 
   async findAll({ page = 1, pageSize = 10, filters = {}, excludeEstados }: FindAllOptions) {
     console.log('🔍 DEBUG: findAll - excludeEstados recibido:', excludeEstados);
-    console.log('🔍 DEBUG: findAll - filters recibidos:', filters);
+    console.log('🔍 DEBUG: findAll - filters recibidos:', JSON.stringify(filters, null, 2));
     console.log('🔍 DEBUG: findAll - tipoEquipo en filters:', filters.tipoEquipo);
+    console.log('🔍 DEBUG: findAll - familia en filters:', filters.familia);
     
     const skip = (page - 1) * pageSize;
     
@@ -93,17 +95,34 @@ export class InventoryService {
       console.log('🔍 DEBUG: findAll - estados a excluir:', estadosExcluir);
     }
     
-    // Filtrar por tipo de equipo (después de excludeEstados para evitar conflictos)
-    // Usar contains en lugar de equals para búsqueda más flexible
+    // CORREGIDO: Construir el filtro de clasificación combinando familia y tipoEquipo
+    // IMPORTANTE: En Prisma, los filtros de relaciones anidadas deben construirse correctamente
+    const clasificacionFilter: any = {};
+    
+    // Filtrar por familia (debe ser exacto, case-insensitive)
+    if (filters.familia) {
+      console.log('🔍 DEBUG: Aplicando filtro familia:', filters.familia);
+      // CORREGIDO: Usar equals con mode insensitive para comparación exacta pero case-insensitive
+      clasificacionFilter.familia = {
+        equals: filters.familia,
+        mode: 'insensitive'
+      };
+    }
+    
+    // Filtrar por tipo de equipo
     if (filters.tipoEquipo) {
       console.log('🔍 DEBUG: Aplicando filtro tipoEquipo:', filters.tipoEquipo);
-      whereClause['clasificacion'] = {
-        tipo_equipo: {
-          contains: filters.tipoEquipo,
-          mode: 'insensitive'
-        }
+      clasificacionFilter.tipo_equipo = {
+        contains: filters.tipoEquipo,
+        mode: 'insensitive'
       };
-      console.log('🔍 DEBUG: whereClause después de tipoEquipo:', JSON.stringify(whereClause, null, 2));
+    }
+    
+    // CORREGIDO: Agregar el filtro de clasificación - Prisma combina automáticamente los filtros con AND
+    if (Object.keys(clasificacionFilter).length > 0) {
+      whereClause['clasificacion'] = clasificacionFilter;
+      console.log('🔍 DEBUG: Filtro de clasificación construido:', JSON.stringify(clasificacionFilter, null, 2));
+      console.log('🔍 DEBUG: whereClause ANTES de la consulta:', JSON.stringify(whereClause, null, 2));
     }
 
     console.log('🔍 DEBUG: findAll - whereClause final:', JSON.stringify(whereClause, null, 2));
@@ -159,6 +178,11 @@ export class InventoryService {
         new Date(item.fecha_baja.getTime() - (item.fecha_baja.getTimezoneOffset() * 60000)).toISOString().split('T')[0]
         : null,
       motivoBaja: item.motivo_baja || null,
+      // Campos de donación
+      fechaDonacion: (item as any).fecha_donacion ? 
+        new Date((item as any).fecha_donacion.getTime() - ((item as any).fecha_donacion.getTimezoneOffset() * 60000)).toISOString().split('T')[0]
+        : null,
+      motivoDonacion: (item as any).motivo_donacion || null,
     }));
 
     return {
@@ -299,6 +323,19 @@ export class InventoryService {
         } catch (dateError) {
           console.error('Error al convertir fecha_baja:', dateError);
           delete inventoryData.fecha_baja;
+        }
+      }
+
+      // Procesar fecha_donacion si está presente
+      if (inventoryData.fecha_donacion && typeof inventoryData.fecha_donacion === 'string') {
+        try {
+          // CORREGIDO: Usar UTC para evitar problemas de zona horaria
+          const [year, month, day] = inventoryData.fecha_donacion.split('-');
+          inventoryData.fecha_donacion = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day)));
+          console.log('fecha_donacion convertida a Date (UTC):', inventoryData.fecha_donacion);
+        } catch (dateError) {
+          console.error('Error al convertir fecha_donacion:', dateError);
+          delete inventoryData.fecha_donacion;
         }
       }
       

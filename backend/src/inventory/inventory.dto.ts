@@ -84,6 +84,13 @@ export class CreateInventoryDto {
   @IsOptional()
   motivo_baja?: string;
 
+  // Campos de donación
+  @IsOptional()
+  fecha_donacion?: string;
+
+  @IsOptional()
+  motivo_donacion?: string;
+
   // Relaciones - CORREGIDO: opcionales como en el schema
   @IsOptional()
   @IsInt()

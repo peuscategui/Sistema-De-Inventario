@@ -10,29 +10,59 @@ export class DashboardController {
   @UseGuards(JwtAuthGuard)
   async getDashboard() {
     try {
-      // Total de equipos en inventario
-      const totalEquipos = await this.prisma.inventory.count();
-
-      // Total de equipos en buen estado (OPERATIVO)
-      const equiposBuenEstado = await this.prisma.inventory.count({
+      // CORREGIDO: Excluir bajas - solo contar activos
+      // Total de equipos en inventario (solo activos, sin bajas)
+      const totalEquipos = await this.prisma.inventory.count({
         where: {
-          condicion: 'OPERATIVO'
+          OR: [
+            { estado: { not: 'BAJA' } },
+            { estado: null }
+          ]
         }
       });
 
-      // Total de equipos obsoletos (por condición)
+      // Total de equipos en buen estado (OPERATIVO) - solo activos (excluye bajas)
+      const equiposBuenEstado = await this.prisma.inventory.count({
+        where: {
+          AND: [
+            { condicion: 'OPERATIVO' },
+            {
+              OR: [
+                { estado: { not: 'BAJA' } },
+                { estado: null }
+              ]
+            }
+          ]
+        }
+      });
+
+      // Total de equipos obsoletos (por condición) - solo activos (excluye bajas)
       const equiposObsoletos = await this.prisma.inventory.count({
         where: {
-          condicion: 'OBSOLETO'
+          AND: [
+            { condicion: 'OBSOLETO' },
+            {
+              OR: [
+                { estado: { not: 'BAJA' } },
+                { estado: null }
+              ]
+            }
+          ]
         }
       });
 
       // Porcentaje de equipos en buen estado
       const porcentajeBuenEstado = totalEquipos > 0 ? Math.round((equiposBuenEstado / totalEquipos) * 100) : 0;
 
-      // Familia más común - CORREGIDO: Sumar todas las clasificaciones de la misma familia
+      // CORREGIDO: Familia más común - excluir bajas, solo activos
       const distribucion = await this.prisma.inventory.groupBy({
         by: ['clasificacionId'],
+        where: {
+          OR: [
+            { estado: { not: 'BAJA' } },
+            { estado: null }
+          ]
+        },
         _count: {
           id: true
         },
@@ -95,16 +125,16 @@ export class DashboardController {
       };
     } catch (error) {
       console.error('Error obteniendo estadísticas del dashboard:', error);
-      return {
+    return {
         totalEquipos: 0,
         porcentajeBuenEstado: 0,
         equiposObsoletos: 0,
         totalBajas: 0,
-        familiaMasComun: {
+      familiaMasComun: {
           familia: 'N/A',
           _count: { id: 0 }
-        }
-      };
+      }
+    };
     }
   }
 
@@ -112,9 +142,16 @@ export class DashboardController {
   @UseGuards(JwtAuthGuard)
   async getDistribucionFamilia() {
     try {
+      // CORREGIDO: Excluir bajas - solo mostrar activos
       // Obtener distribución agrupando directamente por familia desde la tabla clasificacion
       const distribucion = await this.prisma.inventory.groupBy({
         by: ['clasificacionId'],
+        where: {
+          OR: [
+            { estado: { not: 'BAJA' } },
+            { estado: null }
+          ]
+        },
         _count: {
           id: true
         },
@@ -166,12 +203,13 @@ export class DashboardController {
   @UseGuards(JwtAuthGuard)
   async getAnalisisFinanciero() {
     try {
-      // Obtener datos de inventario con clasificaciones
+      // CORREGIDO: Obtener datos de inventario con clasificaciones (excluyendo bajas)
       const inventarioConClasificacion = await this.prisma.inventory.findMany({
         where: {
-          estado: {
-            not: 'BAJA' // Excluir equipos dados de baja
-          }
+          OR: [
+            { estado: { not: 'BAJA' } },
+            { estado: null }
+          ]
         },
         include: {
           clasificacion: {

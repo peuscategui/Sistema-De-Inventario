@@ -32,15 +32,33 @@ async function bootstrap() {
 
   // Habilitar CORS para permitir solicitudes desde el frontend
   app.enableCors({
-    origin: [
-      'http://localhost:3000', // Desarrollo local
-      'http://192.168.40.79:3005', // Frontend en EasyPanel (HTTP)
-      'http://192.168.40.79:3000', // Por si usa puerto 3000
-      'https://pc.tiinventory.efc.com.pe', // Frontend en producción
-      'https://tiinventory.efc.com.pe', // Backend en producción
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: function (origin, callback) {
+      // Lista de orígenes permitidos
+      const allowedOrigins = [
+        'http://localhost:3000', // Desarrollo local
+        'http://192.168.40.79:3005', // Frontend en EasyPanel (HTTP)
+        'http://192.168.40.79:3000', // Por si usa puerto 3000
+        'https://pc.tiinventory.efc.com.pe', // Frontend en producción
+        'https://tiinventory.efc.com.pe', // Backend en producción
+      ];
+      
+      // Permitir requests sin origin (como mobile apps o Postman)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(null, true); // Permitir todos los orígenes en desarrollo
+        // En producción, descomenta la siguiente línea y comenta la anterior:
+        // callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    exposedHeaders: ['Authorization'],
     credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
   
   await app.listen(3002);

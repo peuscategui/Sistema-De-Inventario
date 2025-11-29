@@ -238,6 +238,12 @@ export default function BajasPage() {
     try {
       // Mapear campos de baja del frontend al backend
       const bodyData = { ...data };
+      
+      // Incluir el estado si se cambió
+      if (data.estado) {
+        bodyData.estado = data.estado;
+      }
+      
       if (data.fechaBaja) {
         bodyData.fecha_baja = data.fechaBaja;
         delete bodyData.fechaBaja;
@@ -260,7 +266,15 @@ export default function BajasPage() {
 
       setEditModalOpen(false);
       setEditBaja(null);
-      fetchBajas(); // Recargar los datos
+      
+      // Si cambió el estado a DONACION, mostrar mensaje y recargar
+      if (data.estado === 'DONACION') {
+        alert('El artículo ha sido cambiado a DONACION y ahora aparecerá en la sección de donaciones.');
+        // Recargar la página de bajas (ya no debería aparecer)
+        fetchBajas();
+      } else {
+        fetchBajas(); // Recargar los datos
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -462,6 +476,7 @@ export default function BajasPage() {
         baja={editBaja ? {
           id: editBaja.id,
           codigoEFC: editBaja.codigoEFC || '',
+          estado: editBaja.estado || 'BAJA',
           fechaBaja: editBaja.fechaBaja || '',
           motivoBaja: editBaja.motivoBaja || '',
         } : undefined}

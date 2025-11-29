@@ -34,11 +34,8 @@ const inventarioSchemaCreate = z.object({
     return data.fechaBaja && data.fechaBaja.length > 0 && 
            data.motivoBaja && data.motivoBaja.length > 0;
   }
-  // Si el estado es DONACION, fechaDonacion y motivoDonacion son requeridos
-  if (data.estado === 'DONACION') {
-    return data.fechaDonacion && data.fechaDonacion.length > 0 && 
-           data.motivoDonacion && data.motivoDonacion.length > 0;
-  }
+  // Si el estado es DONACION, los campos de donación son opcionales
+  // Se puede pasar de BAJA a DONACION manteniendo la info de baja
   return true;
 }, {
   message: "Los campos de fecha y motivo son requeridos según el estado seleccionado",
@@ -70,11 +67,8 @@ const inventarioSchemaEdit = z.object({
     return data.fechaBaja && data.fechaBaja.length > 0 && 
            data.motivoBaja && data.motivoBaja.length > 0;
   }
-  // Si el estado es DONACION, fechaDonacion y motivoDonacion son requeridos
-  if (data.estado === 'DONACION') {
-    return data.fechaDonacion && data.fechaDonacion.length > 0 && 
-           data.motivoDonacion && data.motivoDonacion.length > 0;
-  }
+  // Si el estado es DONACION, los campos de donación son opcionales
+  // Se puede pasar de BAJA a DONACION manteniendo la info de baja
   return true;
 }, {
   message: "Los campos de fecha y motivo son requeridos según el estado seleccionado",
@@ -166,10 +160,10 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
       setValue('fechaDonacion', '');
       setValue('motivoDonacion', '');
     } else if (estadoValue === 'DONACION') {
-      // Si el estado es DONACION, limpiar el campo condición y los campos de baja
+      // Si el estado es DONACION, mantener los campos de baja (historial)
+      // Solo limpiar el campo condición
       setValue('condicion', '');
-      setValue('fechaBaja', '');
-      setValue('motivoBaja', '');
+      // NO limpiar fechaBaja ni motivoBaja - se mantienen como historial
     } else {
       // Si el estado no es BAJA ni DONACION, limpiar todos los campos especiales
       setValue('fechaBaja', '');
@@ -739,27 +733,40 @@ export default function InventarioForm({ onSubmit, onCancel, initialData, isEdit
             </>
           )}
 
-          {/* Campos que aparecen solo cuando el estado es DONACION */}
+          {/* Campos que aparecen cuando el estado es DONACION - Opcionales si ya hay info de baja */}
           {estadoValue === 'DONACION' && (
             <>
+              {/* Mostrar info de baja si existe (como historial) */}
+              {(watch('fechaBaja') || initialData?.fechaBaja) && (
+                <>
+                  <div className="bg-gray-50 p-3 rounded-lg mb-4">
+                    <p className="text-sm font-semibold text-gray-700 mb-2">Información de Baja (Historial):</p>
+                    <p className="text-xs text-gray-600">Fecha: {watch('fechaBaja') || initialData?.fechaBaja || '-'}</p>
+                    <p className="text-xs text-gray-600">Motivo: {watch('motivoBaja') || initialData?.motivoBaja || '-'}</p>
+                  </div>
+                </>
+              )}
+
               <div>
-                <label className="block text-sm font-medium mb-1">Fecha de Donación *</label>
+                <label className="block text-sm font-medium mb-1">Fecha de Donación <span className="text-gray-500 text-xs">(opcional)</span></label>
                 <input 
                   {...register('fechaDonacion')} 
                   type="date"
                   className={inputClass}
                 />
+                <p className="text-xs text-gray-500 mt-1">Si no se especifica, se usará la fecha de baja como referencia</p>
                 {errors.fechaDonacion && <p className="text-red-500 text-xs mt-1">{errors.fechaDonacion.message}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Motivo de Donación *</label>
+                <label className="block text-sm font-medium mb-1">Motivo de Donación <span className="text-gray-500 text-xs">(opcional)</span></label>
                 <textarea 
                   {...register('motivoDonacion')} 
                   rows={3}
                   className={inputClass}
-                  placeholder="Especificar el motivo de la donación del equipo"
+                  placeholder="Especificar el motivo de la donación del equipo (opcional)"
                 />
+                <p className="text-xs text-gray-500 mt-1">Si no se especifica, se conservará la información de la baja</p>
                 {errors.motivoDonacion && <p className="text-red-500 text-xs mt-1">{errors.motivoDonacion.message}</p>}
               </div>
             </>

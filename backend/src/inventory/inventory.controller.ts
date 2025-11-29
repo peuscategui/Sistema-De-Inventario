@@ -19,17 +19,19 @@ export class InventoryController {
     @Query('condicion') condicion?: string,
     @Query('tipoEquipo') tipoEquipo?: string,
     @Query('empleado') empleado?: string,
+    @Query('familia') familia?: string, // CORREGIDO: Agregar parámetro familia
     @Query('excludeEstados') excludeEstados?: string,
   ) {
     console.log('🔍 DEBUG: findAll controlador - excludeEstados:', excludeEstados);
-    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado, excludeEstados });
+    console.log('🔍 DEBUG: findAll controlador - todos los query params:', { page, pageSize, codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado, familia, excludeEstados });
     console.log('🔍 DEBUG: tipoEquipo recibida:', tipoEquipo);
-    console.log('🔍 DEBUG: filters object que se pasa al servicio:', { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado });
+    console.log('🔍 DEBUG: familia recibida:', familia);
+    console.log('🔍 DEBUG: filters object que se pasa al servicio:', { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado, familia });
     
     return this.inventoryService.findAll({ 
       page, 
       pageSize,
-      filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado },
+      filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado, familia },
       excludeEstados
     });
   }
@@ -46,15 +48,21 @@ export class InventoryController {
     @Query('condicion') condicion?: string,
     @Query('tipoEquipo') tipoEquipo?: string,
     @Query('empleado') empleado?: string,
+    @Query('familia') familia?: string, // CORREGIDO: Agregar parámetro familia
   ) {
     try {
-      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado });
+      console.log('Exportando datos con filtros:', { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado, familia });
       
-      // Usar el servicio existente para obtener todos los datos
+      // CORREGIDO: Excluir automáticamente las bajas cuando se exporta desde inventario
+      // Solo excluir si no se está filtrando específicamente por estado
+      const excludeEstados = estado ? undefined : 'BAJA';
+      
+      // Usar el servicio existente para obtener todos los datos (excluyendo bajas)
       const result = await this.inventoryService.findAll({ 
         page: 1, 
-        pageSize: 10000, // Obtener muchos registros
-        filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado }
+        pageSize: 100000, // Obtener todos los registros (aumentado de 10000)
+        filters: { codigoEFC, marca, modelo, serie, status, estado, condicion, tipoEquipo, empleado, familia },
+        excludeEstados // Excluir bajas automáticamente
       });
       
       // Formatear datos para exportación: incluir nombres en lugar de solo IDs
@@ -63,7 +71,25 @@ export class InventoryController {
         console.log('🔍 DEBUG: Primer item antes de formatear:', JSON.stringify(result.data[0], null, 2));
       }
       
-      const exportData = result.data.map((item: any) => {
+      // CORREGIDO: Filtrar registros vacíos o inválidos antes de procesar
+      const validData = result.data.filter((item: any) => {
+        // Excluir registros que estén marcados como BAJA (doble verificación)
+        if (item.estado === 'BAJA' || item.status === 'baja') {
+          return false;
+        }
+        
+        // Excluir registros completamente vacíos (sin ID válido)
+        if (!item.id || isNaN(item.id)) {
+          return false;
+        }
+        
+        // Incluir todos los demás registros (aunque tengan algunos campos vacíos)
+        return true;
+      });
+      
+      console.log(`🔍 DEBUG: Total registros recibidos: ${result.data.length}, Válidos (sin bajas): ${validData.length}`);
+      
+      const exportData = validData.map((item: any) => {
         const exportItem: any = { ...item };
         
         // Reemplazar empleadoId con nombre del empleado
@@ -104,6 +130,12 @@ export class InventoryController {
         delete exportItem.empleadoId;
         delete exportItem.clasificacionId;
         
+        // CORREGIDO: Remover campos de baja ya que no deberían estar en el inventario activo
+        delete exportItem.fechaBaja;
+        delete exportItem.motivoBaja;
+        delete exportItem.fecha_baja;
+        delete exportItem.motivo_baja;
+        
         return exportItem;
       });
       
@@ -124,18 +156,43 @@ export class InventoryController {
   }
 
   @Get('donaciones')
-  async getDonaciones() {
+  async getDonaciones(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('pageSize', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+    @Query('codigoEFC') codigoEFC?: string,
+    @Query('marca') marca?: string,
+    @Query('modelo') modelo?: string,
+    @Query('serie') serie?: string,
+    @Query('sede') sede?: string,
+    @Query('gerencia') gerencia?: string,
+    @Query('familia') familia?: string,
+    @Query('empleado') empleado?: string,
+  ) {
     try {
-      // CORREGIDO: Filtrar por estado 'DONACION' en lugar de status 'donacion'
+      console.log('🔍 DEBUG: Obteniendo donaciones con filtros:', { codigoEFC, marca, modelo, serie, sede, gerencia, familia, empleado });
+      
+      // CORREGIDO: Filtrar por estado 'DONACION' con paginación y filtros
       const result = await this.inventoryService.findAll({ 
-        page: 1, 
-        pageSize: 10000,
-        filters: { estado: 'DONACION' }
+        page, 
+        pageSize,
+        filters: { 
+          estado: 'DONACION',
+          codigoEFC,
+          marca,
+          modelo,
+          serie,
+          tipoEquipo: undefined, // No filtrar por tipoEquipo aquí
+          empleado,
+          familia
+        }
       });
+      
+      console.log('🔍 DEBUG: Donaciones encontradas:', result.data.length);
       
       return {
         success: true,
         data: result.data,
+        pagination: result.pagination,
         count: result.pagination.total
       };
     } catch (error) {
