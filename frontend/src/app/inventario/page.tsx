@@ -7,6 +7,10 @@ import InventarioModal from '@/components/inventario/InventarioModal';
 import InventarioDetalleModal from '@/components/inventario/InventarioDetalleModal';
 import { ActionGuard } from '@/components/auth/PermissionGuard';
 import { API_ENDPOINTS } from '@/config/api';
+import { useToast } from '@/contexts/ToastContext';
+import { LoadingSpinner, TableSkeletonLoader } from '@/components/ui/LoadingSpinner';
+import { ConfirmDialog, ConfirmDialogVariant } from '@/components/ui/ConfirmDialog';
+import { useEscapeToClose } from '@/hooks/useKeyboardShortcuts';
 // import { useAuthenticatedFetch } from '@/hooks/useAuthenticatedFetch'; // TEMPORALMENTE DESACTIVADO
 
 // Interfaces para los datos relacionados
@@ -92,6 +96,7 @@ const filterOptions = [
 export default function InventarioPage() {
   // const { authenticatedFetch } = useAuthenticatedFetch(); // TEMPORALMENTE DESACTIVADO
   const searchParams = useSearchParams();
+  const { showSuccess, showError } = useToast();
   
   // Inicializar filtros desde URL inmediatamente
   const getInitialFilters = (): Filters => {
@@ -123,7 +128,6 @@ export default function InventarioPage() {
   
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [filters, setFilters] = useState<Filters>(getInitialFilters());
@@ -142,6 +146,28 @@ export default function InventarioPage() {
   const [tiposEquipo, setTiposEquipo] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    title: string;
+    message: string;
+    variant: ConfirmDialogVariant;
+    onConfirm: () => void;
+  } | null>(null);
+
+  // Cerrar modales con Escape
+  useEscapeToClose(() => {
+    if (modalOpen) {
+      setModalOpen(false);
+      setEditItem(null);
+    }
+    if (detalleModalOpen) {
+      setDetalleModalOpen(false);
+      setSelectedItem(null);
+    }
+    if (confirmDialog) {
+      setConfirmDialog(null);
+    }
+  }, modalOpen || detalleModalOpen || !!confirmDialog);
 
   // Cargar tipos de equipo únicos
   const fetchTiposEquipo = async () => {
@@ -199,7 +225,7 @@ export default function InventarioPage() {
       setPagination(paginationData);
     } catch (err: any) {
       console.error('❌ Error al cargar inventario:', err);
-      setError(err.message);
+      showError('No se pudo cargar el inventario. Por favor, verifica tu conexión e intenta nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -529,7 +555,7 @@ export default function InventarioPage() {
       link.click();
       document.body.removeChild(link);
     } catch (err: any) {
-      setError(err.message);
+      showError('No se pudo exportar el inventario. Por favor, intenta nuevamente.');
       alert(`Error al exportar: ${err.message}`);
     }
   };
@@ -537,26 +563,32 @@ export default function InventarioPage() {
   const deleteSelected = async () => {
     if (!selectedItems.length) return;
     
-    if (!confirm(`¿Estás seguro de que quieres eliminar ${selectedItems.length} elementos?`)) {
-      return;
-    }
+    setConfirmDialog({
+      open: true,
+      title: 'Eliminar Items',
+      message: `¿Estás seguro de que quieres eliminar ${selectedItems.length} item(s)? Esta acción no se puede deshacer.`,
+      variant: 'destructive',
+      onConfirm: async () => {
+        setConfirmDialog(null);
+        try {
+          const response = await fetch(API_ENDPOINTS.inventarioBatch, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ids: selectedItems }),
+          });
 
-    try {
-      const response = await fetch(API_ENDPOINTS.inventarioBatch, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ids: selectedItems }),
-      });
+          if (!response.ok) {
+            throw new Error('Error al eliminar elementos');
+          }
 
-      if (!response.ok) {
-        throw new Error('Error al eliminar elementos');
-      }
-
-      setSelectedItems([]);
-      fetchInventory();
-    } catch (err: any) {
-      setError(err.message);
-    }
+          setSelectedItems([]);
+          showSuccess(`${selectedItems.length} item(s) eliminado(s) exitosamente`);
+          fetchInventory();
+        } catch (err: any) {
+          showError('No se pudieron eliminar los items seleccionados. Por favor, intenta nuevamente.');
+        }
+      },
+    });
   };
 
   const handleModalSubmit = async (data: any) => {
@@ -613,10 +645,11 @@ export default function InventarioPage() {
       
       setModalOpen(false);
       setEditItem(null);
+      showSuccess(editItem ? 'Item actualizado exitosamente' : 'Item creado exitosamente');
       fetchInventory(); // Recargar los datos
     } catch (err: any) {
       console.error('🔍 DEBUG: Error completo:', err);
-      setError(err.message);
+      showError(editItem ? 'No se pudo actualizar el item. Por favor, verifica los datos e intenta nuevamente.' : 'No se pudo crear el item. Por favor, verifica los datos e intenta nuevamente.');
     } finally {
       setIsSubmitting(false);
     }
@@ -626,7 +659,7 @@ export default function InventarioPage() {
     // Validar que el item y su ID sean válidos
     if (!item || !item.id || isNaN(item.id)) {
       console.error('❌ ERROR: Item o ID inválido para editar:', item);
-      setError('Item inválido para editar');
+      showError('Item inválido para editar');
       return;
     }
 
@@ -658,36 +691,42 @@ export default function InventarioPage() {
     // Validar que el ID sea válido
     if (!id || isNaN(id)) {
       console.error('❌ ERROR: ID inválido para eliminar:', id);
-      setError('ID inválido para eliminar el item');
+      showError('ID inválido para eliminar el item');
       return;
     }
 
     console.log('🔍 DEBUG: Eliminando item con ID:', id);
 
-    if (!confirm('¿Estás seguro de que quieres eliminar este item?')) {
-      return;
-    }
+    setConfirmDialog({
+      open: true,
+      title: 'Eliminar Item',
+      message: '¿Estás seguro de que quieres eliminar este item? Esta acción no se puede deshacer.',
+      variant: 'destructive',
+      onConfirm: async () => {
+        setConfirmDialog(null);
+        try {
+          const response = await fetch(`${API_ENDPOINTS.inventario}/${id}`, {
+            method: 'DELETE',
+          });
 
-    try {
-      const response = await fetch(`${API_ENDPOINTS.inventario}/${id}`, {
-        method: 'DELETE',
-      });
+          if (!response.ok) {
+            throw new Error('Error al eliminar el item');
+          }
 
-      if (!response.ok) {
-        throw new Error('Error al eliminar el item');
-      }
-
-      fetchInventory();
-    } catch (err: any) {
-      setError(err.message);
-    }
+          showSuccess('Item eliminado exitosamente');
+          fetchInventory();
+        } catch (err: any) {
+          showError('No se pudo eliminar el item. Por favor, verifica tu conexión e intenta nuevamente.');
+        }
+      },
+    });
   };
 
   const openDetalleModal = (item: InventoryItem) => {
     // Validar que el item y su ID sean válidos
     if (!item || !item.id || isNaN(item.id)) {
       console.error('❌ ERROR: Item o ID inválido para ver detalles:', item);
-      setError('Item inválido para ver detalles');
+      showError('Item inválido para ver detalles');
       return;
     }
 
@@ -698,16 +737,30 @@ export default function InventarioPage() {
     setDetalleModalOpen(true);
   };
 
+  if (loading && inventory.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-bold">Inventario</h1>
+        </div>
+        <div className="bg-white rounded-lg shadow p-8">
+          <LoadingSpinner size="large" text="Cargando inventario..." />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div id="main-content" className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Inventario</h1>
+        <h1 className="text-2xl font-bold" id="inventario-title">Inventario</h1>
         <ActionGuard resource="inventario" action="create">
           <button
             onClick={() => setModalOpen(true)}
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            aria-label="Crear nuevo item de inventario"
           >
-            <PlusCircle size={20} />
+            <PlusCircle size={20} aria-hidden="true" />
             Nuevo Item
           </button>
         </ActionGuard>
@@ -773,17 +826,19 @@ export default function InventarioPage() {
             )}
             <button
               onClick={handleSearch}
-              className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100"
+              className="bg-green-50 text-green-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              aria-label="Buscar en inventario"
             >
-              <Search size={20} />
+              <Search size={20} aria-hidden="true" />
               Buscar
             </button>
             {Object.keys(filters).length > 0 && (
               <button
                 onClick={clearFilters}
-                className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100"
+                className="bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                aria-label="Limpiar filtros"
               >
-                <X size={20} />
+                <X size={20} aria-hidden="true" />
                 Limpiar
               </button>
             )}
@@ -853,28 +908,34 @@ export default function InventarioPage() {
 
       {/* Tabla */}
       <div className="overflow-x-auto bg-white rounded-lg shadow">
-        <table className="min-w-full">
-          <thead>
-            <tr className="bg-primary/10 border-b">
-              <th className="py-3 px-4">
-                <input
-                  type="checkbox"
-                  checked={selectedItems.length === inventory.length && inventory.length > 0}
-                  onChange={(e) => handleSelectAll(e.target.checked)}
-                  className="rounded border-gray-300"
-                />
-              </th>
-              <th className="py-3 px-4 text-left uppercase">Código EFC</th>
-              <th className="py-3 px-4 text-left uppercase">Tipo Equipo</th>
-              <th className="py-3 px-4 text-left uppercase">Marca</th>
-              <th className="py-3 px-4 text-left uppercase">Modelo</th>
-              <th className="py-3 px-4 text-left uppercase">Estado</th>
-              <th className="py-3 px-4 text-left uppercase">Usuario</th>
-              <th className="py-3 px-4 text-left uppercase">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {inventory.map((item) => (
+        {loading ? (
+          <div className="p-8">
+            <TableSkeletonLoader rows={10} columns={8} />
+          </div>
+        ) : (
+          <table className="min-w-full" role="table">
+            <thead>
+              <tr className="bg-primary/10 border-b">
+                <th className="py-3 px-4">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.length === inventory.length && inventory.length > 0}
+                    onChange={(e) => handleSelectAll(e.target.checked)}
+                    className="rounded border-gray-300"
+                    aria-label="Seleccionar todos los items"
+                  />
+                </th>
+                <th className="py-3 px-4 text-left uppercase">Código EFC</th>
+                <th className="py-3 px-4 text-left uppercase">Tipo Equipo</th>
+                <th className="py-3 px-4 text-left uppercase">Marca</th>
+                <th className="py-3 px-4 text-left uppercase">Modelo</th>
+                <th className="py-3 px-4 text-left uppercase">Estado</th>
+                <th className="py-3 px-4 text-left uppercase">Usuario</th>
+                <th className="py-3 px-4 text-left uppercase">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inventory.map((item) => (
               <tr key={item.id} className="border-t hover:bg-gray-50">
                 <td className="py-3 px-4">
                   <input
@@ -894,27 +955,27 @@ export default function InventarioPage() {
                   <div className="flex items-center justify-center gap-2">
                     <button
                       onClick={() => openDetalleModal(item)}
-                      className="text-blue-600 hover:text-blue-800"
-                      title="Ver detalles"
+                      className="text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+                      aria-label={`Ver detalles del item ${item.codigoEFC || item.id}`}
                     >
-                      <Eye size={20} />
+                      <Eye size={20} aria-hidden="true" />
                     </button>
                     <ActionGuard resource="inventario" action="edit">
                       <button
                         onClick={() => openEditModal(item)}
-                        className="text-blue-600 hover:text-blue-800"
-                        title="Editar"
+                        className="text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+                        aria-label={`Editar item ${item.codigoEFC || item.id}`}
                       >
-                        <Edit size={20} />
+                        <Edit size={20} aria-hidden="true" />
                       </button>
                     </ActionGuard>
                     <ActionGuard resource="inventario" action="delete">
                       <button
                         onClick={() => handleDelete(item.id)}
-                        className="text-red-600 hover:text-red-800"
-                        title="Eliminar"
+                        className="text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded"
+                        aria-label={`Eliminar item ${item.codigoEFC || item.id}`}
                       >
-                        <Trash2 size={20} />
+                        <Trash2 size={20} aria-hidden="true" />
                       </button>
                     </ActionGuard>
                   </div>
@@ -923,6 +984,7 @@ export default function InventarioPage() {
             ))}
           </tbody>
         </table>
+        )}
       </div>
 
       <InventarioModal
@@ -943,6 +1005,16 @@ export default function InventarioPage() {
         }}
         item={selectedItem as any}
       />
+      {confirmDialog && (
+        <ConfirmDialog
+          open={confirmDialog.open}
+          title={confirmDialog.title}
+          message={confirmDialog.message}
+          variant={confirmDialog.variant}
+          onConfirm={confirmDialog.onConfirm}
+          onCancel={() => setConfirmDialog(null)}
+        />
+      )}
     </div>
   );
 } 

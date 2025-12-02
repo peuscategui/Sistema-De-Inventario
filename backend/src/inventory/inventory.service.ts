@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateInventoryDto } from './inventory.dto';
 
@@ -22,15 +22,15 @@ interface FindAllOptions {
 
 @Injectable()
 export class InventoryService {
+  private readonly logger = new Logger(InventoryService.name);
+
   constructor(private prisma: PrismaService) {}
 
   async findAll({ page = 1, pageSize = 10, filters = {}, excludeEstados }: FindAllOptions) {
-    console.log('🔍 DEBUG: findAll - excludeEstados recibido:', excludeEstados);
-    console.log('🔍 DEBUG: findAll - filters recibidos:', JSON.stringify(filters, null, 2));
-    console.log('🔍 DEBUG: findAll - tipoEquipo en filters:', filters.tipoEquipo);
-    console.log('🔍 DEBUG: findAll - familia en filters:', filters.familia);
-    
-    const skip = (page - 1) * pageSize;
+    try {
+      this.logger.debug('findAll iniciado', { excludeEstados, filters, page, pageSize });
+      
+      const skip = (page - 1) * pageSize;
     
     const whereClause: Record<string, any> = {};
     if (filters.codigoEFC) {
@@ -70,12 +70,11 @@ export class InventoryService {
       };
     }
     if (filters.condicion) {
-      console.log('🔍 DEBUG: Aplicando filtro condicion:', filters.condicion);
+      this.logger.debug('Aplicando filtro condicion', { condicion: filters.condicion });
       whereClause['condicion'] = { 
         equals: filters.condicion,
         mode: 'insensitive'
       };
-      console.log('🔍 DEBUG: whereClause después de condicion:', whereClause);
     }
     if (filters.empleado) {
       whereClause['empleado'] = {
@@ -88,11 +87,13 @@ export class InventoryService {
     
     // Filtrar por estados a excluir (solo si no hay filtro de estado específico)
     if (excludeEstados && !filters.estado) {
-      const estadosExcluir = excludeEstados.split(',').map(estado => estado.trim());
-      whereClause['estado'] = {
-        notIn: estadosExcluir
-      };
-      console.log('🔍 DEBUG: findAll - estados a excluir:', estadosExcluir);
+      const estadosExcluir = excludeEstados.split(',').map(estado => estado.trim()).filter(e => e.length > 0);
+      if (estadosExcluir.length > 0) {
+        whereClause['estado'] = {
+          notIn: estadosExcluir
+        };
+        this.logger.debug('Estados a excluir', { estadosExcluir });
+      }
     }
     
     // CORREGIDO: Construir el filtro de clasificación combinando familia y tipoEquipo
@@ -101,7 +102,7 @@ export class InventoryService {
     
     // Filtrar por familia (debe ser exacto, case-insensitive)
     if (filters.familia) {
-      console.log('🔍 DEBUG: Aplicando filtro familia:', filters.familia);
+      this.logger.debug('Aplicando filtro familia', { familia: filters.familia });
       // CORREGIDO: Usar equals con mode insensitive para comparación exacta pero case-insensitive
       clasificacionFilter.familia = {
         equals: filters.familia,
@@ -111,7 +112,7 @@ export class InventoryService {
     
     // Filtrar por tipo de equipo
     if (filters.tipoEquipo) {
-      console.log('🔍 DEBUG: Aplicando filtro tipoEquipo:', filters.tipoEquipo);
+      this.logger.debug('Aplicando filtro tipoEquipo', { tipoEquipo: filters.tipoEquipo });
       clasificacionFilter.tipo_equipo = {
         contains: filters.tipoEquipo,
         mode: 'insensitive'
@@ -121,27 +122,74 @@ export class InventoryService {
     // CORREGIDO: Agregar el filtro de clasificación - Prisma combina automáticamente los filtros con AND
     if (Object.keys(clasificacionFilter).length > 0) {
       whereClause['clasificacion'] = clasificacionFilter;
-      console.log('🔍 DEBUG: Filtro de clasificación construido:', JSON.stringify(clasificacionFilter, null, 2));
-      console.log('🔍 DEBUG: whereClause ANTES de la consulta:', JSON.stringify(whereClause, null, 2));
+      this.logger.debug('Filtro de clasificación construido', { clasificacionFilter });
     }
-
-    console.log('🔍 DEBUG: findAll - whereClause final:', JSON.stringify(whereClause, null, 2));
+    
+    this.logger.debug('Ejecutando consulta Prisma', { whereClause, skip, take: pageSize });
     
     const [items, total] = await Promise.all([
       this.prisma.inventory.findMany({
         where: whereClause,
         skip,
         take: pageSize,
-        include: {
-          clasificacion: true,
-          empleado: true,
+        select: {
+          id: true,
+          codigoEFC: true,
+          marca: true,
+          modelo: true,
+          descripcion: true,
+          serie: true,
+          procesador: true,
+          anio: true,
+          ram: true,
+          discoDuro: true,
+          sistemaOperativo: true,
+          status: true,
+          estado: true,
+          ubicacionEquipo: true,
+          qUsuarios: true,
+          condicion: true,
+          repotenciadas: true,
+          clasificacionObsolescencia: true,
+          clasificacionRepotenciadas: true,
+          motivoCompra: true,
+          proveedor: true,
+          factura: true,
+          anioCompra: true,
+          observaciones: true,
+          fecha_compra: true,
+          precioUnitarioSinIgv: true,
+          fecha_baja: true,
+          motivo_baja: true,
+          fecha_donacion: true as any,
+          motivo_donacion: true,
+          clasificacionId: true,
+          empleadoId: true,
+          clasificacion: {
+            select: {
+              id: true,
+              familia: true,
+              sub_familia: true,
+              tipo_equipo: true,
+              vida_util: true,
+              valor_reposicion: true,
+            }
+          },
+          empleado: {
+            select: {
+              id: true,
+              nombre: true,
+              cargo: true,
+              gerencia: true,
+              sede: true,
+            }
+          }
         },
       }),
       this.prisma.inventory.count({ where: whereClause }),
     ]);
     
-    console.log('🔍 DEBUG: findAll - items encontrados:', items.length);
-    console.log('🔍 DEBUG: findAll - estados de los items:', items.map(item => ({ id: item.id, estado: item.estado, status: item.status })));
+    this.logger.debug('Items encontrados', { count: items.length, total });
 
     // Formatear las fechas antes de enviarlas al frontend
     const formattedItems = items.map(item => ({
@@ -151,12 +199,12 @@ export class InventoryService {
           try {
             const date = new Date(item.fecha_compra);
             if (isNaN(date.getTime())) {
-              console.warn(`⚠️ Fecha inválida para item ${item.id}: ${item.fecha_compra}`);
+              this.logger.warn('Fecha inválida para item', { itemId: item.id, fecha: item.fecha_compra });
               return null;
             }
             return date.toISOString().split('T')[0];
           } catch (error) {
-            console.warn(`⚠️ Error al formatear fecha para item ${item.id}: ${error.message}`);
+            this.logger.warn('Error al formatear fecha para item', { itemId: item.id, error: error.message });
             return null;
           }
         })()
@@ -180,37 +228,99 @@ export class InventoryService {
       motivoBaja: item.motivo_baja || null,
       // Campos de donación
       fechaDonacion: (item as any).fecha_donacion ? 
-        new Date((item as any).fecha_donacion.getTime() - ((item as any).fecha_donacion.getTimezoneOffset() * 60000)).toISOString().split('T')[0]
+        (() => {
+          try {
+            const fecha = (item as any).fecha_donacion;
+            if (fecha instanceof Date) {
+              return new Date(fecha.getTime() - (fecha.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+            }
+            return null;
+          } catch (error) {
+            this.logger.warn('Error al formatear fecha_donacion', { itemId: item.id, error: error.message });
+            return null;
+          }
+        })()
         : null,
       motivoDonacion: (item as any).motivo_donacion || null,
     }));
 
-    return {
-      data: formattedItems,
-      pagination: {
-        total,
-        page,
-        pageSize,
-        totalPages: Math.ceil(total / pageSize)
-      }
-    };
+      return {
+        data: formattedItems,
+        pagination: {
+          total,
+          page,
+          pageSize,
+          totalPages: Math.ceil(total / pageSize)
+        }
+      };
+    } catch (error) {
+      this.logger.error('Error en findAll', { error: error.message, stack: error.stack });
+      throw error;
+    }
   }
 
   async findOne(id: number) {
-    console.log('🔍 DEBUG: findOne llamado con id:', id);
-    console.log('🔍 DEBUG: Tipo de id:', typeof id);
-    console.log('🔍 DEBUG: id es NaN?', isNaN(id));
+    this.logger.debug('findOne llamado', { id, type: typeof id });
     
     if (!id || isNaN(id)) {
-      console.error('❌ ERROR: ID inválido en findOne:', id);
+      this.logger.error('ID inválido en findOne', { id });
       throw new Error('ID inválido para buscar inventario');
     }
     
     const item = await this.prisma.inventory.findUnique({
       where: { id },
-      include: {
-        clasificacion: true,
-        empleado: true,
+      select: {
+        id: true,
+        codigoEFC: true,
+        marca: true,
+        modelo: true,
+        descripcion: true,
+        serie: true,
+        procesador: true,
+        anio: true,
+        ram: true,
+        discoDuro: true,
+        sistemaOperativo: true,
+        status: true,
+        estado: true,
+        ubicacionEquipo: true,
+        qUsuarios: true,
+        condicion: true,
+        repotenciadas: true,
+        clasificacionObsolescencia: true,
+        clasificacionRepotenciadas: true,
+        motivoCompra: true,
+        proveedor: true,
+        factura: true,
+        anioCompra: true,
+        observaciones: true,
+        fecha_compra: true,
+        precioUnitarioSinIgv: true,
+        fecha_baja: true,
+        motivo_baja: true,
+        fecha_donacion: true as any,
+        motivo_donacion: true,
+        clasificacionId: true,
+        empleadoId: true,
+        clasificacion: {
+          select: {
+            id: true,
+            familia: true,
+            sub_familia: true,
+            tipo_equipo: true,
+            vida_util: true,
+            valor_reposicion: true,
+          }
+        },
+        empleado: {
+          select: {
+            id: true,
+            nombre: true,
+            cargo: true,
+            gerencia: true,
+            sede: true,
+          }
+        }
       },
     });
 
@@ -218,12 +328,15 @@ export class InventoryService {
 
     // Formatear la fecha en formato YYYY-MM-DD
     if (item.fecha_compra) {
+      const itemWithRelations = item as typeof item & {
+        clasificacion: { valor_reposicion: number | null } | null;
+      };
       return {
         ...item,
         fecha_compra: item.fecha_compra.toISOString().split('T')[0],
         precioUnitarioSinIgv: item.precioUnitarioSinIgv ? `$${item.precioUnitarioSinIgv}` : null,
         // Usar valor_reposicion de la clasificación relacionada
-        valorReposicion: item.clasificacion?.valor_reposicion ? `$${item.clasificacion.valor_reposicion}` : null
+        valorReposicion: itemWithRelations.clasificacion?.valor_reposicion ? `$${itemWithRelations.clasificacion.valor_reposicion}` : null
       };
     }
 
@@ -232,32 +345,25 @@ export class InventoryService {
 
   async create(data: any) {
     try {
-      console.log('🔍 DEBUG: Datos recibidos en el servicio create:', JSON.stringify(data, null, 2));
+      this.logger.debug('Datos recibidos en create', { hasArticuloId: !!data.articuloId });
       
       // CORREGIDO: Remover el id de los datos para evitar errores de unique constraint
       const { id, articuloId, empleadoId, clasificacionId, ...inventoryData } = data;
       
-      console.log('🔍 DEBUG: ID removido de los datos:', id);
-      console.log('🔍 DEBUG: articuloId recibido:', articuloId);
-      console.log('🔍 DEBUG: Datos después de remover ID:', JSON.stringify(inventoryData, null, 2));
-      
       // Si se proporciona articuloId, actualizar el registro existente en lugar de crear uno nuevo
       if (articuloId && articuloId > 0) {
-        console.log('🔍 DEBUG: Actualizando artículo existente con ID:', articuloId);
+        this.logger.debug('Actualizando artículo existente', { articuloId });
         return await this.update(articuloId, data);
       }
-      
-      // Para crear, fecha_compra SÍ se puede incluir
-      console.log('fecha_compra incluida en la creación:', inventoryData.fecha_compra);
       
       // Convertir fecha_compra de string a Date si existe
       if (inventoryData.fecha_compra && typeof inventoryData.fecha_compra === 'string') {
         try {
           // Convertir string "YYYY-MM-DD" a objeto Date
           inventoryData.fecha_compra = new Date(inventoryData.fecha_compra + 'T00:00:00.000Z');
-          console.log('fecha_compra convertida a Date:', inventoryData.fecha_compra);
+          this.logger.debug('fecha_compra convertida a Date', { fecha: inventoryData.fecha_compra });
         } catch (dateError) {
-          console.error('Error al convertir fecha_compra:', dateError);
+          this.logger.error('Error al convertir fecha_compra', { error: dateError.message });
           // Si hay error en la conversión, eliminar el campo para evitar errores
           delete inventoryData.fecha_compra;
         }
@@ -277,41 +383,76 @@ export class InventoryService {
         } : undefined
       };
       
-      console.log('🔍 DEBUG: Datos que se van a crear:', JSON.stringify(dataToCreate, null, 2));
-      
       const result = await this.prisma.inventory.create({
         data: dataToCreate,
-        include: {
-          clasificacion: true,
-          empleado: true,
+        select: {
+          id: true,
+          codigoEFC: true,
+          marca: true,
+          modelo: true,
+          descripcion: true,
+          serie: true,
+          procesador: true,
+          anio: true,
+          ram: true,
+          discoDuro: true,
+          sistemaOperativo: true,
+          status: true,
+          estado: true,
+          ubicacionEquipo: true,
+          qUsuarios: true,
+          condicion: true,
+          repotenciadas: true,
+          clasificacionObsolescencia: true,
+          clasificacionRepotenciadas: true,
+          motivoCompra: true,
+          proveedor: true,
+          factura: true,
+          anioCompra: true,
+          observaciones: true,
+          fecha_compra: true,
+          precioUnitarioSinIgv: true,
+          fecha_baja: true,
+          motivo_baja: true,
+          fecha_donacion: true as any,
+          motivo_donacion: true,
+          clasificacionId: true,
+          empleadoId: true,
+          clasificacion: {
+            select: {
+              id: true,
+              familia: true,
+              sub_familia: true,
+              tipo_equipo: true,
+              vida_util: true,
+              valor_reposicion: true,
+            }
+          },
+          empleado: {
+            select: {
+              id: true,
+              nombre: true,
+              cargo: true,
+              gerencia: true,
+              sede: true,
+            }
+          }
         }
       });
       
-      console.log('✅ Resultado de la creación:', result);
+      this.logger.log('Item de inventario creado exitosamente', { id: result.id });
       return result;
     } catch (error) {
-      console.error('❌ Error en el servicio create:', error);
-      console.error('❌ Stack trace:', error.stack);
+      this.logger.error('Error en el servicio create', { error: error.message, stack: error.stack });
       throw error;
     }
   }
 
   async update(id: number, data: any) {
     try {
-      console.log('🔍 DEBUG: ===== SERVICIO UPDATE INVENTARIO =====');
-      console.log('🔍 DEBUG: ID a actualizar:', id);
-      console.log('🔍 DEBUG: Datos recibidos en el servicio update:', JSON.stringify(data, null, 2));
-      console.log('🔍 DEBUG: empleadoId específico en servicio:', data.empleadoId);
-      console.log('🔍 DEBUG: Tipo de empleadoId en servicio:', typeof data.empleadoId);
+      this.logger.debug('Iniciando update', { id, hasEmpleadoId: !!data.empleadoId });
       
       const { articuloId, empleadoId, clasificacionId, fecha_compra, ...inventoryData } = data;
-      
-      console.log('🔍 DEBUG: empleadoId extraído:', empleadoId);
-      console.log('🔍 DEBUG: Tipo de empleadoId extraído:', typeof empleadoId);
-      
-      // La fecha_compra no debe ser editable, se excluye de las actualizaciones
-      console.log('articuloId excluido de la actualización:', articuloId);
-      console.log('fecha_compra excluida de la actualización:', fecha_compra);
       
       // Procesar fecha_baja si está presente
       if (inventoryData.fecha_baja && typeof inventoryData.fecha_baja === 'string') {
@@ -319,9 +460,9 @@ export class InventoryService {
           // CORREGIDO: Usar UTC para evitar problemas de zona horaria
           const [year, month, day] = inventoryData.fecha_baja.split('-');
           inventoryData.fecha_baja = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day)));
-          console.log('fecha_baja convertida a Date (UTC):', inventoryData.fecha_baja);
+          this.logger.debug('fecha_baja convertida a Date (UTC)', { fecha: inventoryData.fecha_baja });
         } catch (dateError) {
-          console.error('Error al convertir fecha_baja:', dateError);
+          this.logger.error('Error al convertir fecha_baja', { error: dateError.message });
           delete inventoryData.fecha_baja;
         }
       }
@@ -332,9 +473,9 @@ export class InventoryService {
           // CORREGIDO: Usar UTC para evitar problemas de zona horaria
           const [year, month, day] = inventoryData.fecha_donacion.split('-');
           inventoryData.fecha_donacion = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day)));
-          console.log('fecha_donacion convertida a Date (UTC):', inventoryData.fecha_donacion);
+          this.logger.debug('fecha_donacion convertida a Date (UTC)', { fecha: inventoryData.fecha_donacion });
         } catch (dateError) {
-          console.error('Error al convertir fecha_donacion:', dateError);
+          this.logger.error('Error al convertir fecha_donacion', { error: dateError.message });
           delete inventoryData.fecha_donacion;
         }
       }
@@ -344,8 +485,6 @@ export class InventoryService {
         where: { id },
         select: { empleadoId: true }
       });
-      
-      console.log('Artículo actual:', currentItem);
       
       // Determinar el nuevo status basado en el estado y la asignación de empleado
       let status = inventoryData.status;
@@ -370,11 +509,6 @@ export class InventoryService {
         }
       }
       
-      console.log('🔍 DEBUG: Construyendo dataToUpdate...');
-      console.log('🔍 DEBUG: empleadoId para connect/disconnect:', empleadoId);
-      console.log('🔍 DEBUG: ¿empleadoId es truthy?', !!empleadoId);
-      console.log('🔍 DEBUG: ¿empleadoId es null?', empleadoId === null);
-      
       const dataToUpdate = {
         ...inventoryData,
         status,
@@ -390,29 +524,75 @@ export class InventoryService {
         } : undefined
       };
       
-      console.log('🔍 DEBUG: dataToUpdate construido:', JSON.stringify(dataToUpdate, null, 2));
-      console.log('🔍 DEBUG: empleado en dataToUpdate:', dataToUpdate.empleado);
-      
       const result = await this.prisma.inventory.update({
         where: { id },
         data: dataToUpdate,
-        include: {
-          clasificacion: true,
-          empleado: true,
+        select: {
+          id: true,
+          codigoEFC: true,
+          marca: true,
+          modelo: true,
+          descripcion: true,
+          serie: true,
+          procesador: true,
+          anio: true,
+          ram: true,
+          discoDuro: true,
+          sistemaOperativo: true,
+          status: true,
+          estado: true,
+          ubicacionEquipo: true,
+          qUsuarios: true,
+          condicion: true,
+          repotenciadas: true,
+          clasificacionObsolescencia: true,
+          clasificacionRepotenciadas: true,
+          motivoCompra: true,
+          proveedor: true,
+          factura: true,
+          anioCompra: true,
+          observaciones: true,
+          fecha_compra: true,
+          precioUnitarioSinIgv: true,
+          fecha_baja: true,
+          motivo_baja: true,
+          fecha_donacion: true as any,
+          motivo_donacion: true,
+          clasificacionId: true,
+          empleadoId: true,
+          clasificacion: {
+            select: {
+              id: true,
+              familia: true,
+              sub_familia: true,
+              tipo_equipo: true,
+              vida_util: true,
+              valor_reposicion: true,
+            }
+          },
+          empleado: {
+            select: {
+              id: true,
+              nombre: true,
+              cargo: true,
+              gerencia: true,
+              sede: true,
+            }
+          }
         }
       });
       
-      console.log('Resultado de la actualización:', result);
+      this.logger.log('Item de inventario actualizado exitosamente', { id: result.id });
       return result;
     } catch (error) {
-      console.error('Error en el servicio update:', error);
+      this.logger.error('Error en el servicio update', { id, error: error.message, stack: error.stack });
       throw error;
     }
   }
 
   async delete(id: number) {
     try {
-      console.log('Eliminando artículo con ID:', id);
+      this.logger.debug('Eliminando artículo', { id });
       
       if (!id || isNaN(id)) {
         throw new Error('ID inválido para eliminación');
@@ -429,17 +609,17 @@ export class InventoryService {
       }
       
       const result = await this.prisma.inventory.delete({ where: { id } });
-      console.log('Artículo eliminado exitosamente:', result.id);
+      this.logger.log('Artículo eliminado exitosamente', { id: result.id });
       return { message: 'Artículo eliminado exitosamente', id: result.id };
     } catch (error) {
-      console.error('Error en delete:', error);
+      this.logger.error('Error en delete', { id, error: error.message, stack: error.stack });
       throw error;
     }
   }
 
   async batchDelete(ids: number[]) {
     try {
-      console.log('Eliminando artículos con IDs:', ids);
+      this.logger.debug('Eliminando artículos en lote', { count: ids.length });
       const result = await this.prisma.inventory.deleteMany({
         where: {
           id: {
@@ -447,10 +627,10 @@ export class InventoryService {
           }
         }
       });
-      console.log('Artículos eliminados:', result.count);
+      this.logger.log('Artículos eliminados en lote', { count: result.count });
       return { message: `${result.count} artículos eliminados exitosamente`, count: result.count };
     } catch (error) {
-      console.error('Error en batchDelete:', error);
+      this.logger.error('Error en batchDelete', { error: error.message, stack: error.stack });
       throw new Error('Error al eliminar los artículos seleccionados');
     }
   }
@@ -503,32 +683,33 @@ export class InventoryService {
         data: mappedData,
         skipDuplicates: true,
       });
+      this.logger.log('Items creados en lote', { count: result.count });
       return result;
     } catch (e) {
-      console.error('Error en batchCreate:', e);
+      this.logger.error('Error en batchCreate', { error: e.message, stack: e.stack });
       throw new Error('Error al insertar los datos en la base de datos.');
     }
   }
 
   async clearInventory() {
     try {
-      console.log('🧹 Iniciando limpieza de tabla inventory...');
+      this.logger.log('Iniciando limpieza de tabla inventory');
       
       // Contar registros antes de eliminar
       const countBefore = await this.prisma.inventory.count();
-      console.log(`📊 Registros antes de limpiar: ${countBefore}`);
+      this.logger.debug('Registros antes de limpiar', { count: countBefore });
       
       // Eliminar todos los registros
       const deleteResult = await this.prisma.inventory.deleteMany({});
-      console.log(`🗑️ Eliminados ${deleteResult.count} registros`);
+      this.logger.log('Registros eliminados', { count: deleteResult.count });
       
       // Resetear la secuencia del ID
       await this.prisma.$executeRaw`ALTER SEQUENCE inventory_id_seq RESTART WITH 1`;
-      console.log('🔄 Secuencia del ID reseteada');
+      this.logger.log('Secuencia del ID reseteada');
       
       return { count: deleteResult.count };
     } catch (error) {
-      console.error('❌ Error limpiando inventory:', error);
+      this.logger.error('Error limpiando inventory', { error: error.message, stack: error.stack });
       throw error;
     }
   }

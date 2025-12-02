@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ToastProvider } from "@/contexts/ToastContext";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
+import { SkipLink } from "@/components/ui/SkipLink";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +21,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
+        <SkipLink />
         <AuthProvider>
-          <LayoutWrapper>
-            {children}
-          </LayoutWrapper>
+          <ToastProvider>
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>
