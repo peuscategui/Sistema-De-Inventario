@@ -1,0 +1,67 @@
+/* Estilos de accesibilidad */
+
+/* Focus visible para todos los elementos interactivos */
+*:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+}
+
+/* Mejoras de contraste para texto */
+.text-green-600 {
+  color: #16a34a; /* Mejor contraste que green-600 estándar */
+}
+
+.text-green-700 {
+  color: #15803d; /* Mejor contraste */
+}
+
+/* Alto contraste mode */
+@media (prefers-contrast: high) {
+  .bg-green-50 {
+    background-color: #f0fdf4;
+  }
+  
+  .text-green-600 {
+    color: #15803d;
+  }
+  
+  .border-green-200 {
+    border-color: #86efac;
+  }
+}
+
+/* Reducir animaciones si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
