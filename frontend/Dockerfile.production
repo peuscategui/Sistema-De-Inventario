@@ -1,51 +1,44 @@
-# Dockerfile optimizado para EasyPanel
-FROM node:20-alpine AS base
+# Dockerfile optimizado para EasyPanel - SEGURO
+  FROM node:20-alpine AS base
+  RUN apk add --no-cache libc6-compat
+  WORKDIR /app
 
-# Instalar dependencias necesarias
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
+  # Instalar dependencias
+  FROM base AS deps
+  COPY package.json package-lock.json* ./
+  RUN npm ci --legacy-peer-deps
 
-# Instalar dependencias
-FROM base AS deps
-COPY package.json package-lock.json* ./
-RUN npm ci --only=production --legacy-peer-deps
+  # Builder stage
+  FROM base AS builder
+  WORKDIR /app
+  COPY . .
+  COPY --from=deps /app/node_modules ./node_modules
 
-# Builder stage
-FROM base AS builder
-WORKDIR /app
-COPY . .
-COPY --from=deps /app/node_modules ./node_modules
+  ENV NODE_ENV=production
+  ENV NEXT_TELEMETRY_DISABLED=1
 
-# Configurar variables de entorno para build
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_PUBLIC_API_URL=https://titinventario.efc.com.pe
+  RUN npm run build
 
-# Build de la aplicación
-RUN npm run build
+  # Imagen de produccion
+  FROM base AS runner
+  WORKDIR /app
 
-# Imagen de producción
-FROM base AS runner
-WORKDIR /app
+  ENV NODE_ENV=production
+  ENV NEXT_TELEMETRY_DISABLED=1
+  ENV PORT=3000
+  ENV HOSTNAME="0.0.0.0"
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
+  # Usuario no-root
+  RUN addgroup --system --gid 1001 nodejs
+  RUN adduser --system --uid 1001 nextjs
 
-# Crear usuario no-root
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+  # Copiar archivos necesarios
+  COPY --from=builder /app/public ./public
+  COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+  COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copiar archivos necesarios
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+  USER nextjs
 
-USER nextjs
+  EXPOSE 3000
 
-# Exponer puerto
-EXPOSE 3000
-
-# Comando de inicio
-CMD ["node", "server.js"] 
+  CMD ["node", "server.js"]
