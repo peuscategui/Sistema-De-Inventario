@@ -11,7 +11,7 @@ WORKDIR /app
 COPY frontend/package*.json ./
 
 # Instalar dependencias
-RUN npm ci --legacy-peer-deps
+RUN npm install --legacy-peer-deps
 
 # Copiar el resto del código del frontend
 COPY frontend/ .
